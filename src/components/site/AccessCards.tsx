@@ -328,7 +328,7 @@ function CardPlay({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
