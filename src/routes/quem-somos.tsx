@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
@@ -63,9 +64,10 @@ function QuemSomosPage() {
   return (
     <main className="min-h-screen bg-background text-ink flex flex-col">
       <Header />
+      <Breadcrumbs items={[{ label: "Quem somos" }]} />
 
       {/* Hero */}
-      <section className="relative pt-32 md:pt-44 pb-16 overflow-hidden">
+      <section className="relative pt-6 md:pt-10 pb-16 overflow-hidden">
         <div className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-brand-soft blur-[120px] opacity-70 -z-10" />
         <div className="container-x grid lg:grid-cols-12 gap-10 items-end">
           <div className="lg:col-span-7">

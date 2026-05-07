@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { useMemo, useState } from "react";
 import { Search, Download, FileText, ListChecks, BookOpen, Sheet, FileSignature, Mail } from "lucide-react";
 
@@ -71,9 +72,10 @@ function MateriaisPage() {
   return (
     <main className="min-h-screen bg-background text-ink flex flex-col">
       <Header />
+      <Breadcrumbs items={[{ label: "Materiais" }]} />
 
       {/* Hero utilitário com busca */}
-      <section className="pt-32 md:pt-40 pb-12 border-b border-border bg-secondary/40">
+      <section className="pt-6 md:pt-8 pb-12 border-b border-border bg-secondary/40">
         <div className="container-x">
           <div className="text-[10px] tracking-tight text-brand font-mono">
             Biblioteca · Materiais para condomínio
