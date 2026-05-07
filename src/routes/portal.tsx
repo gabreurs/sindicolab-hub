@@ -105,12 +105,12 @@ function PortalPage() {
             <div className="aspect-[16/9] rounded-2xl bg-gradient-to-br from-ink via-violet-deep to-brand-deep relative overflow-hidden">
               <div className="absolute inset-0 pattern-windows opacity-40" />
               <div className="absolute top-5 left-5">
-                <span className="px-2.5 py-1 rounded-full bg-background/95 text-ink text-[10px] uppercase tracking-[0.3em] font-mono">
+                <span className="px-2.5 py-1 rounded-full bg-background/95 text-ink text-[10px] tracking-tight font-mono">
                   Manchete
                 </span>
               </div>
               <div className="absolute bottom-6 left-6 right-6 text-background">
-                <span className="text-[10px] uppercase tracking-[0.3em] opacity-80">
+                <span className="text-[10px] tracking-tight opacity-80">
                   {manchete.cat}
                 </span>
               </div>
@@ -133,7 +133,7 @@ function PortalPage() {
           {/* Sidebar — em alta + YouTube + Instagram + Play */}
           <aside className="space-y-5">
             <div className="rounded-2xl border border-border bg-card p-5">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-brand mb-4 inline-flex items-center gap-2 font-mono">
+              <div className="text-[10px] tracking-tight text-brand mb-4 inline-flex items-center gap-2 font-mono">
                 <TrendingUp className="w-3.5 h-3.5" /> Em alta no mercado condominial
               </div>
               <ol className="space-y-3">
@@ -153,7 +153,7 @@ function PortalPage() {
             {/* YouTube */}
             <div className="rounded-2xl border border-border bg-ink text-background p-5">
               <YoutubeIcon className="w-5 h-5 text-cyan" />
-              <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-cyan font-mono">
+              <div className="mt-3 text-[10px] tracking-tight text-cyan font-mono">
                 Assista ao SíndicoLab
               </div>
               <div className="mt-3 aspect-video rounded-lg overflow-hidden bg-black/40 grid place-items-center">
@@ -182,7 +182,7 @@ function PortalPage() {
             <h2 className="font-display text-xl md:text-2xl tracking-[-0.02em]">
               Em destaque agora
             </h2>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-ink-soft font-mono">
+            <span className="text-[10px] tracking-tight text-ink-soft font-mono">
               Edição diária
             </span>
           </div>
@@ -192,7 +192,7 @@ function PortalPage() {
                 <div className="aspect-[16/10] rounded-xl bg-gradient-to-br from-brand-soft to-cyan-soft mb-4 overflow-hidden relative">
                   <div className="absolute inset-0 pattern-grid-dark opacity-40" />
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-brand font-mono">
+                <span className="text-[10px] tracking-tight text-brand font-mono">
                   {f.cat}
                 </span>
                 <h3 className="mt-2 font-display text-lg md:text-xl tracking-[-0.02em] leading-snug text-balance group-hover:text-brand transition">
@@ -215,7 +215,7 @@ function PortalPage() {
               <h2 className="font-display text-2xl md:text-3xl tracking-[-0.03em]">
                 Últimas notícias
               </h2>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-ink-soft font-mono">
+              <span className="text-[10px] tracking-tight text-ink-soft font-mono">
                 Atualizado agora
               </span>
             </div>
@@ -225,7 +225,7 @@ function PortalPage() {
                   key={g.title}
                   className="border-t border-border pt-4 group cursor-pointer"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-brand font-mono">
+                  <span className="text-[10px] tracking-tight text-brand font-mono">
                     {g.cat}
                   </span>
                   <h3 className="mt-2 font-display text-lg tracking-[-0.02em] leading-snug group-hover:text-brand transition text-balance">
@@ -264,7 +264,7 @@ function PortalPage() {
             {/* SíndicoLab Play (publicidade interna) */}
             <div className="rounded-2xl border border-border bg-ink text-background p-6">
               <GraduationCap className="w-6 h-6 text-cyan" />
-              <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-cyan font-mono">
+              <div className="mt-3 text-[10px] tracking-tight text-cyan font-mono">
                 Publicidade · SíndicoLab Play
               </div>
               <h3 className="mt-2 font-display text-2xl leading-tight tracking-[-0.02em]">
@@ -284,7 +284,7 @@ function PortalPage() {
 
             {/* Editorias (categorias secundárias) */}
             <div className="rounded-2xl border border-border bg-card p-5">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-ink-soft mb-3 font-mono">
+              <div className="text-[10px] tracking-tight text-ink-soft mb-3 font-mono">
                 Editorias
               </div>
               <ul className="divide-y divide-border">
@@ -312,7 +312,7 @@ function PortalPage() {
             to="/play"
             className="rounded-2xl border border-border bg-background p-7 hover:border-ink transition group"
           >
-            <span className="text-[10px] uppercase tracking-[0.3em] text-brand font-mono">
+            <span className="text-[10px] tracking-tight text-brand font-mono">
               Cursos relacionados
             </span>
             <h3 className="mt-3 font-display text-2xl md:text-3xl tracking-[-0.03em] text-balance">
@@ -330,7 +330,7 @@ function PortalPage() {
             to="/materiais"
             className="rounded-2xl border border-border bg-background p-7 hover:border-ink transition group"
           >
-            <span className="text-[10px] uppercase tracking-[0.3em] text-brand font-mono">
+            <span className="text-[10px] tracking-tight text-brand font-mono">
               Materiais relacionados
             </span>
             <h3 className="mt-3 font-display text-2xl md:text-3xl tracking-[-0.03em] text-balance">
