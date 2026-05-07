@@ -500,8 +500,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
     radial-gradient(circle at 72% 34%, rgba(0,190,255,0.20), transparent 34%),
     radial-gradient(circle at 28% 68%, rgba(54,70,210,0.22), transparent 38%),
     linear-gradient(135deg, #020B16 0%, #071527 52%, #0B1F38 100%);
-  will-change: opacity, transform;
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
+.intro-loader-exit { opacity: 0; transform: translateY(-2%); pointer-events: none; }
 .intro-bg-light {
   position: absolute;
   width: 42vw;
