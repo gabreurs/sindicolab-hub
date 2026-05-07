@@ -500,8 +500,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
     radial-gradient(circle at 72% 34%, rgba(0,190,255,0.20), transparent 34%),
     radial-gradient(circle at 28% 68%, rgba(54,70,210,0.22), transparent 38%),
     linear-gradient(135deg, #020B16 0%, #071527 52%, #0B1F38 100%);
-  will-change: opacity, transform;
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
+.intro-loader-exit { opacity: 0; transform: translateY(-2%); pointer-events: none; }
 .intro-bg-light {
   position: absolute;
   width: 42vw;
@@ -530,7 +531,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   display: grid;
   place-items: center;
   width: min(92vw, 900px);
-  min-height: 220px;
+  min-height: 240px;
 }
 .intro-phrase {
   position: absolute;
@@ -548,6 +549,12 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   line-height: 1.05;
   letter-spacing: -0.02em;
   text-wrap: balance;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(8px);
+  animation:
+    introPhraseIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards,
+    introPhraseOut 0.5s cubic-bezier(0.4,0,1,1) 1.05s forwards;
 }
 .intro-phrase-accent {
   background: linear-gradient(90deg, #20C7F5 0%, #7BA8FF 60%, #C7B8FF 100%);
@@ -555,6 +562,13 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   background-clip: text;
   color: transparent;
 }
+@keyframes introPhraseIn {
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes introPhraseOut {
+  to { opacity: 0; filter: blur(6px); transform: translateY(-10px); }
+}
+
 .intro-logo-wrap {
   position: absolute;
   inset: 0;
@@ -562,6 +576,13 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   place-items: center;
   gap: 18px;
   grid-auto-rows: min-content;
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(6px);
+  animation: introLogoIn 0.75s cubic-bezier(0.22,1,0.36,1) 1.15s forwards;
+}
+@keyframes introLogoIn {
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
 }
 .intro-logo {
   width: clamp(180px, 22vw, 340px);
@@ -578,5 +599,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-bg-light { animation: none; }
+  .intro-bg-light,
+  .intro-phrase,
+  .intro-logo-wrap { animation: none; opacity: 1; filter: none; transform: none; }
 }
