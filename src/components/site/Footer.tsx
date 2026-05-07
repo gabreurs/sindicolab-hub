@@ -1,5 +1,9 @@
 import { Heart, ArrowUpRight } from "lucide-react";
 import { InstagramIcon as Instagram, YoutubeIcon as Youtube, LinkedinIcon as Linkedin } from "@/components/icons/SocialIcons";
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { BrandMark } from "./BrandMark";
+
 
 
 const cols = [
