@@ -58,37 +58,15 @@ function PlayPage() {
   }, [trilha]);
 
   return (
-    <main className="min-h-screen bg-[#0a0b12] text-background flex flex-col overflow-x-hidden">
+    <main className="play-page min-h-screen text-background flex flex-col">
       <Header />
 
-      {/* HERO Netflix-style — background full-width, overlay escuro, conteúdo à esquerda */}
+      {/* HERO Netflix-style — background full-width, overlay leve, conteúdo à esquerda */}
       <section
-        className="relative min-h-[72svh] md:min-h-[80svh] flex items-end overflow-hidden"
+        className="play-hero flex items-end"
+        style={{ backgroundImage: `url(${cursoEmDestaque.capa})` }}
         aria-label="Curso em destaque"
       >
-        {/* background image full-width */}
-        <img
-          src={cursoEmDestaque.capa}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        {/* overlay leve para garantir leitura sem matar a imagem */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(10,11,18,0.88) 0%, rgba(10,11,18,0.55) 42%, rgba(10,11,18,0.18) 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(10,11,18,0.18) 0%, rgba(10,11,18,0.72) 100%)",
-          }}
-        />
-
         <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16">
           <div className="inline-flex items-center gap-2 text-xs text-cyan">
             <Flame className="w-3.5 h-3.5" /> {cursoEmDestaque.destaque ?? "Curso em destaque"}
@@ -147,10 +125,10 @@ function PlayPage() {
       {/* Submenu de trilhas — abaixo da hero, sticky com altura fixa */}
       <nav
         aria-label="Trilhas"
-        className="sticky top-16 md:top-[72px] z-20 border-y border-white/10 bg-[#0a0b12]/92 backdrop-blur"
+        className="play-subnav sticky top-[72px] z-30 border-y border-white/10 bg-[#0a0b12]/92 backdrop-blur"
       >
         <div className="container-x py-3">
-          <div className="flex gap-2 md:gap-3 overflow-x-auto scrollbar-none -mx-1 px-1">
+          <div className="horizontal-list flex gap-2 md:gap-3 -mx-1 px-1 snap-x scroll-smooth">
             {trilhas.map((t) => {
               const ativo = t === trilha;
               return (
@@ -238,7 +216,7 @@ function Carousel({ titulo, cursos }: { titulo: string; cursos: Curso[] }) {
 
       <div
         ref={ref}
-        className="flex gap-4 md:gap-5 overflow-x-auto px-[max(1rem,calc((100vw-1280px)/2+1rem))] pb-4 scroll-smooth snap-x scrollbar-none"
+        className="courses-track flex gap-4 md:gap-5 px-[max(1rem,calc((100vw-1280px)/2+1rem))] pb-4 scroll-smooth snap-x"
       >
         {cursos.map((c) => (
           <CursoCard key={c.slug} curso={c} />
@@ -257,24 +235,24 @@ function CursoCard({ curso }: { curso: Curso }) {
       rel="noopener noreferrer"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative shrink-0 w-[260px] md:w-[320px] snap-start rounded-md overflow-hidden bg-white/5 border border-white/10 hover:border-cyan/60 transition"
+      className="course-card card group relative shrink-0 w-[260px] md:w-[320px] snap-start rounded-md overflow-hidden bg-white/5 border border-white/10 hover:border-cyan/60 transition"
     >
       {/* thumb 16:9 — capa inteira sem corte: blur de fundo + contain por cima */}
-      <div className="course-thumb relative aspect-video bg-[#050812] overflow-hidden">
+      <div className="course-thumb">
         <img
           src={curso.capa}
           alt=""
           aria-hidden
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-40"
+          className="course-thumb-bg"
         />
         <img
           src={curso.capa}
           alt={curso.titulo}
           loading="lazy"
           decoding="async"
-          className="relative z-[1] w-full h-full object-contain"
+          className="course-thumb-main"
         />
         {curso.preco && (
           <div className="absolute z-[2] top-2 right-2 px-2 py-0.5 rounded bg-black/65 backdrop-blur text-[10px] font-mono text-cyan">
@@ -283,12 +261,12 @@ function CursoCard({ curso }: { curso: Curso }) {
         )}
       </div>
 
-      <div className="p-3.5">
+      <div className="p-3.5 flex flex-col flex-1">
         <div className="text-[11px] text-white/55">{curso.categoria}</div>
         <h3 className="mt-1.5 font-display text-base leading-tight text-white text-balance line-clamp-2">
           {curso.titulo}
         </h3>
-        <div className="mt-2 flex items-center justify-between text-[11px] text-white/65">
+        <div className="card-footer mt-2 flex items-center justify-between text-[11px] text-white/65">
           <div className="flex items-center gap-3">
             {curso.certificado && (
               <span className="inline-flex items-center gap-1">

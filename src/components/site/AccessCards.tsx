@@ -80,7 +80,7 @@ export function AccessCards() {
 
         <CardQuero1 />
 
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
+        <div className="grid-equal mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
           <CardPortal className="md:col-span-7 h-full" />
           <CardPlay className="md:col-span-5 h-full" />
           <CardMateriais className="md:col-span-5 h-full" />
@@ -524,7 +524,7 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
           color: "#F7F3EF",
           border: "1px solid rgba(233, 221, 248, 0.18)",
           borderRadius: 28,
-          minHeight: 460,
+           minHeight: 420,
           padding: "clamp(28px, 3vw, 44px)",
           background:
             "radial-gradient(circle at 78% 18%, rgba(139, 92, 246, 0.32), transparent 32%), linear-gradient(135deg, #3A005C 0%, #4A006F 44%, #26003D 100%)",

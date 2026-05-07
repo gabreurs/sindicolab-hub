@@ -2,8 +2,8 @@
 // IMPORTANTE: o SíndicoLab NÃO hospeda os cursos. Cada link aponta para a
 // plataforma externa (Kiwify/Hotmart) onde a venda e o player acontecem.
 
-import inteligencia from "@/assets/cursos/inteligencia-condominial.png";
-import inteligencia2 from "@/assets/cursos/inteligencia-condominial-1.png";
+import inteligencia from "@/assets/cursos/inteligencia-condominial-1.png";
+import inteligencia2 from "@/assets/cursos/inteligencia-condominial.png";
 import captarMais from "@/assets/cursos/como-captar-mais-clientes.png";
 import conselheiros from "@/assets/cursos/conselheiros-fiscais-e-consultivos.png";
 import oratoria from "@/assets/cursos/oratoria-e-vendas.png";
@@ -39,7 +39,7 @@ export type Curso = {
   url: string; // link externo Kiwify/Hotmart (placeholder quando não fornecido)
 };
 
-const PLACEHOLDER = "https://pay.kiwify.com.br/sindicolab"; // placeholder até receber URLs definitivas
+const PLAY_URL = "https://sindicolab.com/play/";
 
 export const cursos: Curso[] = [
   {
@@ -47,37 +47,37 @@ export const cursos: Curso[] = [
     titulo: "Inteligência Condominial",
     capa: inteligencia,
     categoria: "Para síndicos",
-    preco: "R$ 397",
+    preco: "R$ 450",
     certificado: true,
     acesso: "90 dias de acesso",
     destaque: "Top 1 em #cursos hoje",
     resumo:
-      "O curso fundador do SíndicoLab. Visão estratégica, finanças, jurídico, manutenção e liderança aplicadas à gestão real de condomínios.",
-    url: PLACEHOLDER,
+      "Com foco em inteligência artificial, automação de processos e otimização de tempo para resolver desafios reais da administração de condomínios.",
+    url: "https://pay.kiwify.com.br/KTRK6dv",
   },
   {
     slug: "inteligencia-condominial-2",
     titulo: "Inteligência Condominial · Pt. II",
     capa: inteligencia2,
     categoria: "Para síndicos",
-    preco: "R$ 397",
+    preco: "R$ 250",
     certificado: true,
     acesso: "90 dias de acesso",
     resumo:
       "Continuação avançada do Inteligência Condominial. Casos complexos, gestão de crises e síndico como liderança profissional.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/yZEm6OM",
   },
   {
     slug: "como-captar-mais-clientes",
     titulo: "Como Captar Mais Clientes",
     capa: captarMais,
     categoria: "Para síndicos",
-    preco: "R$ 297",
+    preco: "R$ 500",
     certificado: true,
     acesso: "90 dias de acesso",
     resumo:
       "Estratégia comercial e posicionamento para síndicos profissionais que querem crescer a carteira de condomínios.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/s0Z3UNQ",
   },
   {
     slug: "captacao-de-condominios",
@@ -88,29 +88,29 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Método prático de prospecção, abordagem de conselhos e fechamento para administradoras e síndicos profissionais.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "conselheiros",
     titulo: "Conselheiros Fiscais e Consultivos",
     capa: conselheiros,
     categoria: "Para síndicos",
-    preco: "R$ 197",
+    preco: "R$ 99",
     certificado: true,
     resumo:
       "Formação completa para conselheiros: papéis, leitura de prestação de contas, votação e fiscalização ativa.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/FDgSb70",
   },
   {
     slug: "oratoria-e-vendas",
-    titulo: "Oratória e Vendas",
+    titulo: "Oratória & Vendas",
     capa: oratoria,
     categoria: "Para síndicos",
-    preco: "R$ 247",
+    preco: "R$ 250",
     certificado: true,
     resumo:
       "Comunicação em assembleia, condução de reuniões e técnicas de venda para o síndico que precisa convencer.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/a0fOXfo",
   },
   {
     slug: "sindico-de-alta-performance",
@@ -121,7 +121,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Trilha do zero ao primeiro condomínio: contratação, primeiros 90 dias, prestação de contas e reputação.",
-    url: PLACEHOLDER,
+    url: "https://guarida.sindicolab.com/play/curso-para-sindico-profissional-em-inicio-de-carreira/",
   },
   {
     slug: "competencias-do-sindico",
@@ -132,7 +132,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Mapa das competências técnicas, comportamentais e de liderança do síndico profissional moderno.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "juridico-de-alta-performance",
@@ -143,7 +143,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Direito condominial aplicado: convenção, regimento, multas, cobrança, LGPD e jurisprudência atual.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "inovacao-e-tecnologia",
@@ -154,7 +154,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Tecnologia aplicada a condomínios: portaria remota, IA, automação, comunicação e tomada de decisão por dados.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "limpeza-alta-performance",
@@ -165,7 +165,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Treinamento técnico para equipes de limpeza condominial: padrões, produtos, segurança e produtividade.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/HYLI6B4",
   },
   {
     slug: "porteiro-controlador",
@@ -176,7 +176,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Atendimento, controle de acesso, protocolos de segurança e postura profissional para portaria.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/V1zlia6",
   },
   {
     slug: "zelador-de-excelencia",
@@ -187,7 +187,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "O zelador como líder operacional: rotinas, manutenções, equipe, fornecedores e relacionamento com o síndico.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/UaBKUDA",
   },
   {
     slug: "comunicacao-fim-de-ano",
@@ -197,7 +197,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Pacote prático para comunicar prestação de contas, eventos e mensagens de fim de ano com tom profissional.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "jornada-do-cliente",
@@ -208,7 +208,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Customer experience aplicado a administradoras: prospecção, onboarding, retenção e expansão de carteira.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mercadinhos-autonomos",
@@ -218,7 +218,7 @@ export const cursos: Curso[] = [
     preco: "R$ 197",
     resumo:
       "Como avaliar, contratar, fiscalizar e rentabilizar mercadinhos autônomos em áreas comuns.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mercado-livre-energia",
@@ -228,7 +228,7 @@ export const cursos: Curso[] = [
     preco: "R$ 247",
     resumo:
       "Migração para o mercado livre de energia em condomínios de média e alta tensão: viabilidade, contratos e economia.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "biblioteca-de-prompts",
@@ -238,7 +238,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Centenas de prompts prontos para usar no dia a dia do síndico: comunicados, atas, convocações e análises.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mapas-mentais",
@@ -248,7 +248,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Coletânea de mapas mentais para estudo e consulta rápida das principais rotinas do síndico profissional.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
 ];
 

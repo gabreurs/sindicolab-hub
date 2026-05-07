@@ -12,6 +12,7 @@ export function Header() {
   const search = useSearch();
   const { pathname } = useLocation();
   const isHome = pathname === "/";
+  const isDarkPage = pathname === "/play";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,14 +33,16 @@ export function Header() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isHome ? 0.6 : 0 }}
         className={`fixed inset-x-0 top-0 z-[70] transition-all duration-500 ${
           solid
-            ? "backdrop-blur-xl bg-background/80 border-b border-border/60"
+            ? isDarkPage
+              ? "backdrop-blur-xl bg-[#0a0b12]/88 border-b border-white/10"
+              : "backdrop-blur-xl bg-background/88 border-b border-border/60"
             : "bg-transparent"
         }`}
         data-route={isHome ? "home" : "page"}
       >
         <div className="container-x flex items-center justify-between h-[72px]">
           <Link to="/" aria-label="SíndicoLab — home" className="shrink-0">
-            <BrandMark size={30} />
+            <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 text-[0.92rem]">
@@ -47,20 +50,20 @@ export function Header() {
               href="https://quero1sindico.com/"
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-2 rounded-full text-ink hover:bg-secondary transition"
+              className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
             >
               Encontrar síndico
             </a>
-            <Link to="/play" className="px-3 py-2 rounded-full text-ink-soft hover:text-ink hover:bg-secondary transition">
+            <Link to="/play" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Cursos
             </Link>
-            <Link to="/materiais" className="px-3 py-2 rounded-full text-ink-soft hover:text-ink hover:bg-secondary transition">
+            <Link to="/materiais" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Materiais
             </Link>
-            <Link to="/portal" className="px-3 py-2 rounded-full text-ink-soft hover:text-ink hover:bg-secondary transition">
+            <Link to="/portal" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Portal
             </Link>
-            <Link to="/patrocinios" className="px-3 py-2 rounded-full text-ink-soft hover:text-ink hover:bg-secondary transition">
+            <Link to="/patrocinios" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Patrocinar
             </Link>
           </nav>

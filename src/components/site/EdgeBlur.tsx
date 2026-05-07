@@ -6,12 +6,7 @@
  * z-index: 40 (abaixo do header 70, mega menu 90, search 100).
  */
 export function ViewportGlassEdges() {
-  return (
-    <>
-      <div className="vp-glass-top" aria-hidden />
-      <div className="vp-glass-bottom" aria-hidden />
-    </>
-  );
+  return <div className="edge-blur-bottom" aria-hidden />;
 }
 
 // Backwards-compat export name used elsewhere.
