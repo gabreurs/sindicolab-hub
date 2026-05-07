@@ -602,4 +602,18 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   .intro-bg-light,
   .intro-phrase,
   .intro-logo-wrap { animation: none; opacity: 1; filter: none; transform: none; }
+
+  .animate-marquee,
+  .animate-orbit,
+  .animate-orbit-slow,
+  .animate-blink { animation: none !important; }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .edge-blur-bottom { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
