@@ -7,8 +7,8 @@ import {
   Clock,
   TrendingUp,
   PlayCircle,
-  Instagram,
-  Youtube,
+  Instagram as InstagramIcon,
+  Youtube as YoutubeIcon,
   GraduationCap,
 } from "lucide-react";
 
