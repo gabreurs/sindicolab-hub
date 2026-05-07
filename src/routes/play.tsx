@@ -142,7 +142,11 @@ function PlayPage() {
                 alt={cursoEmDestaque.titulo}
                 className="w-full h-full object-cover"
                 loading="eager"
+                decoding="async"
+                width={340}
+                height={453}
               />
+
             </div>
           </motion.div>
         </div>
@@ -265,8 +269,12 @@ function CursoCard({ curso }: { curso: Curso }) {
           src={curso.capa}
           alt={curso.titulo}
           loading="lazy"
+          decoding="async"
+          width={220}
+          height={293}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/0 to-black/0" />
         {curso.preco && (
           <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur text-[10px] font-mono text-cyan">
