@@ -1,77 +1,91 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import logoSrc from "@/assets/logo-sindicolab.svg";
 
 /**
- * IntroLoader — abertura curta de marca:
- * - background azul profundo com luzes em drift contínuo (CSS keyframes);
- * - logo real do SíndicoLab + linha cyan revelada;
- * - duração total ~2s, fallback de 2.8s;
- * - skip se prefers-reduced-motion ou já visto na sessão (limpa via ?intro=1).
+ * IntroLoader — abertura curta de marca com hierarquia:
+ *   1) frase institucional aparece com reveal por máscara + blur
+ *   2) frase recua, logo entra com presença (scale + blur out)
+ *   3) overlay sai com clip-path vertical revelando a home
+ * Duração total: ~2.4s. Pula para usuários com prefers-reduced-motion
+ * ou quando já vista na sessão (?intro=1 força reexecução).
  */
 export function IntroLoader() {
-  const [show, setShow] = useState(true);
-  const [exit, setExit] = useState(false);
+  const [mounted, setMounted] = useState(true);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const phraseRef = useRef<HTMLDivElement>(null);
+  const logoWrapRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // decide se mostra antes do paint (evita flash)
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
-
-    // ?intro=1 força nova execução (útil em preview/dev)
     const params = new URLSearchParams(window.location.search);
     if (params.get("intro") === "1") {
       try { sessionStorage.removeItem("sl-intro-seen"); } catch {}
     }
-
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || sessionStorage.getItem("sl-intro-seen")) {
-      setShow(false);
-      return;
-    }
-
-    // timeline: revela (handled via framer-motion) → começa saída em 1.55s → desmonta em 2.1s
-    const tExit = window.setTimeout(() => setExit(true), 1550);
-    const tEnd = window.setTimeout(() => {
-      setShow(false);
-      try { sessionStorage.setItem("sl-intro-seen", "1"); } catch {}
-    }, 2100);
-
-    // fallback de segurança
-    const fallback = window.setTimeout(() => setShow(false), 2800);
-
-    return () => {
-      window.clearTimeout(tExit);
-      window.clearTimeout(tEnd);
-      window.clearTimeout(fallback);
-    };
+    let seen = false;
+    try { seen = !!sessionStorage.getItem("sl-intro-seen"); } catch {}
+    if (reduced || seen) setMounted(false);
   }, []);
 
-  return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          key="intro"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: exit ? 0 : 1, y: exit ? "-2%" : 0 }}
-          transition={{ duration: 0.55, ease: [0.65, 0, 0.35, 1] }}
-          className="intro-loader"
-          aria-hidden
-        >
-          {/* luzes em drift contínuo — CSS keyframes */}
-          <span className="intro-bg-light intro-bg-light-a" />
-          <span className="intro-bg-light intro-bg-light-b" />
-          <span className="intro-bg-light intro-bg-light-c" />
+  useEffect(() => {
+    if (!mounted) return;
+    const root = rootRef.current;
+    const phrase = phraseRef.current;
+    const logoWrap = logoWrapRef.current;
+    if (!root || !phrase || !logoWrap) return;
 
-          <div className="intro-content">
-            <img
-              src={logoSrc}
-              alt="SíndicoLab"
-              className="intro-logo"
-              draggable={false}
-            />
-            <span className="intro-line" />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    const ctx = gsap.context(() => {
+      gsap.set(phrase, { opacity: 0, filter: "blur(10px)", y: 8 });
+      gsap.set(logoWrap, { opacity: 0, scale: 0.94, filter: "blur(6px)" });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          try { sessionStorage.setItem("sl-intro-seen", "1"); } catch {}
+          setMounted(false);
+        },
+      });
+
+      // 1) frase entra
+      tl.to(phrase, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.7 }, 0.05)
+        // 2) frase recua, logo entra
+        .to(phrase, { opacity: 0, y: -10, filter: "blur(6px)", duration: 0.45, ease: "power2.in" }, 1.05)
+        .to(logoWrap, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7 }, 1.1)
+        // 3) overlay sai (reveal vertical)
+        .to(root, {
+          clipPath: "inset(0% 0% 100% 0%)",
+          duration: 0.55,
+          ease: "power3.inOut",
+        }, 2.0);
+    }, root);
+
+    // fallback duro
+    const fallback = window.setTimeout(() => setMounted(false), 3200);
+    return () => { ctx.revert(); window.clearTimeout(fallback); };
+  }, [mounted]);
+
+  if (!mounted) return null;
+
+  return (
+    <div ref={rootRef} className="intro-loader" aria-hidden style={{ clipPath: "inset(0 0 0 0)" }}>
+      <span className="intro-bg-light intro-bg-light-a" />
+      <span className="intro-bg-light intro-bg-light-b" />
+      <span className="intro-bg-light intro-bg-light-c" />
+
+      <div className="intro-stage">
+        <div ref={phraseRef} className="intro-phrase">
+          <span>O maior coletivo de</span>
+          <span className="intro-phrase-accent">síndicos profissionais</span>
+          <span>do Brasil</span>
+        </div>
+
+        <div ref={logoWrapRef} className="intro-logo-wrap">
+          <img src={logoSrc} alt="SíndicoLab" className="intro-logo" draggable={false} />
+          <span className="intro-line" />
+        </div>
+      </div>
+    </div>
   );
 }
