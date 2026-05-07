@@ -288,21 +288,31 @@
 }
 .mask-clip-y.is-revealed { clip-path: inset(0 0 0 0); }
 
-/* Edge blur global — camada fixa abaixo de header/search/menu. */
+/* Edge blur global — camada fixa abaixo de header/search/menu.
+   pointer-events:none e fade-out quando o footer entra em cena. */
 .edge-blur-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: clamp(90px, 13vh, 170px);
-  z-index: 40;
+  height: clamp(72px, 10vh, 130px);
+  z-index: 30;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(245,248,251,.92), rgba(245,248,251,.52), transparent);
-  -webkit-backdrop-filter: blur(22px) saturate(135%);
-  backdrop-filter: blur(22px) saturate(135%);
-  -webkit-mask-image: linear-gradient(to top, black 0%, black 44%, transparent 100%);
-  mask-image: linear-gradient(to top, black 0%, black 44%, transparent 100%);
+  opacity: 1;
+  transition: opacity 240ms ease;
+  background: linear-gradient(
+    to top,
+    rgba(245,248,251,0.82) 0%,
+    rgba(245,248,251,0.42) 42%,
+    rgba(245,248,251,0) 100%
+  );
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to top, black 0%, black 45%, transparent 100%);
+  mask-image: linear-gradient(to top, black 0%, black 45%, transparent 100%);
 }
+.edge-blur-bottom.is-hidden { opacity: 0; }
+.play-page ~ .edge-blur-bottom,
 .edge-blur-bottom.dark {
-  background: linear-gradient(to top, rgba(5,8,18,.92), rgba(5,8,18,.50), transparent);
+  background: linear-gradient(to top, rgba(5,8,18,0.78), rgba(5,8,18,0.34), transparent);
 }
 
 
@@ -420,9 +430,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 .play-page { background: #0a0b12; }
 .play-hero {
   position: relative;
-  min-height: clamp(420px, 70vh, 680px);
+  min-height: clamp(460px, 78vh, 720px);
   background-size: cover;
-  background-position: center right;
+  background-position: 100% center;
   background-repeat: no-repeat;
   isolation: isolate;
 }
@@ -430,11 +440,18 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   content: "";
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(8,10,18,0.92) 0%, rgba(8,10,18,0.72) 38%, rgba(8,10,18,0.18) 70%, rgba(8,10,18,0) 100%),
-    linear-gradient(0deg, rgba(8,10,18,0.85) 0%, rgba(8,10,18,0) 55%);
+    linear-gradient(90deg, rgba(8,10,18,0.98) 0%, rgba(8,10,18,0.94) 38%, rgba(8,10,18,0.70) 60%, rgba(8,10,18,0.20) 85%, rgba(8,10,18,0) 100%),
+    linear-gradient(0deg, rgba(8,10,18,0.92) 0%, rgba(8,10,18,0) 60%);
   z-index: 0;
 }
 .play-hero > * { position: relative; z-index: 1; }
+@media (max-width: 768px) {
+  .play-hero { background-position: 70% center; }
+  .play-hero::before {
+    background:
+      linear-gradient(180deg, rgba(8,10,18,0.55) 0%, rgba(8,10,18,0.85) 60%, rgba(8,10,18,0.96) 100%);
+  }
+}
 
 /* Carrossel de cursos — sem scrollbar nativa */
 .courses-track {
