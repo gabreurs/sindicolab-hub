@@ -62,21 +62,13 @@ export function IntroLoader() {
           <span className="intro-bg-light intro-bg-light-c" />
 
           <div className="intro-content">
-            <motion.img
+            <img
               src={logoSrc}
               alt="SíndicoLab"
               className="intro-logo"
               draggable={false}
-              initial={{ opacity: 0, y: 14, scale: 0.985 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             />
-            <motion.span
-              className="intro-line"
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.55, ease: [0.65, 0, 0.35, 1], delay: 0.65 }}
-            />
+            <span className="intro-line" />
           </div>
         </motion.div>
       )}
