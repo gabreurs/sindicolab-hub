@@ -369,11 +369,11 @@ function CardPlay({ className = "" }: { className?: string }) {
 function CardMateriais({ className = "" }: { className?: string }) {
   const { mx, my, onMove } = useCursor();
   const docs = [
-    { tag: "GUIA", title: "Prestação de contas em 7 passos", x: -10, y: -22, rotate: -3 },
-    { tag: "CHECKLIST", title: "Manutenção predial trimestral", x: 0, y: 0, rotate: 0 },
-    { tag: "MODELO", title: "Ata de assembleia condominial", x: 10, y: 18, rotate: 3 },
+    { tag: "GUIA", title: "Prestação de contas em 7 passos" },
+    { tag: "CHECKLIST", title: "Manutenção predial trimestral" },
+    { tag: "MODELO", title: "Ata de assembleia condominial" },
   ];
-  const transition = { duration: 0.55, ease } as const;
+  const transition = { duration: 0.5, ease } as const;
 
   return (
     <motion.div
@@ -388,7 +388,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         whileFocus="hover"
         initial="rest"
         animate="rest"
-        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -6, scale: 1.015 } }}
+        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -4, scale: 1.01 } }}
         transition={transition}
       >
         <Link
@@ -398,7 +398,6 @@ function CardMateriais({ className = "" }: { className?: string }) {
           onMouseMove={onMove}
           style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
-          {/* cursor-aware light */}
           <div
             aria-hidden
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -408,11 +407,12 @@ function CardMateriais({ className = "" }: { className?: string }) {
             }}
           />
 
-          <div className="relative h-full p-7 md:p-9 flex flex-col">
+          <div className="relative h-full p-7 md:p-9 flex flex-col gap-5">
+            {/* topo: número + ícone download */}
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
               <span>04 / 05</span>
               <motion.span
-                variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: 8, scale: 1.08 } }}
+                variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
                 transition={transition}
                 className="grid place-items-center w-9 h-9 rounded-full bg-secondary group-hover:bg-ink group-hover:text-background transition-colors"
               >
@@ -425,43 +425,54 @@ function CardMateriais({ className = "" }: { className?: string }) {
                 </motion.span>
               </motion.span>
             </div>
-            <div className="text-[12px] text-ink-soft mt-2">Materiais gratuitos para condomínio</div>
 
-            <h3 className="mt-6 font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
+            {/* categoria */}
+            <div className="text-[12px] text-ink-soft">Materiais gratuitos para condomínio</div>
+
+            {/* título */}
+            <h3 className="font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
               Baixe materiais para síndicos e condomínios.
             </h3>
 
-            {/* document fan */}
-            <div className="mt-auto relative h-36">
-              {docs.map((d, i) => (
-                <motion.div
-                  key={d.tag}
-                  variants={{
-                    rest: { x: 0, y: i * 10, rotate: d.rotate * 0.35, scale: 1 },
-                    hover: { x: d.x, y: d.y, rotate: d.rotate, scale: 1.02 },
-                  }}
-                  transition={{ ...transition, delay: i * 0.04 }}
-                  className="absolute inset-x-2 rounded-xl bg-background border border-border p-3 shadow-soft"
-                  style={{ bottom: 0, zIndex: 3 - i }}
-                >
-                  <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
-                    <FileText className="w-3 h-3" /> {d.tag}
-                  </div>
-                  <div className="mt-1 text-sm text-ink leading-snug">{d.title}</div>
-                </motion.div>
-              ))}
+            {/* área visual contida da pilha */}
+            <div
+              className="materials-stack-viewport relative w-full overflow-hidden rounded-2xl"
+              style={{ height: 140 }}
+            >
+              {docs.map((d, i) => {
+                // estado normal: 3 documentos sutilmente empilhados (1 visível, 2 atrás).
+                // hover: enfileiram-se verticalmente com pequena inclinação.
+                const restY = i * 6; // 0, 6, 12px
+                const restScale = 1 - i * 0.025; // 1.0, 0.975, 0.95
+                const hoverY = (i - 1) * 14; // -14, 0, 14
+                const hoverRot = (i - 1) * 1; // -1, 0, 1
+                return (
+                  <motion.div
+                    key={d.tag}
+                    variants={{
+                      rest: { y: restY, scale: restScale, rotate: 0, opacity: i === 0 ? 1 : 0.92 },
+                      hover: { y: hoverY, scale: 1, rotate: hoverRot, opacity: 1 },
+                    }}
+                    transition={{ ...transition, delay: i * 0.04 }}
+                    className="absolute left-3 right-3 top-3 rounded-xl bg-background border border-border p-3 shadow-soft"
+                    style={{ zIndex: 3 - i }}
+                  >
+                    <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
+                      <FileText className="w-3 h-3" /> {d.tag}
+                    </div>
+                    <div className="mt-1 text-sm text-ink leading-snug truncate">{d.title}</div>
+                  </motion.div>
+                );
+              })}
             </div>
 
-            {/* hover-revealed sub copy */}
-            <motion.p
-              variants={{ rest: { opacity: 0, y: 6 }, hover: { opacity: 1, y: 0 } }}
-              transition={transition}
-              className="mt-3 text-xs text-ink-soft leading-relaxed"
-            >
+            {/* descrição */}
+            <p className="text-xs text-ink-soft leading-relaxed">
               Guias, modelos e checklists para assembleias e gestão condominial.
-            </motion.p>
+            </p>
 
-            <div className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
+            {/* CTA */}
+            <div className="inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
               <span className="relative">
                 Baixar materiais gratuitos
                 <motion.span
@@ -485,6 +496,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
     </motion.div>
   );
 }
+
 
 /* ================================ Patrocínios — identidade do repo Mídia Kit Live ================================
    Cream #F7F3EF + ink violet #1B1024 + accent purple deep #3A005C, "serif italic" para destaque, eyebrow com hairline. */
