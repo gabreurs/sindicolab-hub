@@ -15,7 +15,7 @@ import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PortalSlugRouteImport } from './routes/portal.$slug'
+import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
 
 const QuemSomosRoute = QuemSomosRouteImport.update({
   id: '/quem-somos',
@@ -48,9 +48,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortalSlugRoute = PortalSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PortalRoute,
+  id: '/portal_/$slug',
+  path: '/portal/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -58,7 +58,7 @@ export interface FileRoutesByFullPath {
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRouteWithChildren
+  '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
@@ -67,7 +67,7 @@ export interface FileRoutesByTo {
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRouteWithChildren
+  '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
@@ -77,9 +77,9 @@ export interface FileRoutesById {
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRouteWithChildren
+  '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
-  '/portal/$slug': typeof PortalSlugRoute
+  '/portal_/$slug': typeof PortalSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
-    | '/portal/$slug'
+    | '/portal_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,8 +116,9 @@ export interface RootRouteChildren {
   MateriaisRoute: typeof MateriaisRoute
   PatrociniosRoute: typeof PatrociniosRoute
   PlayRoute: typeof PlayRoute
-  PortalRoute: typeof PortalRouteWithChildren
+  PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
+  PortalSlugRoute: typeof PortalSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,34 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/portal/$slug': {
-      id: '/portal/$slug'
-      path: '/$slug'
+    '/portal_/$slug': {
+      id: '/portal_/$slug'
+      path: '/portal/$slug'
       fullPath: '/portal/$slug'
       preLoaderRoute: typeof PortalSlugRouteImport
-      parentRoute: typeof PortalRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface PortalRouteChildren {
-  PortalSlugRoute: typeof PortalSlugRoute
-}
-
-const PortalRouteChildren: PortalRouteChildren = {
-  PortalSlugRoute: PortalSlugRoute,
-}
-
-const PortalRouteWithChildren =
-  PortalRoute._addFileChildren(PortalRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MateriaisRoute: MateriaisRoute,
   PatrociniosRoute: PatrociniosRoute,
   PlayRoute: PlayRoute,
-  PortalRoute: PortalRouteWithChildren,
+  PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
+  PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

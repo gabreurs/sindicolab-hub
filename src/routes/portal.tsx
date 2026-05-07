@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import {
   ArrowUpRight,
   Clock,
@@ -68,7 +69,7 @@ function PortalPage() {
   return (
     <main className="min-h-screen bg-background text-ink flex flex-col overflow-x-hidden">
       <Header />
-      <div className="pt-24 md:pt-28" />
+      <Breadcrumbs items={[{ label: "Portal" }]} />
 
       {/* PRIMEIRA DOBRA — manchete + 2 destaques + sidebar */}
       <section>
