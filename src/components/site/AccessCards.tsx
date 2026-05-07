@@ -10,8 +10,54 @@ gsap.registerPlugin(ScrollTrigger);
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function AccessCards() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>(".cursor-glow", root);
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { clipPath: "inset(6% 4% 6% 4% round 28px)", scale: 0.97, opacity: 0.55, y: 24 },
+          {
+            clipPath: "inset(0% 0% 0% 0% round 28px)",
+            scale: 1, opacity: 1, y: 0,
+            ease: "power3.out", duration: 1.05,
+            scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" },
+          }
+        );
+        const cta = card.querySelector<HTMLElement>(".btn-primary");
+        if (cta) {
+          gsap.fromTo(cta,
+            { y: 16, opacity: 0 },
+            { y: 0, opacity: 1, ease: "power2.out", duration: 0.55, delay: 0.4,
+              scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
+          );
+        }
+        const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
+        blobs.forEach((b, i) => {
+          gsap.to(b, {
+            yPercent: i % 2 === 0 ? -14 : 12,
+            xPercent: i % 2 === 0 ? 4 : -3,
+            ease: "none",
+            scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 0.6 },
+          });
+        });
+      });
+    }, root);
+
+    return () => { ctx.revert(); };
+  }, []);
+
   return (
-    <section id="produtos" className="relative pt-8 pb-28 md:pb-36" aria-labelledby="produtos-h">
+    <section ref={sectionRef} id="produtos" className="relative pt-8 pb-28 md:pb-36" aria-labelledby="produtos-h">
+
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-6 items-end mb-10 md:mb-14">
           <div className="md:col-span-8">
