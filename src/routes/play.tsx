@@ -72,67 +72,7 @@ function PlayPage() {
     <main className="play-page min-h-screen text-background flex flex-col">
       <Header />
 
-      {/* HERO Netflix-style — background full-width, overlay leve, conteúdo à esquerda */}
-      <section
-        className="play-hero flex items-end"
-        style={{ backgroundImage: `url(${cursoEmDestaque.capa})` }}
-        aria-label="Curso em destaque"
-      >
-        <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16">
-          <div className="inline-flex items-center gap-2 text-xs text-cyan">
-            <Flame className="w-3.5 h-3.5" /> {cursoEmDestaque.destaque ?? "Curso em destaque"}
-          </div>
-          {/* H1 invisível para SEO; título visual vem da própria capa */}
-          <h1 className="sr-only">{cursoEmDestaque.titulo}</h1>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-4 max-w-md"
-          >
-            <p className="text-white/85 leading-relaxed text-base md:text-lg">
-              {cursoEmDestaque.resumo}
-            </p>
-          </motion.div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70">
-            {cursoEmDestaque.acesso && (
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" /> {cursoEmDestaque.acesso}
-              </span>
-            )}
-            {cursoEmDestaque.certificado && (
-              <span className="inline-flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" /> Certificado
-              </span>
-            )}
-            {cursoEmDestaque.preco && (
-              <span className="font-mono text-cyan">{cursoEmDestaque.preco}</span>
-            )}
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a
-              href={cursoEmDestaque.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-background text-ink font-medium hover:bg-cyan transition"
-            >
-              Ver curso <ArrowUpRight className="w-4 h-4" />
-            </a>
-            <a
-              href={`#curso-${cursoEmDestaque.slug}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-white/25 text-white hover:bg-white/10 transition"
-            >
-              Mais informações
-            </a>
-          </div>
-
-          <p className="mt-5 text-[11px] text-white/45">
-            Compra e acesso pela plataforma oficial — Kiwify / Hotmart.
-          </p>
-        </div>
-      </section>
+      <FeaturedHero items={featuredCourses} />
 
       {/* Submenu de trilhas — abaixo da hero, sticky com altura fixa */}
       <nav
