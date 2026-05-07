@@ -1,17 +1,11 @@
 import { Heart, ArrowUpRight } from "lucide-react";
-
-const Instagram = (p: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-);
-const Youtube = (p: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M22 8.5a3 3 0 0 0-2.1-2.1C18 6 12 6 12 6s-6 0-7.9.4A3 3 0 0 0 2 8.5 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.5a3 3 0 0 0 2.1 2.1C6 18 12 18 12 18s6 0 7.9-.4A3 3 0 0 0 22 15.5 31 31 0 0 0 22.4 12 31 31 0 0 0 22 8.5z"/><path d="m10 15 5-3-5-3z" fill="currentColor"/></svg>
-);
-const Linkedin = (p: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-);
+import { InstagramIcon as Instagram, YoutubeIcon as Youtube, LinkedinIcon as Linkedin } from "@/components/icons/SocialIcons";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { BrandMark } from "./BrandMark";
+import marqoLogo from "@/assets/logo-marqo.svg";
+
+
 
 const cols = [
   {
@@ -173,7 +167,7 @@ export function Footer() {
             >
               Feito com
               <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500 group-hover:scale-110 transition-transform" />
-              por <span className="font-semibold tracking-wide text-background/80">STUDIO MARQO</span>
+              por <img src={marqoLogo} alt="Studio Marqo" className="h-3.5 w-auto opacity-80 group-hover:opacity-100 transition" />
             </a>
           </div>
         </div>

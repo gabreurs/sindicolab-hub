@@ -7,6 +7,10 @@ import { ProductScrollShowcase } from "@/components/site/ProductScrollShowcase";
 import { ValuePillars } from "@/components/site/ValuePillars";
 import { Sponsors } from "@/components/site/Sponsors";
 import { Footer } from "@/components/site/Footer";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { EdgeBlur } from "@/components/site/EdgeBlur";
+import { GlobalSearch } from "@/components/site/GlobalSearch";
+import { QuemSomos } from "@/components/site/QuemSomos";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,16 +43,20 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
+      <SmoothScroll />
       <IntroLoader />
+      <GlobalSearch />
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
-          <Hero />
-          <ProductScrollShowcase />
-          <AccessCards />
+        <Hero />
+        <ProductScrollShowcase />
+        <AccessCards />
+        <QuemSomos />
         <ValuePillars />
         <Sponsors />
         <Footer />
       </main>
+      <EdgeBlur />
     </>
   );
 }
