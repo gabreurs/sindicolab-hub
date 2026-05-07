@@ -5,6 +5,8 @@ import { Search as SearchIcon, X, ArrowUpRight, Building2, BookOpen, GraduationC
 import Fuse from "fuse.js";
 import { Link } from "@tanstack/react-router";
 import { searchIndex, popularSearches, trackSearch, type SearchItem } from "@/data/searchIndex";
+import { getLenis } from "@/components/site/SmoothScroll";
+
 
 type SearchStore = {
   isOpen: boolean;
@@ -86,21 +88,44 @@ export function GlobalSearch() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close, toggle]);
 
-  // body scroll lock + autofocus + focus return
+  // body scroll lock real + Lenis pause + autofocus + focus return
   useEffect(() => {
     if (isOpen) {
       if (!lastTrigger.current) lastTrigger.current = document.activeElement as HTMLElement;
-      document.body.style.overflow = "hidden";
-      setTimeout(() => inputRef.current?.focus(), 30);
-    } else {
-      document.body.style.overflow = "";
-      setQuery("");
-      setDebounced("");
-      lastTrigger.current?.focus?.();
-      lastTrigger.current = null;
+      const scrollY = window.scrollY;
+      const body = document.body;
+      const html = document.documentElement;
+      body.dataset.scrollY = String(scrollY);
+      body.style.position = "fixed";
+      body.style.top = `-${scrollY}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
+      body.style.overflow = "hidden";
+      html.style.overscrollBehavior = "none";
+      getLenis()?.stop();
+      // focus instantâneo (sem cooldown perceptível)
+      requestAnimationFrame(() => inputRef.current?.focus());
+      return () => {
+        const y = Number(body.dataset.scrollY ?? "0");
+        body.style.position = "";
+        body.style.top = "";
+        body.style.left = "";
+        body.style.right = "";
+        body.style.width = "";
+        body.style.overflow = "";
+        html.style.overscrollBehavior = "";
+        delete body.dataset.scrollY;
+        window.scrollTo(0, y);
+        getLenis()?.start();
+        setQuery("");
+        setDebounced("");
+        lastTrigger.current?.focus?.();
+        lastTrigger.current = null;
+      };
     }
-    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
+
 
   // debounce
   useEffect(() => {
@@ -158,14 +183,14 @@ export function GlobalSearch() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
-            className="fixed inset-0 z-[120] bg-ink/55 backdrop-blur-md"
+            className="fixed inset-0 z-[200] bg-ink/55 backdrop-blur-md"
           />
           <motion.div
             initial={{ opacity: 0, y: -10, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.985 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[130] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
+            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[210] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -206,7 +231,7 @@ export function GlobalSearch() {
             </div>
 
             {/* Body */}
-            <div id="global-search-results" className="flex-1 overflow-y-auto p-3 md:p-4">
+            <div id="global-search-results" className="flex-1 overflow-y-auto overscroll-contain p-3 md:p-4">
               {!debounced && (
                 <div className="p-2">
                   <div className="px-3 pt-1 pb-3 font-display text-[1.05rem] text-ink">

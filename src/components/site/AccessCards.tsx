@@ -369,11 +369,11 @@ function CardPlay({ className = "" }: { className?: string }) {
 function CardMateriais({ className = "" }: { className?: string }) {
   const { mx, my, onMove } = useCursor();
   const docs = [
-    { tag: "GUIA", title: "Prestação de contas em 7 passos", x: -10, y: -22, rotate: -3 },
-    { tag: "CHECKLIST", title: "Manutenção predial trimestral", x: 0, y: 0, rotate: 0 },
-    { tag: "MODELO", title: "Ata de assembleia condominial", x: 10, y: 18, rotate: 3 },
+    { tag: "GUIA", title: "Prestação de contas em 7 passos" },
+    { tag: "CHECKLIST", title: "Manutenção predial trimestral" },
+    { tag: "MODELO", title: "Ata de assembleia condominial" },
   ];
-  const transition = { duration: 0.55, ease } as const;
+  const transition = { duration: 0.5, ease } as const;
 
   return (
     <motion.div
@@ -388,7 +388,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         whileFocus="hover"
         initial="rest"
         animate="rest"
-        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -6, scale: 1.015 } }}
+        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -4, scale: 1.01 } }}
         transition={transition}
       >
         <Link
@@ -398,7 +398,6 @@ function CardMateriais({ className = "" }: { className?: string }) {
           onMouseMove={onMove}
           style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
-          {/* cursor-aware light */}
           <div
             aria-hidden
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -408,11 +407,12 @@ function CardMateriais({ className = "" }: { className?: string }) {
             }}
           />
 
-          <div className="relative h-full p-7 md:p-9 flex flex-col">
+          <div className="relative h-full p-7 md:p-9 flex flex-col gap-5">
+            {/* topo: número + ícone download */}
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
               <span>04 / 05</span>
               <motion.span
-                variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: 8, scale: 1.08 } }}
+                variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
                 transition={transition}
                 className="grid place-items-center w-9 h-9 rounded-full bg-secondary group-hover:bg-ink group-hover:text-background transition-colors"
               >
@@ -425,43 +425,54 @@ function CardMateriais({ className = "" }: { className?: string }) {
                 </motion.span>
               </motion.span>
             </div>
-            <div className="text-[12px] text-ink-soft mt-2">Materiais gratuitos para condomínio</div>
 
-            <h3 className="mt-6 font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
+            {/* categoria */}
+            <div className="text-[12px] text-ink-soft">Materiais gratuitos para condomínio</div>
+
+            {/* título */}
+            <h3 className="font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
               Baixe materiais para síndicos e condomínios.
             </h3>
 
-            {/* document fan */}
-            <div className="mt-auto relative h-36">
-              {docs.map((d, i) => (
-                <motion.div
-                  key={d.tag}
-                  variants={{
-                    rest: { x: 0, y: i * 10, rotate: d.rotate * 0.35, scale: 1 },
-                    hover: { x: d.x, y: d.y, rotate: d.rotate, scale: 1.02 },
-                  }}
-                  transition={{ ...transition, delay: i * 0.04 }}
-                  className="absolute inset-x-2 rounded-xl bg-background border border-border p-3 shadow-soft"
-                  style={{ bottom: 0, zIndex: 3 - i }}
-                >
-                  <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
-                    <FileText className="w-3 h-3" /> {d.tag}
-                  </div>
-                  <div className="mt-1 text-sm text-ink leading-snug">{d.title}</div>
-                </motion.div>
-              ))}
+            {/* área visual contida da pilha */}
+            <div
+              className="materials-stack-viewport relative w-full overflow-hidden rounded-2xl"
+              style={{ height: 140 }}
+            >
+              {docs.map((d, i) => {
+                // estado normal: 3 documentos sutilmente empilhados (1 visível, 2 atrás).
+                // hover: enfileiram-se verticalmente com pequena inclinação.
+                const restY = i * 6; // 0, 6, 12px
+                const restScale = 1 - i * 0.025; // 1.0, 0.975, 0.95
+                const hoverY = (i - 1) * 14; // -14, 0, 14
+                const hoverRot = (i - 1) * 1; // -1, 0, 1
+                return (
+                  <motion.div
+                    key={d.tag}
+                    variants={{
+                      rest: { y: restY, scale: restScale, rotate: 0, opacity: i === 0 ? 1 : 0.92 },
+                      hover: { y: hoverY, scale: 1, rotate: hoverRot, opacity: 1 },
+                    }}
+                    transition={{ ...transition, delay: i * 0.04 }}
+                    className="absolute left-3 right-3 top-3 rounded-xl bg-background border border-border p-3 shadow-soft"
+                    style={{ zIndex: 3 - i }}
+                  >
+                    <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
+                      <FileText className="w-3 h-3" /> {d.tag}
+                    </div>
+                    <div className="mt-1 text-sm text-ink leading-snug truncate">{d.title}</div>
+                  </motion.div>
+                );
+              })}
             </div>
 
-            {/* hover-revealed sub copy */}
-            <motion.p
-              variants={{ rest: { opacity: 0, y: 6 }, hover: { opacity: 1, y: 0 } }}
-              transition={transition}
-              className="mt-3 text-xs text-ink-soft leading-relaxed"
-            >
+            {/* descrição */}
+            <p className="text-xs text-ink-soft leading-relaxed">
               Guias, modelos e checklists para assembleias e gestão condominial.
-            </motion.p>
+            </p>
 
-            <div className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
+            {/* CTA */}
+            <div className="inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
               <span className="relative">
                 Baixar materiais gratuitos
                 <motion.span
@@ -486,6 +497,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
   );
 }
 
+
 /* ================================ Patrocínios — identidade do repo Mídia Kit Live ================================
    Cream #F7F3EF + ink violet #1B1024 + accent purple deep #3A005C, "serif italic" para destaque, eyebrow com hairline. */
 function CardPatrocinios({ className = "" }: { className?: string }) {
@@ -496,59 +508,88 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease, delay: 0.15 }}
-      whileHover={{ y: -3 }}
+      whileHover={{ y: -4 }}
       className={className}
     >
       <Link
         to="/patrocinios"
-        className="cursor-glow group relative block overflow-hidden rounded-3xl min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
+        aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
+        className="sponsor-mini-card group relative block overflow-hidden"
         style={{
           "--mx": mx,
           "--my": my,
-          background: "hsl(33 35% 96%)", // cream from media kit
-          color: "hsl(274 40% 11%)",      // ink violet
+          background: "#F7F3EF",
+          color: "#1B1024",
+          border: "1px solid rgba(91, 10, 137, 0.16)",
+          borderRadius: 32,
+          minHeight: 460,
+          padding: "clamp(28px, 4vw, 48px)",
+          boxShadow: "0 30px 60px -40px rgba(27,16,36,0.25)",
         } as React.CSSProperties}
-        aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
       >
-        {/* lavender glow */}
+        {/* pattern grid + radial lavender, masked */}
         <div
-          className="absolute -top-24 -right-20 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-70"
-          style={{ background: "radial-gradient(circle, hsl(274 65% 92%), transparent 70%)" }}
-        />
-        {/* subtle grid (bg-grid-soft) */}
-        <div
-          className="absolute inset-0 opacity-50"
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage:
-              "linear-gradient(to right, hsla(274,30%,80%,0.18) 1px, transparent 1px), linear-gradient(to bottom, hsla(274,30%,80%,0.18) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+            backgroundImage: [
+              "radial-gradient(circle at 82% 18%, rgba(233, 221, 248, 0.9), transparent 36%)",
+              "linear-gradient(rgba(91, 10, 137, 0.05) 1px, transparent 1px)",
+              "linear-gradient(90deg, rgba(91, 10, 137, 0.05) 1px, transparent 1px)",
+            ].join(", "),
+            backgroundSize: "auto, 48px 48px, 48px 48px",
+            WebkitMaskImage: "radial-gradient(circle at 70% 45%, black, transparent 76%)",
+            maskImage: "radial-gradient(circle at 70% 45%, black, transparent 76%)",
+          }}
+        />
+        {/* shape abstrato roxo/lavender — desloca em hover */}
+        <motion.div
+          aria-hidden
+          variants={{ rest: { x: 0, y: 0 }, hover: { x: -8, y: 4 } }}
+          initial="rest"
+          whileHover="hover"
+          transition={{ duration: 0.6, ease }}
+          className="absolute pointer-events-none"
+          style={{
+            right: "-12%",
+            top: "-18%",
+            width: "46%",
+            height: "80%",
+            borderRadius: 999,
+            background:
+              "linear-gradient(180deg, rgba(91,10,137,.18), rgba(233,221,248,.32))",
+            transform: "rotate(18deg)",
           }}
         />
 
-        <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
-          {/* Eyebrow with hairline */}
+        <div className="relative z-10 flex h-full flex-col">
+          {/* eyebrow + número */}
           <div className="flex items-center justify-between">
             <p
-              className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.18em]"
-              style={{ color: "hsl(280 8% 44%)" }}
+              className="inline-flex items-center gap-2 text-[11px] font-medium"
+              style={{ color: "#6D6275", letterSpacing: "0.16em", textTransform: "uppercase" }}
             >
-              <span className="inline-block h-px w-8 opacity-40" style={{ background: "currentColor" }} />
+              <span className="inline-block h-px w-8" style={{ background: "rgba(91,10,137,0.4)" }} />
               CondoHuby + SíndicoLab
             </p>
-            <span
-              className="font-mono text-[11px]"
-              style={{ color: "hsl(280 8% 44%)" }}
-            >
+            <span className="font-mono text-[11px]" style={{ color: "#6D6275" }}>
               05 / 05
             </span>
           </div>
 
-          {/* Display headline w/ serif italic accent */}
+          {/* headline */}
           <h3
-            className="mt-auto text-[2rem] md:text-[2.6rem] leading-[0.98] tracking-[-0.035em]"
-            style={{ fontFamily: "'Mona Sans', 'Inter', system-ui, sans-serif", fontWeight: 500, color: "hsl(274 40% 11%)" }}
+            className="mt-8 md:mt-10 text-[2rem] md:text-[2.7rem]"
+            style={{
+              fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif",
+              fontWeight: 400,
+              letterSpacing: "-0.005em",
+              lineHeight: 1.06,
+              wordSpacing: "0.04em",
+              color: "#1B1024",
+              maxWidth: 720,
+            }}
           >
             Sua marca próxima dos{" "}
             <span
@@ -556,7 +597,8 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
                 fontFamily: "'Instrument Serif', Georgia, serif",
                 fontStyle: "italic",
                 fontWeight: 400,
-                color: "hsl(282 86% 29%)",
+                letterSpacing: "-0.01em",
+                color: "#5B0A89",
               }}
             >
               decisores
@@ -564,45 +606,49 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
             do mercado condominial.
           </h3>
 
-          <p className="mt-4 max-w-md text-sm leading-relaxed" style={{ color: "hsl(280 8% 44%)" }}>
+          <p className="mt-4 max-w-md text-sm leading-relaxed" style={{ color: "#6D6275" }}>
             Workshops, encontros e experiências presenciais com síndicos, gestores
             e profissionais do setor.
           </p>
 
-          {/* Stats row — hairlines */}
-          <div className="mt-6 border-t" style={{ borderColor: "hsl(274 30% 88%)" }}>
-            <div className="grid grid-cols-4 gap-3 pt-4">
+          {/* stats row entre hairlines */}
+          <div className="mt-auto pt-7">
+            <div className="h-px w-full" style={{ background: "rgba(91, 10, 137, 0.18)" }} />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-5">
               {[
                 ["+100", "síndicos / workshop"],
-                ["12+", "encontros/ano"],
+                ["12+", "encontros / ano"],
                 ["5", "formatos"],
                 ["100%", "presencial"],
               ].map(([k, v]) => (
                 <div key={k}>
-                  <p className="text-lg md:text-xl tracking-tight" style={{ fontWeight: 500, color: "hsl(274 40% 11%)" }}>
+                  <p
+                    className="text-xl md:text-2xl tracking-tight"
+                    style={{ fontWeight: 500, color: "#1B1024", fontFamily: "'Inter', system-ui, sans-serif" }}
+                  >
                     {k}
                   </p>
-                  <p className="mt-0.5 text-[10px] leading-tight" style={{ color: "hsl(280 8% 44%)" }}>
+                  <p className="mt-0.5 text-[11px] leading-tight" style={{ color: "#6D6275" }}>
                     {v}
                   </p>
                 </div>
               ))}
             </div>
+            <div className="h-px w-full" style={{ background: "rgba(91, 10, 137, 0.18)" }} />
           </div>
-          <div className="border-b mt-4" style={{ borderColor: "hsl(274 30% 88%)" }} />
 
-          {/* CTAs como btn-primary do mídia kit */}
+          {/* CTAs btn-primary / btn-ghost */}
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all group-hover:gap-3"
-              style={{ background: "hsl(274 40% 11%)", color: "hsl(33 35% 96%)" }}
+              style={{ background: "#1B1024", color: "#F7F3EF" }}
             >
               Ver mídia kit
               <ArrowUpRight className="h-3.5 w-3.5" />
             </span>
             <span
               className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-medium"
-              style={{ borderColor: "hsl(274 30% 88%)", color: "hsl(274 40% 11%)" }}
+              style={{ borderColor: "rgba(27, 16, 36, 0.18)", color: "#1B1024" }}
             >
               Falar com a equipe
             </span>
@@ -612,3 +658,4 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
     </motion.div>
   );
 }
+
