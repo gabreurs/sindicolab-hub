@@ -1,4 +1,4 @@
-import { ArrowUpRight, Instagram, Youtube, Linkedin } from "lucide-react";
+import { ArrowUpRight, Camera, Play, Briefcase } from "lucide-react";
 
 const cols = [
   {
@@ -84,9 +84,9 @@ export function Footer() {
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-background/60">
           <div>© {new Date().getFullYear()} SíndicoLab. O canal do mercado condominial.</div>
           <div className="flex items-center gap-3">
-            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="Instagram"><Instagram className="w-4 h-4" /></a>
-            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="YouTube"><Youtube className="w-4 h-4" /></a>
-            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="LinkedIn"><Linkedin className="w-4 h-4" /></a>
+            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="Instagram"><Camera className="w-4 h-4" /></a>
+            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="YouTube"><Play className="w-4 h-4" /></a>
+            <a href="#" className="grid place-items-center w-9 h-9 rounded-full border border-background/15 hover:bg-background/10 transition" aria-label="LinkedIn"><Briefcase className="w-4 h-4" /></a>
           </div>
         </div>
       </div>

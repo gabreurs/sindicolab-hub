@@ -6,7 +6,11 @@ import cursosImg from "@/assets/cursos.jpg";
 import materiaisImg from "@/assets/materiais.jpg";
 import ecoImg from "@/assets/ecosystem.jpg";
 
-const blocos = [
+type Bloco = {
+  eyebrow: string; title: string; desc: string; cta: string; href: string; img: string; accent?: boolean;
+};
+
+const blocos: Bloco[] = [
   {
     eyebrow: "Decisão",
     title: "Quero1Síndico conecta decisão e escolha.",
@@ -40,7 +44,7 @@ const blocos = [
     href: "https://sindicolab.com/",
     img: ecoImg,
   },
-] as const;
+];
 
 export function Blocos() {
   return (
