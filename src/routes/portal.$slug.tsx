@@ -50,11 +50,11 @@ export const Route = createFileRoute("/portal/$slug")({
 });
 
 function ArticlePage() {
-  const { article: a } = Route.useLoaderData();
+  const { article: a } = Route.useLoaderData() as { article: (typeof articles)[number] };
 
   const related = (a.relatedSlugs ?? [])
-    .map((s) => articles.find((x) => x.slug === s))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+    .map((s: string) => articles.find((x) => x.slug === s))
+    .filter((x): x is (typeof articles)[number] => Boolean(x));
 
   const maisLidas = articles.filter((x) => x.slug !== a.slug).slice(0, 5);
 
