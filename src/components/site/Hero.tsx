@@ -26,8 +26,8 @@ export function Hero() {
         <div className="absolute top-1/3 -left-40 w-[36rem] h-[36rem] rounded-full bg-cyan-soft blur-[120px] opacity-70" />
       </motion.div>
 
-      {/* Orbital seal — straddles header */}
-      <OrbitalSeal />
+      {/* Brand orbital badge — discreet editorial seal */}
+      <OrbitalBrandBadge />
 
       <motion.div style={{ scale, opacity }} className="container-x w-full relative z-10">
         <motion.p
@@ -115,36 +115,35 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
   );
 }
 
-function OrbitalSeal() {
-  const { scrollYProgress } = useScroll();
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 60]);
+function OrbitalBrandBadge() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.85 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.1, duration: 1.4, ease }}
-      className="hidden lg:block absolute -top-16 xl:-top-24 right-2 xl:right-8 w-[340px] h-[340px] xl:w-[420px] xl:h-[420px] z-[5] pointer-events-none"
+      transition={{ delay: 1.05, duration: 1.2, ease }}
+      className="absolute top-20 right-4 md:top-16 md:right-8 lg:top-12 lg:right-10 w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[220px] lg:h-[220px] z-[5] pointer-events-none"
       aria-hidden
     >
-      <motion.div style={{ rotate }} className="absolute inset-0 animate-orbit-slow">
-        <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full text-ink/55">
+      <div className="absolute inset-0 animate-orbit-slow">
+        <svg viewBox="0 0 200 200" className="w-full h-full text-ink/45">
           <defs>
-            <path id="circle-text" d="M 100 100 m -86 0 a 86 86 0 1 1 172 0 a 86 86 0 1 1 -172 0" />
+            <path
+              id="brand-orbit"
+              d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"
+            />
           </defs>
-          <text fontSize="7.5" letterSpacing="6.5" fill="currentColor" fontFamily="Mona Sans, sans-serif" fontWeight="500">
-            <textPath href="#circle-text">
-              SÍNDICOLAB    GESTÃO CONDOMINIAL    SÍNDICO PROFISSIONAL    
+          <text
+            fontSize="8"
+            letterSpacing="3.5"
+            fill="currentColor"
+            fontFamily="Mona Sans, Albert Sans, sans-serif"
+            fontWeight="500"
+          >
+            <textPath href="#brand-orbit" startOffset="0%">
+              SÍNDICOLAB • GESTÃO CONDOMINIAL • SÍNDICO PROFISSIONAL •
             </textPath>
           </text>
         </svg>
-        <div className="absolute inset-2 rounded-full border border-ink/10" />
-        <div className="absolute inset-10 rounded-full border border-ink/5" />
-      </motion.div>
-      <div className="absolute inset-0 grid place-items-center">
-        <div className="relative w-24 h-24 xl:w-28 xl:h-28 rounded-full" style={{ background: "var(--gradient-lab)" }}>
-          <div className="absolute -inset-1 rounded-full opacity-50 blur-2xl" style={{ background: "var(--gradient-lab)" }} />
-          <div className="absolute inset-1 rounded-full bg-background/15 backdrop-blur-md border border-background/20" />
-        </div>
       </div>
     </motion.div>
   );
