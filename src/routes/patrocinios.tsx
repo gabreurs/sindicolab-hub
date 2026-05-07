@@ -65,6 +65,8 @@ function PatrociniosPage() {
           </a>
         </div>
 
+        <Breadcrumbs tone="mediakit" items={[{ label: "Patrocínios" }]} />
+
         <SlideHero />
         <SlideContext />
         <SlideInitiative />
