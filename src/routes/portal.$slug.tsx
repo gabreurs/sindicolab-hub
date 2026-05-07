@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { ArrowUpRight, ChevronRight, Clock, TrendingUp } from "lucide-react";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { ArrowUpRight, Clock, TrendingUp } from "lucide-react";
 import { articles, getArticle, type ArticleBlock } from "@/data/articles";
 
 export const Route = createFileRoute("/portal/$slug")({
