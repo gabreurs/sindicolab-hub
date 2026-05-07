@@ -32,12 +32,12 @@ const cols = [
   {
     label: "Portal",
     items: [
-      { label: "Gestão condominial", href: "/portal" },
-      { label: "Segurança condominial", href: "/portal" },
-      { label: "Comportamento condominial", href: "/portal" },
-      { label: "Assembleias", href: "/portal" },
-      { label: "Casos reais", href: "/portal" },
-      { label: "Tecnologia", href: "/portal" },
+      { label: "Gestão condominial", href: "/portal#gestao" },
+      { label: "Segurança condominial", href: "/portal#seguranca" },
+      { label: "Tecnologia", href: "/portal#tecnologia" },
+      { label: "Jurídico", href: "/portal#juridico" },
+      { label: "ESG condominial", href: "/portal#esg" },
+      { label: "Equipe condominial", href: "/portal#equipe" },
     ],
   },
   {
@@ -135,6 +135,10 @@ export function Footer() {
                         {it.label}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-0.5 group-hover:opacity-100 transition" />
                       </a>
+                    ) : it.href.includes("#") ? (
+                      <a href={it.href} className="text-background/75 hover:text-cyan transition-colors">
+                        {it.label}
+                      </a>
                     ) : (
                       <Link to={it.href} className="text-background/75 hover:text-cyan transition-colors">
                         {it.label}
@@ -152,6 +156,16 @@ export function Footer() {
             <span>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</span>
             <a href="/politica-de-privacidade" className="hover:text-background transition">Privacidade</a>
             <a href="/termos" className="hover:text-background transition">Termos</a>
+            <button
+              type="button"
+              onClick={() => {
+                try { window.__sindicoLabReplayIntro?.(); } catch {}
+              }}
+              className="hover:text-background transition opacity-60 hover:opacity-100"
+              aria-label="Reexecutar intro de marca"
+            >
+              Rever intro
+            </button>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">

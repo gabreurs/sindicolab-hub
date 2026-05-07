@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Award, Clock, Flame, ChevronRight, ChevronLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -271,7 +272,15 @@ function FeaturedHero({ items }: { items: Curso[] }) {
         />
       </AnimatePresence>
 
-      <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16 min-h-[clamp(460px,78vh,720px)] flex flex-col justify-end">
+      <div className="relative z-[2] hidden md:block">
+        <Breadcrumbs
+          tone="dark"
+          items={[{ label: "Play" }]}
+          className="!pt-20"
+        />
+      </div>
+
+      <div className="relative container-x pt-8 md:pt-10 pb-12 md:pb-16 min-h-[clamp(460px,78vh,720px)] flex flex-col justify-end">
         <AnimatePresence mode="wait">
           <motion.div
             key={c.slug}

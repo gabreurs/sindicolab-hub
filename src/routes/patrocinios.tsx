@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import {
   SlideHero,
   SlideContext,
@@ -63,6 +64,8 @@ function PatrociniosPage() {
             Falar com a equipe
           </a>
         </div>
+
+        <Breadcrumbs tone="mediakit" items={[{ label: "Patrocínios" }]} />
 
         <SlideHero />
         <SlideContext />
