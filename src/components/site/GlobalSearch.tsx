@@ -183,14 +183,14 @@ export function GlobalSearch() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
-            className="fixed inset-0 z-[120] bg-ink/55 backdrop-blur-md"
+            className="fixed inset-0 z-[200] bg-ink/55 backdrop-blur-md"
           />
           <motion.div
             initial={{ opacity: 0, y: -10, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.985 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[130] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
+            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[210] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -231,7 +231,7 @@ export function GlobalSearch() {
             </div>
 
             {/* Body */}
-            <div id="global-search-results" className="flex-1 overflow-y-auto p-3 md:p-4">
+            <div id="global-search-results" className="flex-1 overflow-y-auto overscroll-contain p-3 md:p-4">
               {!debounced && (
                 <div className="p-2">
                   <div className="px-3 pt-1 pb-3 font-display text-[1.05rem] text-ink">
