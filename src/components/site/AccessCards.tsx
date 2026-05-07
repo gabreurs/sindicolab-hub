@@ -100,12 +100,13 @@ function useCursor() {
   return { mx, my, onMove };
 }
 
-/* ================================ Q1S ================================ */
+/* ================================ Q1S — identidade do repo Síndico Finder ================================
+   Navy profundo #0a0e1a, glass branco translúcido, accent azul #1976d2, mini-busca com selects + cards de síndicos. */
 function CardQuero1() {
   const { mx, my, onMove } = useCursor();
   return (
     <motion.a
-      href="https://quero1sindico.com/"
+      href="https://quero1sindico.com/?utm_source=sindicolab&utm_medium=home_card&utm_campaign=q1s_hero"
       target="_blank"
       rel="noreferrer"
       onMouseMove={onMove}
@@ -115,74 +116,135 @@ function CardQuero1() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, ease }}
       whileHover={{ y: -4 }}
-      className="cursor-glow group relative overflow-hidden rounded-3xl text-background min-h-[520px] md:min-h-[580px] grid md:grid-cols-12 cursor-pointer shadow-lift"
+      className="cursor-glow group relative overflow-hidden rounded-3xl text-white min-h-[520px] md:min-h-[600px] grid md:grid-cols-12 cursor-pointer shadow-lift"
       aria-label="Quero1Síndico — encontrar síndico profissional"
     >
-      <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, oklch(0.13 0.022 255) 0%, oklch(0.18 0.06 258) 60%, oklch(0.25 0.12 262) 100%)" }} />
-      <div className="absolute inset-0 pattern-grid opacity-60" />
-      <div className="absolute -top-32 -right-32 w-[36rem] h-[36rem] rounded-full bg-brand/30 blur-3xl" />
-      <div className="absolute bottom-0 left-1/3 w-[28rem] h-[28rem] rounded-full bg-cyan/20 blur-3xl" />
+      {/* Q1S gradient mesh from repo */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 20% 30%, hsla(215,45%,25%,0.45) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 70%, hsla(215,35%,22%,0.35) 0%, transparent 60%), linear-gradient(155deg, hsl(220 25% 5%) 0%, hsl(220 22% 3%) 100%)",
+        }}
+      />
+      {/* subtle grid */}
+      <div
+        className="absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.4) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+      <div className="absolute -top-40 -right-32 w-[40rem] h-[40rem] rounded-full blur-3xl" style={{ background: "hsla(215, 80%, 50%, 0.18)" }} />
 
+      {/* LEFT — copy */}
       <div className="relative md:col-span-7 p-7 md:p-12 lg:p-14 flex flex-col z-10">
         <div className="flex items-center gap-3 text-[12px]">
-          <span className="text-background/55 font-mono">01 / 05</span>
-          <span className="h-px flex-1 bg-background/15" />
-          <span className="text-background/70">Plataforma de síndicos profissionais</span>
+          <span className="text-white/45 font-mono">01 / 05</span>
+          <span className="h-px flex-1 bg-white/10" />
+          <span className="inline-flex items-center gap-1.5 text-white/70">
+            <span className="w-1.5 h-1.5 rounded-full bg-[hsl(215,80%,55%)]" />
+            quero1sindico.com
+          </span>
         </div>
 
-        <h3 className="mt-auto font-display text-5xl md:text-7xl lg:text-[5.6rem] leading-[0.94] tracking-[-0.045em]">
-          Encontre um <span style={{ color: "oklch(0.78 0.14 220)" }}>síndico profissional</span> para o seu condomínio.
+        <h3 className="mt-auto font-display text-4xl md:text-6xl lg:text-[5rem] leading-[0.96] tracking-[-0.04em] text-white">
+          Encontre o <span style={{ color: "hsl(215, 80%, 62%)" }}>síndico profissional</span> ideal para o seu condomínio.
         </h3>
-        <p className="mt-6 text-base md:text-[1.05rem] text-background/80 max-w-xl leading-relaxed">
-          Conheça síndicos profissionais avaliados, próximos da sua região, e conecte
-          seu condomínio a uma gestão mais preparada com o Quero1Síndico.
+        <p className="mt-6 text-base md:text-[1.05rem] text-white/65 max-w-xl leading-relaxed">
+          Marketplace de síndicos avaliados, com busca por especialidade,
+          cidade e região. Conecte seu condomínio a uma gestão mais preparada.
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <span className="btn-primary" style={{ background: "oklch(0.99 0.003 240)", color: "var(--ink)" }}>
-            Encontrar síndico profissional
-            <ArrowUpRight className="w-4 h-4 btn-arrow" />
+          <span
+            className="inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[13px] font-medium text-white shadow-[0_8px_24px_-8px_hsla(215,80%,50%,0.6)]"
+            style={{ background: "linear-gradient(135deg, hsl(215 80% 50%) 0%, hsl(215 70% 58%) 100%)" }}
+          >
+            Buscar síndico
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </span>
-          <span className="text-xs font-mono text-background/55">quero1sindico.com</span>
+          <span className="text-xs font-mono text-white/40">+150 profissionais avaliados</span>
         </div>
       </div>
 
-      {/* Right preview: search interface */}
-      <div className="relative md:col-span-5 hidden md:block z-10 p-8">
-        <div className="absolute inset-0 bg-gradient-to-l from-background/0 via-background/0 to-transparent" />
-        <div className="relative h-full flex flex-col justify-center gap-3">
-          <div className="rounded-2xl bg-background/10 backdrop-blur-md border border-background/15 p-4">
-            <div className="flex items-center gap-2 text-xs text-background/65">
-              <Search className="w-3.5 h-3.5" /> Todas as especialidades
-            </div>
-            <div className="mt-3 flex items-center gap-2 text-xs text-background/65">
-              <MapPin className="w-3.5 h-3.5" /> São Paulo · Grande SP
-            </div>
-            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}>
-              Buscar síndico
-              <ArrowUpRight className="w-3 h-3" />
+      {/* RIGHT — Q1S product mini-preview */}
+      <div className="relative md:col-span-5 hidden md:flex z-10 p-8 lg:p-10 items-center">
+        <div className="w-full space-y-3">
+          {/* Filters bar (HeroFilters miniature) */}
+          <div
+            className="rounded-xl p-3 backdrop-blur-xl border"
+            style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.06)" }}
+          >
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { l: "Especialidade", v: "Comercial" },
+                { l: "Cidade", v: "São Paulo" },
+                { l: "Região", v: "Pinheiros" },
+                { l: "", v: "Buscar →", primary: true },
+              ].map((f, i) => (
+                <div
+                  key={i}
+                  className={`h-10 rounded-lg flex items-center px-3 text-[12px] ${
+                    f.primary
+                      ? "text-white font-medium justify-center"
+                      : "text-white/60 justify-between bg-white/[0.05] border border-white/[0.06]"
+                  }`}
+                  style={
+                    f.primary
+                      ? { background: "linear-gradient(135deg, hsl(215 80% 50%), hsl(215 70% 58%))" }
+                      : undefined
+                  }
+                >
+                  {!f.primary && <span className="text-white/35 text-[10px] uppercase tracking-wider">{f.l}</span>}
+                  <span>{f.v}</span>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* Sindico cards (SindicoCard miniature) */}
           {[
-            { name: "Síndico verificado", region: "Pinheiros · 4.9", c: "oklch(0.78 0.14 220)" },
-            { name: "Síndico verificado", region: "Vila Mariana · 4.8", c: "oklch(0.55 0.21 258)" },
+            { n: "Mariana Costa", c: "Pinheiros, SP", esp: ["Residencial", "Comercial"], y: 12 },
+            { n: "Rodrigo Almeida", c: "Vila Mariana, SP", esp: ["Misto"], y: 8 },
           ].map((s, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: 16 }}
+              initial={{ opacity: 0, x: 14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.35 + i * 0.1, duration: 0.5, ease }}
-              className="flex items-center gap-3 rounded-xl bg-background/8 backdrop-blur-md border border-background/15 p-3"
+              className="rounded-xl bg-white/[0.04] backdrop-blur-md border border-white/[0.06] p-3 flex items-center gap-3"
             >
-              <div className="w-9 h-9 rounded-full" style={{ background: s.c }} />
-              <div className="flex-1 min-w-0">
-                <div className="text-sm text-background">{s.name}</div>
-                <div className="text-xs text-background/60 flex items-center gap-1">
-                  <Star className="w-3 h-3 fill-current" /> {s.region}
+              <div
+                className="w-12 h-12 rounded-lg shrink-0 relative overflow-hidden"
+                style={{ background: `linear-gradient(135deg, hsl(${215 + i * 8} 60% 35%), hsl(${220 + i * 5} 30% 18%))` }}
+              >
+                <span className="absolute top-1 left-1 inline-flex items-center gap-0.5 bg-black/40 backdrop-blur-md text-[8px] text-white/85 px-1.5 py-0.5 rounded-full">
+                  {s.y}a
+                </span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[13px] text-white truncate" style={{ fontWeight: 480 }}>
+                  {s.n}
+                </div>
+                <div className="text-[11px] text-white/50 flex items-center gap-1">
+                  <MapPin className="w-2.5 h-2.5" style={{ color: "hsl(215, 80%, 60%)" }} /> {s.c}
+                </div>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {s.esp.map((e) => (
+                    <span
+                      key={e}
+                      className="text-[9px] px-1.5 py-0.5 rounded-full"
+                      style={{ background: "hsla(215, 80%, 50%, 0.12)", color: "hsl(215, 80%, 75%)" }}
+                    >
+                      {e}
+                    </span>
+                  ))}
                 </div>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-background/55" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/40 shrink-0" />
             </motion.div>
           ))}
         </div>
