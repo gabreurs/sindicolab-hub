@@ -32,7 +32,7 @@ export function ValuePillars() {
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-10 md:gap-6 items-end mb-10 md:mb-14">
           <div className="md:col-span-7">
-            <div className="text-[10px] uppercase tracking-[0.4em] text-ink-soft mb-2">
+            <div className="text-[10px] tracking-tight text-ink-soft mb-2">
               + Por que SíndicoLab
             </div>
             <h2

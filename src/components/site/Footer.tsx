@@ -124,7 +124,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 md:gap-8 pt-14">
           {cols.map((c) => (
             <div key={c.label}>
-              <div className="text-[11px] uppercase tracking-[0.3em] text-background/45 mb-4">
+              <div className="text-[11px] tracking-tight text-background/45 mb-4">
                 {c.label}
               </div>
               <ul className="space-y-2.5 text-sm">

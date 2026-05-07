@@ -26,7 +26,7 @@ export const SlideHero = () => (
       </motion.div>
       <div className="mt-8 grid gap-10 lg:mt-10 lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-8">
-          <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] opacity-55">
+          <motion.p variants={item} className="font-mono text-[11px] tracking-tight opacity-55">
             — Mídia kit · Patrocínio
           </motion.p>
           <motion.h1
@@ -56,7 +56,7 @@ export const SlideHero = () => (
         </div>
         <motion.div variants={itemScale} className="relative hidden lg:col-span-4 lg:block">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white/10 bg-[hsl(var(--mk-purple))]/30 p-7 backdrop-blur-sm">
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] opacity-60">Agenda 2025</p>
+            <p className="font-mono text-[10px] tracking-tight opacity-60">Agenda 2025</p>
             <div className="mt-6 space-y-5">
               {[["+100","síndicos por workshop"],["12+","encontros por ano"],["05","formatos de patrocínio"]].map(([k,v]) => (
                 <div key={k} className="border-t border-white/10 pt-4">
@@ -70,7 +70,7 @@ export const SlideHero = () => (
       </div>
     </div>
     <motion.div variants={itemFade} className="absolute bottom-24 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 opacity-55 md:flex">
-      <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Role para começar</span>
+      <span className="font-mono text-[10px] tracking-tight">Role para começar</span>
       <ArrowDown className="h-4 w-4" />
     </motion.div>
   </DeckSlide>
@@ -80,7 +80,7 @@ export const SlideHero = () => (
 export const SlideContext = () => (
   <DeckSlide id="s2" index={2} total={TOTAL} tone="light">
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] text-[hsl(var(--mk-muted))]">— 02 · Contexto</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))]">— 02 · Contexto</motion.p>
       <motion.h2 variants={item} className="mt-7 max-w-4xl text-[clamp(1.6rem,3.2vw,2.6rem)] mk-display">
         O mercado condominial é movido por <span className="mk-text-purple">confiança.</span>
       </motion.h2>
@@ -89,7 +89,7 @@ export const SlideContext = () => (
         repertório, indicação, presença e relacionamento.
       </motion.p>
       <motion.div variants={item} className="mt-12 grid gap-6 border-t border-[hsl(var(--mk-line))] pt-10 md:mt-14 md:grid-cols-12 md:gap-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--mk-muted))] md:col-span-3">A diferença</p>
+        <p className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))] md:col-span-3">A diferença</p>
         <p className="text-lg leading-relaxed md:col-span-9 md:text-2xl">
           Aqui, sua marca não disputa atenção em um feed.{" "}
           <span className="mk-text-purple">Ela participa de uma conversa real.</span>
@@ -105,7 +105,7 @@ export const SlideInitiative = () => (
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
-          <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] mk-text-purple">— 03 · A iniciativa</motion.p>
+          <motion.p variants={item} className="font-mono text-[11px] tracking-tight mk-text-purple">— 03 · A iniciativa</motion.p>
           <motion.h2 variants={item} className="mt-7 text-[clamp(1.5rem,2.9vw,2.3rem)] mk-display">
             Uma agenda de experiências para aproximar marcas e o setor.
           </motion.h2>
@@ -119,7 +119,7 @@ export const SlideInitiative = () => (
           <ul className="grid gap-2.5">
             {[["Conteúdo técnico","Aprofundamento e atualização"],["Relacionamento presencial","Conversas em ambiente curado"],["Experiências externas","Convivência fora do trabalho"],["Networking qualificado","Decisores no mesmo lugar"]].map(([t,d],i) => (
               <motion.li key={t} variants={item} custom={i} className="flex items-start gap-5 border-t border-[hsl(var(--mk-fg))]/10 py-4 last:border-b">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[hsl(var(--mk-muted))] pt-1">0{i+1}</span>
+                <span className="font-mono text-[10px] tracking-tight text-[hsl(var(--mk-muted))] pt-1">0{i+1}</span>
                 <div>
                   <p className="text-base font-medium">{t}</p>
                   <p className="mt-0.5 text-sm text-[hsl(var(--mk-muted))]">{d}</p>
@@ -138,7 +138,7 @@ const AUDIENCE = ["Síndicos profissionais","Síndicos moradores","Gestores cond
 export const SlideAudience = () => (
   <DeckSlide id="s4" index={4} total={TOTAL} tone="light">
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] text-[hsl(var(--mk-muted))]">— 04 · Público</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))]">— 04 · Público</motion.p>
       <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-12 md:items-end md:gap-12">
         <motion.h2 variants={item} className="text-[clamp(1.6rem,3vw,2.5rem)] mk-display md:col-span-7">Quem sua marca alcança</motion.h2>
         <motion.p variants={item} className="text-base leading-relaxed text-[hsl(var(--mk-muted))] md:col-span-5">
@@ -153,7 +153,7 @@ export const SlideAudience = () => (
         ))}
       </motion.div>
       <motion.div variants={item} className="mt-12 grid gap-6 border-t border-[hsl(var(--mk-line))] pt-10 md:mt-16 md:grid-cols-12 md:gap-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--mk-muted))] md:col-span-3">Em uma frase</p>
+        <p className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))] md:col-span-3">Em uma frase</p>
         <p className="text-lg leading-relaxed md:col-span-9 md:text-2xl">
           Não é audiência fria. <span className="mk-text-purple">É relacionamento em contexto.</span>
         </p>
@@ -168,7 +168,7 @@ export const SlideFormats = () => (
   <DeckSlide id="s5" index={5} total={TOTAL} tone="dark">
     <PatternHuby className="pointer-events-none absolute -left-16 bottom-10 hidden h-[280px] w-auto opacity-[0.06] md:block md:-left-10 md:h-[460px]" />
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] opacity-55">— 05 · Formatos</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight opacity-55">— 05 · Formatos</motion.p>
       <motion.h2 variants={item} className="mt-7 max-w-4xl text-[clamp(1.6rem,3vw,2.5rem)] mk-display">Formatos para sua marca participar</motion.h2>
       <motion.p variants={item} className="mt-5 max-w-2xl text-base leading-relaxed opacity-65 md:text-lg">
         Da capacitação técnica às experiências externas, cada formato cria um tipo diferente de
@@ -196,7 +196,7 @@ const TECHNICAL = [
 export const SlideTechnical = () => (
   <DeckSlide id="s6" index={6} total={TOTAL} tone="light">
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] text-[hsl(var(--mk-muted))]">— 06 · Capacitação</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))]">— 06 · Capacitação</motion.p>
       <motion.h2 variants={item} className="mt-7 max-w-3xl text-[clamp(1.5rem,2.8vw,2.2rem)] mk-display">
         Capacitação, conteúdo e <span className="mk-text-purple">autoridade</span>.
       </motion.h2>
@@ -207,7 +207,7 @@ export const SlideTechnical = () => (
               <img src={c.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div className="flex flex-1 flex-col p-5 md:p-6">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[hsl(var(--mk-muted))]">{c.n}</p>
+              <p className="font-mono text-[10px] tracking-tight text-[hsl(var(--mk-muted))]">{c.n}</p>
               <h3 className="mt-2 text-lg font-medium leading-snug md:text-xl">{c.title}</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-[hsl(var(--mk-muted))]">{c.desc}</p>
             </div>
@@ -225,7 +225,7 @@ export const SlideTechnical = () => (
 export const SlideExperiences = () => (
   <DeckSlide id="s7" index={7} total={TOTAL} tone="lavender">
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] mk-text-purple">— 07 · Convivência</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight mk-text-purple">— 07 · Convivência</motion.p>
       <motion.h2 variants={item} className="mt-7 max-w-4xl text-[clamp(1.5rem,2.9vw,2.3rem)] mk-display">
         Relacionamento fora do ambiente tradicional.
       </motion.h2>
@@ -239,7 +239,7 @@ export const SlideExperiences = () => (
               <img src={c.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div className="p-5 md:p-6">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[hsl(var(--mk-muted))]">{c.n}</p>
+              <p className="font-mono text-[10px] tracking-tight text-[hsl(var(--mk-muted))]">{c.n}</p>
               <h3 className="mt-2 text-xl font-medium md:text-2xl">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--mk-muted))]">{c.desc}</p>
             </div>
@@ -263,7 +263,7 @@ export const SlideValue = () => (
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] text-[hsl(var(--mk-muted))]">— 08 · Valor</motion.p>
+          <motion.p variants={item} className="font-mono text-[11px] tracking-tight text-[hsl(var(--mk-muted))]">— 08 · Valor</motion.p>
           <motion.h2 variants={item} className="mt-7 text-[clamp(1.5rem,2.8vw,2.2rem)] mk-display">
             Presença que vira <span className="mk-text-purple">relacionamento.</span>
           </motion.h2>
@@ -301,7 +301,7 @@ const ACTIVATIONS: [string,string][] = [
 export const SlideActivations = () => (
   <DeckSlide id="s9" index={9} total={TOTAL} tone="lavender">
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
-      <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] mk-text-purple">— 09 · Ativações</motion.p>
+      <motion.p variants={item} className="font-mono text-[11px] tracking-tight mk-text-purple">— 09 · Ativações</motion.p>
       <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-12 md:items-end md:gap-12">
         <motion.h2 variants={item} className="text-[clamp(1.5rem,2.8vw,2.2rem)] mk-display md:col-span-7">Como sua marca pode aparecer</motion.h2>
         <motion.p variants={item} className="text-base leading-relaxed opacity-70 md:col-span-5">
@@ -311,7 +311,7 @@ export const SlideActivations = () => (
       <div className="mt-10 grid gap-px overflow-hidden rounded-2xl bg-[hsl(var(--mk-fg))]/10 md:mt-12 md:grid-cols-3">
         {ACTIVATIONS.map(([t,d],i) => (
           <motion.div key={t} variants={item} custom={i} className="bg-[hsl(var(--mk-bg))] p-5 transition-colors hover:bg-[hsl(var(--mk-lavender))]/60 md:p-6">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[hsl(var(--mk-muted))]">{String(i+1).padStart(2,"0")}</p>
+            <p className="font-mono text-[10px] tracking-tight text-[hsl(var(--mk-muted))]">{String(i+1).padStart(2,"0")}</p>
             <h3 className="mt-2 text-base font-medium md:text-lg">{t}</h3>
             <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--mk-muted))]">{d}</p>
           </motion.div>
@@ -331,7 +331,7 @@ export const SlideContact = () => (
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-7">
-          <motion.p variants={item} className="font-mono text-[11px] uppercase tracking-[0.24em] opacity-55">— 10 · Vamos conversar</motion.p>
+          <motion.p variants={item} className="font-mono text-[11px] tracking-tight opacity-55">— 10 · Vamos conversar</motion.p>
           <motion.h2 variants={item} className="mt-7 text-[clamp(1.7rem,3.2vw,2.7rem)] mk-display">
             Vamos encontrar o melhor formato para <span className="mk-text-lav">sua marca.</span>
           </motion.h2>
@@ -349,7 +349,7 @@ export const SlideContact = () => (
           <ul className="space-y-3">
             {CONTACTS.map((c) => (
               <li key={c.phone} className="rounded-2xl border border-white/15 p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] opacity-60">WhatsApp</p>
+                <p className="font-mono text-[10px] tracking-tight opacity-60">WhatsApp</p>
                 <p className="mt-1 text-lg font-medium">{c.name} {c.surname}</p>
                 <p className="text-sm opacity-70">{c.phone}</p>
                 <a href={waLink(c.whatsapp)} target="_blank" rel="noreferrer" className="mt-3 inline-flex text-xs underline opacity-80 hover:opacity-100">

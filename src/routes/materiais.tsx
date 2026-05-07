@@ -75,7 +75,7 @@ function MateriaisPage() {
       {/* Hero utilitário com busca */}
       <section className="pt-32 md:pt-40 pb-12 border-b border-border bg-secondary/40">
         <div className="container-x">
-          <div className="text-[10px] uppercase tracking-[0.4em] text-brand font-mono">
+          <div className="text-[10px] tracking-tight text-brand font-mono">
             Biblioteca · Materiais para condomínio
           </div>
           <h1 className="mt-5 font-display text-4xl md:text-6xl tracking-[-0.04em] leading-[0.98] max-w-3xl text-balance">
@@ -102,7 +102,7 @@ function MateriaisPage() {
               <button
                 key={ft}
                 onClick={() => setF(ft)}
-                className={`text-xs uppercase tracking-[0.2em] rounded-full px-3 py-1.5 border transition ${
+                className={`text-xs tracking-tight rounded-full px-3 py-1.5 border transition ${
                   f === ft ? "bg-ink text-background border-ink" : "border-border text-ink-soft hover:border-ink hover:text-ink"
                 }`}
               >
@@ -131,7 +131,7 @@ function MateriaisPage() {
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] font-mono">
+                    <div className="flex items-center gap-2 text-[10px] tracking-tight font-mono">
                       <span className="text-brand">{it.type}</span>
                       <span className="text-ink-soft">· {it.tag}</span>
                     </div>

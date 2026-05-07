@@ -31,7 +31,7 @@ export function PageShell({
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease }}
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.4em] text-ink-soft"
+            className="inline-flex items-center gap-2 text-[11px] tracking-tight text-ink-soft"
           >
             <Plus className="w-3 h-3 text-brand" strokeWidth={2.5} />
             {eyebrow}

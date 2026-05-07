@@ -197,7 +197,7 @@ function CardQuero1() {
                       : undefined
                   }
                 >
-                  {!f.primary && <span className="text-white/35 text-[10px] uppercase tracking-wider">{f.l}</span>}
+                  {!f.primary && <span className="text-white/35 text-[10px] tracking-wider">{f.l}</span>}
                   <span>{f.v}</span>
                 </div>
               ))}
@@ -287,21 +287,21 @@ function CardPortal({ className = "" }: { className?: string }) {
           </div>
           {/* Editorial preview */}
           <div className="relative bg-secondary border-l border-border p-6 flex flex-col gap-2">
-            <div className="text-[10px] font-medium text-brand uppercase tracking-[0.25em]">Em alta no mercado</div>
+            <div className="text-[10px] font-medium text-brand tracking-tight">Em alta no mercado</div>
             <div className="rounded-xl bg-background border border-border p-4 mt-1">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-brand">Segurança condominial</div>
+              <div className="text-[10px] tracking-tight text-brand">Segurança condominial</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 Eclusa inteligente: como prédios estão frustrando assaltos
               </div>
             </div>
             <div className="rounded-xl bg-background border border-border p-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-violet">Casos reais</div>
+              <div className="text-[10px] tracking-tight text-violet">Casos reais</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 O fenômeno das vagas de garagem em assembleias
               </div>
             </div>
             <div className="rounded-xl bg-background border border-border p-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-cyan">Gestão</div>
+              <div className="text-[10px] tracking-tight text-cyan">Gestão</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 Vitória do mercado de sindicatura profissional
               </div>
@@ -443,7 +443,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
                   className="absolute inset-x-2 rounded-xl bg-background border border-border p-3 shadow-soft"
                   style={{ bottom: 0, zIndex: 3 - i }}
                 >
-                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-brand font-medium">
+                  <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
                     <FileText className="w-3 h-3" /> {d.tag}
                   </div>
                   <div className="mt-1 text-sm text-ink leading-snug">{d.title}</div>
@@ -530,7 +530,7 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
           {/* Eyebrow with hairline */}
           <div className="flex items-center justify-between">
             <p
-              className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em]"
+              className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.18em]"
               style={{ color: "hsl(280 8% 44%)" }}
             >
               <span className="inline-block h-px w-8 opacity-40" style={{ background: "currentColor" }} />

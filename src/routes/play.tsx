@@ -78,7 +78,7 @@ function PlayPage() {
 
         <div className="container-x relative grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-cyan font-mono">
+            <div className="inline-flex items-center gap-2 text-[10px] tracking-tight text-cyan font-mono">
               <Flame className="w-3.5 h-3.5" /> {cursoEmDestaque.destaque ?? "Curso em destaque"}
             </div>
             <motion.h1
@@ -125,7 +125,7 @@ function PlayPage() {
               </div>
             </div>
 
-            <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-white/40 font-mono">
+            <p className="mt-6 text-[11px] tracking-tight text-white/40 font-mono">
               Compra e acesso pela plataforma oficial · Kiwify / Hotmart
             </p>
           </div>
@@ -179,7 +179,7 @@ function PlayPage() {
       <section className="bg-gradient-to-br from-brand-deep to-violet-deep py-20 mt-6">
         <div className="container-x grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.4em] text-cyan font-mono">
+            <div className="text-[10px] tracking-tight text-cyan font-mono">
               Para administradoras
             </div>
             <h2 className="mt-3 font-display text-3xl md:text-5xl tracking-[-0.035em] leading-[1.02] text-balance">
@@ -292,7 +292,7 @@ function CursoCard({ curso }: { curso: Curso }) {
         </div>
       </div>
       <div className="p-3 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-[0.25em] text-white/50 font-mono">
+        <span className="text-[10px] tracking-tight text-white/50 font-mono">
           {curso.categoria}
         </span>
         <span className="inline-flex items-center gap-1 text-[11px] text-cyan opacity-0 group-hover:opacity-100 transition">

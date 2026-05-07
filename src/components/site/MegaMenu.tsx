@@ -141,7 +141,7 @@ function FeaturedQ1S({ onClose }: { onClose: () => void }) {
         {/* Copy */}
         <div className="flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] font-mono text-cyan/90">
+            <div className="flex items-center gap-2 text-[10px] tracking-tight font-mono text-cyan/90">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-blink" />
               Quero1Síndico
             </div>
@@ -243,7 +243,7 @@ function FeaturedSponsorship({ onClose }: { onClose: () => void }) {
 
         <div className="relative h-full p-7 md:p-10 flex flex-col justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.4em] font-mono text-violet">
+            <div className="text-[10px] tracking-tight font-mono text-violet">
               Mídia Kit · CondoHuby × SíndicoLab
             </div>
             <h3 className="mt-5 font-display text-2xl md:text-4xl tracking-[-0.035em] leading-[1.02] text-balance">
@@ -307,7 +307,7 @@ function SmallCard({
       <div className="aspect-[16/9] rounded-xl overflow-hidden bg-secondary border border-border relative">
         {preview}
       </div>
-      <div className="mt-4 text-[10px] uppercase tracking-[0.3em] text-brand font-mono">{eyebrow}</div>
+      <div className="mt-4 text-[10px] tracking-tight text-brand font-mono">{eyebrow}</div>
       <div className="mt-1.5 font-display text-base text-ink tracking-[-0.02em] leading-snug text-balance">
         {title}
       </div>
@@ -418,7 +418,7 @@ function GalleryPreview() {
 function ContactPreview() {
   return (
     <div className="absolute inset-0 bg-ink p-3 flex flex-col justify-end">
-      <div className="text-[9px] font-mono text-cyan uppercase tracking-[0.25em]">→ contato</div>
+      <div className="text-[9px] font-mono text-cyan tracking-tight">→ contato</div>
       <div className="text-xs text-background mt-1 truncate">contato@sindicolab.com</div>
       <div className="mt-2 h-1 w-1/2 bg-cyan/60 rounded" />
     </div>

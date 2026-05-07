@@ -278,7 +278,7 @@ export function GlobalSearch() {
                 <div className="p-1">
                   {Object.entries(grouped).map(([cat, items]) => (
                     <div key={cat} className="mb-3 last:mb-0">
-                      <div className="text-[11px] uppercase tracking-[0.22em] text-ink-soft px-3 py-2 font-medium">{cat}</div>
+                      <div className="text-[11px] tracking-tight text-ink-soft px-3 py-2 font-medium">{cat}</div>
                       <ul>
                         {items.map((r) => {
                           const idx = results.indexOf(r);

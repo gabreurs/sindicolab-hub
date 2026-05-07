@@ -41,7 +41,7 @@ export const DeckSlide = ({ id, index, total, tone = "light", className = "", ch
       variants={container}
     >
       {children}
-      <div className="pointer-events-none absolute bottom-5 left-5 z-20 select-none font-mono text-[10px] tracking-[0.22em] opacity-60 md:bottom-6 md:left-8">
+      <div className="pointer-events-none absolute bottom-5 left-5 z-20 select-none font-mono text-[10px] tracking-tight opacity-60 md:bottom-6 md:left-8">
         {String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}
       </div>
     </motion.section>
