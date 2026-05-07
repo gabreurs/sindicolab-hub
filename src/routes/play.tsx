@@ -1,10 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Award, Clock, Flame, ChevronRight } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
-import { cursos, cursoEmDestaque, trilhas, type Curso } from "@/data/cursos";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Award, Clock, Flame, ChevronRight, ChevronLeft } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cursos, trilhas, type Curso } from "@/data/cursos";
+
+const FEATURED_SLUGS = [
+  "inteligencia-condominial",
+  "inteligencia-condominial-2",
+  "como-captar-mais-clientes",
+  "conselheiros",
+  "sindico-de-alta-performance",
+];
+const featuredCourses: Curso[] = FEATURED_SLUGS
+  .map((s) => cursos.find((c) => c.slug === s))
+  .filter(Boolean) as Curso[];
 
 export const Route = createFileRoute("/play")({
   head: () => ({
@@ -61,67 +72,7 @@ function PlayPage() {
     <main className="play-page min-h-screen text-background flex flex-col">
       <Header />
 
-      {/* HERO Netflix-style — background full-width, overlay leve, conteúdo à esquerda */}
-      <section
-        className="play-hero flex items-end"
-        style={{ backgroundImage: `url(${cursoEmDestaque.capa})` }}
-        aria-label="Curso em destaque"
-      >
-        <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16">
-          <div className="inline-flex items-center gap-2 text-xs text-cyan">
-            <Flame className="w-3.5 h-3.5" /> {cursoEmDestaque.destaque ?? "Curso em destaque"}
-          </div>
-          {/* H1 invisível para SEO; título visual vem da própria capa */}
-          <h1 className="sr-only">{cursoEmDestaque.titulo}</h1>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-4 max-w-md"
-          >
-            <p className="text-white/85 leading-relaxed text-base md:text-lg">
-              {cursoEmDestaque.resumo}
-            </p>
-          </motion.div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70">
-            {cursoEmDestaque.acesso && (
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" /> {cursoEmDestaque.acesso}
-              </span>
-            )}
-            {cursoEmDestaque.certificado && (
-              <span className="inline-flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" /> Certificado
-              </span>
-            )}
-            {cursoEmDestaque.preco && (
-              <span className="font-mono text-cyan">{cursoEmDestaque.preco}</span>
-            )}
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <a
-              href={cursoEmDestaque.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-background text-ink font-medium hover:bg-cyan transition"
-            >
-              Ver curso <ArrowUpRight className="w-4 h-4" />
-            </a>
-            <a
-              href={`#curso-${cursoEmDestaque.slug}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-white/25 text-white hover:bg-white/10 transition"
-            >
-              Mais informações
-            </a>
-          </div>
-
-          <p className="mt-5 text-[11px] text-white/45">
-            Compra e acesso pela plataforma oficial — Kiwify / Hotmart.
-          </p>
-        </div>
-      </section>
+      <FeaturedHero items={featuredCourses} />
 
       {/* Submenu de trilhas — abaixo da hero, sticky com altura fixa */}
       <nav
@@ -238,22 +189,14 @@ function CursoCard({ curso }: { curso: Curso }) {
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="course-card card group relative shrink-0 w-[260px] md:w-[320px] snap-start rounded-md overflow-hidden bg-white/5 border border-white/10 hover:border-cyan/60 transition"
     >
-      {/* thumb 16:9 — capa inteira sem corte: blur de fundo + contain por cima */}
+      {/* thumb 16:9 — cover, sem cortar de forma grotesca via object-position center top */}
       <div className="course-thumb">
-        <img
-          src={curso.capa}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          className="course-thumb-bg"
-        />
         <img
           src={curso.capa}
           alt={curso.titulo}
           loading="lazy"
           decoding="async"
-          className="course-thumb-main"
+          className="course-thumb-cover"
         />
         {curso.preco && (
           <div className="absolute z-[2] top-2 right-2 px-2 py-0.5 rounded bg-black/65 backdrop-blur text-[10px] font-mono text-cyan">
@@ -286,5 +229,134 @@ function CursoCard({ curso }: { curso: Curso }) {
         </div>
       </div>
     </motion.a>
+  );
+}
+
+/* ───────────── Featured Hero rotativa ───────────── */
+function FeaturedHero({ items }: { items: Curso[] }) {
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduced = typeof window !== "undefined"
+    ? window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+  useEffect(() => {
+    if (paused || reduced || items.length < 2) return;
+    const t = window.setInterval(() => setI((n) => (n + 1) % items.length), 7500);
+    return () => window.clearInterval(t);
+  }, [paused, reduced, items.length]);
+
+  const c = items[i];
+  if (!c) return null;
+  const go = (delta: number) => setI((n) => (n + delta + items.length) % items.length);
+
+  return (
+    <section
+      aria-label="Cursos em destaque"
+      className="play-hero relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* crossfade de imagens de fundo */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={c.slug}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="play-hero-bg"
+          style={{ backgroundImage: `url(${c.capa})` }}
+          aria-hidden
+        />
+      </AnimatePresence>
+
+      <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16 min-h-[clamp(460px,78vh,720px)] flex flex-col justify-end">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={c.slug}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-2xl"
+          >
+            <div className="inline-flex items-center gap-2 text-xs text-cyan">
+              <Flame className="w-3.5 h-3.5" /> {c.destaque ?? "Curso em destaque"}
+            </div>
+            <h1 className="mt-4 font-display text-4xl md:text-6xl tracking-[-0.035em] leading-[1.0] text-balance text-white">
+              {c.titulo}
+            </h1>
+            <p className="mt-4 text-white/85 leading-relaxed text-base md:text-lg max-w-xl">
+              {c.resumo}
+            </p>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/75">
+              {c.acesso && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" /> {c.acesso}
+                </span>
+              )}
+              {c.certificado && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> Certificado
+                </span>
+              )}
+              {c.preco && <span className="font-mono text-cyan">{c.preco}</span>}
+              <span className="text-white/45">Plataforma: Kiwify / Hotmart</span>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-background text-ink font-medium hover:bg-cyan transition"
+              >
+                Ver curso <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a
+                href={`#curso-${c.slug}`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-white/25 text-white hover:bg-white/10 transition"
+              >
+                Mais informações
+              </a>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Controles */}
+        <div className="mt-8 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            {items.map((it, idx) => (
+              <button
+                key={it.slug}
+                onClick={() => setI(idx)}
+                aria-label={`Ir para ${it.titulo}`}
+                className={`h-1.5 rounded-full transition-all ${
+                  idx === i ? "w-8 bg-cyan" : "w-4 bg-white/25 hover:bg-white/45"
+                }`}
+              />
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button
+              aria-label="Curso anterior"
+              onClick={() => go(-1)}
+              className="w-10 h-10 grid place-items-center rounded-full border border-white/20 text-white/80 hover:border-white/60 hover:text-white transition"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              aria-label="Próximo curso"
+              onClick={() => go(1)}
+              className="w-10 h-10 grid place-items-center rounded-full border border-white/20 text-white/80 hover:border-white/60 hover:text-white transition"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
