@@ -305,60 +305,120 @@ function CardPlay({ className = "" }: { className?: string }) {
 /* ================================ Materiais ================================ */
 function CardMateriais({ className = "" }: { className?: string }) {
   const { mx, my, onMove } = useCursor();
+  const docs = [
+    { tag: "GUIA", title: "Prestação de contas em 7 passos", x: -10, y: -22, rotate: -3 },
+    { tag: "CHECKLIST", title: "Manutenção predial trimestral", x: 0, y: 0, rotate: 0 },
+    { tag: "MODELO", title: "Ata de assembleia condominial", x: 10, y: 18, rotate: 3 },
+  ];
+  const transition = { duration: 0.55, ease } as const;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease, delay: 0.1 }}
-      whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/materiais" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
-        onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
+      <motion.div
+        whileHover="hover"
+        whileFocus="hover"
+        initial="rest"
+        animate="rest"
+        variants={{ rest: { y: 0, scale: 1 }, hover: { y: -6, scale: 1.015 } }}
+        transition={transition}
       >
-        <div className="relative h-full p-7 md:p-9 flex flex-col">
-          <div className="flex items-center justify-between text-[12px] text-ink-soft">
-            <span>04 / 05</span>
-            <span className="grid place-items-center w-9 h-9 rounded-full bg-secondary group-hover:bg-ink group-hover:text-background transition">
-              <Download className="w-3.5 h-3.5" />
-            </span>
-          </div>
-          <div className="text-[12px] text-ink-soft mt-2">Materiais gratuitos para condomínio</div>
+        <Link
+          to="/materiais"
+          aria-label="Baixar materiais gratuitos para condomínio"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          onMouseMove={onMove}
+          style={{ "--mx": mx, "--my": my } as React.CSSProperties}
+        >
+          {/* cursor-aware light */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--brand) 18%, transparent), transparent 70%)",
+            }}
+          />
 
-          <h3 className="mt-6 font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
-            Baixe materiais para síndicos e condomínios.
-          </h3>
-
-          {/* stacked docs */}
-          <div className="mt-auto relative h-32">
-            {[
-              { tag: "Modelo", title: "Ata de assembleia condominial", rotate: -3 },
-              { tag: "Checklist", title: "Manutenção predial trimestral", rotate: 1 },
-              { tag: "Guia", title: "Prestação de contas em 7 passos", rotate: 4 },
-            ].map((d, i) => (
-              <div
-                key={i}
-                className="absolute inset-x-2 rounded-xl bg-background border border-border p-3 shadow-soft"
-                style={{
-                  bottom: i * 18,
-                  transform: `rotate(${d.rotate}deg)`,
-                  zIndex: 3 - i,
-                }}
+          <div className="relative h-full p-7 md:p-9 flex flex-col">
+            <div className="flex items-center justify-between text-[12px] text-ink-soft">
+              <span>04 / 05</span>
+              <motion.span
+                variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: 8, scale: 1.08 } }}
+                transition={transition}
+                className="grid place-items-center w-9 h-9 rounded-full bg-secondary group-hover:bg-ink group-hover:text-background transition-colors"
               >
-                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-brand">
-                  <FileText className="w-3 h-3" /> {d.tag}
-                </div>
-                <div className="mt-1 text-sm text-ink leading-snug">{d.title}</div>
-              </div>
-            ))}
+                <motion.span
+                  variants={{ rest: { y: 0 }, hover: { y: 2 } }}
+                  transition={transition}
+                  className="inline-flex"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                </motion.span>
+              </motion.span>
+            </div>
+            <div className="text-[12px] text-ink-soft mt-2">Materiais gratuitos para condomínio</div>
+
+            <h3 className="mt-6 font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
+              Baixe materiais para síndicos e condomínios.
+            </h3>
+
+            {/* document fan */}
+            <div className="mt-auto relative h-36">
+              {docs.map((d, i) => (
+                <motion.div
+                  key={d.tag}
+                  variants={{
+                    rest: { x: 0, y: i * 10, rotate: d.rotate * 0.35, scale: 1 },
+                    hover: { x: d.x, y: d.y, rotate: d.rotate, scale: 1.02 },
+                  }}
+                  transition={{ ...transition, delay: i * 0.04 }}
+                  className="absolute inset-x-2 rounded-xl bg-background border border-border p-3 shadow-soft"
+                  style={{ bottom: 0, zIndex: 3 - i }}
+                >
+                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-brand font-medium">
+                    <FileText className="w-3 h-3" /> {d.tag}
+                  </div>
+                  <div className="mt-1 text-sm text-ink leading-snug">{d.title}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* hover-revealed sub copy */}
+            <motion.p
+              variants={{ rest: { opacity: 0, y: 6 }, hover: { opacity: 1, y: 0 } }}
+              transition={transition}
+              className="mt-3 text-xs text-ink-soft leading-relaxed"
+            >
+              Guias, modelos e checklists para assembleias e gestão condominial.
+            </motion.p>
+
+            <div className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
+              <span className="relative">
+                Baixar materiais gratuitos
+                <motion.span
+                  variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
+                  transition={transition}
+                  style={{ originX: 0 }}
+                  className="absolute left-0 -bottom-0.5 h-px w-full bg-ink"
+                />
+              </span>
+              <motion.span
+                variants={{ rest: { x: 0 }, hover: { x: 4 } }}
+                transition={transition}
+                className="inline-flex"
+              >
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </motion.span>
+            </div>
           </div>
-          <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink">
-            Baixar materiais gratuitos <ArrowUpRight className="w-3.5 h-3.5" />
-          </div>
-        </div>
-      </Link>
+        </Link>
+      </motion.div>
     </motion.div>
   );
 }
