@@ -152,7 +152,7 @@ function PortalPage() {
 
             {/* YouTube */}
             <div className="rounded-2xl border border-border bg-ink text-background p-5">
-              <Youtube className="w-5 h-5 text-cyan" />
+              <YoutubeIcon className="w-5 h-5 text-cyan" />
               <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-cyan font-mono">
                 Assista ao SíndicoLab
               </div>
@@ -242,7 +242,7 @@ function PortalPage() {
           <aside className="space-y-5">
             {/* Instagram */}
             <div className="rounded-2xl border border-border bg-gradient-to-br from-[#FDC468] via-[#DF4F75] to-[#5B51D8] text-background p-6">
-              <Instagram className="w-6 h-6" />
+              <InstagramIcon className="w-6 h-6" />
               <h3 className="mt-4 font-display text-2xl leading-tight tracking-[-0.02em]">
                 O SíndicoLab também está no Instagram
               </h3>
