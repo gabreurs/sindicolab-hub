@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
@@ -10,6 +10,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const search = useSearch();
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -18,20 +20,25 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Off-home pages always show the solid header so it doesn't sit
+  // transparent over colored heroes (Play/Patrocínios/etc).
+  const solid = scrolled || !isHome;
+
   return (
     <>
       <motion.header
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isHome ? 0.6 : 0 }}
         className={`fixed inset-x-0 top-0 z-[70] transition-all duration-500 ${
-          scrolled
-            ? "backdrop-blur-xl bg-background/75 border-b border-border/60"
+          solid
+            ? "backdrop-blur-xl bg-background/80 border-b border-border/60"
             : "bg-transparent"
         }`}
+        data-route={isHome ? "home" : "page"}
       >
         <div className="container-x flex items-center justify-between h-[72px]">
-          <Link to="/" aria-label="SíndicoLab — home">
+          <Link to="/" aria-label="SíndicoLab — home" className="shrink-0">
             <BrandMark size={30} />
           </Link>
 
