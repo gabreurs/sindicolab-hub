@@ -71,11 +71,23 @@ function PlayPage() {
           src={cursoEmDestaque.capa}
           alt=""
           aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        {/* overlay escuro: bottom→top + left→right */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b12] via-[#0a0b12]/80 to-[#0a0b12]/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0b12] via-[#0a0b12]/70 to-transparent" />
+        {/* overlay leve para garantir leitura sem matar a imagem */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(10,11,18,0.88) 0%, rgba(10,11,18,0.55) 42%, rgba(10,11,18,0.18) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(10,11,18,0.18) 0%, rgba(10,11,18,0.72) 100%)",
+          }}
+        />
 
         <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16">
           <div className="inline-flex items-center gap-2 text-xs text-cyan">
