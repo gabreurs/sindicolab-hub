@@ -1,4 +1,4 @@
-import { Heart, ArrowUpRight, Instagram, Youtube, Linkedin } from "lucide-react/icons";
+import { Heart, ArrowUpRight, Instagram, Youtube, Linkedin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { BrandMark } from "./BrandMark";
