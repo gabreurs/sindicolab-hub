@@ -49,7 +49,8 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             animate={{ clipPath: "inset(0 0 0 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease }}
-            className="mega-menu-overlay fixed inset-0 z-[90] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none"
+            data-lenis-prevent
+            className="mega-menu-overlay fixed inset-0 z-[90] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none overscroll-contain"
             role="dialog"
             aria-modal="true"
             aria-label="Menu do SíndicoLab"
