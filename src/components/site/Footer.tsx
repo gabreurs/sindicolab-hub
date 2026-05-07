@@ -32,12 +32,14 @@ const cols = [
   {
     label: "Portal",
     items: [
-      { label: "Gestão condominial", href: "/portal" },
-      { label: "Segurança condominial", href: "/portal" },
-      { label: "Comportamento condominial", href: "/portal" },
-      { label: "Assembleias", href: "/portal" },
-      { label: "Casos reais", href: "/portal" },
-      { label: "Tecnologia", href: "/portal" },
+      { label: "Gestão condominial", href: "/portal#gestao" },
+      { label: "Segurança condominial", href: "/portal#seguranca" },
+      { label: "Tecnologia", href: "/portal#tecnologia" },
+      { label: "Jurídico", href: "/portal#juridico" },
+      { label: "ESG condominial", href: "/portal#esg" },
+      { label: "Equipe condominial", href: "/portal#equipe" },
+    ],
+  },
     ],
   },
   {
