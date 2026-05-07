@@ -1,12 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowDown } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const baseDelay = 2.0;
-
-const words = ["Escolha", "por", "onde", "entrar", "no"];
-const accentWords = ["ecossistema", "condominial."];
+const baseDelay = 1.85;
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -14,102 +11,121 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.2]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
+  const blur = useTransform(scrollYProgress, [0.6, 1], [0, 6]);
+  const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[92vh] md:min-h-screen flex items-center pt-28 md:pt-32 pb-16 overflow-hidden"
+      className="relative min-h-[94vh] md:min-h-screen flex items-center pt-28 md:pt-32 pb-20 overflow-hidden"
     >
       {/* ambient backdrop */}
-      <motion.div
-        style={{ y }}
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute -top-40 -right-20 w-[42rem] h-[42rem] rounded-full bg-brand-soft blur-[120px] opacity-70" />
-        <div className="absolute top-1/3 -left-20 w-[30rem] h-[30rem] rounded-full bg-accent blur-[120px] opacity-50" />
+      <motion.div style={{ y }} className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 grid-lines opacity-60" />
+        <div className="absolute -top-40 -right-32 w-[44rem] h-[44rem] rounded-full bg-brand-soft blur-[120px] opacity-80" />
+        <div className="absolute top-1/2 -left-32 w-[34rem] h-[34rem] rounded-full bg-cyan-soft blur-[120px] opacity-70" />
       </motion.div>
 
-      <motion.div
-        style={{ scale, opacity }}
-        className="container-x w-full"
-      >
+      <motion.div style={{ scale, opacity, filter }} className="container-x w-full">
+        {/* micro label */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: baseDelay, duration: 0.6, ease }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface-elevated text-[11px] uppercase tracking-[0.3em] text-ink-soft"
+          className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.4em] text-ink-soft"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-brand animate-blink" />
-          O canal do ecossistema condominial
+          <Plus className="w-3 h-3 text-brand" strokeWidth={2.5} />
+          Síndico profissional, cursos e materiais
         </motion.div>
 
-        <h1 className="mt-6 font-display text-[12vw] sm:text-7xl md:text-[7.4rem] lg:text-[8.4rem] leading-[0.92] text-ink max-w-[20ch]">
-          {words.map((w, i) => (
-            <Word key={i} delay={baseDelay + 0.1 + i * 0.06}>
-              {w}{" "}
-            </Word>
-          ))}
-          <br className="hidden md:block" />
-          {accentWords.map((w, i) => (
-            <Word key={i} delay={baseDelay + 0.5 + i * 0.06} accent>
-              {w}{" "}
-            </Word>
-          ))}
+        {/* H1 with SEO-driven, animated reveal */}
+        <h1 className="mt-7 font-display text-[10vw] sm:text-6xl md:text-[5.5rem] lg:text-[6.6rem] leading-[0.96] text-ink max-w-[18ch] tracking-[-0.04em]">
+          <Line delay={baseDelay + 0.1}>Síndico profissional,</Line>
+          <Line delay={baseDelay + 0.2}>
+            cursos e <span className="text-gradient-lab italic font-normal">materiais</span>
+          </Line>
+          <Line delay={baseDelay + 0.3}>para condomínio.</Line>
         </h1>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-end">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: baseDelay + 0.8, duration: 0.6, ease }}
-            className="md:col-span-6 text-base md:text-lg text-ink-soft max-w-xl text-balance"
+            transition={{ delay: baseDelay + 0.55, duration: 0.6, ease }}
+            className="md:col-span-6 text-base md:text-lg text-ink-soft max-w-xl text-balance leading-relaxed"
           >
-            Conteúdo, cursos, materiais e soluções conectadas para síndicos,
-            moradores, conselheiros e condomínios.
+            O <strong className="text-ink font-medium">SíndicoLab</strong> conecta quem busca
+            síndico profissional, cursos para síndicos, materiais para condomínio e
+            conteúdo de gestão condominial em um só ecossistema.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: baseDelay + 0.95, duration: 0.6, ease }}
-            className="md:col-span-6 flex md:justify-end"
+            transition={{ delay: baseDelay + 0.7, duration: 0.6, ease }}
+            className="md:col-span-6 flex flex-wrap items-center gap-3 md:justify-end"
           >
             <a
-              href="#caminhos"
-              className="group inline-flex items-center gap-3 text-sm font-medium text-ink"
+              href="https://quero1sindico.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-background font-medium hover:bg-brand transition-colors shadow-card"
             >
-              <span className="grid place-items-center w-12 h-12 rounded-full border border-border-strong group-hover:bg-ink group-hover:text-background group-hover:border-ink transition-all">
-                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              <span className="relative flex w-1.5 h-1.5">
+                <span className="absolute inset-0 rounded-full bg-cyan animate-blink" />
               </span>
-              Explorar caminhos
+              Encontrar síndico profissional
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href="#caminhos"
+              className="inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium text-ink hover:text-brand transition-colors"
+            >
+              Ver o ecossistema
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
         </div>
+
+        {/* meta strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: baseDelay + 0.85, duration: 0.6, ease }}
+          className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden border border-border"
+        >
+          {[
+            ["+150", "síndicos profissionais"],
+            ["+80", "materiais práticos"],
+            ["+30", "cursos e formações"],
+            ["1", "ecossistema condominial"],
+          ].map(([n, l]) => (
+            <div key={l} className="bg-background p-5 md:p-6">
+              <div className="font-display text-2xl md:text-3xl text-ink">{n}</div>
+              <div className="text-xs md:text-sm text-ink-soft mt-1">{l}</div>
+            </div>
+          ))}
+        </motion.div>
       </motion.div>
+
+      {/* bottom blur reveal hint */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent z-10" />
     </section>
   );
 }
 
-function Word({
-  children,
-  delay,
-  accent,
-}: {
-  children: React.ReactNode;
-  delay: number;
-  accent?: boolean;
-}) {
+function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
-    <span className="inline-block overflow-hidden align-bottom">
+    <span className="block overflow-hidden">
       <motion.span
         initial={{ y: "110%" }}
         animate={{ y: "0%" }}
-        transition={{ delay, duration: 0.85, ease }}
-        className={`inline-block ${accent ? "text-brand italic font-light" : ""}`}
+        transition={{ delay, duration: 0.9, ease }}
+        className="block"
       >
         {children}
       </motion.span>
