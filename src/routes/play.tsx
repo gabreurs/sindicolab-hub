@@ -276,7 +276,7 @@ function FeaturedHero({ items }: { items: Curso[] }) {
         <Breadcrumbs
           tone="dark"
           items={[{ label: "Play" }]}
-          className="!pt-20 !md:pt-24"
+          className="!pt-20"
         />
       </div>
 
