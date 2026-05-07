@@ -534,7 +534,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 .intro-logo {
   width: clamp(180px, 22vw, 340px);
   height: auto;
-  filter: invert(1);
+  /* SVG do logo já é branco — sem invert para fundo escuro */
   will-change: transform, opacity, filter;
 }
 .intro-line {
