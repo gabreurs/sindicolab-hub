@@ -291,43 +291,48 @@
 /* Viewport glass edges — fixed glass layers, not section overlays.
    Pure backdrop-filter with very low alpha + mask-image fade. */
 :root {
-  --vp-glass-bg: oklch(0.985 0.003 240 / 0.06);
+  --vp-glass-bg: oklch(0.985 0.003 240 / 0.03);
 }
 @media (prefers-color-scheme: dark) {
-  :root { --vp-glass-bg: oklch(0.06 0.02 255 / 0.16); }
+  :root { --vp-glass-bg: oklch(0.06 0.02 255 / 0.06); }
 }
 
 .vp-glass-top {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 80px;
+  height: 56px;
   z-index: 39;
   pointer-events: none;
   background: var(--vp-glass-bg);
-  -webkit-backdrop-filter: blur(12px) saturate(110%);
-  backdrop-filter: blur(12px) saturate(110%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+  -webkit-backdrop-filter: blur(6px) saturate(102%);
+  backdrop-filter: blur(6px) saturate(102%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.15) 70%, transparent);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.15) 70%, transparent);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
 }
 .vp-glass-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 130px;
+  height: 72px;
   z-index: 40;
   pointer-events: none;
   background: var(--vp-glass-bg);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3) 60%, transparent);
-  mask-image: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3) 60%, transparent);
+  -webkit-backdrop-filter: blur(8px) saturate(105%);
+  backdrop-filter: blur(8px) saturate(105%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.12) 65%, transparent);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.12) 65%, transparent);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 @media (max-width: 768px) {
-  .vp-glass-top { height: 56px; }
-  .vp-glass-bottom { height: 88px; }
+  .vp-glass-top { height: 44px; }
+  .vp-glass-bottom { height: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .vp-glass-top, .vp-glass-bottom { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .vp-glass-top, .vp-glass-bottom { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 }
+
 
 /* Logo draw */
 @keyframes draw {
