@@ -96,26 +96,8 @@ function PortalPage() {
     <main className="min-h-screen bg-background text-ink flex flex-col overflow-x-hidden">
       <Header />
 
-      {/* Faixa editorial — identifica o portal */}
-      <div className="pt-24 md:pt-28 border-b border-border">
-        <div className="container-x py-3 flex flex-wrap items-baseline justify-between gap-3">
-          <div>
-            <h1 className="font-display text-base md:text-lg tracking-[-0.01em] text-ink">
-              Portal SíndicoLab
-            </h1>
-            <p className="text-xs text-ink-soft">
-              Notícias e análises do mercado condominial · {new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })}
-            </p>
-          </div>
-          <div className="flex items-center gap-4 text-xs text-ink-soft">
-            <a href="#ultimas" className="hover:text-ink">Últimas</a>
-            <a href="#seguranca" className="hover:text-ink">Segurança</a>
-            <a href="#gestao" className="hover:text-ink">Gestão</a>
-            <a href="#comportamento" className="hover:text-ink">Comportamento</a>
-            <a href="#videos" className="hover:text-ink">Vídeos</a>
-          </div>
-        </div>
-      </div>
+      {/* sem faixa de blog — portal vai direto para a manchete */}
+      <div className="pt-24 md:pt-28" />
 
       {/* PRIMEIRA DOBRA — manchete + 2 destaques + sidebar */}
       <section className="border-b border-border">
