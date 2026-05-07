@@ -135,6 +135,10 @@ export function Footer() {
                         {it.label}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-0.5 group-hover:opacity-100 transition" />
                       </a>
+                    ) : it.href.includes("#") ? (
+                      <a href={it.href} className="text-background/75 hover:text-cyan transition-colors">
+                        {it.label}
+                      </a>
                     ) : (
                       <Link to={it.href} className="text-background/75 hover:text-cyan transition-colors">
                         {it.label}
