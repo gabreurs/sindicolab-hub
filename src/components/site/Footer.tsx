@@ -40,8 +40,6 @@ const cols = [
       { label: "Equipe condominial", href: "/portal#equipe" },
     ],
   },
-    ],
-  },
   {
     label: "Materiais",
     items: [
