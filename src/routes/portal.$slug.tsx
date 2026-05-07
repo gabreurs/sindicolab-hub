@@ -61,18 +61,9 @@ function ArticlePage() {
   return (
     <main className="min-h-screen bg-background text-ink flex flex-col overflow-x-hidden">
       <Header />
-
-      <div className="pt-24 md:pt-28" />
+      <Breadcrumbs items={[{ label: "Portal", to: "/portal" }, { label: a.category }, { label: a.title }]} />
 
       <article className="container-x py-6 md:py-10">
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="text-xs text-ink-soft flex items-center gap-1.5 flex-wrap">
-          <Link to="/portal" className="hover:text-ink">Portal</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span>{a.category}</span>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-ink truncate max-w-[40ch]">{a.title}</span>
-        </nav>
 
         <div className="mt-6 grid lg:grid-cols-[2.2fr_1fr] gap-10">
           <div>
