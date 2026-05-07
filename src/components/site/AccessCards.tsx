@@ -1,9 +1,11 @@
 import { motion, useMotionValue } from "framer-motion";
-import { ArrowUpRight, Search, MapPin, Star, FileText, Play, Download, Sparkles } from "lucide-react";
+import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
+import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
