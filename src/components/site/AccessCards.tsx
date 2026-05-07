@@ -392,6 +392,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         animate="rest"
         variants={{ rest: { y: 0, scale: 1 }, hover: { y: -4, scale: 1.01 } }}
         transition={transition}
+        className="h-full"
       >
         <Link
           to="/materiais"
