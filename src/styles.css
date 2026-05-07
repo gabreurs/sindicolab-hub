@@ -187,6 +187,7 @@
   to { transform: rotate(360deg); }
 }
 .animate-orbit { animation: orbit 28s linear infinite; }
+.animate-orbit-slow { animation: orbit 60s linear infinite; }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }

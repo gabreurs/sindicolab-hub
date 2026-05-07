@@ -3,7 +3,7 @@ import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { AccessCards } from "@/components/site/AccessCards";
-import { ProductScrollShowcase } from "@/components/site/ProductScrollShowcase";
+
 import { ValuePillars } from "@/components/site/ValuePillars";
 import { Sponsors } from "@/components/site/Sponsors";
 import { Footer } from "@/components/site/Footer";
@@ -49,7 +49,6 @@ function Index() {
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
         <Hero />
-        <ProductScrollShowcase />
         <AccessCards />
         <QuemSomos />
         <ValuePillars />

@@ -116,27 +116,34 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
 }
 
 function OrbitalSeal() {
+  const { scrollYProgress } = useScroll();
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 60]);
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.1, duration: 1.2, ease }}
-      className="hidden lg:block absolute top-12 right-10 xl:right-20 w-[170px] h-[170px] z-[5] pointer-events-none"
+      transition={{ delay: 1.1, duration: 1.4, ease }}
+      className="hidden lg:block absolute -top-16 xl:-top-24 right-2 xl:right-8 w-[340px] h-[340px] xl:w-[420px] xl:h-[420px] z-[5] pointer-events-none"
       aria-hidden
     >
-      <svg viewBox="0 0 200 200" className="absolute inset-0 animate-orbit text-ink-soft">
-        <defs>
-          <path id="circle-text" d="M 100 100 m -80 0 a 80 80 0 1 1 160 0 a 80 80 0 1 1 -160 0" />
-        </defs>
-        <text fontSize="11" letterSpacing="3" fill="currentColor" fontFamily="Mona Sans, sans-serif">
-          <textPath href="#circle-text">
-            • o canal do ecossistema condominial • síndicolab • 
-          </textPath>
-        </text>
-      </svg>
+      <motion.div style={{ rotate }} className="absolute inset-0 animate-orbit-slow">
+        <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full text-ink/55">
+          <defs>
+            <path id="circle-text" d="M 100 100 m -86 0 a 86 86 0 1 1 172 0 a 86 86 0 1 1 -172 0" />
+          </defs>
+          <text fontSize="7.5" letterSpacing="6.5" fill="currentColor" fontFamily="Mona Sans, sans-serif" fontWeight="500">
+            <textPath href="#circle-text">
+              SÍNDICOLAB    GESTÃO CONDOMINIAL    SÍNDICO PROFISSIONAL    
+            </textPath>
+          </text>
+        </svg>
+        <div className="absolute inset-2 rounded-full border border-ink/10" />
+        <div className="absolute inset-10 rounded-full border border-ink/5" />
+      </motion.div>
       <div className="absolute inset-0 grid place-items-center">
-        <div className="w-14 h-14 rounded-full gradient-lab grid place-items-center shadow-brand">
-          <span className="text-background font-display text-xl">S</span>
+        <div className="relative w-24 h-24 xl:w-28 xl:h-28 rounded-full" style={{ background: "var(--gradient-lab)" }}>
+          <div className="absolute -inset-1 rounded-full opacity-50 blur-2xl" style={{ background: "var(--gradient-lab)" }} />
+          <div className="absolute inset-1 rounded-full bg-background/15 backdrop-blur-md border border-background/20" />
         </div>
       </div>
     </motion.div>
