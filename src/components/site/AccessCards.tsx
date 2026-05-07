@@ -1,9 +1,11 @@
 import { motion, useMotionValue } from "framer-motion";
-import { ArrowUpRight, Search, MapPin, Star, FileText, Play, Download, Sparkles } from "lucide-react";
+import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
+import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -78,11 +80,11 @@ export function AccessCards() {
 
         <CardQuero1 />
 
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5">
-          <CardPortal className="md:col-span-7" />
-          <CardPlay className="md:col-span-5" />
-          <CardMateriais className="md:col-span-5" />
-          <CardPatrocinios className="md:col-span-7" />
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
+          <CardPortal className="md:col-span-7 h-full" />
+          <CardPlay className="md:col-span-5 h-full" />
+          <CardMateriais className="md:col-span-5 h-full" />
+          <CardPatrocinios className="md:col-span-7 h-full" />
         </div>
       </div>
     </section>
@@ -266,7 +268,7 @@ function CardPortal({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
@@ -326,7 +328,7 @@ function CardPlay({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
@@ -390,11 +392,12 @@ function CardMateriais({ className = "" }: { className?: string }) {
         animate="rest"
         variants={{ rest: { y: 0, scale: 1 }, hover: { y: -4, scale: 1.01 } }}
         transition={transition}
+        className="h-full"
       >
         <Link
           to="/materiais"
           aria-label="Baixar materiais gratuitos para condomínio"
-          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
           style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
@@ -498,8 +501,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
 }
 
 
-/* ================================ Patrocínios — identidade do repo Mídia Kit Live ================================
-   Cream #F7F3EF + ink violet #1B1024 + accent purple deep #3A005C, "serif italic" para destaque, eyebrow com hairline. */
+/* ================================ Patrocínios — miniatura da hero roxa do mídia kit ================================ */
 function CardPatrocinios({ className = "" }: { className?: string }) {
   const { mx, my, onMove } = useCursor();
   return (
@@ -515,144 +517,148 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
         to="/patrocinios"
         onMouseMove={onMove}
         aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
-        className="sponsor-mini-card group relative block overflow-hidden"
+        className="sponsor-home-card group relative block overflow-hidden h-full"
         style={{
           "--mx": mx,
           "--my": my,
-          background: "#F7F3EF",
-          color: "#1B1024",
-          border: "1px solid rgba(91, 10, 137, 0.16)",
-          borderRadius: 32,
+          color: "#F7F3EF",
+          border: "1px solid rgba(233, 221, 248, 0.18)",
+          borderRadius: 28,
           minHeight: 460,
-          padding: "clamp(28px, 4vw, 48px)",
-          boxShadow: "0 30px 60px -40px rgba(27,16,36,0.25)",
+          padding: "clamp(28px, 3vw, 44px)",
+          background:
+            "radial-gradient(circle at 78% 18%, rgba(139, 92, 246, 0.32), transparent 32%), linear-gradient(135deg, #3A005C 0%, #4A006F 44%, #26003D 100%)",
+          boxShadow: "0 30px 60px -40px rgba(38,0,61,0.6)",
         } as React.CSSProperties}
       >
-        {/* pattern grid + radial lavender, masked */}
+        {/* dotted lavender pattern, masked */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: [
-              "radial-gradient(circle at 82% 18%, rgba(233, 221, 248, 0.9), transparent 36%)",
-              "linear-gradient(rgba(91, 10, 137, 0.05) 1px, transparent 1px)",
-              "linear-gradient(90deg, rgba(91, 10, 137, 0.05) 1px, transparent 1px)",
-            ].join(", "),
-            backgroundSize: "auto, 48px 48px, 48px 48px",
-            WebkitMaskImage: "radial-gradient(circle at 70% 45%, black, transparent 76%)",
-            maskImage: "radial-gradient(circle at 70% 45%, black, transparent 76%)",
+            backgroundImage: "radial-gradient(circle, rgba(233,221,248,0.16) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+            opacity: 0.22,
+            WebkitMaskImage: "radial-gradient(circle at 70% 40%, black, transparent 72%)",
+            maskImage: "radial-gradient(circle at 70% 40%, black, transparent 72%)",
           }}
         />
-        {/* shape abstrato roxo/lavender — desloca em hover */}
-        <motion.div
+        {/* translucent vertical shape (right) */}
+        <div
           aria-hidden
-          variants={{ rest: { x: 0, y: 0 }, hover: { x: -8, y: 4 } }}
-          initial="rest"
-          whileHover="hover"
-          transition={{ duration: 0.6, ease }}
           className="absolute pointer-events-none"
           style={{
-            right: "-12%",
+            right: "-10%",
             top: "-18%",
-            width: "46%",
-            height: "80%",
-            borderRadius: 999,
-            background:
-              "linear-gradient(180deg, rgba(91,10,137,.18), rgba(233,221,248,.32))",
-            transform: "rotate(18deg)",
+            width: "38%",
+            height: "86%",
+            borderRadius: "0 0 56px 56px",
+            background: "linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.03))",
+            transform: "skewX(-18deg)",
+          }}
+        />
+        {/* second softer shape behind */}
+        <div
+          aria-hidden
+          className="absolute pointer-events-none"
+          style={{
+            right: "8%",
+            top: "-10%",
+            width: "22%",
+            height: "70%",
+            borderRadius: "0 0 40px 40px",
+            background: "linear-gradient(180deg, rgba(233,221,248,.10), rgba(233,221,248,.02))",
+            transform: "skewX(-18deg)",
           }}
         />
 
         <div className="relative z-10 flex h-full flex-col">
-          {/* eyebrow + número */}
-          <div className="flex items-center justify-between">
+          {/* header: brand lockup + número */}
+          <header className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src={logoSindicoLab} alt="SíndicoLab" className="h-5 w-auto opacity-95" style={{ filter: "brightness(0) invert(1)" }} />
+              <span className="text-[#E9DDF8]/55 text-sm">×</span>
+              <img src={logoCondoHuby} alt="CondoHuby" className="h-5 w-auto opacity-95" style={{ filter: "brightness(0) invert(1)" }} />
+            </div>
+            <span className="font-mono text-[11px] text-[#E9DDF8]/55">05 / 05</span>
+          </header>
+
+          {/* content */}
+          <div className="mt-8 md:mt-10 max-w-[60%] md:max-w-[58%]">
             <p
               className="inline-flex items-center gap-2 text-[11px] font-medium"
-              style={{ color: "#6D6275", letterSpacing: "0.16em", textTransform: "uppercase" }}
+              style={{ color: "#E9DDF8", letterSpacing: "0.16em", textTransform: "uppercase" }}
             >
-              <span className="inline-block h-px w-8" style={{ background: "rgba(91,10,137,0.4)" }} />
-              CondoHuby + SíndicoLab
+              <span className="inline-block h-px w-8" style={{ background: "rgba(233,221,248,0.4)" }} />
+              Mídia Kit · Patrocínio
             </p>
-            <span className="font-mono text-[11px]" style={{ color: "#6D6275" }}>
-              05 / 05
-            </span>
+
+            <h3
+              className="mt-5 text-[1.6rem] md:text-[2.1rem] leading-[1.05] tracking-[-0.01em] text-balance"
+              style={{ fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif", fontWeight: 400, color: "#F7F3EF" }}
+            >
+              Sua marca próxima dos decisores do mercado condominial.
+            </h3>
+
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(247,243,239,0.72)" }}>
+              Patrocine experiências presenciais que conectam empresas, síndicos,
+              gestores e profissionais do setor.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <span
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all group-hover:gap-3"
+                style={{ background: "#F7F3EF", color: "#26003D" }}
+              >
+                Ver mídia kit <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+              <span
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium border"
+                style={{ borderColor: "rgba(233,221,248,0.28)", color: "#F7F3EF" }}
+              >
+                Falar com a equipe
+              </span>
+            </div>
+
+            <p className="mt-5 text-[11px] tracking-wide" style={{ color: "rgba(233,221,248,0.6)" }}>
+              Workshops · Cursos · Experiências · Networking
+            </p>
           </div>
 
-          {/* headline */}
-          <h3
-            className="mt-8 md:mt-10 text-[2rem] md:text-[2.7rem]"
+          {/* glass stat card lateral (desktop) */}
+          <aside
+            className="hidden md:flex absolute flex-col gap-3"
             style={{
-              fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif",
-              fontWeight: 400,
-              letterSpacing: "-0.005em",
-              lineHeight: 1.06,
-              wordSpacing: "0.04em",
-              color: "#1B1024",
-              maxWidth: 720,
+              right: "clamp(28px, 3vw, 44px)",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "min(240px, 30%)",
+              padding: 22,
+              borderRadius: 22,
+              background: "rgba(91, 10, 137, 0.38)",
+              border: "1px solid rgba(233, 221, 248, 0.22)",
+              backdropFilter: "blur(10px) saturate(140%)",
+              WebkitBackdropFilter: "blur(10px) saturate(140%)",
             }}
           >
-            Sua marca próxima dos{" "}
-            <span
-              style={{
-                fontFamily: "'Instrument Serif', Georgia, serif",
-                fontStyle: "italic",
-                fontWeight: 400,
-                letterSpacing: "-0.01em",
-                color: "#5B0A89",
-              }}
-            >
-              decisores
-            </span>{" "}
-            do mercado condominial.
-          </h3>
-
-          <p className="mt-4 max-w-md text-sm leading-relaxed" style={{ color: "#6D6275" }}>
-            Workshops, encontros e experiências presenciais com síndicos, gestores
-            e profissionais do setor.
-          </p>
-
-          {/* stats row entre hairlines */}
-          <div className="mt-auto pt-7">
-            <div className="h-px w-full" style={{ background: "rgba(91, 10, 137, 0.18)" }} />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-5">
-              {[
-                ["+100", "síndicos / workshop"],
-                ["12+", "encontros / ano"],
-                ["5", "formatos"],
-                ["100%", "presencial"],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <p
-                    className="text-xl md:text-2xl tracking-tight"
-                    style={{ fontWeight: 500, color: "#1B1024", fontFamily: "'Inter', system-ui, sans-serif" }}
-                  >
-                    {k}
-                  </p>
-                  <p className="mt-0.5 text-[11px] leading-tight" style={{ color: "#6D6275" }}>
-                    {v}
-                  </p>
-                </div>
-              ))}
+            <div className="text-[10px] tracking-[0.16em] uppercase" style={{ color: "rgba(233,221,248,0.7)" }}>
+              Agenda 2025
             </div>
-            <div className="h-px w-full" style={{ background: "rgba(91, 10, 137, 0.18)" }} />
-          </div>
-
-          {/* CTAs btn-primary / btn-ghost */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all group-hover:gap-3"
-              style={{ background: "#1B1024", color: "#F7F3EF" }}
-            >
-              Ver mídia kit
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </span>
-            <span
-              className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-medium"
-              style={{ borderColor: "rgba(27, 16, 36, 0.18)", color: "#1B1024" }}
-            >
-              Falar com a equipe
-            </span>
-          </div>
+            {[
+              ["+100", "síndicos por workshop"],
+              ["12+", "encontros por ano"],
+              ["05", "formatos de patrocínio"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex items-baseline gap-2">
+                <span className="text-2xl font-medium" style={{ color: "#F7F3EF", fontFamily: "'Inter', system-ui" }}>
+                  {k}
+                </span>
+                <span className="text-[11px] leading-tight" style={{ color: "rgba(233,221,248,0.72)" }}>
+                  {v}
+                </span>
+              </div>
+            ))}
+          </aside>
         </div>
       </Link>
     </motion.div>
