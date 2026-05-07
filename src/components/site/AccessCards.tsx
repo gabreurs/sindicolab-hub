@@ -1,6 +1,11 @@
 import { motion, useMotionValue } from "framer-motion";
 import { ArrowUpRight, Search, MapPin, Star, FileText, Play, Download, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
