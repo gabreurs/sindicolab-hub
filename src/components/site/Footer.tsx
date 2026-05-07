@@ -1,48 +1,60 @@
-import { Camera, Play, Briefcase } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const links = [
   { label: "Quero1Síndico", href: "https://quero1sindico.com/" },
   { label: "Portal", href: "https://sindicolab.com/" },
   { label: "Play", href: "https://sindicolab.com/play/" },
   { label: "Materiais", href: "https://downloads.sindicolab.com/" },
+  { label: "Contato", href: "mailto:contato@sindicolab.com" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border py-10">
-      <div className="container-x flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex items-center gap-2.5">
-          <span className="grid place-items-center w-7 h-7 rounded-lg bg-ink text-background font-display text-sm font-semibold">
-            S
-          </span>
-          <div className="text-sm text-ink-soft">
-            © {new Date().getFullYear()} SíndicoLab — canal do ecossistema condominial.
+    <footer className="py-12 md:py-16 bg-background">
+      <div className="container-x">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 items-start">
+          <div className="md:col-span-5">
+            <div className="flex items-center gap-2.5">
+              <span className="grid place-items-center w-9 h-9 rounded-xl bg-ink text-background font-display font-semibold">
+                S
+              </span>
+              <span className="font-display text-lg text-ink">SíndicoLab</span>
+            </div>
+            <p className="mt-4 text-sm text-ink-soft max-w-sm">
+              Canal de acesso ao ecossistema condominial: produto, conteúdo, cursos e materiais.
+            </p>
+          </div>
+
+          <nav className="md:col-span-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+            {links.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-ink-soft hover:text-ink transition-colors py-1"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="md:col-span-3 md:text-right text-sm text-ink-soft">
+            contato@sindicolab.com
           </div>
         </div>
 
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-          {links.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target="_blank"
-              rel="noreferrer"
-              className="text-ink-soft hover:text-ink transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <a href="#" aria-label="Instagram" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Camera className="w-4 h-4" />
-          </a>
-          <a href="#" aria-label="YouTube" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Play className="w-4 h-4" />
-          </a>
-          <a href="#" aria-label="LinkedIn" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Briefcase className="w-4 h-4" />
+        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-ink-soft">
+          <div>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</div>
+          <a
+            href="https://studiomarqo.com"
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-1.5 hover:text-ink transition-colors"
+          >
+            Feito com
+            <Heart className="w-3.5 h-3.5 fill-brand text-brand group-hover:scale-110 transition-transform" />
+            por <span className="font-semibold tracking-wide">STUDIO MARQO</span>
           </a>
         </div>
       </div>
