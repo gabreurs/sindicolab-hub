@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Award, Clock, Flame, ChevronRight, ChevronLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
