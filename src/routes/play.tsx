@@ -189,22 +189,14 @@ function CursoCard({ curso }: { curso: Curso }) {
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="course-card card group relative shrink-0 w-[260px] md:w-[320px] snap-start rounded-md overflow-hidden bg-white/5 border border-white/10 hover:border-cyan/60 transition"
     >
-      {/* thumb 16:9 — capa inteira sem corte: blur de fundo + contain por cima */}
+      {/* thumb 16:9 — cover, sem cortar de forma grotesca via object-position center top */}
       <div className="course-thumb">
-        <img
-          src={curso.capa}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          className="course-thumb-bg"
-        />
         <img
           src={curso.capa}
           alt={curso.titulo}
           loading="lazy"
           decoding="async"
-          className="course-thumb-main"
+          className="course-thumb-cover"
         />
         {curso.preco && (
           <div className="absolute z-[2] top-2 right-2 px-2 py-0.5 rounded bg-black/65 backdrop-blur text-[10px] font-mono text-cyan">
