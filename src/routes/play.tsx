@@ -1,10 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Award, Clock, Flame, ChevronRight } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
-import { cursos, cursoEmDestaque, trilhas, type Curso } from "@/data/cursos";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Award, Clock, Flame, ChevronRight, ChevronLeft } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cursos, trilhas, type Curso } from "@/data/cursos";
+
+const FEATURED_SLUGS = [
+  "inteligencia-condominial",
+  "inteligencia-condominial-2",
+  "como-captar-mais-clientes",
+  "conselheiros",
+  "sindico-de-alta-performance",
+];
+const featuredCourses: Curso[] = FEATURED_SLUGS
+  .map((s) => cursos.find((c) => c.slug === s))
+  .filter(Boolean) as Curso[];
 
 export const Route = createFileRoute("/play")({
   head: () => ({
