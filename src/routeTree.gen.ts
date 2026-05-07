@@ -15,6 +15,7 @@ import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PortalSlugRouteImport } from './routes/portal.$slug'
 
 const QuemSomosRoute = QuemSomosRouteImport.update({
   id: '/quem-somos',
@@ -46,22 +47,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalSlugRoute = PortalSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PortalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRoute
+  '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
+  '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRoute
+  '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
+  '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +77,9 @@ export interface FileRoutesById {
   '/materiais': typeof MateriaisRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
-  '/portal': typeof PortalRoute
+  '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
+  '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +90,16 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
+    | '/portal/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/materiais' | '/patrocinios' | '/play' | '/portal' | '/quem-somos'
+  to:
+    | '/'
+    | '/materiais'
+    | '/patrocinios'
+    | '/play'
+    | '/portal'
+    | '/quem-somos'
+    | '/portal/$slug'
   id:
     | '__root__'
     | '/'
@@ -91,6 +108,7 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
+    | '/portal/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,7 +116,7 @@ export interface RootRouteChildren {
   MateriaisRoute: typeof MateriaisRoute
   PatrociniosRoute: typeof PatrociniosRoute
   PlayRoute: typeof PlayRoute
-  PortalRoute: typeof PortalRoute
+  PortalRoute: typeof PortalRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
 }
 
@@ -146,17 +164,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/$slug': {
+      id: '/portal/$slug'
+      path: '/$slug'
+      fullPath: '/portal/$slug'
+      preLoaderRoute: typeof PortalSlugRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
+
+interface PortalRouteChildren {
+  PortalSlugRoute: typeof PortalSlugRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalSlugRoute: PortalSlugRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MateriaisRoute: MateriaisRoute,
   PatrociniosRoute: PatrociniosRoute,
   PlayRoute: PlayRoute,
-  PortalRoute: PortalRoute,
+  PortalRoute: PortalRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
