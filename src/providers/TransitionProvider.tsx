@@ -1,11 +1,10 @@
 import type { PropsWithChildren } from "react";
-import { SVGPageTransition } from "@/components/motion/SVGPageTransition";
 
+/**
+ * TransitionProvider — desativado.
+ * As ondas SVG de transição foram removidas por motivos de performance
+ * e direção visual. A navegação agora é direta, sem overlay.
+ */
 export function TransitionProvider({ children }: PropsWithChildren) {
-  return (
-    <>
-      {children}
-      <SVGPageTransition />
-    </>
-  );
+  return <>{children}</>;
 }

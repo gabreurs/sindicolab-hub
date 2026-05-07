@@ -434,18 +434,7 @@
 .midia-kit-page .mk-bg-deep .mk-btn-ghost { border-color: hsl(var(--mk-bg) / 0.25); color: hsl(var(--mk-bg)); }
 .midia-kit-page .mk-bg-deep .mk-btn-ghost:hover { border-color: hsl(var(--mk-bg) / 0.6); }
 
-/* ============================================================
-   Page transition overlay (GSAP + SVG strokes)
-   ============================================================ */
-.page-transition-overlay {
-  position: fixed; inset: 0; z-index: 90;
-  pointer-events: none;
-  display: grid; place-items: center;
-}
-.page-transition-overlay.is-active { pointer-events: auto; }
-.page-transition-overlay svg { width: 100%; height: 100%; display: block; }
-.page-transition-overlay path {
-  fill: none;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
+/* Page transition overlay removido. */
+
+html, body { overflow-x: hidden; }
+
