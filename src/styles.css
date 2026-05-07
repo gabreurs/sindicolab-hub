@@ -534,9 +534,12 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 .intro-logo {
   width: clamp(180px, 22vw, 340px);
   height: auto;
-  /* SVG já é branco — sem invert; pequeno glow para destaque */
   filter: drop-shadow(0 8px 24px rgba(32, 199, 245, 0.35));
-  will-change: transform, opacity;
+  animation: introLogoIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes introLogoIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .intro-line {
   display: block;
@@ -545,7 +548,11 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, #20C7F5, transparent);
   transform-origin: center;
-  will-change: transform, opacity;
+  animation: introLineIn 0.55s cubic-bezier(0.65,0,0.35,1) 0.55s both;
+}
+@keyframes introLineIn {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
