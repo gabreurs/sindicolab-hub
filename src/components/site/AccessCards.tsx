@@ -278,7 +278,7 @@ function CardPortal({ className = "" }: { className?: string }) {
               <span>02 / 05 · Portal de conteúdo condominial</span>
               <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink transition" />
             </div>
-            <h3 className="mt-auto font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
+            <h3 className="mt-auto font-display text-[1.5rem] md:text-[1.7rem] lg:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance" style={{ overflowWrap: "anywhere", hyphens: "auto" }}>
               Leia conteúdos sobre gestão, segurança e comportamento condominial.
             </h3>
             <p className="mt-3 text-sm text-ink-soft leading-relaxed text-balance">
@@ -584,7 +584,7 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
           </header>
 
           {/* content */}
-          <div className="mt-8 md:mt-10 max-w-[60%] md:max-w-[58%]">
+          <div className="mt-8 md:mt-10 max-w-full xl:max-w-[58%]">
             <p
               className="inline-flex items-center gap-2 text-[11px] font-medium"
               style={{ color: "#E9DDF8", letterSpacing: "0.16em", textTransform: "uppercase" }}
@@ -594,15 +594,21 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
             </p>
 
             <h3
-              className="mt-5 text-[1.6rem] md:text-[2.1rem] leading-[1.05] tracking-[-0.01em] text-balance"
-              style={{ fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif", fontWeight: 400, color: "#F7F3EF" }}
+              className="mt-5 leading-[1.05] tracking-[-0.01em] text-balance"
+              style={{
+                fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif",
+                fontWeight: 400,
+                color: "#F7F3EF",
+                fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)",
+                overflowWrap: "anywhere",
+                hyphens: "auto",
+              }}
             >
-              Sua marca próxima dos decisores do mercado condominial.
+              Patrocine experiências com decisores do mercado condominial.
             </h3>
 
             <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(247,243,239,0.72)" }}>
-              Patrocine experiências presenciais que conectam empresas, síndicos,
-              gestores e profissionais do setor.
+              Aproxime sua marca de síndicos, gestores e decisores do mercado condominial.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -625,9 +631,9 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
             </p>
           </div>
 
-          {/* glass stat card lateral (desktop) */}
+          {/* glass stat card lateral — só em xl pra não comprimir headline */}
           <aside
-            className="hidden md:flex absolute flex-col gap-3"
+            className="hidden xl:flex absolute flex-col gap-3"
             style={{
               right: "clamp(28px, 3vw, 44px)",
               top: "50%",
