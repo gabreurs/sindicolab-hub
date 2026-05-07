@@ -67,8 +67,8 @@ export function IntroLoader() {
               alt="SíndicoLab"
               className="intro-logo"
               draggable={false}
-              initial={{ opacity: 0, y: 14, scale: 0.985, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 14, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             />
             <motion.span
