@@ -396,7 +396,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         <Link
           to="/materiais"
           aria-label="Baixar materiais gratuitos para condomínio"
-          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
           style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
