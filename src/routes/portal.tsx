@@ -176,6 +176,10 @@ function PortalPage() {
 
       <Editoria id="seguranca" titulo="Segurança condominial" itens={seguranca} />
       <Editoria id="gestao" titulo="Gestão condominial" itens={gestao} />
+      <Editoria id="tecnologia" titulo="Tecnologia" itens={tecnologia} />
+      <Editoria id="esg" titulo="ESG condominial" itens={esg} />
+      <Editoria id="juridico" titulo="Jurídico" itens={juridico} />
+      <Editoria id="equipe" titulo="Equipe condominial" itens={equipe} />
       <Editoria id="comportamento" titulo="Comportamento condominial" itens={comportamento} />
 
       {/* VÍDEOS */}
