@@ -338,3 +338,109 @@
   stroke-dashoffset: 280;
   animation: draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.15s;
 }
+
+/* ============================================================
+   MÍDIA KIT — design system portado de m-dia-kit-live (escopado)
+   Aplicado APENAS dentro de .midia-kit-page para preservar a
+   identidade editorial CondoHuby × SíndicoLab.
+   ============================================================ */
+@font-face {
+  font-family: 'Boldonse';
+  src: url('/fonts/Boldonse-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterMK';
+  src: url('/fonts/Inter-Variable.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'InterMK';
+  src: url('/fonts/Inter-Italic-Variable.ttf') format('truetype');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+
+.midia-kit-page {
+  --mk-bg: 33 35% 96%;          /* #F7F3EF */
+  --mk-fg: 274 40% 11%;         /* #1B1024 */
+  --mk-purple-deep: 277 100% 18%;
+  --mk-purple: 282 86% 29%;
+  --mk-violet: 258 90% 67%;
+  --mk-lavender: 274 65% 92%;
+  --mk-line: 274 35% 88%;
+  --mk-muted: 280 8% 44%;
+
+  background: hsl(var(--mk-bg));
+  color: hsl(var(--mk-fg));
+  font-family: 'InterMK', 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+.midia-kit-page * { border-color: hsl(var(--mk-line)); }
+.midia-kit-page .mk-display {
+  font-family: 'Boldonse', 'InterMK', system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.18;
+  word-spacing: 0.06em;
+}
+.midia-kit-page .mk-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: hsl(var(--mk-muted));
+  font-family: ui-monospace, 'JetBrains Mono', monospace;
+}
+.midia-kit-page .mk-eyebrow::before {
+  content: ""; display: inline-block; height: 1px; width: 2rem;
+  background: currentColor; opacity: .5;
+}
+.midia-kit-page .mk-container {
+  margin-inline: auto; width: 100%; max-width: 1240px;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) { .midia-kit-page .mk-container { padding-inline: 2.5rem; } }
+
+.midia-kit-page .mk-bg-deep   { background: hsl(var(--mk-purple-deep)); color: hsl(var(--mk-bg)); }
+.midia-kit-page .mk-bg-lav    { background: hsl(var(--mk-lavender)); color: hsl(var(--mk-fg)); }
+.midia-kit-page .mk-text-lav  { color: hsl(var(--mk-lavender)); }
+.midia-kit-page .mk-text-purple { color: hsl(var(--mk-purple)); }
+.midia-kit-page .mk-border    { border-color: hsl(var(--mk-line)); }
+
+.midia-kit-page .mk-btn-solid {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border-radius: 9999px; padding: .85rem 1.5rem;
+  background: hsl(var(--mk-fg)); color: hsl(var(--mk-bg));
+  font-size: .875rem; font-weight: 500;
+  transition: gap .3s ease, background .3s ease;
+}
+.midia-kit-page .mk-btn-solid:hover { gap: .75rem; background: hsl(var(--mk-purple)); }
+.midia-kit-page .mk-btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border-radius: 9999px; padding: .85rem 1.5rem;
+  border: 1px solid hsl(var(--mk-fg) / 0.2);
+  color: hsl(var(--mk-fg)); background: transparent;
+  font-size: .875rem; font-weight: 500;
+  transition: gap .3s ease, border-color .3s ease;
+}
+.midia-kit-page .mk-btn-ghost:hover { gap: .75rem; border-color: hsl(var(--mk-fg) / 0.6); }
+.midia-kit-page .mk-bg-deep .mk-btn-solid { background: hsl(var(--mk-bg)); color: hsl(var(--mk-fg)); }
+.midia-kit-page .mk-bg-deep .mk-btn-solid:hover { background: hsl(var(--mk-lavender)); }
+.midia-kit-page .mk-bg-deep .mk-btn-ghost { border-color: hsl(var(--mk-bg) / 0.25); color: hsl(var(--mk-bg)); }
+.midia-kit-page .mk-bg-deep .mk-btn-ghost:hover { border-color: hsl(var(--mk-bg) / 0.6); }
+
+/* ============================================================
+   Page transition overlay (GSAP + SVG strokes)
+   ============================================================ */
+.page-transition-overlay {
+  position: fixed; inset: 0; z-index: 90;
+  pointer-events: none;
+  display: grid; place-items: center;
+}
+.page-transition-overlay.is-active { pointer-events: auto; }
+.page-transition-overlay svg { width: 100%; height: 100%; display: block; }
+.page-transition-overlay path {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
