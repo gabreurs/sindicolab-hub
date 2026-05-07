@@ -3,6 +3,7 @@ import { InstagramIcon as Instagram, YoutubeIcon as Youtube, LinkedinIcon as Lin
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { BrandMark } from "./BrandMark";
+import marqoLogo from "@/assets/logo-marqo.svg";
 
 
 
