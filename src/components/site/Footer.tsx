@@ -1,4 +1,4 @@
-import { Instagram, Youtube, Linkedin } from "lucide-react";
+import { Camera, Play, Briefcase } from "lucide-react";
 
 const links = [
   { label: "Quero1Síndico", href: "https://quero1sindico.com/" },
@@ -36,13 +36,13 @@ export function Footer() {
 
         <div className="flex items-center gap-2">
           <a href="#" aria-label="Instagram" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Instagram className="w-4 h-4" />
+            <Camera className="w-4 h-4" />
           </a>
           <a href="#" aria-label="YouTube" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Youtube className="w-4 h-4" />
+            <Play className="w-4 h-4" />
           </a>
           <a href="#" aria-label="LinkedIn" className="grid place-items-center w-9 h-9 rounded-full border border-border hover:bg-secondary transition">
-            <Linkedin className="w-4 h-4" />
+            <Briefcase className="w-4 h-4" />
           </a>
         </div>
       </div>
