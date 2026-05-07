@@ -5,6 +5,8 @@ import { Search as SearchIcon, X, ArrowUpRight, Building2, BookOpen, GraduationC
 import Fuse from "fuse.js";
 import { Link } from "@tanstack/react-router";
 import { searchIndex, popularSearches, trackSearch, type SearchItem } from "@/data/searchIndex";
+import { getLenis } from "@/components/site/SmoothScroll";
+
 
 type SearchStore = {
   isOpen: boolean;
@@ -86,21 +88,44 @@ export function GlobalSearch() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close, toggle]);
 
-  // body scroll lock + autofocus + focus return
+  // body scroll lock real + Lenis pause + autofocus + focus return
   useEffect(() => {
     if (isOpen) {
       if (!lastTrigger.current) lastTrigger.current = document.activeElement as HTMLElement;
-      document.body.style.overflow = "hidden";
-      setTimeout(() => inputRef.current?.focus(), 30);
-    } else {
-      document.body.style.overflow = "";
-      setQuery("");
-      setDebounced("");
-      lastTrigger.current?.focus?.();
-      lastTrigger.current = null;
+      const scrollY = window.scrollY;
+      const body = document.body;
+      const html = document.documentElement;
+      body.dataset.scrollY = String(scrollY);
+      body.style.position = "fixed";
+      body.style.top = `-${scrollY}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
+      body.style.overflow = "hidden";
+      html.style.overscrollBehavior = "none";
+      getLenis()?.stop();
+      // focus instantâneo (sem cooldown perceptível)
+      requestAnimationFrame(() => inputRef.current?.focus());
+      return () => {
+        const y = Number(body.dataset.scrollY ?? "0");
+        body.style.position = "";
+        body.style.top = "";
+        body.style.left = "";
+        body.style.right = "";
+        body.style.width = "";
+        body.style.overflow = "";
+        html.style.overscrollBehavior = "";
+        delete body.dataset.scrollY;
+        window.scrollTo(0, y);
+        getLenis()?.start();
+        setQuery("");
+        setDebounced("");
+        lastTrigger.current?.focus?.();
+        lastTrigger.current = null;
+      };
     }
-    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
+
 
   // debounce
   useEffect(() => {
