@@ -88,29 +88,29 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Método prático de prospecção, abordagem de conselhos e fechamento para administradoras e síndicos profissionais.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "conselheiros",
     titulo: "Conselheiros Fiscais e Consultivos",
     capa: conselheiros,
     categoria: "Para síndicos",
-    preco: "R$ 197",
+    preco: "R$ 99",
     certificado: true,
     resumo:
       "Formação completa para conselheiros: papéis, leitura de prestação de contas, votação e fiscalização ativa.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/FDgSb70",
   },
   {
     slug: "oratoria-e-vendas",
-    titulo: "Oratória e Vendas",
+    titulo: "Oratória & Vendas",
     capa: oratoria,
     categoria: "Para síndicos",
-    preco: "R$ 247",
+    preco: "R$ 250",
     certificado: true,
     resumo:
       "Comunicação em assembleia, condução de reuniões e técnicas de venda para o síndico que precisa convencer.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/a0fOXfo",
   },
   {
     slug: "sindico-de-alta-performance",
