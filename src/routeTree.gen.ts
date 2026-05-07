@@ -9,11 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlayRouteImport } from './routes/play'
+import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as IndexRouteImport } from './routes/index'
 
+const QuemSomosRoute = QuemSomosRouteImport.update({
+  id: '/quem-somos',
+  path: '/quem-somos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -22,6 +29,11 @@ const PortalRoute = PortalRouteImport.update({
 const PlayRoute = PlayRouteImport.update({
   id: '/play',
   path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatrociniosRoute = PatrociniosRouteImport.update({
+  id: '/patrocinios',
+  path: '/patrocinios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MateriaisRoute = MateriaisRouteImport.update({
@@ -38,39 +50,67 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/materiais': typeof MateriaisRoute
+  '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
+  '/quem-somos': typeof QuemSomosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/materiais': typeof MateriaisRoute
+  '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
+  '/quem-somos': typeof QuemSomosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/materiais': typeof MateriaisRoute
+  '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
+  '/quem-somos': typeof QuemSomosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/materiais' | '/play' | '/portal'
+  fullPaths:
+    | '/'
+    | '/materiais'
+    | '/patrocinios'
+    | '/play'
+    | '/portal'
+    | '/quem-somos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/materiais' | '/play' | '/portal'
-  id: '__root__' | '/' | '/materiais' | '/play' | '/portal'
+  to: '/' | '/materiais' | '/patrocinios' | '/play' | '/portal' | '/quem-somos'
+  id:
+    | '__root__'
+    | '/'
+    | '/materiais'
+    | '/patrocinios'
+    | '/play'
+    | '/portal'
+    | '/quem-somos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MateriaisRoute: typeof MateriaisRoute
+  PatrociniosRoute: typeof PatrociniosRoute
   PlayRoute: typeof PlayRoute
   PortalRoute: typeof PortalRoute
+  QuemSomosRoute: typeof QuemSomosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/quem-somos': {
+      id: '/quem-somos'
+      path: '/quem-somos'
+      fullPath: '/quem-somos'
+      preLoaderRoute: typeof QuemSomosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal': {
       id: '/portal'
       path: '/portal'
@@ -83,6 +123,13 @@ declare module '@tanstack/react-router' {
       path: '/play'
       fullPath: '/play'
       preLoaderRoute: typeof PlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patrocinios': {
+      id: '/patrocinios'
+      path: '/patrocinios'
+      fullPath: '/patrocinios'
+      preLoaderRoute: typeof PatrociniosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/materiais': {
@@ -105,9 +152,21 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MateriaisRoute: MateriaisRoute,
+  PatrociniosRoute: PatrociniosRoute,
   PlayRoute: PlayRoute,
   PortalRoute: PortalRoute,
+  QuemSomosRoute: QuemSomosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
