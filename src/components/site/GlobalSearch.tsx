@@ -69,12 +69,15 @@ export function GlobalSearch() {
   const [debounced, setDebounced] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const titleId = "global-search-title";
+  const lastTrigger = useRef<HTMLElement | null>(null);
 
   // Cmd/Ctrl + K
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
+        if (!isOpen) lastTrigger.current = document.activeElement as HTMLElement;
         toggle();
       }
       if (e.key === "Escape" && isOpen) close();
@@ -83,15 +86,18 @@ export function GlobalSearch() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close, toggle]);
 
-  // body scroll lock + autofocus
+  // body scroll lock + autofocus + focus return
   useEffect(() => {
     if (isOpen) {
+      if (!lastTrigger.current) lastTrigger.current = document.activeElement as HTMLElement;
       document.body.style.overflow = "hidden";
       setTimeout(() => inputRef.current?.focus(), 30);
     } else {
       document.body.style.overflow = "";
       setQuery("");
       setDebounced("");
+      lastTrigger.current?.focus?.();
+      lastTrigger.current = null;
     }
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
@@ -107,7 +113,6 @@ export function GlobalSearch() {
     const expanded = expandQuery(debounced);
     const r = fuse.search(expanded).map((x) => ({
       item: x.item,
-      // combine score with priority — lower is better in fuse
       total: (x.score ?? 1) - x.item.priority / 200,
     }));
     r.sort((a, b) => a.total - b.total);
@@ -153,74 +158,115 @@ export function GlobalSearch() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
-            className="fixed inset-0 z-[120] bg-ink/60 backdrop-blur-md"
+            className="fixed inset-0 z-[120] bg-ink/55 backdrop-blur-md"
           />
           <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.985 }}
+            initial={{ opacity: 0, y: -10, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.985 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-1/2 -translate-x-1/2 top-[10vh] z-[130] w-[min(720px,92vw)] rounded-3xl bg-background border border-border shadow-lift overflow-hidden"
+            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[130] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
             role="dialog"
-            aria-label="Busca global SíndicoLab"
+            aria-modal="true"
+            aria-labelledby={titleId}
           >
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-border">
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 md:px-6 pt-4 pb-3 border-b border-border">
+              <div>
+                <div id={titleId} className="font-display text-base md:text-lg text-ink tracking-[-0.01em]">
+                  Buscar no SíndicoLab
+                </div>
+                <div className="text-[12px] text-ink-soft mt-0.5">
+                  Síndico profissional, cursos, materiais e gestão condominial
+                </div>
+              </div>
+              <button
+                onClick={close}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-background hover:bg-secondary text-ink px-3 h-11 min-w-[44px] min-h-[44px] transition"
+                aria-label="Fechar busca"
+              >
+                <X className="w-4 h-4" />
+                <span className="text-sm font-medium hidden sm:inline">Fechar</span>
+              </button>
+            </div>
+
+            {/* Search field */}
+            <div className="flex items-center gap-3 px-5 md:px-6 py-4 border-b border-border bg-secondary/40">
               <SearchIcon className="w-5 h-5 text-ink-soft shrink-0" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={onKeyDownInput}
-                placeholder="Buscar síndico profissional, cursos, materiais, conteúdos…"
-                className="flex-1 bg-transparent outline-none text-[1.05rem] placeholder:text-ink-soft text-ink"
+                placeholder="Busque por síndico profissional, cursos ou materiais"
+                className="flex-1 bg-transparent outline-none text-[1.05rem] md:text-lg placeholder:text-ink-soft text-ink"
                 aria-label="Campo de busca"
+                aria-controls="global-search-results"
               />
-              <kbd className="hidden md:inline-flex px-1.5 py-0.5 rounded-md bg-secondary text-[10px] font-mono text-ink-soft border border-border">ESC</kbd>
-              <button onClick={close} className="grid place-items-center w-8 h-8 rounded-full hover:bg-secondary md:hidden" aria-label="Fechar busca">
-                <X className="w-4 h-4" />
-              </button>
             </div>
 
-            <div className="max-h-[60vh] overflow-y-auto p-3">
+            {/* Body */}
+            <div id="global-search-results" className="flex-1 overflow-y-auto p-3 md:p-4">
               {!debounced && (
-                <div className="p-3">
-                  <div className="text-[11px] uppercase tracking-[0.3em] text-ink-soft mb-3 px-2">
-                    Buscas populares
+                <div className="p-2">
+                  <div className="px-3 pt-1 pb-3 font-display text-[1.05rem] text-ink">
+                    O que você procura?
                   </div>
-                  <ul className="grid gap-1">
-                    {popularSearches.map((p) => (
-                      <li key={p.label}>
-                        {p.external ? (
-                          <a href={p.href} target="_blank" rel="noreferrer" onClick={close} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-secondary transition group">
-                            <span className="text-sm text-ink">{p.label}</span>
-                            <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink" />
-                          </a>
-                        ) : (
-                          <Link to={p.href} onClick={close} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-secondary transition group">
-                            <span className="text-sm text-ink">{p.label}</span>
-                            <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink" />
-                          </Link>
-                        )}
-                      </li>
-                    ))}
+                  <ul className="grid gap-1.5">
+                    {popularSearches.map((p, i) => {
+                      const desc = POPULAR_DESCRIPTIONS[p.label] ?? "";
+                      const Inner = (
+                        <>
+                          <span className="grid place-items-center w-10 h-10 rounded-lg bg-secondary text-ink-soft group-hover:bg-ink group-hover:text-background transition shrink-0">
+                            <SearchIcon className="w-4 h-4" />
+                          </span>
+                          <span className="flex-1 min-w-0">
+                            <span className="block text-[0.95rem] font-medium text-ink">{p.label}</span>
+                            {desc && <span className="block text-xs text-ink-soft mt-0.5">{desc}</span>}
+                          </span>
+                          <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink group-hover:translate-x-0.5 transition" />
+                        </>
+                      );
+                      return (
+                        <motion.li
+                          key={p.label}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.04 * i, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          {p.external ? (
+                            <a href={p.href} target="_blank" rel="noreferrer" onClick={close} className="group flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-secondary transition">
+                              {Inner}
+                            </a>
+                          ) : (
+                            <Link to={p.href} onClick={close} className="group flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-secondary transition">
+                              {Inner}
+                            </Link>
+                          )}
+                        </motion.li>
+                      );
+                    })}
                   </ul>
                 </div>
               )}
 
               {debounced && results.length === 0 && (
-                <div className="p-6 text-sm text-ink-soft">
-                  <p className="text-ink mb-3">Não encontramos exatamente isso, mas estes caminhos podem ajudar:</p>
-                  <div className="grid gap-2">
-                    {popularSearches.slice(0, 4).map((p) =>
+                <div className="p-4">
+                  <p className="text-ink font-medium">Não encontramos exatamente isso.</p>
+                  <p className="text-sm text-ink-soft mt-1.5 max-w-md">
+                    Tente buscar por síndico profissional, assembleia, curso para síndico, materiais para condomínio ou gestão condominial.
+                  </p>
+                  <div className="grid gap-2 mt-4">
+                    {popularSearches.slice(0, 3).map((p) =>
                       p.external ? (
-                        <a key={p.label} href={p.href} target="_blank" rel="noreferrer" onClick={close} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-secondary hover:bg-accent transition">
+                        <a key={p.label} href={p.href} target="_blank" rel="noreferrer" onClick={close} className="group flex items-center justify-between gap-3 px-3 py-3 rounded-xl bg-secondary hover:bg-accent transition">
                           <span className="text-sm text-ink">{p.label}</span>
-                          <ArrowUpRight className="w-4 h-4" />
+                          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 transition" />
                         </a>
                       ) : (
-                        <Link key={p.label} to={p.href} onClick={close} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-secondary hover:bg-accent transition">
+                        <Link key={p.label} to={p.href} onClick={close} className="group flex items-center justify-between gap-3 px-3 py-3 rounded-xl bg-secondary hover:bg-accent transition">
                           <span className="text-sm text-ink">{p.label}</span>
-                          <ArrowUpRight className="w-4 h-4" />
+                          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 transition" />
                         </Link>
                       )
                     )}
@@ -229,10 +275,10 @@ export function GlobalSearch() {
               )}
 
               {debounced && results.length > 0 && (
-                <div className="p-2">
+                <div className="p-1">
                   {Object.entries(grouped).map(([cat, items]) => (
                     <div key={cat} className="mb-3 last:mb-0">
-                      <div className="text-[11px] uppercase tracking-[0.28em] text-ink-soft px-3 py-2">{cat}</div>
+                      <div className="text-[11px] uppercase tracking-[0.22em] text-ink-soft px-3 py-2 font-medium">{cat}</div>
                       <ul>
                         {items.map((r) => {
                           const idx = results.indexOf(r);
@@ -243,16 +289,16 @@ export function GlobalSearch() {
                               <button
                                 onMouseEnter={() => setActiveIdx(idx)}
                                 onClick={() => handleNavigate(r)}
-                                className={`w-full text-left flex items-center gap-3 px-3 py-3 rounded-xl transition ${active ? "bg-secondary" : "hover:bg-secondary/60"}`}
+                                className={`w-full text-left flex items-center gap-3 px-3 py-3 rounded-xl transition group ${active ? "bg-brand-soft" : "hover:bg-secondary"}`}
                               >
-                                <span className={`grid place-items-center w-9 h-9 rounded-lg ${active ? "bg-ink text-background" : "bg-background border border-border text-ink-soft"}`}>
+                                <span className={`grid place-items-center w-10 h-10 rounded-lg shrink-0 transition ${active ? "bg-ink text-background" : "bg-background border border-border text-ink-soft"}`}>
                                   <Icon className="w-4 h-4" />
                                 </span>
                                 <span className="flex-1 min-w-0">
-                                  <span className="block text-sm font-medium text-ink truncate">{r.title}</span>
+                                  <span className="block text-[0.95rem] font-medium text-ink truncate">{r.title}</span>
                                   <span className="block text-xs text-ink-soft truncate">{r.description}</span>
                                 </span>
-                                <ArrowUpRight className="w-4 h-4 text-ink-soft" />
+                                <ArrowUpRight className={`w-4 h-4 text-ink-soft transition ${active ? "translate-x-0.5 text-ink" : "group-hover:translate-x-0.5"}`} />
                               </button>
                             </li>
                           );
@@ -264,10 +310,12 @@ export function GlobalSearch() {
               )}
             </div>
 
-            <div className="border-t border-border px-4 py-2.5 flex items-center justify-between text-[11px] text-ink-soft">
+            {/* Footer with keyboard hints (secondary) */}
+            <div className="border-t border-border px-4 md:px-5 py-2.5 flex items-center justify-between text-[11px] text-ink-soft">
               <span className="flex items-center gap-3">
-                <span><kbd className="font-mono">↑↓</kbd> navegar</span>
-                <span><kbd className="font-mono">↵</kbd> abrir</span>
+                <span><kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-secondary border border-border">↑↓</kbd> navegar</span>
+                <span><kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-secondary border border-border">↵</kbd> abrir</span>
+                <span className="hidden sm:inline"><kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-secondary border border-border">Esc</kbd> fechar</span>
               </span>
               <span>Busca SíndicoLab</span>
             </div>
@@ -277,3 +325,11 @@ export function GlobalSearch() {
     </AnimatePresence>
   );
 }
+
+const POPULAR_DESCRIPTIONS: Record<string, string> = {
+  "Encontrar síndico profissional": "Acesse o Quero1Síndico",
+  "Baixar materiais para condomínio": "Guias, modelos e checklists gratuitos",
+  "Ver cursos para síndicos": "Aulas e formações no SíndicoLab Play",
+  "Ler conteúdo sobre gestão condominial": "Portal com notícias, segurança e casos reais",
+  "Patrocinar experiências condominiais": "Mídia kit, workshops e relacionamento",
+};
