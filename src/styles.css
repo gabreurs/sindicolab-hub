@@ -288,21 +288,31 @@
 }
 .mask-clip-y.is-revealed { clip-path: inset(0 0 0 0); }
 
-/* Edge blur global — camada fixa abaixo de header/search/menu. */
+/* Edge blur global — camada fixa abaixo de header/search/menu.
+   pointer-events:none e fade-out quando o footer entra em cena. */
 .edge-blur-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: clamp(90px, 13vh, 170px);
-  z-index: 40;
+  height: clamp(72px, 10vh, 130px);
+  z-index: 30;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(245,248,251,.92), rgba(245,248,251,.52), transparent);
-  -webkit-backdrop-filter: blur(22px) saturate(135%);
-  backdrop-filter: blur(22px) saturate(135%);
-  -webkit-mask-image: linear-gradient(to top, black 0%, black 44%, transparent 100%);
-  mask-image: linear-gradient(to top, black 0%, black 44%, transparent 100%);
+  opacity: 1;
+  transition: opacity 240ms ease;
+  background: linear-gradient(
+    to top,
+    rgba(245,248,251,0.82) 0%,
+    rgba(245,248,251,0.42) 42%,
+    rgba(245,248,251,0) 100%
+  );
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to top, black 0%, black 45%, transparent 100%);
+  mask-image: linear-gradient(to top, black 0%, black 45%, transparent 100%);
 }
+.edge-blur-bottom.is-hidden { opacity: 0; }
+.play-page ~ .edge-blur-bottom,
 .edge-blur-bottom.dark {
-  background: linear-gradient(to top, rgba(5,8,18,.92), rgba(5,8,18,.50), transparent);
+  background: linear-gradient(to top, rgba(5,8,18,0.78), rgba(5,8,18,0.34), transparent);
 }
 
 

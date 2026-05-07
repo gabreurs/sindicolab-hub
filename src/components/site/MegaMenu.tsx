@@ -3,6 +3,7 @@ import { ArrowUpRight, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
+import { getLenis } from "./SmoothScroll";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -15,14 +16,17 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
     if (open) {
       document.documentElement.classList.add("no-scroll");
       document.body.classList.add("no-scroll");
+      getLenis()?.stop();
     } else {
       document.documentElement.classList.remove("no-scroll");
       document.body.classList.remove("no-scroll");
+      getLenis()?.start();
     }
     return () => {
       window.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("no-scroll");
       document.body.classList.remove("no-scroll");
+      getLenis()?.start();
     };
   }, [open, onClose]);
 
