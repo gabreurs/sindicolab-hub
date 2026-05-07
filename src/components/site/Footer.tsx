@@ -1,80 +1,138 @@
-import { Heart, ArrowUpRight } from "lucide-react";
+import { Heart, ArrowUpRight, Instagram, Youtube, Linkedin } from "lucide-react/icons";
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { BrandMark } from "./BrandMark";
 
 const cols = [
   {
-    label: "Ecossistema",
+    label: "SíndicoLab",
     items: [
-      { label: "Quero1Síndico", href: "https://quero1sindico.com/", external: true },
-      { label: "Portal SíndicoLab", href: "/portal" },
-      { label: "SíndicoLab Play", href: "/play" },
-      { label: "Materiais e Downloads", href: "/materiais" },
+      { label: "Quem somos", href: "/quem-somos" },
+      { label: "Portal", href: "/portal" },
+      { label: "Play", href: "/play" },
+      { label: "Materiais", href: "/materiais" },
+      { label: "Patrocínios", href: "/patrocinios" },
+      { label: "Contato", href: "mailto:contato@sindicolab.com", external: true },
     ],
   },
   {
-    label: "Institucional",
+    label: "Quero1Síndico",
     items: [
-      { label: "Sobre o SíndicoLab", href: "/portal" },
-      { label: "Parcerias", href: "mailto:contato@sindicolab.com", external: true },
-      { label: "Imprensa", href: "mailto:imprensa@sindicolab.com", external: true },
-      { label: "Contato", href: "mailto:contato@sindicolab.com", external: true },
+      { label: "Encontrar síndico profissional", href: "https://quero1sindico.com/", external: true },
+      { label: "Como funciona", href: "https://quero1sindico.com/como-funciona", external: true },
+      { label: "Cadastrar síndico", href: "https://quero1sindico.com/cadastro", external: true },
+      { label: "Para condomínios", href: "https://quero1sindico.com/", external: true },
+      { label: "Para conselheiros", href: "https://quero1sindico.com/", external: true },
+    ],
+  },
+  {
+    label: "Portal",
+    items: [
+      { label: "Gestão condominial", href: "/portal" },
+      { label: "Segurança condominial", href: "/portal" },
+      { label: "Comportamento condominial", href: "/portal" },
+      { label: "Assembleias", href: "/portal" },
+      { label: "Casos reais", href: "/portal" },
+      { label: "Tecnologia", href: "/portal" },
+    ],
+  },
+  {
+    label: "Materiais",
+    items: [
+      { label: "Modelos de documentos", href: "/materiais" },
+      { label: "Checklists", href: "/materiais" },
+      { label: "Guias para síndicos", href: "/materiais" },
+      { label: "Materiais para assembleia", href: "/materiais" },
+      { label: "Downloads gratuitos", href: "/materiais" },
+    ],
+  },
+  {
+    label: "Cursos",
+    items: [
+      { label: "SíndicoLab Play", href: "/play" },
+      { label: "Cursos para síndicos", href: "/play" },
+      { label: "Treinamento para equipe", href: "/play" },
+      { label: "Inteligência condominial", href: "/play" },
+    ],
+  },
+  {
+    label: "Relacionamento",
+    items: [
+      { label: "Patrocinar experiências", href: "/patrocinios" },
+      { label: "Baixar mídia kit", href: "/patrocinios" },
+      { label: "Falar com a equipe", href: "mailto:contato@sindicolab.com", external: true },
+      { label: "WhatsApp", href: "https://wa.me/5511000000000", external: true },
+      { label: "Instagram", href: "https://instagram.com/sindicolab", external: true },
+      { label: "YouTube", href: "https://youtube.com/@sindicolab", external: true },
     ],
   },
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [sent, setSent] = useState(false);
+
   return (
     <footer className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-brand/15 blur-3xl pointer-events-none" />
 
       <div className="container-x relative">
-        <div className="grid md:grid-cols-12 gap-12 md:gap-8">
-          <div className="md:col-span-5">
-            <Link to="/" className="inline-flex items-center gap-2.5">
-              <span className="relative grid place-items-center w-10 h-10 rounded-[10px] overflow-hidden font-display font-semibold">
-                <span className="absolute inset-0 gradient-lab" />
-                <span className="relative">S</span>
-              </span>
-              <span className="font-display text-xl">
-                Síndico<span className="text-cyan">Lab</span>
-              </span>
-            </Link>
-            <p className="mt-5 text-sm text-background/65 max-w-sm leading-relaxed">
-              O ecossistema brasileiro de síndico profissional, cursos, materiais e
-              conteúdo para gestão condominial.
+        {/* Newsletter */}
+        <div className="grid lg:grid-cols-12 gap-10 pb-14 border-b border-background/10">
+          <div className="lg:col-span-5">
+            <Link to="/" className="inline-flex"><BrandMark size={32} tone="light" /></Link>
+            <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1.05] max-w-md">
+              Fique por dentro do mercado condominial.
+            </h3>
+            <p className="mt-3 text-sm text-background/70 max-w-md leading-relaxed">
+              Receba conteúdos, materiais e novidades do SíndicoLab toda semana.
             </p>
-
-            <a
-              href="https://quero1sindico.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="group mt-7 inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-background/10 border border-background/15 text-sm hover:bg-cyan hover:text-ink hover:border-cyan transition-all"
-            >
-              Encontrar síndico profissional
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
           </div>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+            className="lg:col-span-7 grid sm:grid-cols-5 gap-3 self-end"
+          >
+            <input
+              required
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Nome"
+              className="sm:col-span-2 px-4 py-3 rounded-full bg-background/10 border border-background/15 text-sm placeholder:text-background/45 focus:outline-none focus:border-cyan transition"
+            />
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Seu e-mail"
+              className="sm:col-span-2 px-4 py-3 rounded-full bg-background/10 border border-background/15 text-sm placeholder:text-background/45 focus:outline-none focus:border-cyan transition"
+            />
+            <button type="submit" className="btn-primary justify-center" style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}>
+              {sent ? "Inscrito ✓" : "Inscrever-se"}
+            </button>
+          </form>
+        </div>
 
+        {/* Columns */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 md:gap-8 pt-14">
           {cols.map((c) => (
-            <div key={c.label} className="md:col-span-3">
-              <div className="text-[10px] uppercase tracking-[0.35em] text-background/45 mb-4">
+            <div key={c.label}>
+              <div className="text-[11px] uppercase tracking-[0.3em] text-background/45 mb-4">
                 {c.label}
               </div>
               <ul className="space-y-2.5 text-sm">
                 {c.items.map((it) => (
                   <li key={it.label}>
                     {it.external ? (
-                      <a
-                        href={it.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-background/80 hover:text-cyan transition-colors"
-                      >
+                      <a href={it.href} target={it.href.startsWith("mailto:") ? undefined : "_blank"} rel="noreferrer" className="text-background/75 hover:text-cyan transition-colors inline-flex items-center gap-1">
                         {it.label}
+                        <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-0.5 group-hover:opacity-100 transition" />
                       </a>
                     ) : (
-                      <Link to={it.href} className="text-background/80 hover:text-cyan transition-colors">
+                      <Link to={it.href} className="text-background/75 hover:text-cyan transition-colors">
                         {it.label}
                       </Link>
                     )}
@@ -83,22 +141,31 @@ export function Footer() {
               </ul>
             </div>
           ))}
-
-          <div className="md:col-span-1" />
         </div>
 
         <div className="mt-16 pt-6 border-t border-background/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-background/55">
-          <div>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</div>
-          <a
-            href="https://studiomarqo.com"
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-1.5 hover:text-background transition-colors"
-          >
-            Feito com
-            <Heart className="w-3.5 h-3.5 fill-cyan text-cyan group-hover:scale-110 transition-transform" />
-            por <span className="font-semibold tracking-wide text-background/80">STUDIO MARQO</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</span>
+            <a href="/politica-de-privacidade" className="hover:text-background transition">Privacidade</a>
+            <a href="/termos" className="hover:text-background transition">Termos</a>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <a href="https://instagram.com/sindicolab" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Instagram className="w-3.5 h-3.5" /></a>
+              <a href="https://youtube.com/@sindicolab" target="_blank" rel="noreferrer" aria-label="YouTube" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Youtube className="w-3.5 h-3.5" /></a>
+              <a href="https://linkedin.com/company/sindicolab" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Linkedin className="w-3.5 h-3.5" /></a>
+            </div>
+            <a
+              href="https://studiomarqo.com"
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-1.5 hover:text-background transition-colors"
+            >
+              Feito com
+              <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500 group-hover:scale-110 transition-transform" />
+              por <span className="font-semibold tracking-wide text-background/80">STUDIO MARQO</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
