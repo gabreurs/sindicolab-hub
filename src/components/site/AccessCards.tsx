@@ -42,14 +42,15 @@ export function AccessCards() {
         }
         const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
         blobs.forEach((b, i) => {
+          if (i > 1) return; // limita parallax a 2 blobs por card
           gsap.to(b, {
-            yPercent: i % 2 === 0 ? -14 : 12,
-            xPercent: i % 2 === 0 ? 4 : -3,
+            yPercent: i % 2 === 0 ? -10 : 8,
             ease: "none",
-            scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 0.6 },
+            scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.2, fastScrollEnd: true },
           });
         });
       });
+
     }, root);
 
     return () => { ctx.revert(); };
