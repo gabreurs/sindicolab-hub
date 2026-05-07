@@ -451,8 +451,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   z-index: 1;
   pointer-events: none;
 }
-.play-hero > .container-x,
-.play-hero > div { position: relative; z-index: 2; }
+.play-hero > .container-x { position: relative; z-index: 2; }
 @media (max-width: 768px) {
   .play-hero-bg { background-position: 70% center; }
   .play-hero::before {
