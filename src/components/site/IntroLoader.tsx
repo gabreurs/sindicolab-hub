@@ -75,13 +75,13 @@ export function IntroLoader() {
       <span className="intro-bg-light intro-bg-light-c" />
 
       <div className="intro-stage">
-        <div ref={phraseRef} className="intro-phrase">
+        <div ref={phraseRef} className="intro-phrase" style={{ opacity: 0 }}>
           <span>O maior coletivo de</span>
           <span className="intro-phrase-accent">síndicos profissionais</span>
           <span>do Brasil</span>
         </div>
 
-        <div ref={logoWrapRef} className="intro-logo-wrap">
+        <div ref={logoWrapRef} className="intro-logo-wrap" style={{ opacity: 0 }}>
           <img src={logoSrc} alt="SíndicoLab" className="intro-logo" draggable={false} />
           <span className="intro-line" />
         </div>
