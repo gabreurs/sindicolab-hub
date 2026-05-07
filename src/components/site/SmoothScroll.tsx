@@ -3,6 +3,11 @@ import Lenis from "lenis";
 
 let lenisInstance: Lenis | null = null;
 let lenisRefs = 0;
+let rafId = 0;
+
+export function getLenis() {
+  return lenisInstance;
+}
 
 export function SmoothScroll() {
   useEffect(() => {
@@ -15,22 +20,18 @@ export function SmoothScroll() {
         duration: 0.9,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        wheelMultiplier: 1,
       });
-      const raf = (time: number) => {
+      const tick = (time: number) => {
         lenisInstance?.raf(time);
-        (lenisInstance as unknown as { _rafId?: number })._rafId =
-          requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(tick);
       };
-      (lenisInstance as unknown as { _rafId?: number })._rafId =
-        requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(tick);
     }
 
     return () => {
       lenisRefs -= 1;
       if (lenisRefs <= 0 && lenisInstance) {
-        const id = (lenisInstance as unknown as { _rafId?: number })._rafId;
-        if (id) cancelAnimationFrame(id);
+        if (rafId) cancelAnimationFrame(rafId);
         lenisInstance.destroy();
         lenisInstance = null;
         lenisRefs = 0;
@@ -40,4 +41,3 @@ export function SmoothScroll() {
 
   return null;
 }
-
