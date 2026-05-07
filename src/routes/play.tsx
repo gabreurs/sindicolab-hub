@@ -231,3 +231,132 @@ function CursoCard({ curso }: { curso: Curso }) {
     </motion.a>
   );
 }
+
+/* ───────────── Featured Hero rotativa ───────────── */
+function FeaturedHero({ items }: { items: Curso[] }) {
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduced = typeof window !== "undefined"
+    ? window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    : false;
+
+  useEffect(() => {
+    if (paused || reduced || items.length < 2) return;
+    const t = window.setInterval(() => setI((n) => (n + 1) % items.length), 7500);
+    return () => window.clearInterval(t);
+  }, [paused, reduced, items.length]);
+
+  const c = items[i];
+  if (!c) return null;
+  const go = (delta: number) => setI((n) => (n + delta + items.length) % items.length);
+
+  return (
+    <section
+      aria-label="Cursos em destaque"
+      className="play-hero relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* crossfade de imagens de fundo */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={c.slug}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="play-hero-bg"
+          style={{ backgroundImage: `url(${c.capa})` }}
+          aria-hidden
+        />
+      </AnimatePresence>
+
+      <div className="relative container-x pt-32 md:pt-40 pb-12 md:pb-16 min-h-[clamp(460px,78vh,720px)] flex flex-col justify-end">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={c.slug}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-2xl"
+          >
+            <div className="inline-flex items-center gap-2 text-xs text-cyan">
+              <Flame className="w-3.5 h-3.5" /> {c.destaque ?? "Curso em destaque"}
+            </div>
+            <h1 className="mt-4 font-display text-4xl md:text-6xl tracking-[-0.035em] leading-[1.0] text-balance text-white">
+              {c.titulo}
+            </h1>
+            <p className="mt-4 text-white/85 leading-relaxed text-base md:text-lg max-w-xl">
+              {c.resumo}
+            </p>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/75">
+              {c.acesso && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" /> {c.acesso}
+                </span>
+              )}
+              {c.certificado && (
+                <span className="inline-flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> Certificado
+                </span>
+              )}
+              {c.preco && <span className="font-mono text-cyan">{c.preco}</span>}
+              <span className="text-white/45">Plataforma: Kiwify / Hotmart</span>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-background text-ink font-medium hover:bg-cyan transition"
+              >
+                Ver curso <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a
+                href={`#curso-${c.slug}`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-white/25 text-white hover:bg-white/10 transition"
+              >
+                Mais informações
+              </a>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Controles */}
+        <div className="mt-8 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            {items.map((it, idx) => (
+              <button
+                key={it.slug}
+                onClick={() => setI(idx)}
+                aria-label={`Ir para ${it.titulo}`}
+                className={`h-1.5 rounded-full transition-all ${
+                  idx === i ? "w-8 bg-cyan" : "w-4 bg-white/25 hover:bg-white/45"
+                }`}
+              />
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button
+              aria-label="Curso anterior"
+              onClick={() => go(-1)}
+              className="w-10 h-10 grid place-items-center rounded-full border border-white/20 text-white/80 hover:border-white/60 hover:text-white transition"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              aria-label="Próximo curso"
+              onClick={() => go(1)}
+              className="w-10 h-10 grid place-items-center rounded-full border border-white/20 text-white/80 hover:border-white/60 hover:text-white transition"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
