@@ -62,7 +62,11 @@ const seguranca = [
   get("camera-ia-lgpd"),
   get("plano-evacuacao"),
 ];
-const gestao = [get("reduziu-conta-agua"), get("novo-perfil-sindico-2026"), get("10-desafios-sindico-2026")];
+const gestao = [get("gestao-financeira-condominio"), get("reduziu-conta-agua"), get("10-desafios-sindico-2026")];
+const tecnologia = [get("tecnologia-condominio-2026"), get("camera-ia-lgpd"), get("portaria-remota-o-que-avaliar")];
+const esg = [get("esg-condominio-pratica"), get("reduziu-conta-agua")];
+const juridico = [get("juridico-sindico-2026"), get("como-conduzir-assembleia"), get("camera-ia-lgpd")];
+const equipe = [get("equipe-condominial-treinamento"), get("portaria-remota-o-que-avaliar")];
 const comportamento = [get("pets-barulho-condominio"), get("como-conduzir-assembleia")];
 
 function PortalPage() {
