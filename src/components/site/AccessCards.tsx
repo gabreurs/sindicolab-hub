@@ -268,7 +268,7 @@ function CardPortal({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
