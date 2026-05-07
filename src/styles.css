@@ -430,9 +430,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 .play-page { background: #0a0b12; }
 .play-hero {
   position: relative;
-  min-height: clamp(420px, 70vh, 680px);
+  min-height: clamp(460px, 78vh, 720px);
   background-size: cover;
-  background-position: center right;
+  background-position: 78% center;
   background-repeat: no-repeat;
   isolation: isolate;
 }
@@ -440,11 +440,18 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   content: "";
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(8,10,18,0.92) 0%, rgba(8,10,18,0.72) 38%, rgba(8,10,18,0.18) 70%, rgba(8,10,18,0) 100%),
-    linear-gradient(0deg, rgba(8,10,18,0.85) 0%, rgba(8,10,18,0) 55%);
+    linear-gradient(90deg, rgba(8,10,18,0.96) 0%, rgba(8,10,18,0.86) 30%, rgba(8,10,18,0.55) 55%, rgba(8,10,18,0.10) 80%, rgba(8,10,18,0) 100%),
+    linear-gradient(0deg, rgba(8,10,18,0.92) 0%, rgba(8,10,18,0) 60%);
   z-index: 0;
 }
 .play-hero > * { position: relative; z-index: 1; }
+@media (max-width: 768px) {
+  .play-hero { background-position: 70% center; }
+  .play-hero::before {
+    background:
+      linear-gradient(180deg, rgba(8,10,18,0.55) 0%, rgba(8,10,18,0.85) 60%, rgba(8,10,18,0.96) 100%);
+  }
+}
 
 /* Carrossel de cursos — sem scrollbar nativa */
 .courses-track {
