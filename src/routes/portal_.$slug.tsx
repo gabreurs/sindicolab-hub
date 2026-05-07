@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { ArrowUpRight, Clock, TrendingUp } from "lucide-react";
 import { articles, getArticle, type ArticleBlock } from "@/data/articles";
 
-export const Route = createFileRoute("/portal/$slug")({
+export const Route = createFileRoute("/portal_/$slug")({
   loader: ({ params }) => {
     const article = getArticle(params.slug);
     if (!article) throw notFound();
