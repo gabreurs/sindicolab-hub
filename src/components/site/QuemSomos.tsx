@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Instagram } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 
 const stats = [
   { n: "12+", l: "Workshops por ano no CondoHub" },

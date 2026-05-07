@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Instagram, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
+import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
+import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 
 export const Route = createFileRoute("/quem-somos")({
   head: () => ({
