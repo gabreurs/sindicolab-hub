@@ -152,6 +152,16 @@ export function Footer() {
             <span>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</span>
             <a href="/politica-de-privacidade" className="hover:text-background transition">Privacidade</a>
             <a href="/termos" className="hover:text-background transition">Termos</a>
+            <button
+              type="button"
+              onClick={() => {
+                try { window.__sindicoLabReplayIntro?.(); } catch {}
+              }}
+              className="hover:text-background transition opacity-60 hover:opacity-100"
+              aria-label="Reexecutar intro de marca"
+            >
+              Rever intro
+            </button>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
