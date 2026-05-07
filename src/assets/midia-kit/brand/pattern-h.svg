@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none">
+  <!-- Forma orgânica inspirada no "h" do logo CondoHuby - duas hastes verticais com topo arredondado -->
+  <path d="M80 60 C80 30 110 0 145 0 H205 C235 0 260 30 260 60 V680 C260 730 220 770 170 770 H140 C110 770 80 740 80 700 Z" fill="currentColor"/>
+  <path d="M340 60 C340 30 370 0 405 0 H465 C495 0 520 30 520 60 V680 C520 730 480 770 430 770 H400 C370 770 340 740 340 700 Z" fill="currentColor"/>
+</svg>
