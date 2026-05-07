@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import { BrandMark } from "./BrandMark";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -11,10 +12,17 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.documentElement.classList.add("no-scroll");
+      document.body.classList.add("no-scroll");
+    } else {
+      document.documentElement.classList.remove("no-scroll");
+      document.body.classList.remove("no-scroll");
+    }
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove("no-scroll");
+      document.body.classList.remove("no-scroll");
     };
   }, [open, onClose]);
 
@@ -37,15 +45,15 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             animate={{ clipPath: "inset(0 0 0 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease }}
-            className="fixed inset-x-0 top-0 z-[90] bg-background border-b border-border/60 shadow-lift max-h-[100dvh] overflow-y-auto"
+            className="mega-menu-overlay fixed inset-0 z-[90] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none"
             role="dialog"
             aria-modal="true"
             aria-label="Menu do SíndicoLab"
           >
             {/* Bar */}
             <div className="container-x py-5 flex items-center justify-between">
-              <Link to="/" onClick={onClose} className="font-display text-base text-ink">
-                Síndico<span style={{ color: "oklch(0.78 0.14 220)" }}>Lab</span>
+              <Link to="/" onClick={onClose} aria-label="SíndicoLab — home">
+                <BrandMark size={30} tone="dark" />
               </Link>
               <button
                 onClick={onClose}

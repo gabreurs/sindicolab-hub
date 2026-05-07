@@ -45,26 +45,29 @@ export function Header() {
             <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 text-[0.92rem]">
+          <nav className="header-nav hidden lg:flex items-center gap-1 text-[0.92rem]">
             <a
               href="https://quero1sindico.com/"
               target="_blank"
               rel="noreferrer"
-              className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
+              className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
             >
               Encontrar síndico
             </a>
-            <Link to="/play" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
+            <Link to="/play" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Cursos
             </Link>
-            <Link to="/materiais" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
+            <Link to="/materiais" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Materiais
             </Link>
-            <Link to="/portal" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
+            <Link to="/portal" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Portal
             </Link>
-            <Link to="/patrocinios" className={`px-3 py-2 rounded-full transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
+            <Link to="/patrocinios" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Patrocinar
+            </Link>
+            <Link to="/quem-somos" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
+              Quem somos
             </Link>
           </nav>
 
