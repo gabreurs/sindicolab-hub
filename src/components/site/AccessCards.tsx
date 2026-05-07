@@ -80,11 +80,11 @@ export function AccessCards() {
 
         <CardQuero1 />
 
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5">
-          <CardPortal className="md:col-span-7" />
-          <CardPlay className="md:col-span-5" />
-          <CardMateriais className="md:col-span-5" />
-          <CardPatrocinios className="md:col-span-7" />
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
+          <CardPortal className="md:col-span-7 h-full" />
+          <CardPlay className="md:col-span-5 h-full" />
+          <CardMateriais className="md:col-span-5 h-full" />
+          <CardPatrocinios className="md:col-span-7 h-full" />
         </div>
       </div>
     </section>
