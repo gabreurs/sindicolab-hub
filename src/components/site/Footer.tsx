@@ -167,7 +167,7 @@ export function Footer() {
             >
               Feito com
               <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500 group-hover:scale-110 transition-transform" />
-              por <span className="font-semibold tracking-wide text-background/80">STUDIO MARQO</span>
+              por <img src={marqoLogo} alt="Studio Marqo" className="h-3.5 w-auto opacity-80 group-hover:opacity-100 transition" />
             </a>
           </div>
         </div>
