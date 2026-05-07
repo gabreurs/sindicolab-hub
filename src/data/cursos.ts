@@ -121,7 +121,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Trilha do zero ao primeiro condomínio: contratação, primeiros 90 dias, prestação de contas e reputação.",
-    url: PLACEHOLDER,
+    url: "https://guarida.sindicolab.com/play/curso-para-sindico-profissional-em-inicio-de-carreira/",
   },
   {
     slug: "competencias-do-sindico",
@@ -132,7 +132,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Mapa das competências técnicas, comportamentais e de liderança do síndico profissional moderno.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "juridico-de-alta-performance",
@@ -143,7 +143,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Direito condominial aplicado: convenção, regimento, multas, cobrança, LGPD e jurisprudência atual.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "inovacao-e-tecnologia",
@@ -154,7 +154,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Tecnologia aplicada a condomínios: portaria remota, IA, automação, comunicação e tomada de decisão por dados.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "limpeza-alta-performance",
@@ -165,7 +165,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Treinamento técnico para equipes de limpeza condominial: padrões, produtos, segurança e produtividade.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/HYLI6B4",
   },
   {
     slug: "porteiro-controlador",
@@ -176,7 +176,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Atendimento, controle de acesso, protocolos de segurança e postura profissional para portaria.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/V1zlia6",
   },
   {
     slug: "zelador-de-excelencia",
@@ -187,7 +187,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "O zelador como líder operacional: rotinas, manutenções, equipe, fornecedores e relacionamento com o síndico.",
-    url: PLACEHOLDER,
+    url: "https://pay.kiwify.com.br/UaBKUDA",
   },
   {
     slug: "comunicacao-fim-de-ano",
@@ -197,7 +197,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Pacote prático para comunicar prestação de contas, eventos e mensagens de fim de ano com tom profissional.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "jornada-do-cliente",
@@ -208,7 +208,7 @@ export const cursos: Curso[] = [
     certificado: true,
     resumo:
       "Customer experience aplicado a administradoras: prospecção, onboarding, retenção e expansão de carteira.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mercadinhos-autonomos",
@@ -218,7 +218,7 @@ export const cursos: Curso[] = [
     preco: "R$ 197",
     resumo:
       "Como avaliar, contratar, fiscalizar e rentabilizar mercadinhos autônomos em áreas comuns.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mercado-livre-energia",
@@ -228,7 +228,7 @@ export const cursos: Curso[] = [
     preco: "R$ 247",
     resumo:
       "Migração para o mercado livre de energia em condomínios de média e alta tensão: viabilidade, contratos e economia.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "biblioteca-de-prompts",
@@ -238,7 +238,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Centenas de prompts prontos para usar no dia a dia do síndico: comunicados, atas, convocações e análises.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
   {
     slug: "mapas-mentais",
@@ -248,7 +248,7 @@ export const cursos: Curso[] = [
     preco: "R$ 97",
     resumo:
       "Coletânea de mapas mentais para estudo e consulta rápida das principais rotinas do síndico profissional.",
-    url: PLACEHOLDER,
+    url: PLAY_URL,
   },
 ];
 
