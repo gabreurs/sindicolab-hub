@@ -42,8 +42,9 @@ function Index() {
       <IntroLoader />
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
-        <Hero />
-        <AccessCards />
+          <Hero />
+          <ProductScrollShowcase />
+          <AccessCards />
         <ValuePillars />
         <Sponsors />
         <Footer />
