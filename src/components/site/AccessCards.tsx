@@ -485,7 +485,8 @@ function CardMateriais({ className = "" }: { className?: string }) {
   );
 }
 
-/* ================================ Patrocínios ================================ */
+/* ================================ Patrocínios — identidade do repo Mídia Kit Live ================================
+   Cream #F7F3EF + ink violet #1B1024 + accent purple deep #3A005C, "serif italic" para destaque, eyebrow com hairline. */
 function CardPatrocinios({ className = "" }: { className?: string }) {
   const { mx, my, onMove } = useCursor();
   return (
@@ -497,42 +498,113 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/patrocinios" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
+      <Link
+        to="/patrocinios"
+        className="cursor-glow group relative block overflow-hidden rounded-3xl min-h-[420px] shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
+        style={{
+          "--mx": mx,
+          "--my": my,
+          background: "hsl(33 35% 96%)", // cream from media kit
+          color: "hsl(274 40% 11%)",      // ink violet
+        } as React.CSSProperties}
+        aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
       >
-        <div className="absolute inset-0 gradient-mediakit" />
-        <div className="absolute -top-20 -right-20 w-[28rem] h-[28rem] rounded-full opacity-40 blur-3xl" style={{ background: "oklch(0.55 0.22 295)" }} />
-        <div className="absolute inset-0 pattern-windows opacity-30" />
+        {/* lavender glow */}
+        <div
+          className="absolute -top-24 -right-20 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-70"
+          style={{ background: "radial-gradient(circle, hsl(274 65% 92%), transparent 70%)" }}
+        />
+        {/* subtle grid (bg-grid-soft) */}
+        <div
+          className="absolute inset-0 opacity-50"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, hsla(274,30%,80%,0.18) 1px, transparent 1px), linear-gradient(to bottom, hsla(274,30%,80%,0.18) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          }}
+        />
 
         <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
-          <div className="flex items-center justify-between text-[12px]">
-            <span className="text-background/65 font-mono">05 / 05</span>
-            <span className="grid place-items-center w-9 h-9 rounded-full bg-background/15 group-hover:bg-background group-hover:text-ink transition">
-              <Sparkles className="w-3.5 h-3.5" />
+          {/* Eyebrow with hairline */}
+          <div className="flex items-center justify-between">
+            <p
+              className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em]"
+              style={{ color: "hsl(280 8% 44%)" }}
+            >
+              <span className="inline-block h-px w-8 opacity-40" style={{ background: "currentColor" }} />
+              CondoHuby + SíndicoLab
+            </p>
+            <span
+              className="font-mono text-[11px]"
+              style={{ color: "hsl(280 8% 44%)" }}
+            >
+              05 / 05
             </span>
           </div>
-          <div className="text-[12px] text-background/70 mt-2">Mídia, workshops e patrocínio condominial</div>
 
-          <h3 className="mt-auto font-display text-2xl md:text-[2rem] tracking-[-0.03em] leading-[1.05] text-balance">
-            Patrocine experiências com decisores do mercado condominial.
+          {/* Display headline w/ serif italic accent */}
+          <h3
+            className="mt-auto text-[2rem] md:text-[2.6rem] leading-[0.98] tracking-[-0.035em]"
+            style={{ fontFamily: "'Mona Sans', 'Inter', system-ui, sans-serif", fontWeight: 500, color: "hsl(274 40% 11%)" }}
+          >
+            Sua marca próxima dos{" "}
+            <span
+              style={{
+                fontFamily: "'Instrument Serif', Georgia, serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: "hsl(282 86% 29%)",
+              }}
+            >
+              decisores
+            </span>{" "}
+            do mercado condominial.
           </h3>
-          <p className="mt-3 text-sm text-background/75 max-w-md leading-relaxed">
-            Aproxime sua marca de síndicos, gestores e profissionais em workshops e ações
-            de relacionamento com o CondoHuby + SíndicoLab.
+
+          <p className="mt-4 max-w-md text-sm leading-relaxed" style={{ color: "hsl(280 8% 44%)" }}>
+            Workshops, encontros e experiências presenciais com síndicos, gestores
+            e profissionais do setor.
           </p>
 
-          {/* metric chips */}
-          <div className="mt-6 grid grid-cols-3 gap-2">
-            {[["+100", "síndicos por workshop"], ["12+", "encontros por ano"], ["05", "formatos"]].map(([n, l]) => (
-              <div key={l} className="rounded-xl bg-background/10 backdrop-blur-md border border-background/15 p-3">
-                <div className="font-display text-xl">{n}</div>
-                <div className="text-[10px] text-background/70 leading-tight">{l}</div>
-              </div>
-            ))}
+          {/* Stats row — hairlines */}
+          <div className="mt-6 border-t" style={{ borderColor: "hsl(274 30% 88%)" }}>
+            <div className="grid grid-cols-4 gap-3 pt-4">
+              {[
+                ["+100", "síndicos / workshop"],
+                ["12+", "encontros/ano"],
+                ["5", "formatos"],
+                ["100%", "presencial"],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <p className="text-lg md:text-xl tracking-tight" style={{ fontWeight: 500, color: "hsl(274 40% 11%)" }}>
+                    {k}
+                  </p>
+                  <p className="mt-0.5 text-[10px] leading-tight" style={{ color: "hsl(280 8% 44%)" }}>
+                    {v}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium">
-            Ver mídia kit <ArrowUpRight className="w-3.5 h-3.5" />
+          <div className="border-b mt-4" style={{ borderColor: "hsl(274 30% 88%)" }} />
+
+          {/* CTAs como btn-primary do mídia kit */}
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <span
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-medium transition-all group-hover:gap-3"
+              style={{ background: "hsl(274 40% 11%)", color: "hsl(33 35% 96%)" }}
+            >
+              Ver mídia kit
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+            <span
+              className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-medium"
+              style={{ borderColor: "hsl(274 30% 88%)", color: "hsl(274 40% 11%)" }}
+            >
+              Falar com a equipe
+            </span>
           </div>
         </div>
       </Link>
