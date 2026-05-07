@@ -71,17 +71,18 @@ function PlayPage() {
           <div className="inline-flex items-center gap-2 text-xs text-cyan">
             <Flame className="w-3.5 h-3.5" /> {cursoEmDestaque.destaque ?? "Curso em destaque"}
           </div>
-          <motion.h1
+          {/* H1 invisível para SEO; título visual vem da própria capa */}
+          <h1 className="sr-only">{cursoEmDestaque.titulo}</h1>
+          <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mt-4 font-display text-4xl md:text-6xl lg:text-7xl tracking-[-0.04em] leading-[0.98] max-w-3xl text-balance"
+            className="mt-4 max-w-md"
           >
-            {cursoEmDestaque.titulo}
-          </motion.h1>
-          <p className="mt-5 max-w-xl text-white/80 leading-relaxed text-base md:text-lg">
-            {cursoEmDestaque.resumo}
-          </p>
+            <p className="text-white/85 leading-relaxed text-base md:text-lg">
+              {cursoEmDestaque.resumo}
+            </p>
+          </motion.div>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70">
             {cursoEmDestaque.acesso && (
