@@ -9,16 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
+import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
+import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as CursosRouteImport } from './routes/cursos'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as ArtigosRouteImport } from './routes/artigos'
+import { Route as AnuncieRouteImport } from './routes/anuncie'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -49,9 +61,39 @@ const PatrociniosRoute = PatrociniosRouteImport.update({
   path: '/patrocinios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MidiaKitRoute = MidiaKitRouteImport.update({
+  id: '/midia-kit',
+  path: '/midia-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MateriaisRoute = MateriaisRouteImport.update({
   id: '/materiais',
   path: '/materiais',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CursosRoute = CursosRouteImport.update({
+  id: '/cursos',
+  path: '/cursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtigosRoute = ArtigosRouteImport.update({
+  id: '/artigos',
+  path: '/artigos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnuncieRoute = AnuncieRouteImport.update({
+  id: '/anuncie',
+  path: '/anuncie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,88 +109,144 @@ const PortalSlugRoute = PortalSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anuncie': typeof AnuncieRoute
+  '/artigos': typeof ArtigosRoute
+  '/blog': typeof BlogRoute
+  '/cursos': typeof CursosRoute
+  '/downloads': typeof DownloadsRoute
   '/materiais': typeof MateriaisRoute
+  '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anuncie': typeof AnuncieRoute
+  '/artigos': typeof ArtigosRoute
+  '/blog': typeof BlogRoute
+  '/cursos': typeof CursosRoute
+  '/downloads': typeof DownloadsRoute
   '/materiais': typeof MateriaisRoute
+  '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anuncie': typeof AnuncieRoute
+  '/artigos': typeof ArtigosRoute
+  '/blog': typeof BlogRoute
+  '/cursos': typeof CursosRoute
+  '/downloads': typeof DownloadsRoute
   '/materiais': typeof MateriaisRoute
+  '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/portal_/$slug': typeof PortalSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/anuncie'
+    | '/artigos'
+    | '/blog'
+    | '/cursos'
+    | '/downloads'
     | '/materiais'
+    | '/midia-kit'
     | '/patrocinios'
     | '/play'
     | '/portal'
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/sobre'
     | '/portal/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/anuncie'
+    | '/artigos'
+    | '/blog'
+    | '/cursos'
+    | '/downloads'
     | '/materiais'
+    | '/midia-kit'
     | '/patrocinios'
     | '/play'
     | '/portal'
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/sobre'
     | '/portal/$slug'
   id:
     | '__root__'
     | '/'
+    | '/anuncie'
+    | '/artigos'
+    | '/blog'
+    | '/cursos'
+    | '/downloads'
     | '/materiais'
+    | '/midia-kit'
     | '/patrocinios'
     | '/play'
     | '/portal'
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/sobre'
     | '/portal_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnuncieRoute: typeof AnuncieRoute
+  ArtigosRoute: typeof ArtigosRoute
+  BlogRoute: typeof BlogRoute
+  CursosRoute: typeof CursosRoute
+  DownloadsRoute: typeof DownloadsRoute
   MateriaisRoute: typeof MateriaisRoute
+  MidiaKitRoute: typeof MidiaKitRoute
   PatrociniosRoute: typeof PatrociniosRoute
   PlayRoute: typeof PlayRoute
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -191,11 +289,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatrociniosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/midia-kit': {
+      id: '/midia-kit'
+      path: '/midia-kit'
+      fullPath: '/midia-kit'
+      preLoaderRoute: typeof MidiaKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/materiais': {
       id: '/materiais'
       path: '/materiais'
       fullPath: '/materiais'
       preLoaderRoute: typeof MateriaisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cursos': {
+      id: '/cursos'
+      path: '/cursos'
+      fullPath: '/cursos'
+      preLoaderRoute: typeof CursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artigos': {
+      id: '/artigos'
+      path: '/artigos'
+      fullPath: '/artigos'
+      preLoaderRoute: typeof ArtigosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/anuncie': {
+      id: '/anuncie'
+      path: '/anuncie'
+      fullPath: '/anuncie'
+      preLoaderRoute: typeof AnuncieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,13 +357,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnuncieRoute: AnuncieRoute,
+  ArtigosRoute: ArtigosRoute,
+  BlogRoute: BlogRoute,
+  CursosRoute: CursosRoute,
+  DownloadsRoute: DownloadsRoute,
   MateriaisRoute: MateriaisRoute,
+  MidiaKitRoute: MidiaKitRoute,
   PatrociniosRoute: PatrociniosRoute,
   PlayRoute: PlayRoute,
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
