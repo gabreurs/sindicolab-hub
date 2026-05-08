@@ -294,25 +294,26 @@
 .edge-blur-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: clamp(56px, 7vh, 96px);
+  height: clamp(96px, 14vh, 180px);
   z-index: 30;
   pointer-events: none;
   opacity: 1;
   transition: opacity 240ms ease;
   background: linear-gradient(
     to top,
-    color-mix(in oklab, var(--color-background) 92%, transparent) 0%,
-    color-mix(in oklab, var(--color-background) 55%, transparent) 45%,
+    color-mix(in oklab, var(--color-background) 70%, transparent) 0%,
+    color-mix(in oklab, var(--color-background) 32%, transparent) 55%,
     color-mix(in oklab, var(--color-background) 0%, transparent) 100%
   );
+  -webkit-mask-image: linear-gradient(to top, black 35%, transparent 100%);
+          mask-image: linear-gradient(to top, black 35%, transparent 100%);
   will-change: opacity;
 }
 @media (min-width: 1024px) {
   .edge-blur-bottom {
-    -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
-            mask-image: linear-gradient(to top, black 60%, transparent 100%);
-    -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
+    height: clamp(140px, 16vh, 220px);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
   }
 }
 .edge-blur-bottom.is-hidden { opacity: 0; }
