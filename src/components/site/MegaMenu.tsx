@@ -5,6 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import { getLenis } from "./SmoothScroll";
 import { useMotionLevel } from "@/hooks/useMotionLevel";
+import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -18,30 +19,13 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
     window.addEventListener("keydown", onKey);
 
     if (open) {
-      const scrollY = window.scrollY;
-      const body = document.body;
-      body.dataset.scrollY = String(scrollY);
-      body.style.position = "fixed";
-      body.style.top = `-${scrollY}px`;
-      body.style.left = "0";
-      body.style.right = "0";
-      body.style.width = "100%";
-      document.documentElement.classList.add("no-scroll");
+      lockNativeScroll("mega-menu");
       getLenis()?.stop();
     }
     return () => {
       window.removeEventListener("keydown", onKey);
       if (open) {
-        const body = document.body;
-        const y = Number(body.dataset.scrollY ?? "0");
-        body.style.position = "";
-        body.style.top = "";
-        body.style.left = "";
-        body.style.right = "";
-        body.style.width = "";
-        delete body.dataset.scrollY;
-        document.documentElement.classList.remove("no-scroll");
-        window.scrollTo(0, y);
+        unlockNativeScroll("mega-menu");
         getLenis()?.start();
       }
     };
