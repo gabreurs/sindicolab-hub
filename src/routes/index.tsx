@@ -1,17 +1,27 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { buildSeo } from "@/lib/seo";
 import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { AccessCards } from "@/components/site/AccessCards";
-
-import { ValuePillars } from "@/components/site/ValuePillars";
-import { Sponsors } from "@/components/site/Sponsors";
 import { Footer } from "@/components/site/Footer";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { EdgeBlur } from "@/components/site/EdgeBlur";
-import { GlobalSearch } from "@/components/site/GlobalSearch";
-import { QuemSomos } from "@/components/site/QuemSomos";
+
+// Below-the-fold: lazy para reduzir bundle inicial / acelerar LCP.
+const QuemSomos = lazy(() =>
+  import("@/components/site/QuemSomos").then((m) => ({ default: m.QuemSomos })),
+);
+const ValuePillars = lazy(() =>
+  import("@/components/site/ValuePillars").then((m) => ({ default: m.ValuePillars })),
+);
+const Sponsors = lazy(() =>
+  import("@/components/site/Sponsors").then((m) => ({ default: m.Sponsors })),
+);
+const GlobalSearch = lazy(() =>
+  import("@/components/site/GlobalSearch").then((m) => ({ default: m.GlobalSearch })),
+);
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -51,14 +61,18 @@ function Index() {
     <>
       <SmoothScroll />
       <IntroLoader />
-      <GlobalSearch />
+      <Suspense fallback={null}>
+        <GlobalSearch />
+      </Suspense>
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
         <Hero />
         <AccessCards />
-        <QuemSomos />
-        <ValuePillars />
-        <Sponsors />
+        <Suspense fallback={null}>
+          <QuemSomos />
+          <ValuePillars />
+          <Sponsors />
+        </Suspense>
         <Footer />
       </main>
       <EdgeBlur />
