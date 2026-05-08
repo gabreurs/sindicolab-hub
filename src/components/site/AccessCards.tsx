@@ -123,7 +123,7 @@ function CardQuero1() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, ease }}
       whileHover={{ y: -4 }}
-      className="cursor-glow group relative overflow-hidden rounded-3xl text-white min-h-[520px] md:min-h-[600px] grid md:grid-cols-12 cursor-pointer shadow-lift"
+      className="cursor-glow group relative overflow-hidden rounded-3xl text-white access-q1s-card min-h-[440px] md:min-h-[560px] grid md:grid-cols-12 cursor-pointer shadow-lift"
       aria-label="Quero1Síndico — encontrar síndico profissional"
     >
       {/* Q1S gradient mesh from repo */}
@@ -272,7 +272,7 @@ function CardPortal({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
@@ -332,7 +332,7 @@ function CardPlay({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
         style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
@@ -401,7 +401,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         <Link
           to="/materiais"
           aria-label="Baixar materiais gratuitos para condomínio"
-          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border min-h-[420px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
           style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >

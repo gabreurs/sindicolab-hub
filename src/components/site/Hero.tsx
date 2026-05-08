@@ -20,10 +20,10 @@ export function Hero() {
       id="top"
       className="relative min-h-[96vh] flex items-center pt-28 md:pt-36 pb-24 overflow-hidden"
     >
-      {/* ambient backdrop */}
-      <motion.div style={{ y }} className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 -right-40 w-[48rem] h-[48rem] rounded-full bg-brand-soft blur-[140px] opacity-90" />
-        <div className="absolute top-1/3 -left-40 w-[36rem] h-[36rem] rounded-full bg-cyan-soft blur-[120px] opacity-70" />
+      {/* ambient backdrop — leve, sem parallax pesado em mobile */}
+      <motion.div style={{ y }} className="pointer-events-none absolute inset-0 -z-10 hero-blobs">
+        <div className="absolute -top-32 -right-40 w-[42rem] h-[42rem] rounded-full bg-brand-soft opacity-80 hero-blob" />
+        <div className="absolute top-1/3 -left-40 w-[32rem] h-[32rem] rounded-full bg-cyan-soft opacity-60 hero-blob" />
       </motion.div>
 
       {/* Brand orbital badge — discreet editorial seal */}

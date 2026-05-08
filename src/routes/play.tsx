@@ -70,7 +70,7 @@ function PlayPage() {
   }, [trilha]);
 
   return (
-    <main className="play-page min-h-screen text-background flex flex-col">
+    <main className="play-page min-h-screen text-background flex flex-col overflow-x-hidden">
       <Header />
 
       <FeaturedHero items={featuredCourses} />
@@ -167,13 +167,17 @@ function Carousel({ titulo, cursos }: { titulo: string; cursos: Curso[] }) {
         </div>
       </div>
 
-      <div
-        ref={ref}
-        className="courses-track flex gap-4 md:gap-5 px-[max(1rem,calc((100vw-1280px)/2+1rem))] pb-4 scroll-smooth snap-x"
-      >
-        {cursos.map((c) => (
-          <CursoCard key={c.slug} curso={c} />
-        ))}
+      <div className="overflow-hidden">
+        <div className="container-x">
+          <div
+            ref={ref}
+            className="courses-track flex gap-4 md:gap-5 pb-4 -mr-4 md:-mr-6 pr-4 md:pr-6 scroll-smooth snap-x overflow-x-auto"
+          >
+            {cursos.map((c) => (
+              <CursoCard key={c.slug} curso={c} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
