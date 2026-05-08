@@ -17,7 +17,11 @@ export function AccessCards() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    // Em mobile/tablet pulamos GSAP/ScrollTrigger nos cards: deixamos apenas
+    // as animações leves do framer-motion (whileInView). Reduz drasticamente
+    // o trabalho por scroll e remove a sensação de lag em iOS.
+    if (reduced || isMobile) return;
     const root = sectionRef.current;
     if (!root) return;
 
@@ -44,7 +48,7 @@ export function AccessCards() {
         }
         const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
         blobs.forEach((b, i) => {
-          if (i > 1) return; // limita parallax a 2 blobs por card
+          if (i > 1) return;
           gsap.to(b, {
             yPercent: i % 2 === 0 ? -10 : 8,
             ease: "none",
@@ -584,7 +588,7 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
           </header>
 
           {/* content */}
-          <div className="mt-8 md:mt-10 max-w-full xl:max-w-[58%]">
+          <div className="mt-8 md:mt-10 max-w-full xl:max-w-[60%]">
             <p
               className="inline-flex items-center gap-2 text-[11px] font-medium"
               style={{ color: "#E9DDF8", letterSpacing: "0.16em", textTransform: "uppercase" }}
@@ -594,14 +598,14 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
             </p>
 
             <h3
-              className="mt-5 leading-[1.05] tracking-[-0.01em] text-balance"
+              className="mt-5 tracking-[-0.01em] text-balance"
               style={{
                 fontFamily: "'Boldonse', 'Inter', system-ui, sans-serif",
                 fontWeight: 400,
                 color: "#F7F3EF",
-                fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)",
-                overflowWrap: "anywhere",
-                hyphens: "auto",
+                fontSize: "clamp(1.35rem, 2.4vw, 2rem)",
+                lineHeight: 1.02,
+                wordSpacing: "0.04em",
               }}
             >
               Patrocine experiências com decisores do mercado condominial.

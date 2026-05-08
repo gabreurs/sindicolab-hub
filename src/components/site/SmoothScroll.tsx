@@ -12,7 +12,10 @@ export function getLenis() {
 export function SmoothScroll() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Desabilita Lenis em mobile e quando usuário pede menos motion.
+    // Scroll nativo é mais leve no celular e evita conflitos.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(max-width: 1023px)").matches) return;
 
     lenisRefs += 1;
     if (!lenisInstance) {

@@ -288,30 +288,42 @@
 }
 .mask-clip-y.is-revealed { clip-path: inset(0 0 0 0); }
 
-/* Edge blur global — camada fixa abaixo de header/search/menu.
-   pointer-events:none e fade-out quando o footer entra em cena. */
+/* Edge blur global — fade translúcido suave (sem faixa cinza dura).
+   Em desktop usa um blur muito leve apenas no terço inferior; em mobile
+   é puro gradient para preservar performance. */
 .edge-blur-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: clamp(64px, 8vh, 110px);
+  height: clamp(56px, 7vh, 96px);
   z-index: 30;
   pointer-events: none;
   opacity: 1;
   transition: opacity 240ms ease;
   background: linear-gradient(
     to top,
-    rgba(245,248,251,0.85) 0%,
-    rgba(245,248,251,0.4) 55%,
-    rgba(245,248,251,0) 100%
+    color-mix(in oklab, var(--color-background) 92%, transparent) 0%,
+    color-mix(in oklab, var(--color-background) 55%, transparent) 45%,
+    color-mix(in oklab, var(--color-background) 0%, transparent) 100%
   );
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
   will-change: opacity;
+}
+@media (min-width: 1024px) {
+  .edge-blur-bottom {
+    -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+            mask-image: linear-gradient(to top, black 60%, transparent 100%);
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+  }
 }
 .edge-blur-bottom.is-hidden { opacity: 0; }
 .play-page ~ .edge-blur-bottom,
 .edge-blur-bottom.dark {
-  background: linear-gradient(to top, rgba(5,8,18,0.78), rgba(5,8,18,0.34), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(5,8,18,0.85) 0%,
+    rgba(5,8,18,0.35) 50%,
+    rgba(5,8,18,0) 100%
+  );
 }
 
 
@@ -418,12 +430,28 @@
 /* Page transition overlay removido. */
 
 html, body, #root { overflow-x: hidden; }
+body { overscroll-behavior-y: none; }
+
+/* Em mobile: reduzir blur global e desligar backdrop-filter pesados.
+   Mantém o visual de glass apenas em desktop. */
+@media (max-width: 767px) {
+  .blur-3xl { filter: blur(40px) !important; }
+  .blur-\[140px\], .blur-\[120px\] { filter: blur(60px) !important; }
+}
 
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 /* Lock scroll quando MegaMenu/Search abertos — sem barra dupla */
 html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
+
+/* Mobile densidade — reduz alturas mínimas exageradas e paddings dos cards
+   da home, sem alterar o desktop. */
+@media (max-width: 767px) {
+  .cursor-glow { min-height: 0 !important; }
+  .sponsor-home-card { min-height: 0 !important; padding: 24px !important; }
+  section { padding-top: clamp(2rem, 6vw, 3rem); padding-bottom: clamp(2rem, 6vw, 3rem); }
+}
 
 /* Play page — hero com background image e legibilidade garantida */
 .play-page { background: #0a0b12; }
