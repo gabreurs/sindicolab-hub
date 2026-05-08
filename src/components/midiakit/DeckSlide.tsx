@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { PropsWithChildren } from "react";
+import { useMotionLevel } from "@/hooks/useMotionLevel";
 
 const container: Variants = {
   hidden: {},
@@ -28,6 +29,8 @@ interface Props extends PropsWithChildren {
 
 export const DeckSlide = ({ id, index, total, tone = "light", className = "", children }: Props) => {
   const reduce = useReducedMotion();
+  const motionLvl = useMotionLevel();
+  const animateSlide = !reduce && motionLvl === "full";
   const toneClass =
     tone === "dark" ? "mk-bg-deep" : tone === "lavender" ? "mk-bg-lav" : "";
   return (
@@ -35,10 +38,10 @@ export const DeckSlide = ({ id, index, total, tone = "light", className = "", ch
       id={id}
       data-slide-index={index}
       className={`mk-slide relative overflow-hidden flex flex-col min-h-[100svh] ${toneClass} ${className}`}
-      initial={reduce ? false : "hidden"}
-      whileInView={reduce ? undefined : "show"}
-      viewport={reduce ? undefined : { amount: 0.25, once: true, margin: "0px 0px -8% 0px" }}
-      variants={container}
+      initial={animateSlide ? "hidden" : false}
+      whileInView={animateSlide ? "show" : undefined}
+      viewport={animateSlide ? { amount: 0.25, once: true, margin: "0px 0px -8% 0px" } : undefined}
+      variants={animateSlide ? container : undefined}
     >
       {children}
       <div className="pointer-events-none absolute bottom-5 left-5 z-20 select-none font-mono text-[10px] tracking-tight opacity-60 md:bottom-6 md:left-8">

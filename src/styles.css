@@ -406,6 +406,29 @@
 .midia-kit-page .mk-text-purple { color: hsl(var(--mk-purple)); }
 .midia-kit-page .mk-border    { border-color: hsl(var(--mk-line)); }
 
+.midia-kit-page .mk-slide {
+  min-height: auto;
+  content-visibility: auto;
+  contain-intrinsic-size: 820px;
+}
+@media (min-width: 1024px) {
+  .midia-kit-page .mk-slide { min-height: 100svh; }
+  .midia-kit-page .mk-glass-card {
+    -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+  }
+}
+@media (max-width: 1023px) {
+  .midia-kit-page .mk-slide { min-height: auto; }
+  .midia-kit-page .mk-container { padding-block: 3rem; }
+  .midia-kit-page .mk-pattern { opacity: 0.035 !important; transform: none !important; }
+  .midia-kit-page .mk-floating-cta { box-shadow: 0 8px 24px hsl(var(--mk-fg) / 0.08); }
+}
+@media (max-width: 767px) {
+  .midia-kit-page .mk-container { padding-inline: 1rem; padding-block: 2.5rem; }
+  .midia-kit-page .mk-slide { contain-intrinsic-size: 620px; }
+}
+
 .midia-kit-page .mk-btn-solid {
   display: inline-flex; align-items: center; gap: .5rem;
   border-radius: 9999px; padding: .85rem 1.5rem;
@@ -431,7 +454,7 @@
 /* Page transition overlay removido. */
 
 html, body, #root { overflow-x: hidden; }
-body { overscroll-behavior-y: none; }
+body { overscroll-behavior-y: auto; }
 
 /* Em mobile: reduzir blur global e desligar backdrop-filter pesados.
    Mantém o visual de glass apenas em desktop. */
@@ -444,7 +467,7 @@ body { overscroll-behavior-y: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 /* Lock scroll quando MegaMenu/Search abertos — sem barra dupla */
-html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
+html.no-scroll, body.no-scroll { overflow: hidden !important; }
 
 /* Mobile densidade — reduz alturas mínimas exageradas e paddings dos cards
    da home, sem alterar o desktop. */
@@ -634,6 +657,17 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
   }
 
   .edge-blur-bottom { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+@media (max-width: 1023px) {
+  .midia-kit-page .mk-glass-card,
+  .midia-kit-page .backdrop-blur,
+  .midia-kit-page .backdrop-blur-sm,
+  .midia-kit-page .backdrop-blur-md,
+  .midia-kit-page .backdrop-blur-xl {
+    -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+  }
 }
 
 /* Hero blobs — blur escalonado por viewport para reduzir GPU em mobile */
