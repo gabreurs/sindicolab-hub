@@ -17,7 +17,11 @@ export function AccessCards() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    // Em mobile/tablet pulamos GSAP/ScrollTrigger nos cards: deixamos apenas
+    // as animações leves do framer-motion (whileInView). Reduz drasticamente
+    // o trabalho por scroll e remove a sensação de lag em iOS.
+    if (reduced || isMobile) return;
     const root = sectionRef.current;
     if (!root) return;
 
@@ -44,7 +48,7 @@ export function AccessCards() {
         }
         const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
         blobs.forEach((b, i) => {
-          if (i > 1) return; // limita parallax a 2 blobs por card
+          if (i > 1) return;
           gsap.to(b, {
             yPercent: i % 2 === 0 ? -10 : 8,
             ease: "none",
