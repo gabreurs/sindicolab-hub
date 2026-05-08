@@ -41,14 +41,14 @@ function PatrociniosPage() {
   return (
     <div className="midia-kit-page min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden">
         {/* Ações fixas — mídia kit + falar com a equipe (desktop) */}
-        <div className="fixed right-6 top-20 z-40 hidden items-center gap-2 md:flex">
+        <div className="fixed right-6 top-20 z-40 hidden items-center gap-2 md:flex mk-fixed-actions">
           <a
             href={mediaKitUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--mk-fg))]/15 bg-[hsl(var(--mk-bg))]/85 px-4 py-2.5 text-xs font-medium text-[hsl(var(--mk-fg))] backdrop-blur transition-all hover:border-[hsl(var(--mk-fg))]/40"
+            className="mk-floating-cta inline-flex items-center gap-2 rounded-full border border-[hsl(var(--mk-fg))]/15 bg-[hsl(var(--mk-bg))]/92 px-4 py-2.5 text-xs font-medium text-[hsl(var(--mk-fg))] transition-all hover:border-[hsl(var(--mk-fg))]/40"
           >
             <Download className="h-3.5 w-3.5" /> Baixar Mídia Kit
           </a>
@@ -56,7 +56,7 @@ function PatrociniosPage() {
             href={waLink(CONTACTS[0].whatsapp)}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--mk-fg))]/15 bg-[hsl(var(--mk-bg))]/85 px-4 py-2.5 text-xs font-medium text-[hsl(var(--mk-fg))] backdrop-blur transition-all hover:border-[hsl(var(--mk-fg))]/40"
+            className="mk-floating-cta inline-flex items-center gap-2 rounded-full border border-[hsl(var(--mk-fg))]/15 bg-[hsl(var(--mk-bg))]/92 px-4 py-2.5 text-xs font-medium text-[hsl(var(--mk-fg))] transition-all hover:border-[hsl(var(--mk-fg))]/40"
           >
             Falar com a equipe
           </a>
