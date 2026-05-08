@@ -134,7 +134,7 @@ function PortalPage() {
       </section>
 
       {/* ÚLTIMAS NOTÍCIAS */}
-      <section id="ultimas" className="bg-secondary/30">
+      <section id="ultimas" className="portal-section bg-secondary/20">
         <div className="container-x py-12 grid lg:grid-cols-[2fr_1fr] gap-10">
           <div>
             <div className="flex items-end justify-between mb-6">
