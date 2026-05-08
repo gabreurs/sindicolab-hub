@@ -6,6 +6,7 @@ import Fuse from "fuse.js";
 import { Link } from "@tanstack/react-router";
 import { searchIndex, popularSearches, trackSearch, type SearchItem } from "@/data/searchIndex";
 import { getLenis } from "@/components/site/SmoothScroll";
+import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
 
 
 type SearchStore = {
@@ -92,31 +93,12 @@ export function GlobalSearch() {
   useEffect(() => {
     if (isOpen) {
       if (!lastTrigger.current) lastTrigger.current = document.activeElement as HTMLElement;
-      const scrollY = window.scrollY;
-      const body = document.body;
-      const html = document.documentElement;
-      body.dataset.scrollY = String(scrollY);
-      body.style.position = "fixed";
-      body.style.top = `-${scrollY}px`;
-      body.style.left = "0";
-      body.style.right = "0";
-      body.style.width = "100%";
-      body.style.overflow = "hidden";
-      html.style.overscrollBehavior = "none";
+      lockNativeScroll("global-search");
       getLenis()?.stop();
       // focus instantâneo (sem cooldown perceptível)
       requestAnimationFrame(() => inputRef.current?.focus());
       return () => {
-        const y = Number(body.dataset.scrollY ?? "0");
-        body.style.position = "";
-        body.style.top = "";
-        body.style.left = "";
-        body.style.right = "";
-        body.style.width = "";
-        body.style.overflow = "";
-        html.style.overscrollBehavior = "";
-        delete body.dataset.scrollY;
-        window.scrollTo(0, y);
+        unlockNativeScroll("global-search");
         getLenis()?.start();
         setQuery("");
         setDebounced("");
