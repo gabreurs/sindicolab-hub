@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 /**
- * Edge blur global — camada fixa na borda inferior da viewport.
- * Some automaticamente quando o footer entra em cena (não cobre links/copyright).
- * pointer-events: none, sempre atrás de header/menu/search.
+ * Edge blur global — fade translúcido na borda inferior da viewport.
+ * Sem backdrop-filter pesado; apenas gradient suave que esmaece os elementos
+ * abaixo da dobra. Some quando o footer entra em cena.
+ *
+ * Em mobile a intensidade é reduzida via CSS (height menor, sem blur).
  */
 export function ViewportGlassEdges() {
   const [hidden, setHidden] = useState(false);
@@ -26,7 +28,6 @@ export function ViewportGlassEdges() {
     };
 
     if (!attach()) {
-      // footer pode montar depois (rota nova) — tenta novamente
       const id = window.setInterval(() => {
         if (attach()) window.clearInterval(id);
       }, 250);
