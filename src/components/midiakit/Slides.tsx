@@ -17,7 +17,7 @@ const TOTAL = 10;
 /* 01 — HERO */
 export const SlideHero = () => (
   <DeckSlide id="s1" index={1} total={TOTAL} tone="dark">
-    <PatternHuby className="pointer-events-none absolute -right-24 -top-16 hidden h-[420px] w-auto opacity-[0.07] md:block md:-right-20 md:h-[640px]" />
+    <PatternHuby className="mk-pattern pointer-events-none absolute -right-24 -top-16 hidden h-[420px] w-auto opacity-[0.07] md:block md:-right-20 md:h-[640px]" />
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center pt-28 pb-10 md:pt-32 md:pb-20">
       <motion.div variants={itemFade} className="flex items-center gap-4">
         <LogoSindicoLab className="h-5 w-auto md:h-6" />
@@ -55,7 +55,7 @@ export const SlideHero = () => (
           </motion.ul>
         </div>
         <motion.div variants={itemScale} className="relative hidden lg:col-span-4 lg:block">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white/10 bg-[hsl(var(--mk-purple))]/30 p-7 backdrop-blur-sm">
+          <div className="mk-glass-card relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white/10 bg-[hsl(var(--mk-purple))]/30 p-7">
             <p className="font-mono text-[10px] tracking-tight opacity-60">Agenda 2025</p>
             <div className="mt-6 space-y-5">
               {[["+100","síndicos por workshop"],["12+","encontros por ano"],["05","formatos de patrocínio"]].map(([k,v]) => (
@@ -166,7 +166,7 @@ export const SlideAudience = () => (
 const FORMATS = ["Workshops de IA","Experiências externas","Workshops temáticos","Curso Premium Síndicos Elite","Uma Noite em Las Vegas"];
 export const SlideFormats = () => (
   <DeckSlide id="s5" index={5} total={TOTAL} tone="dark">
-    <PatternHuby className="pointer-events-none absolute -left-16 bottom-10 hidden h-[280px] w-auto opacity-[0.06] md:block md:-left-10 md:h-[460px]" />
+    <PatternHuby className="mk-pattern pointer-events-none absolute -left-16 bottom-10 hidden h-[280px] w-auto opacity-[0.06] md:block md:-left-10 md:h-[460px]" />
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
       <motion.p variants={item} className="font-mono text-[11px] tracking-tight opacity-55">— 05 · Formatos</motion.p>
       <motion.h2 variants={item} className="mt-7 max-w-4xl text-[clamp(1.6rem,3vw,2.5rem)] mk-display">Formatos para sua marca participar</motion.h2>
@@ -327,7 +327,7 @@ export const SlideActivations = () => (
 /* 10 — Contato */
 export const SlideContact = () => (
   <DeckSlide id="s10" index={10} total={TOTAL} tone="dark">
-    <PatternHuby className="pointer-events-none absolute -right-20 -bottom-10 hidden h-[320px] w-auto opacity-[0.07] md:block md:-right-10 md:h-[520px]" />
+    <PatternHuby className="mk-pattern pointer-events-none absolute -right-20 -bottom-10 hidden h-[320px] w-auto opacity-[0.07] md:block md:-right-10 md:h-[520px]" />
     <div className="mk-container relative z-10 flex flex-1 flex-col justify-center py-16 md:py-24">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-7">
