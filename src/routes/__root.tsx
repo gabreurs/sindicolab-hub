@@ -1,14 +1,12 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import {
   Outlet,
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
-
-import appCss from "../styles.css?url";
+import type { QueryClient } from "@tanstack/react-query";
 import { TransitionProvider } from "@/providers/TransitionProvider";
 
 function NotFoundComponent() {
@@ -55,85 +53,58 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const orgJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "SíndicoLab",
-  url: "https://sindicolab.com/",
-  logo: "https://sindicolab.com/logo.png",
-  sameAs: ["https://quero1sindico.com/", "https://downloads.sindicolab.com/"],
-};
-
-const siteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "SíndicoLab",
-  url: "https://sindicolab.com/",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://sindicolab.com/?s={search_term_string}",
-    "query-input": "required name=search_term_string",
-  },
-};
-
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0b1020" },
-      { title: "SíndicoLab — Síndico profissional, cursos e materiais para condomínio" },
-      {
-        name: "description",
-        content:
-          "O SíndicoLab é o ecossistema de síndico profissional, cursos para síndicos, materiais para condomínio e conteúdo de gestão condominial.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "SíndicoLab" },
-      { property: "og:title", content: "SíndicoLab — Ecossistema condominial" },
-      {
-        property: "og:description",
-        content:
-          "Síndico profissional, cursos, materiais e conteúdo condominial em um só lugar.",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "canonical", href: "https://sindicolab.com/" },
-    ],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(orgJsonLd) },
-      { type: "application/ld+json", children: JSON.stringify(siteJsonLd) },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="pt-BR">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
+  const matches = useRouterState({ select: (s) => s.matches });
+
+  // Aplica head() de cada match (title, meta, link, ld+json) no <head> real.
+  // Em SPA não há SSR, então fazemos isso no cliente para que o navegador
+  // mostre o título correto e crawlers que executam JS leiam OG/JSON-LD.
+  useEffect(() => {
+    const collected: Array<{ type: string; el: HTMLElement }> = [];
+    let title: string | undefined;
+
+    for (const m of matches) {
+      const head = (m as unknown as { meta?: { meta?: Array<Record<string, string>>; links?: Array<Record<string, string>>; scripts?: Array<{ type?: string; children?: string }> } }).meta;
+      if (!head) continue;
+
+      head.meta?.forEach((tag) => {
+        if ("title" in tag && tag.title) { title = tag.title; return; }
+        const el = document.createElement("meta");
+        Object.entries(tag).forEach(([k, v]) => el.setAttribute(k, v));
+        collected.push({ type: "meta", el });
+      });
+      head.links?.forEach((link) => {
+        const el = document.createElement("link");
+        Object.entries(link).forEach(([k, v]) => el.setAttribute(k, v));
+        collected.push({ type: "link", el });
+      });
+      head.scripts?.forEach((s) => {
+        const el = document.createElement("script");
+        if (s.type) el.setAttribute("type", s.type);
+        if (s.children) el.textContent = s.children;
+        collected.push({ type: "script", el });
+      });
+    }
+
+    // Remove tags injetadas anteriormente
+    document.head.querySelectorAll("[data-rh]").forEach((n) => n.remove());
+
+    if (title) document.title = title;
+    collected.forEach(({ el }) => {
+      el.setAttribute("data-rh", "");
+      document.head.appendChild(el);
+    });
+  }, [matches]);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <TransitionProvider>
-        <Outlet />
-      </TransitionProvider>
-    </QueryClientProvider>
+    <TransitionProvider>
+      <Outlet />
+    </TransitionProvider>
   );
 }
