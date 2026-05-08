@@ -5,24 +5,22 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
+import { buildSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/quem-somos")({
-  head: () => ({
-    meta: [
-      { title: "Quem somos — SíndicoLab" },
-      {
-        name: "description",
-        content:
-          "Workshops, encontros no CondoHub, comunidade de síndicos e conteúdo editorial. Conheça o SíndicoLab — um laboratório vivo do mercado condominial.",
+  head: () =>
+    buildSeo({
+      title: "Quem somos — SíndicoLab",
+      description:
+        "Workshops, encontros no CondoHub, comunidade de síndicos e conteúdo editorial. Conheça o SíndicoLab — um laboratório vivo do mercado condominial.",
+      path: "/quem-somos",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: "Quem somos — SíndicoLab",
+        url: "https://sindicolab.com/quem-somos",
       },
-      { property: "og:title", content: "Quem é o SíndicoLab" },
-      {
-        property: "og:description",
-        content: "Workshops, comunidade e curadoria no mercado condominial.",
-      },
-    ],
-    links: [{ rel: "canonical", href: "https://sindicolab.com/quem-somos" }],
-  }),
+    }),
   component: QuemSomosPage,
 });
 

@@ -12,27 +12,24 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { articles, type Article } from "@/data/articles";
+import { buildSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/portal")({
-  head: () => ({
-    meta: [
-      { title: "Portal SíndicoLab — Notícias do mercado condominial" },
-      {
-        name: "description",
-        content:
-          "Manchetes, casos reais e análises do mercado condominial brasileiro. Gestão, segurança, comportamento, tecnologia e cursos para síndicos.",
+  head: () =>
+    buildSeo({
+      title: "Portal SíndicoLab — Notícias do mercado condominial",
+      description:
+        "Manchetes, casos reais e análises do mercado condominial brasileiro. Gestão, segurança, comportamento, tecnologia e cursos para síndicos.",
+      path: "/portal",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Portal SíndicoLab",
+        url: "https://sindicolab.com/portal",
+        about: "Notícias e análises do mercado condominial",
+        inLanguage: "pt-BR",
       },
-      { property: "og:type", content: "website" },
-      { property: "og:title", content: "Portal SíndicoLab — Conteúdo condominial de referência" },
-      {
-        property: "og:description",
-        content:
-          "O portal de notícias do mercado condominial: manchetes, vídeos e análises diárias para síndicos profissionais.",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "https://sindicolab.com/portal" }],
-  }),
+    }),
   component: PortalPage,
 });
 
