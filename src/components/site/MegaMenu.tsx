@@ -4,31 +4,53 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import { getLenis } from "./SmoothScroll";
+import { useMotionLevel } from "@/hooks/useMotionLevel";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const motionLvl = useMotionLevel();
+  const heavy = motionLvl === "full";
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
+
     if (open) {
+      const scrollY = window.scrollY;
+      const body = document.body;
+      body.dataset.scrollY = String(scrollY);
+      body.style.position = "fixed";
+      body.style.top = `-${scrollY}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
       document.documentElement.classList.add("no-scroll");
-      document.body.classList.add("no-scroll");
       getLenis()?.stop();
-    } else {
-      document.documentElement.classList.remove("no-scroll");
-      document.body.classList.remove("no-scroll");
-      getLenis()?.start();
     }
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.documentElement.classList.remove("no-scroll");
-      document.body.classList.remove("no-scroll");
-      getLenis()?.start();
+      if (open) {
+        const body = document.body;
+        const y = Number(body.dataset.scrollY ?? "0");
+        body.style.position = "";
+        body.style.top = "";
+        body.style.left = "";
+        body.style.right = "";
+        body.style.width = "";
+        delete body.dataset.scrollY;
+        document.documentElement.classList.remove("no-scroll");
+        window.scrollTo(0, y);
+        getLenis()?.start();
+      }
     };
   }, [open, onClose]);
+
+  const panelInitial = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
+  const panelAnimate = heavy ? { clipPath: "inset(0 0 0 0)" } : { opacity: 1, y: 0 };
+  const panelExit = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
+  const panelTransition = heavy ? { duration: 0.55, ease } : { duration: 0.22, ease };
 
   return (
     <AnimatePresence>
@@ -38,17 +60,17 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-[80] bg-ink/60 backdrop-blur-md"
+            className={`fixed inset-0 z-[80] bg-ink/60 ${heavy ? "backdrop-blur-md" : ""}`}
             aria-hidden
           />
           <motion.div
             ref={panelRef}
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease }}
+            initial={panelInitial}
+            animate={panelAnimate}
+            exit={panelExit}
+            transition={panelTransition}
             data-lenis-prevent
             className="mega-menu-overlay fixed inset-0 z-[90] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none overscroll-contain"
             role="dialog"
