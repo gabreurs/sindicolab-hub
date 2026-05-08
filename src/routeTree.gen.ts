@@ -10,8 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlayRouteImport } from './routes/play'
@@ -29,16 +27,6 @@ import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
-  id: '/robots.txt',
-  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuemSomosRoute = QuemSomosRouteImport.update({
@@ -120,8 +108,6 @@ export interface FileRoutesByFullPath {
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
@@ -138,8 +124,6 @@ export interface FileRoutesByTo {
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
@@ -157,8 +141,6 @@ export interface FileRoutesById {
   '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
-  '/robots.txt': typeof RobotsDottxtRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/portal_/$slug': typeof PortalSlugRoute
 }
@@ -177,8 +159,6 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
-    | '/robots.txt'
-    | '/sitemap.xml'
     | '/sobre'
     | '/portal/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -195,8 +175,6 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
-    | '/robots.txt'
-    | '/sitemap.xml'
     | '/sobre'
     | '/portal/$slug'
   id:
@@ -213,8 +191,6 @@ export interface FileRouteTypes {
     | '/play'
     | '/portal'
     | '/quem-somos'
-    | '/robots.txt'
-    | '/sitemap.xml'
     | '/sobre'
     | '/portal_/$slug'
   fileRoutesById: FileRoutesById
@@ -232,8 +208,6 @@ export interface RootRouteChildren {
   PlayRoute: typeof PlayRoute
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
-  RobotsDottxtRoute: typeof RobotsDottxtRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
@@ -245,20 +219,6 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/robots.txt': {
-      id: '/robots.txt'
-      path: '/robots.txt'
-      fullPath: '/robots.txt'
-      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quem-somos': {
@@ -368,11 +328,19 @@ const rootRouteChildren: RootRouteChildren = {
   PlayRoute: PlayRoute,
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
-  RobotsDottxtRoute: RobotsDottxtRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
