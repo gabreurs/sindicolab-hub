@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sindicolab.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://sindicolab.com/portal</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://sindicolab.com/play</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://sindicolab.com/materiais</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sindicolab.com/patrocinios</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sindicolab.com/quem-somos</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/</loc><lastmod>2026-05-08</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://sindicolab.com/portal</loc><lastmod>2026-05-08</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+<url><loc>https://sindicolab.com/play</loc><lastmod>2026-05-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://sindicolab.com/materiais</loc><lastmod>2026-05-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://sindicolab.com/patrocinios</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/quem-somos</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+<url><loc>https://sindicolab.com/portal/portaria-remota-o-que-avaliar</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/10-desafios-sindico-2026</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/novo-perfil-sindico-2026</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/como-conduzir-assembleia</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/camera-ia-lgpd</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/plano-evacuacao</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/pets-barulho-condominio</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/reduziu-conta-agua</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/gestao-financeira-condominio</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/tecnologia-condominio-2026</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/esg-condominio-pratica</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/juridico-sindico-2026</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://sindicolab.com/portal/equipe-condominial-treinamento</loc><lastmod>2026-05-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

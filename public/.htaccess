@@ -1,0 +1,39 @@
+# SPA fallback para Apache (Hostinger). Tudo que não for arquivo/diretório real
+# cai em /index.html para o React Router resolver a rota no cliente.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Não reescrever arquivos e pastas existentes
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 301 de URLs legadas
+  RewriteRule ^blog/?$           /portal           [R=301,L]
+  RewriteRule ^artigos/?$        /portal           [R=301,L]
+  RewriteRule ^cursos/?$         /play             [R=301,L]
+  RewriteRule ^downloads/?$      /materiais        [R=301,L]
+  RewriteRule ^anuncie/?$        /patrocinios      [R=301,L]
+  RewriteRule ^midia-kit/?$      /patrocinios      [R=301,L]
+  RewriteRule ^sobre/?$          /quem-somos       [R=301,L]
+
+  # Tudo o mais → index.html (SPA)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Cache agressivo para assets versionados
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2|woff|ttf|svg|jpg|jpeg|png|webp|avif)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# Compressão
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
