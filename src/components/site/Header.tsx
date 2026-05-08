@@ -45,7 +45,7 @@ export function Header() {
             <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
           </Link>
 
-          <nav className="header-nav hidden lg:flex items-center gap-1 text-[0.92rem]">
+          <nav className="header-nav hidden xl:flex items-center gap-1 text-[0.92rem]">
             <a
               href="https://quero1sindico.com/"
               target="_blank"
@@ -70,6 +70,18 @@ export function Header() {
               Quem somos
             </Link>
           </nav>
+
+          {/* Em viewport intermediário, mantém só CTA principal e usa o Menu para o resto. */}
+          <div className="hidden lg:flex xl:hidden items-center">
+            <a
+              href="https://quero1sindico.com/"
+              target="_blank"
+              rel="noreferrer"
+              className={`nav-link inline-flex items-center h-10 px-4 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
+            >
+              Encontrar síndico
+            </a>
+          </div>
 
           <div className="flex items-center gap-2">
             <button
