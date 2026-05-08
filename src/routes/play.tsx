@@ -70,7 +70,7 @@ function PlayPage() {
   }, [trilha]);
 
   return (
-    <main className="play-page min-h-screen text-background flex flex-col">
+    <main className="play-page min-h-screen text-background flex flex-col overflow-x-hidden">
       <Header />
 
       <FeaturedHero items={featuredCourses} />
