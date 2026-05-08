@@ -445,6 +445,14 @@ body { overscroll-behavior-y: none; }
 /* Lock scroll quando MegaMenu/Search abertos — sem barra dupla */
 html.no-scroll, body.no-scroll { overflow: hidden !important; height: 100%; }
 
+/* Mobile densidade — reduz alturas mínimas exageradas e paddings dos cards
+   da home, sem alterar o desktop. */
+@media (max-width: 767px) {
+  .cursor-glow { min-height: 0 !important; }
+  .sponsor-home-card { min-height: 0 !important; padding: 24px !important; }
+  section { padding-top: clamp(2rem, 6vw, 3rem); padding-bottom: clamp(2rem, 6vw, 3rem); }
+}
+
 /* Play page — hero com background image e legibilidade garantida */
 .play-page { background: #0a0b12; }
 .play-hero {
