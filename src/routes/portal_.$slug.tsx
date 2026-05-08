@@ -4,6 +4,8 @@ import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { ArrowUpRight, Clock, TrendingUp } from "lucide-react";
 import { articles, getArticle, type ArticleBlock } from "@/data/articles";
+import { buildSeo } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/portal_/$slug")({
   loader: ({ params }) => {
@@ -14,23 +16,47 @@ export const Route = createFileRoute("/portal_/$slug")({
   head: ({ loaderData }) => {
     const a = loaderData?.article;
     if (!a) {
-      return {
-        meta: [{ title: "Artigo não encontrado — Portal SíndicoLab" }],
-      };
+      return buildSeo({
+        title: "Artigo não encontrado — Portal SíndicoLab",
+        description: "Este conteúdo não está mais disponível.",
+        path: "/portal",
+        noIndex: true,
+      });
     }
-    return {
-      meta: [
-        { title: `${a.title} — Portal SíndicoLab` },
-        { name: "description", content: a.excerpt },
-        { property: "og:type", content: "article" },
-        { property: "og:title", content: a.title },
-        { property: "og:description", content: a.excerpt },
-        { property: "og:image", content: a.image },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: a.image },
+    return buildSeo({
+      title: `${a.title} — Portal SíndicoLab`,
+      description: a.excerpt,
+      path: `/portal/${a.slug}`,
+      image: a.image,
+      type: "article",
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          headline: a.title,
+          description: a.excerpt,
+          image: [a.image],
+          datePublished: a.publishedAt,
+          author: { "@type": "Person", name: a.author },
+          publisher: {
+            "@type": "Organization",
+            name: "SíndicoLab",
+            logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+          },
+          mainEntityOfPage: `${SITE_URL}/portal/${a.slug}`,
+          articleSection: a.category,
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Portal", item: `${SITE_URL}/portal` },
+            { "@type": "ListItem", position: 2, name: a.category },
+            { "@type": "ListItem", position: 3, name: a.title, item: `${SITE_URL}/portal/${a.slug}` },
+          ],
+        },
       ],
-      links: [{ rel: "canonical", href: `https://sindicolab.com/portal/${a.slug}` }],
-    };
+    });
   },
   notFoundComponent: () => (
     <main className="min-h-screen grid place-items-center bg-background text-ink">

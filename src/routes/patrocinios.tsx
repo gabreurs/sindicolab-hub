@@ -16,27 +16,24 @@ import {
 } from "@/components/midiakit/Slides";
 import { Download } from "lucide-react";
 import { CONTACTS, mediaKitUrl, waLink } from "@/lib/midia-kit";
+import { buildSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/patrocinios")({
-  head: () => ({
-    meta: [
-      { title: "Patrocínios — Mídia Kit CondoHuby × SíndicoLab" },
-      {
-        name: "description",
-        content:
-          "Mídia kit oficial CondoHuby × SíndicoLab. Patrocine workshops, cursos e experiências presenciais que conectam marcas aos decisores do mercado condominial brasileiro.",
+  head: () =>
+    buildSeo({
+      title: "Patrocínios — Mídia Kit CondoHuby × SíndicoLab",
+      description:
+        "Mídia kit oficial CondoHuby × SíndicoLab. Patrocine workshops, cursos e experiências presenciais que conectam marcas aos decisores do mercado condominial brasileiro.",
+      path: "/patrocinios",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        serviceType: "Patrocínio e mídia condominial",
+        provider: { "@type": "Organization", name: "SíndicoLab" },
+        areaServed: "BR",
+        url: "https://sindicolab.com/patrocinios",
       },
-      { property: "og:type", content: "website" },
-      { property: "og:title", content: "Mídia Kit CondoHuby × SíndicoLab — Patrocínio" },
-      {
-        property: "og:description",
-        content:
-          "Sua marca próxima dos decisores do mercado condominial. Workshops, cursos e experiências presenciais.",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "https://sindicolab.com/patrocinios" }],
-  }),
+    }),
   component: PatrociniosPage,
 });
 

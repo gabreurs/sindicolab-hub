@@ -4,27 +4,23 @@ import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { useMemo, useState } from "react";
 import { Search, Download, FileText, ListChecks, BookOpen, Sheet, FileSignature, Mail } from "lucide-react";
+import { buildSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/materiais")({
-  head: () => ({
-    meta: [
-      { title: "Materiais para condomínio — Modelos, atas e checklists | SíndicoLab" },
-      {
-        name: "description",
-        content:
-          "Biblioteca de materiais para condomínio: modelos de ata, regimentos, checklists, guias práticos e planilhas para a rotina do síndico.",
+  head: () =>
+    buildSeo({
+      title: "Materiais para condomínio — Modelos, atas e checklists | SíndicoLab",
+      description:
+        "Biblioteca de materiais para condomínio: modelos de ata, regimentos, checklists, guias práticos e planilhas para a rotina do síndico.",
+      path: "/materiais",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Materiais para condomínio",
+        url: "https://sindicolab.com/materiais",
+        inLanguage: "pt-BR",
       },
-      { property: "og:type", content: "website" },
-      { property: "og:title", content: "Biblioteca de materiais para condomínio" },
-      {
-        property: "og:description",
-        content:
-          "Modelos, checklists, guias e planilhas prontas para condomínios e síndicos profissionais.",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "https://sindicolab.com/materiais" }],
-  }),
+    }),
   component: MateriaisPage,
 });
 

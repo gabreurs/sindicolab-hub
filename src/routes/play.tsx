@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Award, Clock, Flame, ChevronRight, ChevronLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cursos, trilhas, type Curso } from "@/data/cursos";
+import { buildSeo } from "@/lib/seo";
 
 const FEATURED_SLUGS = [
   "inteligencia-condominial",
@@ -19,25 +20,24 @@ const featuredCourses: Curso[] = FEATURED_SLUGS
   .filter(Boolean) as Curso[];
 
 export const Route = createFileRoute("/play")({
-  head: () => ({
-    meta: [
-      { title: "SíndicoLab Play — Catálogo de cursos para síndicos e equipes" },
-      {
-        name: "description",
-        content:
-          "Catálogo de cursos do SíndicoLab Play: gestão condominial, jurídico, captação, equipe e materiais. Compra e acesso pelas plataformas oficiais (Kiwify/Hotmart).",
+  head: () =>
+    buildSeo({
+      title: "SíndicoLab Play — Catálogo de cursos para síndicos e equipes",
+      description:
+        "Catálogo de cursos do SíndicoLab Play: gestão condominial, jurídico, captação, equipe e materiais. Compra e acesso pelas plataformas oficiais (Kiwify/Hotmart).",
+      path: "/play",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Cursos SíndicoLab Play",
+        itemListElement: featuredCourses.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: c.titulo,
+          url: `https://sindicolab.com/play#${c.slug}`,
+        })),
       },
-      { property: "og:type", content: "website" },
-      { property: "og:title", content: "SíndicoLab Play — Cursos para síndicos" },
-      {
-        property: "og:description",
-        content:
-          "Vitrine completa dos cursos do SíndicoLab para síndicos profissionais, conselheiros, zeladoria, portaria e administradoras.",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "https://sindicolab.com/play" }],
-  }),
+    }),
   component: PlayPage,
 });
 
