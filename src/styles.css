@@ -659,6 +659,17 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .edge-blur-bottom { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
+@media (max-width: 1023px) {
+  .midia-kit-page .mk-glass-card,
+  .midia-kit-page .backdrop-blur,
+  .midia-kit-page .backdrop-blur-sm,
+  .midia-kit-page .backdrop-blur-md,
+  .midia-kit-page .backdrop-blur-xl {
+    -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+  }
+}
+
 /* Hero blobs — blur escalonado por viewport para reduzir GPU em mobile */
 .hero-blob {
   filter: blur(80px);
