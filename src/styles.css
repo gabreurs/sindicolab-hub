@@ -430,6 +430,14 @@
 /* Page transition overlay removido. */
 
 html, body, #root { overflow-x: hidden; }
+body { overscroll-behavior-y: none; }
+
+/* Em mobile: reduzir blur global e desligar backdrop-filter pesados.
+   Mantém o visual de glass apenas em desktop. */
+@media (max-width: 767px) {
+  .blur-3xl { filter: blur(40px) !important; }
+  .blur-\[140px\], .blur-\[120px\] { filter: blur(60px) !important; }
+}
 
 .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; width: 0; height: 0; }
