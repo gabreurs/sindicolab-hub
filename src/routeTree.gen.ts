@@ -18,6 +18,7 @@ import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
+import { Route as LegacySplatRouteImport } from './routes/legacy.$'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -64,6 +65,11 @@ const PortalSlugRoute = PortalSlugRouteImport.update({
   path: '/portal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegacySplatRoute = LegacySplatRouteImport.update({
+  id: '/legacy/$',
+  path: '/legacy/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/legacy/$': typeof LegacySplatRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/legacy/$': typeof LegacySplatRoute
   '/portal/$slug': typeof PortalSlugRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/quem-somos': typeof QuemSomosRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/legacy/$': typeof LegacySplatRoute
   '/portal_/$slug': typeof PortalSlugRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/legacy/$'
     | '/portal/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/legacy/$'
     | '/portal/$slug'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/legacy/$'
     | '/portal_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   QuemSomosRoute: typeof QuemSomosRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LegacySplatRoute: typeof LegacySplatRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
 
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legacy/$': {
+      id: '/legacy/$'
+      path: '/legacy/$'
+      fullPath: '/legacy/$'
+      preLoaderRoute: typeof LegacySplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuemSomosRoute: QuemSomosRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LegacySplatRoute: LegacySplatRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
