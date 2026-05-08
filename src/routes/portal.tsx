@@ -327,12 +327,12 @@ function ArticleCard({
 
 function Editoria({ id, titulo, itens }: { id: string; titulo: string; itens: Article[] }) {
   return (
-    <section id={id}>
-      <div className="container-x py-12">
+    <section id={id} className="portal-section">
+      <div className="container-x py-10 md:py-14">
         <div className="flex items-end justify-between mb-6">
           <h2 className="font-display text-2xl md:text-3xl tracking-[-0.03em]">{titulo}</h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {itens.map((it) => (
             <Link key={it.slug} to="/portal/$slug" params={{ slug: it.slug }} className="group">
               <div className="aspect-[16/10] rounded-lg overflow-hidden bg-secondary">
