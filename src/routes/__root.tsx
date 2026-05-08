@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 import { TransitionProvider } from "@/providers/TransitionProvider";
+import { clearNativeScrollLock } from "@/lib/scroll-lock";
 
 function NotFoundComponent() {
   return (
@@ -61,6 +62,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const matches = useRouterState({ select: (s) => s.matches });
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    clearNativeScrollLock();
+  }, [pathname]);
 
   // Aplica head() de cada match (title, meta, link, ld+json) no <head> real.
   // Em SPA não há SSR, então fazemos isso no cliente para que o navegador
