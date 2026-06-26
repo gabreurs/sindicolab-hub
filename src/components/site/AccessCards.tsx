@@ -101,16 +101,28 @@ export function AccessCards() {
   );
 }
 
-// Cursor-aware glow hook
+// Cursor-aware glow — escreve CSS vars direto no DOM via rAF.
+// Zero re-render React: o style bind antigo (useMotionValue + style prop)
+// forçava o card inteiro a recompor a cada mousemove, derrubando FPS no
+// card Q1S (com backdrop-blur + radial-gradients pesados).
 function useCursor() {
-  const mx = useMotionValue("50%");
-  const my = useMotionValue("50%");
+  const frame = useRef(0);
+  const last = useRef<{ x: number; y: number; el: HTMLElement } | null>(null);
+  const flush = () => {
+    frame.current = 0;
+    const d = last.current;
+    if (!d) return;
+    d.el.style.setProperty("--mx", `${d.x}px`);
+    d.el.style.setProperty("--my", `${d.y}px`);
+  };
   function onMove(e: React.MouseEvent<HTMLElement>) {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set(`${e.clientX - r.left}px`);
-    my.set(`${e.clientY - r.top}px`);
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    last.current = { x: e.clientX - r.left, y: e.clientY - r.top, el };
+    if (frame.current) return;
+    frame.current = requestAnimationFrame(flush);
   }
-  return { mx, my, onMove };
+  return { onMove };
 }
 
 /* ================================ Q1S — identidade do repo Síndico Finder ================================
