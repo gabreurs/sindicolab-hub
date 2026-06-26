@@ -1,35 +1,24 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.93]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.1]);
-
   return (
     <section
-      ref={ref}
       id="top"
       className="relative min-h-[96vh] flex items-center pt-28 md:pt-36 pb-24 overflow-hidden"
     >
-      {/* ambient backdrop — leve, sem parallax pesado em mobile */}
-      <motion.div style={{ y }} className="pointer-events-none absolute inset-0 -z-10 hero-blobs">
+      {/* ambient backdrop estático — sem parallax/filtro animado no scroll */}
+      <div className="pointer-events-none absolute inset-0 -z-10 hero-blobs">
         <div className="absolute -top-32 -right-40 w-[42rem] h-[42rem] rounded-full bg-brand-soft opacity-80 hero-blob" />
         <div className="absolute top-1/3 -left-40 w-[32rem] h-[32rem] rounded-full bg-cyan-soft opacity-60 hero-blob" />
-      </motion.div>
+      </div>
 
       {/* Brand orbital badge — discreet editorial seal */}
       <OrbitalBrandBadge />
 
-      <motion.div style={{ scale, opacity }} className="container-x w-full relative z-10">
+      <motion.div className="container-x w-full relative z-10">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}

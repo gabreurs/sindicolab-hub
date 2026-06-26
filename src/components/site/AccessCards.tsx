@@ -191,7 +191,7 @@ function CardQuero1() {
         <div className="w-full space-y-3">
           {/* Filters bar (HeroFilters miniature) */}
           <div
-            className="rounded-xl p-3 backdrop-blur-xl border"
+            className="rounded-xl p-3 border"
             style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.06)" }}
           >
             <div className="grid grid-cols-2 gap-2">
@@ -232,13 +232,13 @@ function CardQuero1() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.35 + i * 0.1, duration: 0.5, ease }}
-              className="rounded-xl bg-white/[0.04] backdrop-blur-md border border-white/[0.06] p-3 flex items-center gap-3"
+              className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-3 flex items-center gap-3"
             >
               <div
                 className="w-12 h-12 rounded-lg shrink-0 relative overflow-hidden"
                 style={{ background: `linear-gradient(135deg, hsl(${215 + i * 8} 60% 35%), hsl(${220 + i * 5} 30% 18%))` }}
               >
-                <span className="absolute top-1 left-1 inline-flex items-center gap-0.5 bg-black/40 backdrop-blur-md text-[8px] text-white/85 px-1.5 py-0.5 rounded-full">
+                <span className="absolute top-1 left-1 inline-flex items-center gap-0.5 bg-black/55 text-[8px] text-white/85 px-1.5 py-0.5 rounded-full">
                   {s.y}a
                 </span>
               </div>
@@ -364,7 +364,7 @@ function CardPlay({ className = "" }: { className?: string }) {
           {/* mini carousel */}
           <div className="mt-5 flex gap-2 overflow-hidden">
             {["Inteligência Condominial", "Captação de Clientes", "Conselheiros", "Finanças"].map((c, i) => (
-              <div key={c} className="shrink-0 w-32 rounded-xl bg-background/10 backdrop-blur-md border border-background/15 p-3">
+              <div key={c} className="shrink-0 w-32 rounded-xl bg-background/10 border border-background/15 p-3">
                 <div className="aspect-video rounded-md mb-2" style={{ background: `linear-gradient(135deg, oklch(0.${4 + i} 0.${15 + i} ${220 + i * 10}), oklch(0.3 0.18 280))` }} />
                 <div className="text-[11px] text-background/85 leading-tight">{c}</div>
               </div>
@@ -652,8 +652,6 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
               borderRadius: 22,
               background: "rgba(91, 10, 137, 0.38)",
               border: "1px solid rgba(233, 221, 248, 0.22)",
-              backdropFilter: "blur(10px) saturate(140%)",
-              WebkitBackdropFilter: "blur(10px) saturate(140%)",
             }}
           >
             <div className="text-[10px] tracking-[0.16em] uppercase" style={{ color: "rgba(233,221,248,0.7)" }}>
