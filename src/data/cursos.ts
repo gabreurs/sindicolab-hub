@@ -2,25 +2,25 @@
 // IMPORTANTE: o SíndicoLab NÃO hospeda os cursos. Cada link aponta para a
 // plataforma externa (Kiwify/Hotmart) onde a venda e o player acontecem.
 
-import inteligencia from "@/assets/cursos/inteligencia-condominial-1.png";
-import inteligencia2 from "@/assets/cursos/inteligencia-condominial.png";
-import captarMais from "@/assets/cursos/como-captar-mais-clientes.png";
-import conselheiros from "@/assets/cursos/conselheiros-fiscais-e-consultivos.png";
-import oratoria from "@/assets/cursos/oratoria-e-vendas.png";
-import sindicoInicio from "@/assets/cursos/sindico-em-inicio-de-carreira.png";
-import limpeza from "@/assets/cursos/limpeza-de-alta-performance.png";
-import porteiro from "@/assets/cursos/porteiro-e-controlador-de-acesso.png";
-import zelador from "@/assets/cursos/zelador-de-alta-performance.png";
-import competencias from "@/assets/cursos/competencias-do-sindico.png";
-import juridico from "@/assets/cursos/juridico-de-alta-performance.png";
-import inovacao from "@/assets/cursos/inovacao-e-tecnologia.png";
-import comunicacao from "@/assets/cursos/capa-curso-comunicacao-de-fim-de-ano-para-sindicos.png";
-import jornada from "@/assets/cursos/capa-curso-jornada-do-cliente-na-administracao-de-condominios.png";
-import captacao from "@/assets/cursos/capa-curso-captacao-de-condominios.png";
-import mercadinhos from "@/assets/cursos/gestao-de-mercadinhos-autonomos-em-condominios.png";
-import energia from "@/assets/cursos/mercado-livre-de-energia-de-media-e-alta-tensao.png";
-import biblioteca from "@/assets/cursos/biblioteca-de-prompts.png";
-import mapas from "@/assets/cursos/mapas-mentais-1.png";
+import inteligencia from "@/assets/cursos/inteligencia-condominial-1.webp";
+import inteligencia2 from "@/assets/cursos/inteligencia-condominial.webp";
+import captarMais from "@/assets/cursos/como-captar-mais-clientes.webp";
+import conselheiros from "@/assets/cursos/conselheiros-fiscais-e-consultivos.webp";
+import oratoria from "@/assets/cursos/oratoria-e-vendas.webp";
+import sindicoInicio from "@/assets/cursos/sindico-em-inicio-de-carreira.webp";
+import limpeza from "@/assets/cursos/limpeza-de-alta-performance.webp";
+import porteiro from "@/assets/cursos/porteiro-e-controlador-de-acesso.webp";
+import zelador from "@/assets/cursos/zelador-de-alta-performance.webp";
+import competencias from "@/assets/cursos/competencias-do-sindico.webp";
+import juridico from "@/assets/cursos/juridico-de-alta-performance.webp";
+import inovacao from "@/assets/cursos/inovacao-e-tecnologia.webp";
+import comunicacao from "@/assets/cursos/capa-curso-comunicacao-de-fim-de-ano-para-sindicos.webp";
+import jornada from "@/assets/cursos/capa-curso-jornada-do-cliente-na-administracao-de-condominios.webp";
+import captacao from "@/assets/cursos/capa-curso-captacao-de-condominios.webp";
+import mercadinhos from "@/assets/cursos/gestao-de-mercadinhos-autonomos-em-condominios.webp";
+import energia from "@/assets/cursos/mercado-livre-de-energia-de-media-e-alta-tensao.webp";
+import biblioteca from "@/assets/cursos/biblioteca-de-prompts.webp";
+import mapas from "@/assets/cursos/mapas-mentais-1.webp";
 
 export type Curso = {
   slug: string;

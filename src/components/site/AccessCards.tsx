@@ -2,12 +2,8 @@ import { motion, useMotionValue } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
 import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -18,48 +14,58 @@ export function AccessCards() {
     if (typeof window === "undefined") return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 1023px)").matches;
-    // Em mobile/tablet pulamos GSAP/ScrollTrigger nos cards: deixamos apenas
-    // as animações leves do framer-motion (whileInView). Reduz drasticamente
-    // o trabalho por scroll e remove a sensação de lag em iOS.
     if (reduced || isMobile) return;
     const root = sectionRef.current;
     if (!root) return;
 
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".cursor-glow", root);
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { clipPath: "inset(6% 4% 6% 4% round 28px)", scale: 0.97, opacity: 0.55, y: 24 },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 28px)",
-            scale: 1, opacity: 1, y: 0,
-            ease: "power3.out", duration: 1.05,
-            scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" },
-          }
-        );
-        const cta = card.querySelector<HTMLElement>(".btn-primary");
-        if (cta) {
-          gsap.fromTo(cta,
-            { y: 16, opacity: 0 },
-            { y: 0, opacity: 1, ease: "power2.out", duration: 0.55, delay: 0.4,
-              scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
+    let revert: (() => void) | null = null;
+    let cancelled = false;
+
+    (async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>(".cursor-glow", root);
+        cards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { clipPath: "inset(6% 4% 6% 4% round 28px)", scale: 0.97, opacity: 0.55, y: 24 },
+            {
+              clipPath: "inset(0% 0% 0% 0% round 28px)",
+              scale: 1, opacity: 1, y: 0,
+              ease: "power3.out", duration: 1.05,
+              scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" },
+            }
           );
-        }
-        const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
-        blobs.forEach((b, i) => {
-          if (i > 1) return;
-          gsap.to(b, {
-            yPercent: i % 2 === 0 ? -10 : 8,
-            ease: "none",
-            scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.2, fastScrollEnd: true },
+          const cta = card.querySelector<HTMLElement>(".btn-primary");
+          if (cta) {
+            gsap.fromTo(cta,
+              { y: 16, opacity: 0 },
+              { y: 0, opacity: 1, ease: "power2.out", duration: 0.55, delay: 0.4,
+                scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
+            );
+          }
+          const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
+          blobs.forEach((b, i) => {
+            if (i > 1) return;
+            gsap.to(b, {
+              yPercent: i % 2 === 0 ? -10 : 8,
+              ease: "none",
+              scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.2, fastScrollEnd: true },
+            });
           });
         });
-      });
+      }, root);
 
-    }, root);
+      revert = () => ctx.revert();
+    })();
 
-    return () => { ctx.revert(); };
+    return () => { cancelled = true; revert?.(); };
   }, []);
 
   return (
