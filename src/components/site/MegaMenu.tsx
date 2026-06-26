@@ -4,15 +4,15 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import { getLenis } from "./SmoothScroll";
-import { useMotionLevel } from "@/hooks/useMotionLevel";
+
 import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const motionLvl = useMotionLevel();
-  const heavy = motionLvl === "full";
+
+
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -31,10 +31,10 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
     };
   }, [open, onClose]);
 
-  const panelInitial = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
-  const panelAnimate = heavy ? { clipPath: "inset(0 0 0 0)" } : { opacity: 1, y: 0 };
-  const panelExit = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
-  const panelTransition = heavy ? { duration: 0.55, ease } : { duration: 0.22, ease };
+  const panelInitial = { opacity: 0, y: -8 };
+  const panelAnimate = { opacity: 1, y: 0 };
+  const panelExit = { opacity: 0, y: -8 };
+  const panelTransition = { duration: 0.22, ease };
 
   return (
     <AnimatePresence>
@@ -44,11 +44,12 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.18 }}
             onClick={onClose}
-            className={`fixed inset-0 z-[80] bg-ink/60 ${heavy ? "backdrop-blur-md" : ""}`}
+            className="fixed inset-0 z-[80] bg-ink/70"
             aria-hidden
           />
+
           <motion.div
             ref={panelRef}
             initial={panelInitial}
@@ -153,8 +154,9 @@ function FeaturedQ1S({ onClose }: { onClose: () => void }) {
       aria-label="Encontrar síndico profissional no Quero1Síndico"
     >
       {/* bg glow */}
-      <div className="absolute -top-32 -right-20 w-[36rem] h-[36rem] rounded-full bg-cyan/30 blur-[140px]" />
+      <div className="absolute -top-32 -right-20 w-[22rem] h-[22rem] rounded-full bg-cyan/25 blur-2xl" />
       <div className="absolute inset-0 pattern-grid opacity-[0.18]" />
+
 
       <div className="relative h-full grid md:grid-cols-2 gap-6 p-7 md:p-10">
         {/* Copy */}
@@ -199,7 +201,7 @@ function Q1SInterfacePreview() {
   return (
     <div className="absolute inset-0 flex flex-col gap-3 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]">
       {/* Search bar */}
-      <div className="rounded-xl bg-white/[0.06] border border-white/10 px-4 py-3 flex items-center gap-3 backdrop-blur-sm">
+      <div className="rounded-xl bg-white/[0.06] border border-white/10 px-4 py-3 flex items-center gap-3">
         <div className="w-2 h-2 rounded-full bg-cyan" />
         <span className="text-xs text-white/70 font-mono">Buscar síndicos · São Paulo, SP</span>
         <span className="ml-auto text-[10px] text-white/40 font-mono">128 resultados</span>
@@ -257,7 +259,7 @@ function FeaturedSponsorship({ onClose }: { onClose: () => void }) {
         className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-deep via-[#0e0820] to-[#08040f] text-background min-h-[360px] md:min-h-[440px] cursor-glow"
         aria-label="Ver mídia kit de patrocínios CondoHuby × SíndicoLab"
       >
-        <div className="absolute -top-20 -right-10 w-[28rem] h-[28rem] rounded-full bg-violet/40 blur-[120px]" />
+        <div className="absolute -top-20 -right-10 w-[20rem] h-[20rem] rounded-full bg-violet/35 blur-2xl" />
         <div className="absolute inset-0 pattern-windows opacity-20" />
 
         <div className="relative h-full p-7 md:p-10 flex flex-col justify-between">
