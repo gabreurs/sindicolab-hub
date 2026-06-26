@@ -135,7 +135,6 @@ function CardQuero1() {
       target="_blank"
       rel="noreferrer"
       onMouseMove={onMove}
-      style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -292,7 +291,6 @@ function CardPortal({ className = "" }: { className?: string }) {
     >
       <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
         <div className="grid md:grid-cols-2 h-full">
           <div className="p-7 md:p-9 flex flex-col">
@@ -352,7 +350,6 @@ function CardPlay({ className = "" }: { className?: string }) {
     >
       <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
         <div className="absolute inset-0" style={{ background: "linear-gradient(150deg, oklch(0.1 0.02 255) 0%, oklch(0.18 0.08 245) 60%, oklch(0.3 0.14 230) 100%)" }} />
         <div className="absolute inset-0 pattern-grid opacity-50" />
@@ -421,7 +418,6 @@ function CardMateriais({ className = "" }: { className?: string }) {
           aria-label="Baixar materiais gratuitos para condomínio"
           className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
-          style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
           <div
             aria-hidden
