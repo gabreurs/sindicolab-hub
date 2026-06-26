@@ -11,8 +11,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const motionLvl = useMotionLevel();
-  const heavy = motionLvl === "full";
+
+
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
