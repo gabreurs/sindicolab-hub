@@ -1,4 +1,4 @@
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
@@ -160,7 +160,7 @@ function CardQuero1() {
           backgroundSize: "48px 48px",
         }}
       />
-      <div className="absolute -top-40 -right-32 w-[40rem] h-[40rem] rounded-full blur-3xl" style={{ background: "hsla(215, 80%, 50%, 0.18)" }} />
+      <div className="absolute -top-40 -right-32 w-[26rem] h-[26rem] rounded-full blur-2xl" style={{ background: "hsla(215, 80%, 50%, 0.18)" }} />
 
       {/* LEFT — copy */}
       <div className="relative md:col-span-7 p-7 md:p-12 lg:p-14 flex flex-col z-10">
@@ -353,7 +353,7 @@ function CardPlay({ className = "" }: { className?: string }) {
       >
         <div className="absolute inset-0" style={{ background: "linear-gradient(150deg, oklch(0.1 0.02 255) 0%, oklch(0.18 0.08 245) 60%, oklch(0.3 0.14 230) 100%)" }} />
         <div className="absolute inset-0 pattern-grid opacity-50" />
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-cyan/30 blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-cyan/25 blur-2xl" />
 
         <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
           <div className="flex items-center justify-between text-[12px]">
