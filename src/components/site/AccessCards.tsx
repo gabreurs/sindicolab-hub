@@ -128,7 +128,7 @@ function useCursor() {
 /* ================================ Q1S — identidade do repo Síndico Finder ================================
    Navy profundo #0a0e1a, glass branco translúcido, accent azul #1976d2, mini-busca com selects + cards de síndicos. */
 function CardQuero1() {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.a
       href="https://quero1sindico.com/?utm_source=sindicolab&utm_medium=home_card&utm_campaign=q1s_hero"
@@ -280,7 +280,7 @@ function CardQuero1() {
 
 /* ================================ Portal ================================ */
 function CardPortal({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -340,7 +340,7 @@ function CardPortal({ className = "" }: { className?: string }) {
 
 /* ================================ Play ================================ */
 function CardPlay({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -391,7 +391,7 @@ function CardPlay({ className = "" }: { className?: string }) {
 
 /* ================================ Materiais ================================ */
 function CardMateriais({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   const docs = [
     { tag: "GUIA", title: "Prestação de contas em 7 passos" },
     { tag: "CHECKLIST", title: "Manutenção predial trimestral" },
@@ -525,7 +525,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
 
 /* ================================ Patrocínios — miniatura da hero roxa do mídia kit ================================ */
 function CardPatrocinios({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
