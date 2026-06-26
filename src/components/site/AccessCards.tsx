@@ -1,68 +1,15 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
 import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function AccessCards() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
-    if (reduced || isMobile) return;
-    const root = sectionRef.current;
-    if (!root) return;
-
-    let revert: (() => void) | null = null;
-    let cancelled = false;
-
-    (async () => {
-      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
-      if (cancelled) return;
-      gsap.registerPlugin(ScrollTrigger);
-
-      const ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>(".cursor-glow", root);
-        cards.forEach((card) => {
-          gsap.fromTo(
-            card,
-            { clipPath: "inset(6% 4% 6% 4% round 28px)", scale: 0.97, opacity: 0.55, y: 24 },
-            {
-              clipPath: "inset(0% 0% 0% 0% round 28px)",
-              scale: 1, opacity: 1, y: 0,
-              ease: "power3.out", duration: 1.05,
-              scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" },
-            }
-          );
-          const cta = card.querySelector<HTMLElement>(".btn-primary");
-          if (cta) {
-            gsap.fromTo(cta,
-              { y: 16, opacity: 0 },
-              { y: 0, opacity: 1, ease: "power2.out", duration: 0.55, delay: 0.4,
-                scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
-            );
-          }
-          // parallax dos blobs removido: scrub no filter:blur era a
-          // principal causa de jank ao passar pelo card Q1S.
-        });
-      }, root);
-
-      revert = () => ctx.revert();
-    })();
-
-    return () => { cancelled = true; revert?.(); };
-  }, []);
-
   return (
-    <section ref={sectionRef} id="produtos" className="relative pt-8 pb-28 md:pb-36" aria-labelledby="produtos-h">
+    <section id="produtos" className="relative pt-8 pb-28 md:pb-36" aria-labelledby="produtos-h">
 
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-6 items-end mb-10 md:mb-14">
