@@ -263,7 +263,9 @@
 .btn-ghost .btn-arrow { transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); }
 .btn-ghost:hover .btn-arrow { transform: translateX(4px); }
 
-/* Cursor-aware glow on cards */
+/* Cursor-aware glow on cards.
+   CSS vars (--mx/--my) são gravadas direto no DOM via rAF (sem React render).
+   O ::after só pinta no :hover; fora dele o radial-gradient não roda. */
 @utility cursor-glow {
   position: relative;
   isolation: isolate;
@@ -274,12 +276,17 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(450px circle at var(--mx, 50%) var(--my, 50%), oklch(0.78 0.14 220 / 0.18), transparent 55%);
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), oklch(0.78 0.14 220 / 0.14), transparent 60%);
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.35s ease;
   z-index: 1;
 }
 .cursor-glow:hover::after { opacity: 1; }
+/* Hint pro browser preparar uma camada própria pro card no hover,
+   evitando re-paint do conteúdo abaixo a cada mousemove. */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow:hover { will-change: transform; }
+}
 
 /* Mask reveal helper */
 @utility mask-clip-y {

@@ -1,4 +1,4 @@
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
@@ -50,15 +50,8 @@ export function AccessCards() {
                 scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
             );
           }
-          const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
-          blobs.forEach((b, i) => {
-            if (i > 1) return;
-            gsap.to(b, {
-              yPercent: i % 2 === 0 ? -10 : 8,
-              ease: "none",
-              scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.2, fastScrollEnd: true },
-            });
-          });
+          // parallax dos blobs removido: scrub no filter:blur era a
+          // principal causa de jank ao passar pelo card Q1S.
         });
       }, root);
 
@@ -101,29 +94,40 @@ export function AccessCards() {
   );
 }
 
-// Cursor-aware glow hook
+// Cursor-aware glow — escreve CSS vars direto no DOM via rAF.
+// Zero re-render React: o style bind antigo (useMotionValue + style prop)
+// forçava o card inteiro a recompor a cada mousemove, derrubando FPS no
+// card Q1S (com backdrop-blur + radial-gradients pesados).
 function useCursor() {
-  const mx = useMotionValue("50%");
-  const my = useMotionValue("50%");
+  const frame = useRef(0);
+  const last = useRef<{ x: number; y: number; el: HTMLElement } | null>(null);
+  const flush = () => {
+    frame.current = 0;
+    const d = last.current;
+    if (!d) return;
+    d.el.style.setProperty("--mx", `${d.x}px`);
+    d.el.style.setProperty("--my", `${d.y}px`);
+  };
   function onMove(e: React.MouseEvent<HTMLElement>) {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set(`${e.clientX - r.left}px`);
-    my.set(`${e.clientY - r.top}px`);
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    last.current = { x: e.clientX - r.left, y: e.clientY - r.top, el };
+    if (frame.current) return;
+    frame.current = requestAnimationFrame(flush);
   }
-  return { mx, my, onMove };
+  return { onMove };
 }
 
 /* ================================ Q1S — identidade do repo Síndico Finder ================================
    Navy profundo #0a0e1a, glass branco translúcido, accent azul #1976d2, mini-busca com selects + cards de síndicos. */
 function CardQuero1() {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.a
       href="https://quero1sindico.com/?utm_source=sindicolab&utm_medium=home_card&utm_campaign=q1s_hero"
       target="_blank"
       rel="noreferrer"
       onMouseMove={onMove}
-      style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -149,7 +153,7 @@ function CardQuero1() {
           backgroundSize: "48px 48px",
         }}
       />
-      <div className="absolute -top-40 -right-32 w-[40rem] h-[40rem] rounded-full blur-3xl" style={{ background: "hsla(215, 80%, 50%, 0.18)" }} />
+      <div className="absolute -top-40 -right-32 w-[26rem] h-[26rem] rounded-full blur-2xl" style={{ background: "hsla(215, 80%, 50%, 0.18)" }} />
 
       {/* LEFT — copy */}
       <div className="relative md:col-span-7 p-7 md:p-12 lg:p-14 flex flex-col z-10">
@@ -268,7 +272,7 @@ function CardQuero1() {
 
 /* ================================ Portal ================================ */
 function CardPortal({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -280,7 +284,6 @@ function CardPortal({ className = "" }: { className?: string }) {
     >
       <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
         <div className="grid md:grid-cols-2 h-full">
           <div className="p-7 md:p-9 flex flex-col">
@@ -328,7 +331,7 @@ function CardPortal({ className = "" }: { className?: string }) {
 
 /* ================================ Play ================================ */
 function CardPlay({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -340,11 +343,10 @@ function CardPlay({ className = "" }: { className?: string }) {
     >
       <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
-        style={{ "--mx": mx, "--my": my } as React.CSSProperties}
       >
         <div className="absolute inset-0" style={{ background: "linear-gradient(150deg, oklch(0.1 0.02 255) 0%, oklch(0.18 0.08 245) 60%, oklch(0.3 0.14 230) 100%)" }} />
         <div className="absolute inset-0 pattern-grid opacity-50" />
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-cyan/30 blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-cyan/25 blur-2xl" />
 
         <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
           <div className="flex items-center justify-between text-[12px]">
@@ -379,7 +381,7 @@ function CardPlay({ className = "" }: { className?: string }) {
 
 /* ================================ Materiais ================================ */
 function CardMateriais({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   const docs = [
     { tag: "GUIA", title: "Prestação de contas em 7 passos" },
     { tag: "CHECKLIST", title: "Manutenção predial trimestral" },
@@ -409,7 +411,6 @@ function CardMateriais({ className = "" }: { className?: string }) {
           aria-label="Baixar materiais gratuitos para condomínio"
           className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
-          style={{ "--mx": mx, "--my": my } as React.CSSProperties}
         >
           <div
             aria-hidden
@@ -513,7 +514,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
 
 /* ================================ Patrocínios — miniatura da hero roxa do mídia kit ================================ */
 function CardPatrocinios({ className = "" }: { className?: string }) {
-  const { mx, my, onMove } = useCursor();
+  const { onMove } = useCursor();
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -529,8 +530,6 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
         aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
         className="sponsor-home-card group relative block overflow-hidden h-full"
         style={{
-          "--mx": mx,
-          "--my": my,
           color: "#F7F3EF",
           border: "1px solid rgba(233, 221, 248, 0.18)",
           borderRadius: 28,
