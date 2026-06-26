@@ -269,6 +269,9 @@
 @utility cursor-glow {
   position: relative;
   isolation: isolate;
+  contain: layout paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .cursor-glow::after {
   content: "";
@@ -276,16 +279,28 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), oklch(0.78 0.14 220 / 0.14), transparent 60%);
+  background: transparent;
   opacity: 0;
   transition: opacity 0.35s ease;
   z-index: 1;
 }
-.cursor-glow:hover::after { opacity: 1; }
+.cursor-glow:hover::after {
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), oklch(0.78 0.14 220 / 0.12), transparent 62%);
+  opacity: 1;
+}
+
+.access-q1s-card,
+.access-mini-card,
+.sponsor-home-card {
+  contain: layout paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
 /* Hint pro browser preparar uma camada própria pro card no hover,
    evitando re-paint do conteúdo abaixo a cada mousemove. */
 @media (hover: hover) and (pointer: fine) {
-  .cursor-glow:hover { will-change: transform; }
+  .cursor-glow { will-change: transform; }
 }
 
 /* Mask reveal helper */
@@ -319,8 +334,6 @@
 @media (min-width: 1024px) {
   .edge-blur-bottom {
     height: clamp(140px, 16vh, 220px);
-    -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
   }
 }
 .edge-blur-bottom.is-hidden { opacity: 0; }
@@ -679,10 +692,10 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 
 /* Hero blobs — blur escalonado por viewport para reduzir GPU em mobile */
 .hero-blob {
-  filter: blur(80px);
+  filter: blur(56px);
 }
 @media (min-width: 1024px) {
-  .hero-blob { filter: blur(120px); }
+  .hero-blob { filter: blur(72px); }
 }
 @media (max-width: 767px) {
   .hero-blob { filter: blur(60px); opacity: 0.5 !important; }

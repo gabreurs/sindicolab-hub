@@ -66,7 +66,7 @@ function QuemSomosPage() {
 
       {/* Hero */}
       <section className="relative pt-6 md:pt-10 pb-16 overflow-hidden">
-        <div className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-brand-soft blur-[120px] opacity-70 -z-10" />
+        <div className="absolute -top-28 -left-16 w-[26rem] h-[26rem] rounded-full bg-brand-soft opacity-55 -z-10 hero-blob" />
         <div className="container-x grid lg:grid-cols-12 gap-10 items-end">
           <div className="lg:col-span-7">
             <p className="text-xs text-ink-soft">Quem é o SíndicoLab</p>

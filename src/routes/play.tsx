@@ -78,7 +78,7 @@ function PlayPage() {
       {/* Submenu de trilhas — abaixo da hero, sticky com altura fixa */}
       <nav
         aria-label="Trilhas"
-        className="play-subnav sticky top-[72px] z-30 border-y border-white/10 bg-[#0a0b12]/92 backdrop-blur"
+        className="play-subnav sticky top-[72px] z-30 border-y border-white/10 bg-[#0a0b12]/96"
       >
         <div className="container-x py-3">
           <div className="horizontal-list flex gap-2 md:gap-3 -mx-1 px-1 snap-x scroll-smooth">
@@ -204,7 +204,7 @@ function CursoCard({ curso }: { curso: Curso }) {
           className="course-thumb-cover"
         />
         {curso.preco && (
-          <div className="absolute z-[2] top-2 right-2 px-2 py-0.5 rounded bg-black/65 backdrop-blur text-[10px] font-mono text-cyan">
+          <div className="absolute z-[2] top-2 right-2 px-2 py-0.5 rounded bg-black/75 text-[10px] font-mono text-cyan">
             {curso.preco}
           </div>
         )}

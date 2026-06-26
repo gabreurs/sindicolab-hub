@@ -23,8 +23,8 @@ export function PageShell({
       <Header />
 
       <section className="relative pt-36 md:pt-44 pb-20 md:pb-28 overflow-hidden">
-        <div className="absolute -top-32 -right-20 w-[40rem] h-[40rem] rounded-full bg-brand-soft blur-[120px] opacity-70 -z-10" />
-        <div className="absolute top-1/2 -left-32 w-[30rem] h-[30rem] rounded-full bg-cyan-soft blur-[120px] opacity-60 -z-10" />
+        <div className="absolute -top-28 -right-16 w-[28rem] h-[28rem] rounded-full bg-brand-soft opacity-55 -z-10 hero-blob" />
+        <div className="absolute top-1/2 -left-28 w-[22rem] h-[22rem] rounded-full bg-cyan-soft opacity-45 -z-10 hero-blob" />
 
         <div className="container-x">
           <motion.div
