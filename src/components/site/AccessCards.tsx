@@ -2,12 +2,8 @@ import { motion, useMotionValue } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
 import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
