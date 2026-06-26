@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import { getLenis } from "./SmoothScroll";
-import { useMotionLevel } from "@/hooks/useMotionLevel";
+
 import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
 
 const ease = [0.22, 1, 0.36, 1] as const;
