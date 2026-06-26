@@ -201,7 +201,7 @@ function Q1SInterfacePreview() {
   return (
     <div className="absolute inset-0 flex flex-col gap-3 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]">
       {/* Search bar */}
-      <div className="rounded-xl bg-white/[0.06] border border-white/10 px-4 py-3 flex items-center gap-3 backdrop-blur-sm">
+      <div className="rounded-xl bg-white/[0.06] border border-white/10 px-4 py-3 flex items-center gap-3">
         <div className="w-2 h-2 rounded-full bg-cyan" />
         <span className="text-xs text-white/70 font-mono">Buscar síndicos · São Paulo, SP</span>
         <span className="ml-auto text-[10px] text-white/40 font-mono">128 resultados</span>
