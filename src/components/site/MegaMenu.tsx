@@ -259,7 +259,7 @@ function FeaturedSponsorship({ onClose }: { onClose: () => void }) {
         className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-deep via-[#0e0820] to-[#08040f] text-background min-h-[360px] md:min-h-[440px] cursor-glow"
         aria-label="Ver mídia kit de patrocínios CondoHuby × SíndicoLab"
       >
-        <div className="absolute -top-20 -right-10 w-[28rem] h-[28rem] rounded-full bg-violet/40 blur-[120px]" />
+        <div className="absolute -top-20 -right-10 w-[20rem] h-[20rem] rounded-full bg-violet/35 blur-2xl" />
         <div className="absolute inset-0 pattern-windows opacity-20" />
 
         <div className="relative h-full p-7 md:p-10 flex flex-col justify-between">
