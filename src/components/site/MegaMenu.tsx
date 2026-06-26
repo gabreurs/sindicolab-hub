@@ -31,10 +31,10 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
     };
   }, [open, onClose]);
 
-  const panelInitial = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
-  const panelAnimate = heavy ? { clipPath: "inset(0 0 0 0)" } : { opacity: 1, y: 0 };
-  const panelExit = heavy ? { clipPath: "inset(0 0 100% 0)" } : { opacity: 0, y: -8 };
-  const panelTransition = heavy ? { duration: 0.55, ease } : { duration: 0.22, ease };
+  const panelInitial = { opacity: 0, y: -8 };
+  const panelAnimate = { opacity: 1, y: 0 };
+  const panelExit = { opacity: 0, y: -8 };
+  const panelTransition = { duration: 0.22, ease };
 
   return (
     <AnimatePresence>
@@ -44,11 +44,12 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.18 }}
             onClick={onClose}
-            className={`fixed inset-0 z-[80] bg-ink/60 ${heavy ? "backdrop-blur-md" : ""}`}
+            className="fixed inset-0 z-[80] bg-ink/70"
             aria-hidden
           />
+
           <motion.div
             ref={panelRef}
             initial={panelInitial}
