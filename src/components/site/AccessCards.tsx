@@ -537,8 +537,6 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
         aria-label="Mídia kit CondoHuby × SíndicoLab — patrocinar experiências condominiais"
         className="sponsor-home-card group relative block overflow-hidden h-full"
         style={{
-          "--mx": mx,
-          "--my": my,
           color: "#F7F3EF",
           border: "1px solid rgba(233, 221, 248, 0.18)",
           borderRadius: 28,
