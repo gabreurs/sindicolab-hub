@@ -154,8 +154,9 @@ function FeaturedQ1S({ onClose }: { onClose: () => void }) {
       aria-label="Encontrar síndico profissional no Quero1Síndico"
     >
       {/* bg glow */}
-      <div className="absolute -top-32 -right-20 w-[36rem] h-[36rem] rounded-full bg-cyan/30 blur-[140px]" />
+      <div className="absolute -top-32 -right-20 w-[22rem] h-[22rem] rounded-full bg-cyan/25 blur-2xl" />
       <div className="absolute inset-0 pattern-grid opacity-[0.18]" />
+
 
       <div className="relative h-full grid md:grid-cols-2 gap-6 p-7 md:p-10">
         {/* Copy */}
