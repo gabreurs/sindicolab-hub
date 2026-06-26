@@ -50,15 +50,8 @@ export function AccessCards() {
                 scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" } }
             );
           }
-          const blobs = card.querySelectorAll<HTMLElement>(".blur-3xl");
-          blobs.forEach((b, i) => {
-            if (i > 1) return;
-            gsap.to(b, {
-              yPercent: i % 2 === 0 ? -10 : 8,
-              ease: "none",
-              scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.2, fastScrollEnd: true },
-            });
-          });
+          // parallax dos blobs removido: scrub no filter:blur era a
+          // principal causa de jank ao passar pelo card Q1S.
         });
       }, root);
 
