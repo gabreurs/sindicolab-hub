@@ -40,7 +40,7 @@ export function Header() {
         }`}
         data-route={isHome ? "home" : "page"}
       >
-        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border">
+        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border px-4 md:px-10">
           <Link
             to="/"
             aria-label="SíndicoLab — home"
