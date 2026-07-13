@@ -51,11 +51,11 @@ export const destinations: Destination[] = [
   {
     key: "materiais",
     number: "04",
-    category: "Materiais gratuitos para condomínio",
-    title: "Baixe materiais para síndicos, conselheiros e condomínios",
-    short: "Modelos de ata, regimentos, checklists e guias práticos prontos para usar.",
-    description: "Biblioteca utilitária para apoiar decisões, assembleias e a rotina da administração condominial.",
-    cta: "Baixar materiais gratuitos",
+    category: "E-books e estudos exclusivos",
+    title: "E-books e estudos únicos e exclusivos para o mercado condominial",
+    short: "Conteúdos e publicações desenvolvidos especialmente para o setor condominial.",
+    description: "Biblioteca de e-books e estudos exclusivos para apoiar decisões, assembleias e a gestão condominial.",
+    cta: "Acessar e-books e estudos",
     href: "/materiais",
     external: false,
     accent: "ink",
@@ -74,15 +74,14 @@ export const destinations: Destination[] = [
   },
 ];
 
+// Apoiadores/parceiros oficiais — usados pelo componente Sponsors,
+// que renderiza os logos reais (ver src/components/site/Sponsors.tsx).
 export const sponsors = [
-  "CondoHuby",
-  "BBZ",
-  "Focus Media",
-  "CBE",
   "Atlas Schindler",
-  "Síndico Advanced",
-  "DGT",
-  "Guarida",
-  "Studio Marqo",
-  "Superlógica",
+  "BBZ",
+  "CondoHuby",
+  "Focus Media",
+  "MLG Pinturas & Construções",
+  "Damas e Reis da Limpeza — Diluidores",
 ];
+

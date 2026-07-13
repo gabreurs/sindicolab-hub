@@ -106,9 +106,9 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
                 <SmallCard
                   delay={0.26}
                   to="/materiais"
-                  eyebrow="Materiais"
-                  title="Baixar materiais para condomínio"
-                  description="Modelos, checklists, guias e documentos prontos para usar."
+                  eyebrow="E-books & Estudos"
+                  title="Acessar e-books e estudos exclusivos"
+                  description="Conteúdos e publicações desenvolvidos especialmente para o setor condominial."
                   preview={<LibraryPreview />}
                   onClose={onClose}
                 />

@@ -81,7 +81,7 @@ export const searchIndex: SearchItem[] = [
 
 export const popularSearches = [
   { label: "Encontrar síndico profissional", href: "https://quero1sindico.com/", external: true },
-  { label: "Baixar materiais para condomínio", href: "/materiais" },
+  { label: "Acessar e-books e estudos exclusivos", href: "/materiais" },
   { label: "Ver cursos para síndicos", href: "/play" },
   { label: "Ler conteúdo sobre gestão condominial", href: "/portal" },
   { label: "Patrocinar experiências condominiais", href: "/patrocinios" },

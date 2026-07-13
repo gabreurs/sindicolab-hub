@@ -98,7 +98,7 @@ export const articles: Article[] = [
     image: u("photo-1521737604893-d14cc237f11d"),
     imageAlt: "Síndico profissional analisando documentos e indicadores de gestão condominial",
     content: [
-      { type: "p", text: "A pesquisa anual SíndicoLab/CondoHub ouviu 1.842 síndicos em 27 estados. Os dados mostram aceleração da profissionalização e mudança no perfil etário, de gênero e de formação." },
+      { type: "p", text: "A pesquisa anual SíndicoLab/CondoHuby ouviu 1.842 síndicos em 27 estados. Os dados mostram aceleração da profissionalização e mudança no perfil etário, de gênero e de formação." },
       { type: "h2", text: "Quem é o síndico de 2026" },
       { type: "p", text: "Idade média: 44 anos. Mulheres já representam 51% da base profissional. Formação predominante: administração, direito e engenharia. Renda média mensal por mandato: R$ 7.200, com o topo do mercado superando R$ 25 mil." },
       { type: "h2", text: "O que mudou em relação a 2024" },

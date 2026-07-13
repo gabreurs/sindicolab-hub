@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 
 const stats = [
-  { n: "12+", l: "Workshops por ano no CondoHub" },
+  { n: "12+", l: "Workshops por ano no CondoHuby" },
   { n: "+100", l: "Síndicos por encontro presencial" },
   { n: "150+", l: "Conteúdos publicados" },
   { n: "+12k", l: "Profissionais impactados" },
@@ -11,7 +11,7 @@ const stats = [
 
 const tiles = [
   { tag: "Workshop", title: "Inteligência condominial", tone: "from-brand-soft to-cyan-soft" },
-  { tag: "Encontro", title: "Síndicos no CondoHub", tone: "from-secondary to-brand-soft" },
+  { tag: "Encontro", title: "Síndicos no CondoHuby", tone: "from-secondary to-brand-soft" },
   { tag: "Bastidor", title: "Curadoria editorial", tone: "from-violet/20 to-brand-soft" },
 ];
 
@@ -29,7 +29,7 @@ export function QuemSomos() {
               Um laboratório vivo do <span className="italic font-normal text-brand">mercado condominial</span>.
             </h2>
             <p className="mt-5 text-ink-soft leading-relaxed max-w-xl">
-              Workshops, encontros no CondoHub, comunidade de síndicos profissionais, conteúdo editorial
+              Workshops, encontros no CondoHuby, comunidade de síndicos profissionais, conteúdo editorial
               e cursos. O SíndicoLab acontece também — e principalmente — no mundo real.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">

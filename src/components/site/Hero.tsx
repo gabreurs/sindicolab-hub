@@ -28,7 +28,8 @@ export function Hero() {
           Ecossistema condominial brasileiro
         </motion.p>
 
-        <h1 className="mt-5 font-display text-[10.5vw] sm:text-6xl md:text-[5.4rem] lg:text-[6.2rem] leading-[0.94] text-ink max-w-[20ch] tracking-[-0.045em]">
+        <h1 className="mt-5 font-display leading-[0.98] text-ink max-w-[20ch] tracking-[-0.045em]"
+            style={{ fontSize: "clamp(2.4rem, 8.5vw, 6.2rem)" }}>
           <Line delay={1.0}>Síndico profissional,</Line>
           <Line delay={1.1}>cursos e materiais</Line>
           <Line delay={1.2}>
@@ -110,7 +111,7 @@ function OrbitalBrandBadge() {
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1.05, duration: 1.2, ease }}
-      className="absolute top-20 right-4 md:top-16 md:right-8 lg:top-12 lg:right-10 w-[140px] h-[140px] md:w-[200px] md:h-[200px] lg:w-[220px] lg:h-[220px] z-[5] pointer-events-none"
+      className="hidden md:block absolute md:top-16 md:right-8 lg:top-12 lg:right-10 md:w-[200px] md:h-[200px] lg:w-[220px] lg:h-[220px] z-[5] pointer-events-none"
       aria-hidden
     >
       <div className="absolute inset-0 animate-orbit-slow">

@@ -195,7 +195,7 @@ function PortalPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              "Bastidor — encontro de síndicos no CondoHub",
+              "Bastidor — encontro de síndicos no CondoHuby",
               "Caso real: prestação de contas que virou processo",
               "Workshop ao vivo: jurídico de alta performance",
             ].map((t) => (

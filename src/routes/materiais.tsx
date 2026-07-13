@@ -9,14 +9,14 @@ import { buildSeo } from "@/lib/seo";
 export const Route = createFileRoute("/materiais")({
   head: () =>
     buildSeo({
-      title: "Materiais para condomínio — Modelos, atas e checklists | SíndicoLab",
+      title: "E-books e estudos para condomínio — Publicações exclusivas | SíndicoLab",
       description:
-        "Biblioteca de materiais para condomínio: modelos de ata, regimentos, checklists, guias práticos e planilhas para a rotina do síndico.",
+        "E-books e estudos únicos e exclusivos para o mercado condominial. Conteúdos e publicações desenvolvidos especialmente para o setor condominial.",
       path: "/materiais",
       jsonLd: {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Materiais para condomínio",
+        name: "E-books e estudos para o mercado condominial",
         url: "https://sindicolab.com/materiais",
         inLanguage: "pt-BR",
       },
@@ -74,14 +74,15 @@ function MateriaisPage() {
       <section className="pt-6 md:pt-8 pb-12 border-b border-border bg-secondary/40">
         <div className="container-x">
           <div className="text-[10px] tracking-tight text-brand font-mono">
-            Biblioteca · Materiais para condomínio
+            Biblioteca · E-books e estudos exclusivos
           </div>
           <h1 className="mt-5 font-display text-4xl md:text-6xl tracking-[-0.04em] leading-[0.98] max-w-3xl text-balance">
-            Modelos, checklists e guias prontos para o seu condomínio
+            E-books e estudos únicos e exclusivos para o mercado condominial.
           </h1>
           <p className="mt-5 max-w-2xl text-ink-soft text-base md:text-lg leading-relaxed">
-            Materiais práticos baixados por milhares de síndicos. Use, adapte e leve para a sua próxima
-            assembleia ou rotina administrativa.
+            Conteúdos e publicações desenvolvidos especialmente para o setor
+            condominial — para apoiar decisões, aprofundar temas e acelerar a
+            sua atuação.
           </p>
 
           <div className="mt-8 flex items-center gap-3 max-w-2xl bg-background border border-border rounded-2xl px-5 py-4 shadow-soft">

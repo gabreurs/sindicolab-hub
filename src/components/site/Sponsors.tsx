@@ -1,17 +1,37 @@
 /**
- * SponsorsMarquee — placeholders SVG monocromáticos com hover color reveal.
- * Não usa bolinhas com inicial — usa logos estilizados.
+ * Sponsors — grade estável de logos reais dos parceiros/apoiadores.
+ * Mantém o título original; substitui placeholders por assets oficiais.
  */
-import { sponsors } from "@/lib/destinations";
+import atlasLogo from "@/assets/parceiros/atlas-schindler.png.asset.json";
+import bbzLogo from "@/assets/parceiros/bbz.png.asset.json";
+import condohubyLogo from "@/assets/parceiros/condohuby.png.asset.json";
+import focusLogo from "@/assets/parceiros/focus-media.png.asset.json";
+import mlgLogo from "@/assets/parceiros/mlg.png.asset.json";
+import damasLogo from "@/assets/parceiros/damas-reis-limpeza.jpeg.asset.json";
+
+type Partner = {
+  name: string;
+  src: string;
+  /** fundo neutro para logos com brancos/pretos internos que sumiriam */
+  tone?: "light" | "dark";
+};
+
+const partners: Partner[] = [
+  { name: "Atlas Schindler", src: atlasLogo.url, tone: "dark" },
+  { name: "BBZ", src: bbzLogo.url, tone: "light" },
+  { name: "CondoHuby", src: condohubyLogo.url, tone: "dark" },
+  { name: "Focus Media", src: focusLogo.url, tone: "light" },
+  { name: "MLG Pinturas & Construções", src: mlgLogo.url, tone: "light" },
+  { name: "Damas e Reis da Limpeza — Diluidores", src: damasLogo.url, tone: "dark" },
+];
 
 export function Sponsors() {
-  const items = [...sponsors, ...sponsors];
   return (
     <section
-      className="py-20 md:py-28 border-y border-border/70 bg-surface relative overflow-hidden"
+      className="py-16 md:py-28 border-y border-border/70 bg-surface relative overflow-hidden"
       aria-labelledby="sponsors-h"
     >
-      <div className="container-x mb-12 grid md:grid-cols-12 gap-6 items-end">
+      <div className="container-x mb-10 md:mb-12 grid md:grid-cols-12 gap-6 items-end">
         <div className="md:col-span-7">
           <p className="text-[12px] text-ink-soft mb-3">Apoiadores e parceiros</p>
           <h2
@@ -27,49 +47,37 @@ export function Sponsors() {
         </p>
       </div>
 
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-surface to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-surface to-transparent z-10" />
-        <div className="overflow-hidden">
-          <div className="flex w-max animate-marquee gap-3 items-center py-2">
-            {items.map((s, i) => (
-              <SponsorTile key={i} name={s} index={i % sponsors.length} />
-            ))}
-          </div>
-        </div>
+      <div className="container-x">
+        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 items-stretch">
+          {partners.map((p) => (
+            <li key={p.name}>
+              <PartnerTile partner={p} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
 }
 
-const tints = [
-  "oklch(0.55 0.21 258)",
-  "oklch(0.55 0.22 295)",
-  "oklch(0.78 0.14 220)",
-  "oklch(0.5 0.18 200)",
-  "oklch(0.6 0.18 280)",
-];
-
-function SponsorTile({ name, index }: { name: string; index: number }) {
-  const tint = tints[index % tints.length];
+function PartnerTile({ partner }: { partner: Partner }) {
+  const bg =
+    partner.tone === "dark"
+      ? "bg-[#0f172a]"
+      : "bg-background";
   return (
     <div
-      className="group relative flex items-center gap-3 px-7 py-5 min-w-[210px] rounded-2xl bg-background border border-border hover:border-border-strong hover:shadow-card transition-all"
-      style={{ "--tint": tint } as React.CSSProperties}
+      className={`group relative flex items-center justify-center h-24 md:h-28 rounded-2xl border border-border ${bg} px-4 py-4 transition-all hover:border-border-strong hover:shadow-card`}
+      aria-label={partner.name}
     >
-      <svg width="28" height="28" viewBox="0 0 28 28" className="shrink-0 text-ink-soft/55 group-hover:text-[var(--tint)] transition-colors">
-        {/* simple geometric mark per index */}
-        {index % 4 === 0 && <rect x="4" y="4" width="20" height="20" rx="6" stroke="currentColor" strokeWidth="2.2" fill="none" />}
-        {index % 4 === 1 && <circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2.2" fill="none" />}
-        {index % 4 === 2 && <path d="M4 22 L14 4 L24 22 Z" stroke="currentColor" strokeWidth="2.2" fill="none" />}
-        {index % 4 === 3 && <>
-          <rect x="4" y="4" width="9" height="20" rx="2" stroke="currentColor" strokeWidth="2.2" fill="none" />
-          <rect x="15" y="9" width="9" height="15" rx="2" stroke="currentColor" strokeWidth="2.2" fill="none" />
-        </>}
-      </svg>
-      <span className="font-display text-[1.05rem] text-ink-soft/75 group-hover:text-ink transition-colors tracking-[-0.02em] whitespace-nowrap">
-        {name}
-      </span>
+      <img
+        src={partner.src}
+        alt={partner.name}
+        loading="lazy"
+        decoding="async"
+        className="max-h-full max-w-full w-auto h-auto object-contain"
+        style={{ maxHeight: "72%" }}
+      />
     </div>
   );
 }
