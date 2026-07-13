@@ -12,7 +12,7 @@ export const Route = createFileRoute("/quem-somos")({
     buildSeo({
       title: "Quem somos — SíndicoLab",
       description:
-        "Workshops, encontros no CondoHub, comunidade de síndicos e conteúdo editorial. Conheça o SíndicoLab — um laboratório vivo do mercado condominial.",
+        "Workshops, encontros no CondoHuby, comunidade de síndicos e conteúdo editorial. Conheça o SíndicoLab — um laboratório vivo do mercado condominial.",
       path: "/quem-somos",
       jsonLd: {
         "@context": "https://schema.org",
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/quem-somos")({
 const timeline = [
   { y: "2019", t: "Primeiros encontros de síndicos profissionais com Rafael Bernardes." },
   { y: "2021", t: "Nasce o SíndicoLab como espaço editorial e comunidade." },
-  { y: "2023", t: "Workshops mensais no CondoHub começam a pautar o setor." },
+  { y: "2023", t: "Workshops mensais no CondoHuby começam a pautar o setor." },
   { y: "2025", t: "Lançamento do Play, Materiais e do hub Quero1Síndico." },
   { y: "2026", t: "Ecossistema integrado: portal, cursos, materiais e patrocínios." },
 ];
@@ -40,7 +40,7 @@ const stats = [
 ];
 
 const fazemos = [
-  { i: Calendar, t: "Workshops presenciais", d: "Encontros no CondoHub que conectam síndicos, conselheiros, marcas e administradoras." },
+  { i: Calendar, t: "Workshops presenciais", d: "Encontros no CondoHuby que conectam síndicos, conselheiros, marcas e administradoras." },
   { i: BookOpen, t: "Curadoria editorial", d: "Portal com matérias, entrevistas e bastidores do mercado condominial." },
   { i: Mic, t: "Conteúdo em vídeo", d: "Episódios, recortes e bastidores publicados nos canais do SíndicoLab." },
   { i: Sparkles, t: "Cursos no Play", d: "Catálogo de formação contínua para síndicos e profissionais do setor." },
@@ -49,7 +49,7 @@ const fazemos = [
 
 const galeria = [
   "Workshop Inteligência condominial",
-  "Encontro de síndicos · CondoHub",
+  "Encontro de síndicos · CondoHuby",
   "Bastidor — produção de conteúdo",
   "Workshop jurídico de alta performance",
   "Encontro temático — captação",
@@ -109,7 +109,7 @@ function QuemSomosPage() {
         <div className="container-x">
           <div className="flex items-end justify-between mb-8 gap-6">
             <h2 className="font-display text-2xl md:text-4xl tracking-[-0.03em]">
-              Workshops e encontros no CondoHub
+              Workshops e encontros no CondoHuby
             </h2>
             <span className="text-xs text-ink-soft hidden md:inline">Edição contínua</span>
           </div>

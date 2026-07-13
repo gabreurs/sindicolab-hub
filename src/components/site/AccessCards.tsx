@@ -4,6 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
 import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
+import { patrociniosBanner } from "@/lib/patrocinios-banner";
+
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -23,8 +25,8 @@ export function AccessCards() {
             </h2>
           </div>
           <p className="md:col-span-4 text-sm md:text-[0.95rem] text-ink-soft md:text-right max-w-sm md:ml-auto leading-relaxed">
-            Acesse a plataforma de síndicos profissionais, cursos, materiais
-            gratuitos, portal de conteúdos e experiências do SíndicoLab.
+            Acesse a plataforma de síndicos profissionais, cursos, e-books e
+            estudos exclusivos, portal de conteúdos e experiências do SíndicoLab.
           </p>
         </div>
 
@@ -330,9 +332,9 @@ function CardPlay({ className = "" }: { className?: string }) {
 function CardMateriais({ className = "" }: { className?: string }) {
   const { onMove } = useCursor();
   const docs = [
-    { tag: "GUIA", title: "Prestação de contas em 7 passos" },
-    { tag: "CHECKLIST", title: "Manutenção predial trimestral" },
-    { tag: "MODELO", title: "Ata de assembleia condominial" },
+    { tag: "E-BOOK", title: "Gestão condominial de alta performance" },
+    { tag: "ESTUDO", title: "Panorama do síndico profissional 2025" },
+    { tag: "E-BOOK", title: "Assembleias híbridas na prática" },
   ];
   const transition = { duration: 0.5, ease } as const;
 
@@ -355,8 +357,8 @@ function CardMateriais({ className = "" }: { className?: string }) {
       >
         <Link
           to="/materiais"
-          aria-label="Baixar materiais gratuitos para condomínio"
-          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          aria-label="Acessar e-books e estudos exclusivos do mercado condominial"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
         >
           <div
@@ -368,7 +370,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
             }}
           />
 
-          <div className="relative h-full p-7 md:p-9 flex flex-col gap-5">
+          <div className="relative h-full p-6 md:p-9 flex flex-col gap-4 md:gap-5">
             {/* topo: número + ícone download */}
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
               <span>04 / 05</span>
@@ -387,29 +389,27 @@ function CardMateriais({ className = "" }: { className?: string }) {
               </motion.span>
             </div>
 
-            {/* categoria */}
-            <div className="text-[12px] text-ink-soft">Materiais gratuitos para condomínio</div>
+            {/* eyebrow */}
+            <div className="text-[12px] text-ink-soft">E-books e estudos exclusivos</div>
 
             {/* título */}
             <h3 className="font-display text-2xl md:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance">
-              Baixe materiais para síndicos e condomínios.
+              E-books e estudos únicos e exclusivos para o mercado condominial.
             </h3>
 
-            {/* área visual contida da pilha */}
+            {/* área visual contida da pilha — só desktop pra não empurrar conteúdo no mobile */}
             <div
-              className="materials-stack-viewport relative w-full overflow-hidden rounded-2xl"
+              className="materials-stack-viewport relative w-full overflow-hidden rounded-2xl hidden md:block"
               style={{ height: 140 }}
             >
               {docs.map((d, i) => {
-                // estado normal: 3 documentos sutilmente empilhados (1 visível, 2 atrás).
-                // hover: enfileiram-se verticalmente com pequena inclinação.
-                const restY = i * 6; // 0, 6, 12px
-                const restScale = 1 - i * 0.025; // 1.0, 0.975, 0.95
-                const hoverY = (i - 1) * 14; // -14, 0, 14
-                const hoverRot = (i - 1) * 1; // -1, 0, 1
+                const restY = i * 6;
+                const restScale = 1 - i * 0.025;
+                const hoverY = (i - 1) * 14;
+                const hoverRot = (i - 1) * 1;
                 return (
                   <motion.div
-                    key={d.tag}
+                    key={d.tag + i}
                     variants={{
                       rest: { y: restY, scale: restScale, rotate: 0, opacity: i === 0 ? 1 : 0.92 },
                       hover: { y: hoverY, scale: 1, rotate: hoverRot, opacity: 1 },
@@ -429,13 +429,13 @@ function CardMateriais({ className = "" }: { className?: string }) {
 
             {/* descrição */}
             <p className="text-xs text-ink-soft leading-relaxed">
-              Guias, modelos e checklists para assembleias e gestão condominial.
+              Conteúdos e publicações desenvolvidos especialmente para o setor condominial.
             </p>
 
             {/* CTA */}
-            <div className="inline-flex items-center gap-1.5 text-sm font-medium text-ink relative">
+            <div className="inline-flex items-center gap-1.5 text-sm font-medium text-ink relative mt-auto">
               <span className="relative">
-                Baixar materiais gratuitos
+                Acessar e-books e estudos
                 <motion.span
                   variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
                   transition={transition}
@@ -459,9 +459,43 @@ function CardMateriais({ className = "" }: { className?: string }) {
 }
 
 
-/* ================================ Patrocínios — miniatura da hero roxa do mídia kit ================================ */
+/* ================================ Patrocínios — banner oficial (quando enviado) OU fallback roxo do mídia kit ================================ */
 function CardPatrocinios({ className = "" }: { className?: string }) {
   const { onMove } = useCursor();
+
+  // Banner oficial da equipe de marketing (ainda pendente — ver patrocinios-banner.ts).
+  if (patrociniosBanner.desktop) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease, delay: 0.15 }}
+        whileHover={{ y: -4 }}
+        className={className}
+      >
+        <Link
+          to="/patrocinios"
+          aria-label={patrociniosBanner.alt}
+          className="group relative block overflow-hidden rounded-3xl h-full shadow-card hover:shadow-lift transition-shadow"
+        >
+          <picture>
+            {patrociniosBanner.mobile && (
+              <source media="(max-width: 767px)" srcSet={patrociniosBanner.mobile} />
+            )}
+            <img
+              src={patrociniosBanner.desktop}
+              alt={patrociniosBanner.alt}
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-full object-contain bg-background"
+            />
+          </picture>
+        </Link>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 22 }}
@@ -471,6 +505,7 @@ function CardPatrocinios({ className = "" }: { className?: string }) {
       whileHover={{ y: -4 }}
       className={className}
     >
+
       <Link
         to="/patrocinios"
         onMouseMove={onMove}

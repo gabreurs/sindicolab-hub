@@ -335,7 +335,7 @@ export function GlobalSearch() {
 
 const POPULAR_DESCRIPTIONS: Record<string, string> = {
   "Encontrar síndico profissional": "Acesse o Quero1Síndico",
-  "Baixar materiais para condomínio": "Guias, modelos e checklists gratuitos",
+  "Acessar e-books e estudos exclusivos": "Conteúdos e publicações para o setor condominial",
   "Ver cursos para síndicos": "Aulas e formações no SíndicoLab Play",
   "Ler conteúdo sobre gestão condominial": "Portal com notícias, segurança e casos reais",
   "Patrocinar experiências condominiais": "Mídia kit, workshops e relacionamento",
