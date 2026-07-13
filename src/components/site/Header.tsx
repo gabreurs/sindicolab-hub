@@ -40,9 +40,21 @@ export function Header() {
         }`}
         data-route={isHome ? "home" : "page"}
       >
-        <div className="container-x flex items-center justify-between h-[72px]">
-          <Link to="/" aria-label="SíndicoLab — home" className="shrink-0">
-            <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
+        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border px-4 md:px-10">
+          <Link
+            to="/"
+            aria-label="SíndicoLab — home"
+            className="flex-1 min-w-0 md:flex-none md:min-w-fit md:max-w-none"
+            style={{ maxWidth: "calc(100% - 112px)" }}
+          >
+            {/* Mobile: responsive fluid logo */}
+            <span className="md:hidden inline-flex items-center max-w-full min-w-0">
+              <BrandMark responsive tone={isDarkPage && solid ? "light" : "dark"} />
+            </span>
+            {/* Desktop: fixed size */}
+            <span className="hidden md:inline-flex items-center">
+              <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
+            </span>
           </Link>
 
           <nav className="header-nav hidden xl:flex items-center gap-1 text-[0.92rem]">
@@ -83,11 +95,11 @@ export function Header() {
             </a>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-none shrink-0" style={{ minWidth: "max-content" }}>
             <button
               onClick={search.open}
               aria-label="Abrir busca"
-              className="group inline-flex items-center gap-2 pl-3 pr-1.5 py-1.5 rounded-full bg-secondary hover:bg-accent transition text-sm text-ink-soft hover:text-ink"
+              className="group inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] shrink-0 pl-3 pr-1.5 py-1.5 rounded-full bg-secondary hover:bg-accent transition text-sm text-ink-soft hover:text-ink"
             >
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Buscar</span>
@@ -100,7 +112,7 @@ export function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Fechar menu" : "Abrir menu do ecossistema"}
               aria-expanded={open}
-              className="group inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-ink text-background hover:opacity-95 transition"
+              className="group inline-flex items-center gap-2.5 min-w-[44px] min-h-[44px] shrink-0 pl-4 pr-1.5 py-1.5 rounded-full bg-ink text-background hover:opacity-95 transition"
             >
               <span className="text-sm font-medium hidden sm:inline">Menu</span>
               <span className="relative grid place-items-center w-9 h-9 rounded-full bg-background/15 overflow-hidden">
