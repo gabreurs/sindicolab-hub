@@ -13,7 +13,6 @@ export default defineConfig({
     TanStackRouterVite({
       routesDirectory: "src/routes",
       generatedRouteTree: "src/routeTree.gen.ts",
-      autoCodeSplitting: true,
     }),
     react(),
     tailwindcss(),
@@ -26,6 +25,11 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: false,
     target: "es2022",
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true,
+      },
+    },
   },
   server: {
     host: "::",
