@@ -40,9 +40,21 @@ export function Header() {
         }`}
         data-route={isHome ? "home" : "page"}
       >
-        <div className="container-x flex items-center justify-between h-[72px]">
-          <Link to="/" aria-label="SíndicoLab — home" className="shrink-0">
-            <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
+        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border">
+          <Link
+            to="/"
+            aria-label="SíndicoLab — home"
+            className="flex-1 min-w-0 md:flex-none md:min-w-fit md:max-w-none"
+            style={{ maxWidth: "calc(100% - 112px)" }}
+          >
+            {/* Mobile: responsive fluid logo */}
+            <span className="md:hidden inline-flex items-center max-w-full min-w-0">
+              <BrandMark responsive tone={isDarkPage && solid ? "light" : "dark"} />
+            </span>
+            {/* Desktop: fixed size */}
+            <span className="hidden md:inline-flex items-center">
+              <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
+            </span>
           </Link>
 
           <nav className="header-nav hidden xl:flex items-center gap-1 text-[0.92rem]">
