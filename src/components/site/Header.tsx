@@ -112,7 +112,7 @@ export function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Fechar menu" : "Abrir menu do ecossistema"}
               aria-expanded={open}
-              className="group inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-ink text-background hover:opacity-95 transition"
+              className="group inline-flex items-center gap-2.5 min-w-[44px] min-h-[44px] shrink-0 pl-4 pr-1.5 py-1.5 rounded-full bg-ink text-background hover:opacity-95 transition"
             >
               <span className="text-sm font-medium hidden sm:inline">Menu</span>
               <span className="relative grid place-items-center w-9 h-9 rounded-full bg-background/15 overflow-hidden">
