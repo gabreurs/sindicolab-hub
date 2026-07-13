@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[96vh] flex items-center pt-28 md:pt-36 pb-24 overflow-hidden"
+      className="relative min-h-[96vh] flex items-start md:items-center pt-32 md:pt-36 pb-24 overflow-hidden"
     >
       {/* ambient backdrop estático — sem parallax/filtro animado no scroll */}
       <div className="pointer-events-none absolute inset-0 -z-10 hero-blobs">

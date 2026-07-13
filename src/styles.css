@@ -494,7 +494,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 @media (max-width: 767px) {
   .cursor-glow { min-height: 0 !important; }
   .sponsor-home-card { min-height: 0 !important; padding: 24px !important; }
-  section { padding-top: clamp(2rem, 6vw, 3rem); padding-bottom: clamp(2rem, 6vw, 3rem); }
+  section:not(#top) { padding-top: clamp(2rem, 6vw, 3rem); padding-bottom: clamp(2rem, 6vw, 3rem); }
 }
 
 /* Play page — hero com background image e legibilidade garantida */
