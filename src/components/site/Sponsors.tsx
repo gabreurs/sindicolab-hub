@@ -132,7 +132,7 @@ export function Sponsors() {
                     role="group"
                     aria-roledescription="slide"
                     aria-label={`${i + 1} de ${partners.length}: ${p.name}`}
-                    className="shrink-0 grow-0 px-1 md:px-2 basis-[86%] xs:basis-[78%] sm:basis-[55%] md:basis-[42%] lg:basis-[32%] xl:basis-[28%]"
+                    className="shrink-0 grow-0 px-1 md:px-2 basis-[86%] sm:basis-[55%] md:basis-[42%] lg:basis-[33%] xl:basis-[28%]"
                   >
                     <PartnerCard partner={p} />
                   </li>
