@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
+import logoSindicoLab from "@/assets/logo-sindicolab.svg";
 import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
@@ -47,10 +48,20 @@ export function Header() {
             className="flex-1 min-w-0 md:flex-none md:min-w-fit md:max-w-none"
             style={{ maxWidth: "calc(100% - 112px)" }}
           >
-            {/* Mobile: responsive fluid logo */}
-            <span className="md:hidden inline-flex items-center max-w-full min-w-0">
-              <BrandMark responsive tone={isDarkPage && solid ? "light" : "dark"} />
-            </span>
+            {/* Mobile: only the official logo image — no extra wordmark/text */}
+            <img
+              src={logoSindicoLab}
+              alt="SíndicoLab"
+              className="block md:hidden w-full max-w-full h-auto shrink"
+              style={{
+                width: "clamp(145px, 48vw, 185px)",
+                maxWidth: "100%",
+                objectFit: "contain",
+                objectPosition: "left center",
+                filter: isDarkPage && solid ? "none" : "invert(1)",
+              }}
+              draggable={false}
+            />
             {/* Desktop: fixed size */}
             <span className="hidden md:inline-flex items-center">
               <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
