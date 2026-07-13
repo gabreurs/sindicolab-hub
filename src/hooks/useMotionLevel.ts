@@ -10,7 +10,13 @@ export type MotionLevel = "full" | "medium" | "light" | "none";
  * - reduced-motion: "none"
  */
 export function useMotionLevel(): MotionLevel {
-  const [lvl, setLvl] = useState<MotionLevel>("full");
+  const [lvl, setLvl] = useState<MotionLevel>(() => {
+    if (typeof window === "undefined") return "light";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "none";
+    if (window.matchMedia("(max-width: 767px)").matches) return "light";
+    if (window.matchMedia("(max-width: 1023px)").matches) return "medium";
+    return "full";
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
