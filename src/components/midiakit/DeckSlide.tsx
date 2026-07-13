@@ -30,6 +30,8 @@ interface Props extends PropsWithChildren {
 export const DeckSlide = ({ id, index, total, tone = "light", className = "", children }: Props) => {
   const reduce = useReducedMotion();
   const motionLvl = useMotionLevel();
+  // "full" animate w/ whileInView; qualquer outro nível (light/medium/none)
+  // renderiza direto no estado "show" para nunca deixar conteúdo invisível.
   const animateSlide = !reduce && motionLvl === "full";
   const toneClass =
     tone === "dark" ? "mk-bg-deep" : tone === "lavender" ? "mk-bg-lav" : "";
@@ -38,10 +40,11 @@ export const DeckSlide = ({ id, index, total, tone = "light", className = "", ch
       id={id}
       data-slide-index={index}
       className={`mk-slide relative overflow-hidden flex flex-col min-h-[100svh] ${toneClass} ${className}`}
-      initial={animateSlide ? "hidden" : false}
+      initial={animateSlide ? "hidden" : "show"}
+      animate={animateSlide ? undefined : "show"}
       whileInView={animateSlide ? "show" : undefined}
       viewport={animateSlide ? { amount: 0.25, once: true, margin: "0px 0px -8% 0px" } : undefined}
-      variants={animateSlide ? container : undefined}
+      variants={container}
     >
       {children}
       <div className="pointer-events-none absolute bottom-5 left-5 z-20 select-none font-mono text-[10px] tracking-tight opacity-60 md:bottom-6 md:left-8">
