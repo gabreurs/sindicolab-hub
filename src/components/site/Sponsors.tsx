@@ -15,12 +15,12 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import atlasLogo from "@/assets/parceiros/atlas-schindler.png.asset.json";
-import bbzLogo from "@/assets/parceiros/bbz.png.asset.json";
-import condohubyLogo from "@/assets/parceiros/condohuby.png.asset.json";
-import focusLogo from "@/assets/parceiros/focus-media.png.asset.json";
-import mlgLogo from "@/assets/parceiros/mlg.png.asset.json";
-import damasLogo from "@/assets/parceiros/damas-reis.png.asset.json";
+const atlasLogo = { url: "/parceiros/atlas-schindler.png" };
+const bbzLogo = { url: "/parceiros/bbz.png" };
+const condohubyLogo = { url: "/parceiros/condohuby.png" };
+const focusLogo = { url: "/parceiros/focus-media.png" };
+const mlgLogo = { url: "/parceiros/mlg.png" };
+const damasLogo = { url: "/parceiros/damas-reis.png" };
 
 type Partner = {
   name: string;
