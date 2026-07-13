@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
+import logoSindicoLab from "@/assets/logo-sindicolab.svg";
 import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
