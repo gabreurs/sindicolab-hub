@@ -10,9 +10,9 @@ const stats = [
 ];
 
 const tiles = [
-  { tag: "Workshop", title: "Inteligência condominial", tone: "from-brand-soft to-cyan-soft" },
-  { tag: "Encontro", title: "Síndicos no CondoHuby", tone: "from-secondary to-brand-soft" },
-  { tag: "Bastidor", title: "Curadoria editorial", tone: "from-violet/20 to-brand-soft" },
+  { tag: "Workshop", title: "Inteligência condominial", tone: "from-sky-200/40 to-sky-300/30 dark:from-sky-400/20 dark:to-cyan-400/10" },
+  { tag: "Encontro", title: "Síndicos no CondoHuby", tone: "from-indigo-200/40 to-blue-200/30 dark:from-indigo-400/20 dark:to-blue-400/10" },
+  { tag: "Bastidor", title: "Curadoria editorial", tone: "from-violet-200/40 to-indigo-200/30 dark:from-violet-400/20 dark:to-indigo-400/10" },
 ];
 
 export function QuemSomos() {
@@ -65,7 +65,7 @@ export function QuemSomos() {
         </div>
 
         {/* Mini galeria editorial */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4">
           {tiles.map((t, i) => (
             <motion.div
               key={t.title}
@@ -73,11 +73,13 @@ export function QuemSomos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative aspect-[4/3] rounded-2xl overflow-hidden border border-border bg-gradient-to-br ${t.tone}`}
+              className={`relative aspect-[4/3] rounded-[2.5rem] overflow-hidden border border-white/40 dark:border-white/10 bg-gradient-to-br ${t.tone} shadow-sm backdrop-blur-xl`}
             >
-              <div className="absolute inset-0 pattern-grid-dark opacity-30" />
-              <div className="absolute top-4 left-4 text-[11px] text-ink/70">{t.tag}</div>
-              <div className="absolute bottom-4 left-4 right-4 font-display text-xl md:text-2xl text-ink tracking-[-0.02em]">
+              <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pattern-grid-dark" />
+              <div className="absolute top-5 left-6 text-[11px] font-medium tracking-wide text-ink/60 dark:text-ink/50 uppercase">
+                {t.tag}
+              </div>
+              <div className="absolute bottom-5 left-6 right-6 font-display text-xl md:text-2xl text-ink tracking-[-0.02em] leading-tight">
                 {t.title}
               </div>
             </motion.div>
