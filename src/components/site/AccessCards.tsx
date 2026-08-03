@@ -2,9 +2,6 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
-import logoSindicoLab from "@/assets/midia-kit/brand/logo-sindicolab.svg";
-import logoCondoHuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
-import { patrociniosBanner } from "@/lib/patrocinios-banner";
 
 
 const ease = [0.22, 1, 0.36, 1] as const;
