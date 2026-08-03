@@ -35,8 +35,8 @@ export function Header() {
         className={`fixed inset-x-0 top-0 z-[70] transition-all duration-500 ${
           solid
             ? isDarkPage
-              ? "bg-[#0a0b12]/96 border-b border-white/10"
-              : "bg-background/96 border-b border-border/60"
+              ? "glass-dark glass-nav border-b border-white/10"
+              : "glass glass-nav border-b border-border/60"
             : "bg-transparent"
         }`}
         data-route={isHome ? "home" : "page"}

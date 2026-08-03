@@ -48,7 +48,7 @@ export function ValuePillars() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-3xl overflow-hidden border border-border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {items.map((it, i) => (
             <motion.div
               key={it.title}
@@ -56,7 +56,7 @@ export function ValuePillars() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: i * 0.06, duration: 0.6, ease }}
-              className="bg-background p-7 md:p-8 group hover:bg-surface transition-colors"
+              className="glass rounded-3xl p-7 md:p-8 group transition-colors"
             >
               <span className="grid place-items-center w-11 h-11 rounded-xl bg-secondary text-ink group-hover:gradient-lab group-hover:text-background transition-all">
                 <it.icon className="w-5 h-5" strokeWidth={1.6} />

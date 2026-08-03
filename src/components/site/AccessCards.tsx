@@ -227,7 +227,7 @@ function CardPortal({ className = "" }: { className?: string }) {
       whileHover={{ y: -3 }}
       className={className}
     >
-      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
+      <Link to="/portal" className="cursor-glow group relative block overflow-hidden rounded-3xl glass access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
         onMouseMove={onMove}
       >
         <div className="grid md:grid-cols-2 h-full">
@@ -247,21 +247,21 @@ function CardPortal({ className = "" }: { className?: string }) {
             </div>
           </div>
           {/* Editorial preview */}
-          <div className="relative bg-secondary border-l border-border p-6 flex flex-col gap-2">
+          <div className="relative glass-tile border-l border-border p-6 flex flex-col gap-2">
             <div className="text-[10px] font-medium text-brand tracking-tight">Em alta no mercado</div>
-            <div className="rounded-xl bg-background border border-border p-4 mt-1">
+            <div className="rounded-xl glass-tile p-4 mt-1">
               <div className="text-[10px] tracking-tight text-brand">Segurança condominial</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 Eclusa inteligente: como prédios estão frustrando assaltos
               </div>
             </div>
-            <div className="rounded-xl bg-background border border-border p-4">
+            <div className="rounded-xl glass-tile p-4">
               <div className="text-[10px] tracking-tight text-violet">Casos reais</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 O fenômeno das vagas de garagem em assembleias
               </div>
             </div>
-            <div className="rounded-xl bg-background border border-border p-4">
+            <div className="rounded-xl glass-tile p-4">
               <div className="text-[10px] tracking-tight text-cyan">Gestão</div>
               <div className="mt-1.5 font-display text-[0.95rem] text-ink leading-snug">
                 Vitória do mercado de sindicatura profissional
@@ -354,7 +354,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
         <Link
           to="/materiais"
           aria-label="Acessar e-books e estudos exclusivos do mercado condominial"
-          className="cursor-glow group relative block overflow-hidden rounded-3xl bg-card border border-border access-mini-card md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
+          className="cursor-glow group relative block overflow-hidden rounded-3xl glass access-mini-card md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow focus-visible:ring-2 focus-visible:ring-brand"
           onMouseMove={onMove}
         >
           <div
@@ -411,7 +411,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
                       hover: { y: hoverY, scale: 1, rotate: hoverRot, opacity: 1 },
                     }}
                     transition={{ ...transition, delay: i * 0.04 }}
-                    className="absolute left-3 right-3 top-3 rounded-xl bg-background border border-border p-3 shadow-soft"
+                    className="absolute left-3 right-3 top-3 rounded-xl glass-tile p-3 shadow-soft"
                     style={{ zIndex: 3 - i }}
                   >
                     <div className="flex items-center gap-2 text-[10px] tracking-tight text-brand font-medium">
