@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { DeckSlide, item, itemFade, itemScale } from "./DeckSlide";
 import { LogoCondoHuby, LogoSindicoLab, PatternHuby } from "./Brand";
 import { SlideCTA } from "./SlideCTA";
