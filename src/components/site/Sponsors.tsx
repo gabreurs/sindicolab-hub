@@ -190,7 +190,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
   const scale = partner.scale ?? 0.78;
   return (
     <div
-      className="group relative h-[140px] md:h-[156px] rounded-3xl glass px-5 py-4 flex flex-col items-center justify-center transition-colors hover:border-border-strong hover:bg-background"
+      className="group relative h-[140px] md:h-[156px] rounded-3xl glass px-5 py-4 flex flex-col items-center justify-center transition-shadow hover:shadow-lift"
       aria-label={partner.name}
     >
       {/* Logo stage — área útil equalizada */}
