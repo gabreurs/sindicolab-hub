@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Brain, MessageSquare, Sparkles } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
+import logoSindicolab from "@/assets/logo-sindicolab.svg";
+import logoCondohuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
 
 const stats = [
   { n: "12+", l: "Workshops por ano no CondoHuby" },
@@ -10,9 +12,27 @@ const stats = [
 ];
 
 const tiles = [
-  { tag: "Workshop", title: "Inteligência condominial", tone: "from-sky-200/40 to-sky-300/30 dark:from-sky-400/20 dark:to-cyan-400/10" },
-  { tag: "Encontro", title: "Síndicos no CondoHuby", tone: "from-indigo-200/40 to-blue-200/30 dark:from-indigo-400/20 dark:to-blue-400/10" },
-  { tag: "Bastidor", title: "Curadoria editorial", tone: "from-violet-200/40 to-indigo-200/30 dark:from-violet-400/20 dark:to-indigo-400/10" },
+  {
+    tag: "Workshop",
+    title: "Inteligência artificial para síndicos",
+    bullets: ["Automação de rotinas administrativas", "Prompts prontos para comunicação", "Casos reais de gestão predial"],
+    tone: "from-violet-600/30 to-fuchsia-600/20",
+    icon: Brain,
+  },
+  {
+    tag: "Encontro",
+    title: "Síndicos no CondoHuby",
+    bullets: ["Networking com síndicos profissionais", "Trocas de experiência práticas", "Convidados de referência do setor"],
+    tone: "from-cyan-600/25 to-blue-600/20",
+    icon: MessageSquare,
+  },
+  {
+    tag: "Bastidor",
+    title: "Curadoria editorial SíndicoLab",
+    bullets: ["Análises semanais do mercado", "Guias e materiais exclusivos", "Tendências para decisores"],
+    tone: "from-indigo-600/30 to-violet-600/20",
+    icon: Sparkles,
+  },
 ];
 
 export function QuemSomos() {
@@ -64,7 +84,7 @@ export function QuemSomos() {
           </div>
         </div>
 
-        {/* Mini galeria editorial */}
+        {/* Cards de experiência */}
         <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4">
           {tiles.map((t, i) => (
             <motion.div
@@ -73,14 +93,59 @@ export function QuemSomos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative aspect-[4/3] rounded-[2.5rem] overflow-hidden border border-white/40 dark:border-white/10 bg-gradient-to-br ${t.tone} shadow-sm backdrop-blur-xl`}
+              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0B0C14] p-6 md:p-7"
             >
-              <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pattern-grid-dark" />
-              <div className="absolute top-5 left-6 text-[11px] font-medium tracking-wide text-ink/60 dark:text-ink/50 uppercase">
-                {t.tag}
-              </div>
-              <div className="absolute bottom-5 left-6 right-6 font-display text-xl md:text-2xl text-ink tracking-[-0.02em] leading-tight">
-                {t.title}
+              {/* Glow gradient */}
+              <div
+                className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br ${t.tone} opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-60`}
+                aria-hidden="true"
+              />
+              <div className="absolute inset-0 opacity-[0.03] pattern-grid-light" aria-hidden="true" />
+
+              <div className="relative">
+                {/* Header logos */}
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img src={logoSindicolab} alt="" className="h-4 w-auto" />
+                    <span className="text-white/20">×</span>
+                    <img src={logoCondohuby} alt="" className="h-4 w-auto" />
+                  </div>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/70">
+                    {t.tag}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-display text-2xl md:text-[28px] leading-[1.05] tracking-[-0.02em] text-balance">
+                  <span className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
+                    {t.title}
+                  </span>
+                </h3>
+
+                {/* Bullets */}
+                <ul className="mt-5 space-y-2.5">
+                  {t.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-sm text-white/60">
+                      <t.icon className="mt-0.5 h-4 w-4 shrink-0 text-brand/80" strokeWidth={1.5} />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Abstract visual element */}
+                <div className="mt-7 flex items-center justify-between">
+                  <div className="flex -space-x-2">
+                    {[1, 2, 3].map((n) => (
+                      <div
+                        key={n}
+                        className="h-8 w-8 rounded-full border-2 border-[#0B0C14] bg-gradient-to-br from-surface to-border"
+                      />
+                    ))}
+                  </div>
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/5 border border-white/10 text-brand/80">
+                    <t.icon className="h-5 w-5" strokeWidth={1.5} />
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
