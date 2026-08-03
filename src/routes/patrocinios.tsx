@@ -3,7 +3,6 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import {
-  SlideHero,
   SlideContext,
   SlideInitiative,
   SlideAudience,
@@ -64,7 +63,6 @@ function PatrociniosPage() {
 
         <Breadcrumbs tone="mediakit" items={[{ label: "Patrocínios" }]} />
 
-        <SlideHero />
         <SlideContext />
         <SlideInitiative />
         <SlideAudience />
