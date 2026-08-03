@@ -709,3 +709,63 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 
 /* Portal — menos divisores, ar editorial */
 .portal-section + .portal-section { border-top: 0; }
+
+/* ============================================================
+   GLASSMORPHISM — sistema de superfícies translúcidas
+   Blur real apenas em telas >= 768px (mobile usa fallback sólido
+   para preservar a performance de scroll).
+   ============================================================ */
+.glass {
+  position: relative;
+  background: color-mix(in oklab, var(--surface-elevated) 62%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, white 55%, transparent) inset,
+    0 18px 40px -24px color-mix(in oklab, var(--ink) 32%, transparent);
+}
+.glass-tile {
+  background: color-mix(in oklab, var(--surface-elevated) 48%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+.glass-dark {
+  background: color-mix(in oklab, var(--ink) 55%, transparent);
+  border: 1px solid color-mix(in oklab, white 12%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, white 12%, transparent) inset,
+    0 20px 50px -28px color-mix(in oklab, black 60%, transparent);
+}
+/* brilho de borda superior — assinatura do vidro (sem sobrepor conteúdo) */
+.glass {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, white 42%, transparent),
+    transparent 42%
+  );
+}
+.glass-dark {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, white 8%, transparent),
+    transparent 40%
+  );
+}
+
+@media (min-width: 768px) {
+  .glass, .glass-tile {
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+            backdrop-filter: blur(16px) saturate(150%);
+  }
+  .glass-dark {
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+            backdrop-filter: blur(18px) saturate(130%);
+  }
+  .glass-nav {
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+            backdrop-filter: blur(20px) saturate(160%);
+  }
+}
+@media (max-width: 767px) {
+  .glass { background: color-mix(in oklab, var(--surface-elevated) 94%, transparent); }
+  .glass-tile { background: color-mix(in oklab, var(--surface-elevated) 90%, transparent); }
+  .glass-dark { background: color-mix(in oklab, var(--ink) 92%, transparent); }
+}
