@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, MapPin, FileText, Play, Download } from "lucide-react";
+import { ArrowUpRight, MapPin, FileText, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
 
@@ -30,9 +30,8 @@ export function AccessCards() {
         <CardQuero1 />
 
         <div className="grid-equal mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
-          <CardPortal className="md:col-span-7 h-full" />
-          <CardPlay className="md:col-span-5 h-full" />
-          <CardMateriais className="md:col-span-12 h-full" />
+          <CardPortal className="md:col-span-6 h-full" />
+          <CardMateriais className="md:col-span-6 h-full" />
         </div>
       </div>
     </section>
@@ -103,7 +102,7 @@ function CardQuero1() {
       {/* LEFT — copy */}
       <div className="relative md:col-span-7 p-7 md:p-12 lg:p-14 flex flex-col z-10">
         <div className="flex items-center gap-3 text-[12px]">
-          <span className="text-white/45 font-mono">01 / 05</span>
+          <span className="text-white/45 font-mono">01 / 03</span>
           <span className="h-px flex-1 bg-white/10" />
           <span className="inline-flex items-center gap-1.5 text-white/70">
             <span className="w-1.5 h-1.5 rounded-full bg-[hsl(215,80%,55%)]" />
@@ -233,7 +232,7 @@ function CardPortal({ className = "" }: { className?: string }) {
         <div className="grid md:grid-cols-2 h-full">
           <div className="p-7 md:p-9 flex flex-col">
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
-              <span>02 / 05 · Portal de conteúdo condominial</span>
+              <span>02 / 03 · Portal de conteúdo condominial</span>
               <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink transition" />
             </div>
             <h3 className="mt-auto font-display text-[1.5rem] md:text-[1.7rem] lg:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance" style={{ overflowWrap: "anywhere", hyphens: "auto" }}>
@@ -267,56 +266,6 @@ function CardPortal({ className = "" }: { className?: string }) {
                 Vitória do mercado de sindicatura profissional
               </div>
             </div>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
-/* ================================ Play ================================ */
-function CardPlay({ className = "" }: { className?: string }) {
-  const { onMove } = useCursor();
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease, delay: 0.05 }}
-      whileHover={{ y: -3 }}
-      className={className}
-    >
-      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
-        onMouseMove={onMove}
-      >
-        <div className="absolute inset-0" style={{ background: "linear-gradient(150deg, oklch(0.1 0.02 255) 0%, oklch(0.18 0.08 245) 60%, oklch(0.3 0.14 230) 100%)" }} />
-        <div className="absolute inset-0 pattern-grid opacity-50" />
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-cyan/25 blur-2xl" />
-
-        <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
-          <div className="flex items-center justify-between text-[12px]">
-            <span className="text-background/65 font-mono">03 / 05</span>
-            <span className="grid place-items-center w-9 h-9 rounded-full bg-background/15 group-hover:bg-cyan group-hover:text-ink transition">
-              <Play className="w-3.5 h-3.5 fill-current" />
-            </span>
-          </div>
-          <div className="text-[12px] text-background/65 mt-2">Cursos para síndicos</div>
-
-          <h3 className="mt-auto font-display text-2xl md:text-[1.9rem] tracking-[-0.03em] leading-[1.05] text-balance">
-            Faça cursos para síndicos e evolua na gestão condominial.
-          </h3>
-
-          {/* mini carousel */}
-          <div className="mt-5 flex gap-2 overflow-hidden">
-            {["Inteligência Condominial", "Captação de Clientes", "Conselheiros", "Finanças"].map((c, i) => (
-              <div key={c} className="shrink-0 w-32 rounded-xl bg-background/10 border border-background/15 p-3">
-                <div className="aspect-video rounded-md mb-2" style={{ background: `linear-gradient(135deg, oklch(0.${4 + i} 0.${15 + i} ${220 + i * 10}), oklch(0.3 0.18 280))` }} />
-                <div className="text-[11px] text-background/85 leading-tight">{c}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-background">
-            Ver cursos para síndicos <ArrowUpRight className="w-3.5 h-3.5" />
           </div>
         </div>
       </Link>
@@ -369,7 +318,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
           <div className="relative h-full p-6 md:p-9 flex flex-col gap-4 md:gap-5">
             {/* topo: número + ícone download */}
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
-              <span>04 / 05</span>
+              <span>03 / 03</span>
               <motion.span
                 variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
                 transition={transition}
