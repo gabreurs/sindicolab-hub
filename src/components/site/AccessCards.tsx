@@ -30,9 +30,8 @@ export function AccessCards() {
         <CardQuero1 />
 
         <div className="grid-equal mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch auto-rows-fr">
-          <CardPortal className="md:col-span-7 h-full" />
-          <CardPlay className="md:col-span-5 h-full" />
-          <CardMateriais className="md:col-span-12 h-full" />
+          <CardPortal className="md:col-span-6 h-full" />
+          <CardMateriais className="md:col-span-6 h-full" />
         </div>
       </div>
     </section>
