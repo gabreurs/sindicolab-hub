@@ -102,7 +102,7 @@ function CardQuero1() {
       {/* LEFT — copy */}
       <div className="relative md:col-span-7 p-7 md:p-12 lg:p-14 flex flex-col z-10">
         <div className="flex items-center gap-3 text-[12px]">
-          <span className="text-white/45 font-mono">01 / 05</span>
+          <span className="text-white/45 font-mono">01 / 03</span>
           <span className="h-px flex-1 bg-white/10" />
           <span className="inline-flex items-center gap-1.5 text-white/70">
             <span className="w-1.5 h-1.5 rounded-full bg-[hsl(215,80%,55%)]" />
@@ -232,7 +232,7 @@ function CardPortal({ className = "" }: { className?: string }) {
         <div className="grid md:grid-cols-2 h-full">
           <div className="p-7 md:p-9 flex flex-col">
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
-              <span>02 / 05 · Portal de conteúdo condominial</span>
+              <span>02 / 03 · Portal de conteúdo condominial</span>
               <ArrowUpRight className="w-4 h-4 text-ink-soft group-hover:text-ink transition" />
             </div>
             <h3 className="mt-auto font-display text-[1.5rem] md:text-[1.7rem] lg:text-[1.9rem] text-ink tracking-[-0.03em] leading-[1.05] text-balance" style={{ overflowWrap: "anywhere", hyphens: "auto" }}>
@@ -318,7 +318,7 @@ function CardMateriais({ className = "" }: { className?: string }) {
           <div className="relative h-full p-6 md:p-9 flex flex-col gap-4 md:gap-5">
             {/* topo: número + ícone download */}
             <div className="flex items-center justify-between text-[12px] text-ink-soft">
-              <span>04 / 05</span>
+              <span>03 / 03</span>
               <motion.span
                 variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
                 transition={transition}
