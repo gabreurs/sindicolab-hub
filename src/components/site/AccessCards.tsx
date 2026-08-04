@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, FileText, Download } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useRef } from "react";
