@@ -273,56 +273,6 @@ function CardPortal({ className = "" }: { className?: string }) {
   );
 }
 
-/* ================================ Play ================================ */
-function CardPlay({ className = "" }: { className?: string }) {
-  const { onMove } = useCursor();
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease, delay: 0.05 }}
-      whileHover={{ y: -3 }}
-      className={className}
-    >
-      <Link to="/play" className="cursor-glow group relative block overflow-hidden rounded-3xl text-background access-mini-card min-h-[340px] md:min-h-[400px] h-full shadow-card hover:shadow-lift transition-shadow"
-        onMouseMove={onMove}
-      >
-        <div className="absolute inset-0" style={{ background: "linear-gradient(150deg, oklch(0.1 0.02 255) 0%, oklch(0.18 0.08 245) 60%, oklch(0.3 0.14 230) 100%)" }} />
-        <div className="absolute inset-0 pattern-grid opacity-50" />
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-cyan/25 blur-2xl" />
-
-        <div className="relative h-full p-7 md:p-9 flex flex-col z-10">
-          <div className="flex items-center justify-between text-[12px]">
-            <span className="text-background/65 font-mono">03 / 05</span>
-            <span className="grid place-items-center w-9 h-9 rounded-full bg-background/15 group-hover:bg-cyan group-hover:text-ink transition">
-              <Play className="w-3.5 h-3.5 fill-current" />
-            </span>
-          </div>
-          <div className="text-[12px] text-background/65 mt-2">Cursos para síndicos</div>
-
-          <h3 className="mt-auto font-display text-2xl md:text-[1.9rem] tracking-[-0.03em] leading-[1.05] text-balance">
-            Faça cursos para síndicos e evolua na gestão condominial.
-          </h3>
-
-          {/* mini carousel */}
-          <div className="mt-5 flex gap-2 overflow-hidden">
-            {["Inteligência Condominial", "Captação de Clientes", "Conselheiros", "Finanças"].map((c, i) => (
-              <div key={c} className="shrink-0 w-32 rounded-xl bg-background/10 border border-background/15 p-3">
-                <div className="aspect-video rounded-md mb-2" style={{ background: `linear-gradient(135deg, oklch(0.${4 + i} 0.${15 + i} ${220 + i * 10}), oklch(0.3 0.18 280))` }} />
-                <div className="text-[11px] text-background/85 leading-tight">{c}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-background">
-            Ver cursos para síndicos <ArrowUpRight className="w-3.5 h-3.5" />
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
 /* ================================ Materiais ================================ */
 function CardMateriais({ className = "" }: { className?: string }) {
   const { onMove } = useCursor();
