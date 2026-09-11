@@ -61,7 +61,7 @@ export function Header() {
               alt="SíndicoLab"
               className="block md:hidden w-full max-w-full h-auto shrink"
               style={{
-                width: "clamp(145px, 48vw, 185px)",
+                width: "clamp(126px, 42vw, 185px)",
                 maxWidth: "100%",
                 objectFit: "contain",
                 objectPosition: "left center",
