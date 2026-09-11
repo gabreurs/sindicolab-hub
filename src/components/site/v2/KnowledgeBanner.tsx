@@ -1,19 +1,23 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import heroCondominio from "@/assets/v2/hero-condominio.png";
+import heroCondominio from "@/assets/v2/hero-condominio.webp";
 
 export function KnowledgeBanner() {
   return (
-    <section className="bg-v2-section pb-6 lg:pb-[2svh]">
+    <section className="home-row">
       <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
-        <div className="relative overflow-hidden rounded-[1.35rem] bg-v2-nav">
+        <div
+          className="hp relative overflow-hidden rounded-[1.35rem] bg-v2-nav"
+          style={{ animationDelay: "900ms" }}
+        >
           {/* imagem ambiente ao fundo */}
           <img
             src={heroCondominio}
             alt=""
             aria-hidden
             loading="lazy"
-            className="pointer-events-none absolute -bottom-10 left-0 h-[220%] w-auto max-w-none opacity-[0.16] mix-blend-screen"
+            decoding="async"
+            className="pointer-events-none absolute -bottom-10 left-0 h-[220%] w-auto max-w-none opacity-[0.14]"
             draggable={false}
           />
           <img
@@ -21,7 +25,8 @@ export function KnowledgeBanner() {
             alt=""
             aria-hidden
             loading="lazy"
-            className="pointer-events-none absolute -bottom-10 right-0 hidden h-[220%] w-auto max-w-none opacity-[0.16] mix-blend-screen md:block"
+            decoding="async"
+            className="pointer-events-none absolute -bottom-10 right-0 hidden h-[220%] w-auto max-w-none opacity-[0.14] md:block"
             draggable={false}
           />
 
