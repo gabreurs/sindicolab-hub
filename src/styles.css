@@ -721,6 +721,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
    ============================================================ */
 .glass {
   position: relative;
+  /* não deve sobrescrever utilitários de posicionamento (header fixo) */
   background: color-mix(in oklab, var(--surface-elevated) 62%, transparent);
   border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
   box-shadow:
