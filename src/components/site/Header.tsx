@@ -75,7 +75,10 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="header-nav hidden xl:flex items-center gap-1 text-[0.92rem]">
+          <nav
+            className="header-nav hidden min-w-0 shrink xl:flex items-center"
+            style={{ gap: "clamp(0.05rem, 0.35vw, 0.35rem)", fontSize: "clamp(0.82rem, 0.95vw, 0.94rem)" }}
+          >
             <a
               href="https://quero1sindico.com/"
               target="_blank"
