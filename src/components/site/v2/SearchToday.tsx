@@ -68,7 +68,7 @@ function Card({ item }: { item: Item }) {
 
   const inner = (
     <div
-      style={{ minHeight: "clamp(100px, 14svh, 164px)" }}
+      style={{ minHeight: "clamp(92px, 12.2svh, 150px)" }}
       className={`group flex h-full items-center gap-4 rounded-[1.35rem] px-5 py-4 transition-all duration-300 md:gap-5 md:px-6 ${
         featured
           ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
@@ -83,7 +83,7 @@ function Card({ item }: { item: Item }) {
         width={816}
         height={816}
         className="shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04]"
-        style={{ height: "clamp(66px, 9.5svh, 118px)", width: "clamp(66px, 9.5svh, 118px)" }}
+        style={{ height: "clamp(60px, 8.2svh, 104px)", width: "clamp(60px, 8.2svh, 104px)" }}
         draggable={false}
       />
       <div className="min-w-0 flex-1">
