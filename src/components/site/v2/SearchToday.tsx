@@ -68,7 +68,7 @@ function Card({ item }: { item: Item }) {
 
   const inner = (
     <div
-      style={{ minHeight: "clamp(84px, 12.6svh, 146px)" }}
+      style={{ minHeight: "clamp(84px, 12svh, 146px)" }}
       className={`group flex h-full items-center gap-4 rounded-[1.35rem] px-5 py-4 transition-all duration-300 md:gap-5 md:px-6 ${
         featured
           ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
