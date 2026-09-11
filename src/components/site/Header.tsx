@@ -79,42 +79,14 @@ export function Header() {
             className="header-nav hidden min-w-0 shrink xl:flex items-center"
             style={{ gap: "clamp(0.05rem, 0.35vw, 0.35rem)", fontSize: "clamp(0.82rem, 0.95vw, 0.94rem)" }}
           >
-            <a
-              href="https://quero1sindico.com/"
-              target="_blank"
-              rel="noreferrer"
-              className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
-            >
-              Encontrar síndico
-            </a>
             <Link to="/play" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Cursos
-            </Link>
-            <Link to="/materiais" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
-              Materiais
-            </Link>
-            <Link to="/portal" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
-              Portal
-            </Link>
-            <Link to="/patrocinios" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
-              Patrocinar
             </Link>
             <Link to="/quem-somos" className={`nav-link inline-flex items-center h-10 px-3 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white/70 hover:text-white hover:bg-white/10" : "text-ink-soft hover:text-ink hover:bg-secondary"}`}>
               Quem somos
             </Link>
           </nav>
 
-          {/* Em viewport intermediário, mantém só CTA principal e usa o Menu para o resto. */}
-          <div className="hidden lg:flex xl:hidden items-center">
-            <a
-              href="https://quero1sindico.com/"
-              target="_blank"
-              rel="noreferrer"
-              className={`nav-link inline-flex items-center h-10 px-4 rounded-full whitespace-nowrap leading-none transition ${isDarkPage && solid ? "text-white hover:bg-white/10" : "text-ink hover:bg-secondary"}`}
-            >
-              Encontrar síndico
-            </a>
-          </div>
 
           <div className="flex items-center gap-2 flex-none shrink-0" style={{ minWidth: "max-content" }}>
             <button
