@@ -18,13 +18,7 @@ type Item = {
 
 const items: Item[] = [
   { title: "Blog", desc: ["Ideias que movimentam", "o mercado"], icon: iconBlog, to: "/portal" },
-  {
-    title: "Newsletter",
-    desc: ["Uma nova perspectiva", "na sua caixa de entrada"],
-    icon: iconNewsletter,
-    href: "https://instagram.com/sindicolab",
-    featured: true,
-  },
+  { title: "Newsletter", desc: ["Uma nova perspectiva", "na sua caixa de entrada"], icon: iconNewsletter, href: "#newsletter" },
   { title: "Downloads", desc: ["Materiais para aplicar", "na sua gestão"], icon: iconDownloads, to: "/materiais" },
   { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/quem-somos" },
   {
@@ -38,6 +32,7 @@ const items: Item[] = [
     desc: ["Acompanhe nossas", "conversas"],
     icon: iconInstagram,
     href: "https://instagram.com/sindicolab",
+    featured: true,
   },
 ];
 
