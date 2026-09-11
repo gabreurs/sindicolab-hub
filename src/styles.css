@@ -979,10 +979,10 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .home-hero-title { font-size: clamp(2rem, 10vw, 3.2rem); }
   .home-hero-description { font-size: 0.88rem; }
   .home-hero-building { max-height: min(26svh, 15rem); }
-  .home-hero-building-wrap { animation: none; }
+  .home-hero-building-wrap, .home-hero-building-wrap.hp { animation: none; }
   .home-hero-orbit span { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-hero-building-wrap, .home-hero-orbit span { animation: none; }
+  .home-hero-building-wrap, .home-hero-building-wrap.hp, .home-hero-orbit span { animation: none; }
   .hp { animation: none; opacity: 1; }
 }
