@@ -32,14 +32,14 @@ export function HeroV2() {
             draggable={false}
           />
 
-          <div className="pointer-events-none absolute right-0 top-4 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/45 lg:block">
+          <div className="pointer-events-none absolute right-0 top-4 z-20 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/45 lg:block">
             Conhecimento
             <br />
             Conexões
             <br />
             Gestão real
           </div>
-          <div className="pointer-events-none absolute bottom-16 right-0 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/40 lg:block">
+          <div className="pointer-events-none absolute bottom-10 right-0 z-20 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/40 lg:block">
             Condomínios mais fortes
             <br />
             Pessoas mais felizes
