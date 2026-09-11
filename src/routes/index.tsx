@@ -5,7 +5,7 @@ import { Header } from "@/components/site/Header";
 import { HomeEntry } from "@/components/site/v2/HomeEntry";
 import { Footer } from "@/components/site/Footer";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
-import { EdgeBlur } from "@/components/site/EdgeBlur";
+
 import { GlobalSearch } from "@/components/site/GlobalSearch";
 
 export const Route = createFileRoute("/")({
@@ -51,7 +51,6 @@ function Index() {
         <HomeEntry />
         <Footer />
       </main>
-      <EdgeBlur />
     </>
   );
 }
