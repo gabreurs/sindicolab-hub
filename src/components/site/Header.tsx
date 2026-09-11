@@ -41,12 +41,19 @@ export function Header() {
         }`}
         data-route={isHome ? "home" : "page"}
       >
-        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border px-4 md:px-10">
+        <div
+          className="mx-auto flex w-full max-w-[1536px] items-center justify-between box-border"
+          style={{
+            height: scrolled ? "calc(var(--header-h) - 8px)" : "var(--header-h)",
+            paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
+            gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
+            transition: "height 300ms cubic-bezier(0.22,1,0.36,1)",
+          }}
+        >
           <Link
             to="/"
             aria-label="SíndicoLab — home"
-            className="flex-1 min-w-0 md:flex-none md:min-w-fit md:max-w-none"
-            style={{ maxWidth: "calc(100% - 112px)" }}
+            className="flex min-w-0 flex-1 shrink items-center overflow-hidden md:flex-none"
           >
             {/* Mobile: only the official logo image — no extra wordmark/text */}
             <img
@@ -54,7 +61,7 @@ export function Header() {
               alt="SíndicoLab"
               className="block md:hidden w-full max-w-full h-auto shrink"
               style={{
-                width: "clamp(145px, 48vw, 185px)",
+                width: "clamp(126px, 42vw, 185px)",
                 maxWidth: "100%",
                 objectFit: "contain",
                 objectPosition: "left center",
@@ -68,7 +75,10 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="header-nav hidden xl:flex items-center gap-1 text-[0.92rem]">
+          <nav
+            className="header-nav hidden min-w-0 shrink xl:flex items-center"
+            style={{ gap: "clamp(0.05rem, 0.35vw, 0.35rem)", fontSize: "clamp(0.82rem, 0.95vw, 0.94rem)" }}
+          >
             <a
               href="https://quero1sindico.com/"
               target="_blank"

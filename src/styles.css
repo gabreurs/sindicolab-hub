@@ -139,6 +139,10 @@
 
 @utility text-balance { text-wrap: balance; }
 
+/* altura do header responsiva, usada por offsets de página */
+:root { --header-h: clamp(60px, 8svh, 76px); }
+.header-nav .nav-link { padding-inline: clamp(0.4rem, 0.85vw, 0.85rem); }
+
 @utility container-x {
   margin-inline: auto;
   padding-inline: 1.25rem;
@@ -717,6 +721,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
    ============================================================ */
 .glass {
   position: relative;
+  /* não deve sobrescrever utilitários de posicionamento (header fixo) */
   background: color-mix(in oklab, var(--surface-elevated) 62%, transparent);
   border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
   box-shadow:
@@ -770,6 +775,11 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .glass-dark { background: color-mix(in oklab, var(--ink) 92%, transparent); }
 }
 
+/* garante que utilitários de posicionamento vençam o position: relative do .glass */
+.glass.fixed, .glass-dark.fixed { position: fixed; }
+.glass.sticky, .glass-dark.sticky { position: sticky; }
+.glass.absolute, .glass-dark.absolute { position: absolute; }
+
 /* ===================== V2 — direção visual "O universo do condomínio" ===================== */
 @theme {
   --color-v2-nav: #2a1042;
@@ -780,13 +790,16 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   --color-v2-line: #e6e2ef;
 }
 
+/* Primeira dobra como composição única: um só fundo contínuo,
+   sem faixa/linha horizontal separando hero e grade de cards. */
 .bg-v2-hero {
   background:
-    radial-gradient(120% 90% at 78% 20%, rgba(167, 139, 250, 0.22) 0%, rgba(255, 255, 255, 0) 60%),
-    linear-gradient(180deg, #fbfaff 0%, #f6f4fb 100%);
+    radial-gradient(110% 70% at 78% 12%, rgba(167, 139, 250, 0.2) 0%, rgba(255, 255, 255, 0) 62%),
+    linear-gradient(180deg, #fbfaff 0%, #f8f6fc 46%, #f4f2f9 100%);
 }
+/* mantida por compatibilidade: herda o fundo da dobra, sem quebra de cor */
 .bg-v2-section {
-  background: #f2f0f7;
+  background: transparent;
 }
 .bg-v2-card-featured {
   background: linear-gradient(135deg, #8b46f0 0%, #7c3aed 55%, #6d28d9 100%);

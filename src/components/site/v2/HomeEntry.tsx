@@ -9,7 +9,7 @@ import { KnowledgeBanner } from "./KnowledgeBanner";
  */
 export function HomeEntry() {
   return (
-    <section className="relative flex flex-col bg-v2-hero pt-[72px] lg:h-[100svh]">
+    <section className="relative flex flex-col bg-v2-hero pt-[calc(var(--header-h)+0.75rem)] lg:pt-[var(--header-h)] lg:h-[100svh]">
       <div className="flex items-center py-6 lg:h-[40svh] lg:py-0">
         <HeroV2 />
       </div>
