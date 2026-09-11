@@ -82,28 +82,31 @@ function Card({ item }: { item: Item }) {
         loading="lazy"
         width={816}
         height={816}
-        className="h-[104px] w-[104px] shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04] md:h-[118px] md:w-[118px]"
+        className="shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04]"
+        style={{ height: "clamp(66px, 9.5svh, 118px)", width: "clamp(66px, 9.5svh, 118px)" }}
         draggable={false}
       />
       <div className="min-w-0 flex-1">
         <h3
-          className={`font-display text-[1.35rem] tracking-[-0.03em] ${
+          className={`font-display tracking-[-0.03em] ${
             featured ? "text-white" : "text-v2-ink"
           }`}
+          style={{ fontSize: "clamp(1.05rem, 2.2svh, 1.35rem)" }}
         >
           {item.title}
         </h3>
         <p
-          className={`mt-1.5 text-[0.95rem] leading-snug ${
+          className={`mt-1 leading-snug ${
             featured ? "text-white/85" : "text-v2-ink/60"
           }`}
+          style={{ fontSize: "clamp(0.8rem, 1.7svh, 0.95rem)" }}
         >
           {item.desc[0]}
           <br />
           {item.desc[1]}
         </p>
         <ArrowRight
-          className={`mt-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
+          className={`mt-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
             featured ? "text-white" : "text-v2-purple"
           }`}
           strokeWidth={2}

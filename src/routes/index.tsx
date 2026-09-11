@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { buildSeo } from "@/lib/seo";
 import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
-import { HeroV2 } from "@/components/site/v2/HeroV2";
+import { HomeEntry } from "@/components/site/v2/HomeEntry";
 import { AccessCards } from "@/components/site/AccessCards";
 import { QuemSomos } from "@/components/site/QuemSomos";
 import { ValuePillars } from "@/components/site/ValuePillars";
@@ -52,7 +52,7 @@ function Index() {
       <GlobalSearch />
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
-        <HeroV2 />
+        <HomeEntry />
         <AccessCards />
         <QuemSomos />
         <ValuePillars />
