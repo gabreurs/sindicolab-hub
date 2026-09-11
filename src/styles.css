@@ -775,6 +775,11 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .glass-dark { background: color-mix(in oklab, var(--ink) 92%, transparent); }
 }
 
+/* garante que utilitários de posicionamento vençam o position: relative do .glass */
+.glass.fixed, .glass-dark.fixed { position: fixed; }
+.glass.sticky, .glass-dark.sticky { position: sticky; }
+.glass.absolute, .glass-dark.absolute { position: absolute; }
+
 /* ===================== V2 — direção visual "O universo do condomínio" ===================== */
 @theme {
   --color-v2-nav: #2a1042;
