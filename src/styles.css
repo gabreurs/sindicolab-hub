@@ -949,6 +949,12 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   will-change: transform, opacity;
 }
 .home-hero-title .hp { display: block; }
+/* o wrapper do prédio precisa da entrada E da flutuação contínua */
+.home-hero-building-wrap.hp {
+  animation:
+    home-pop 0.62s cubic-bezier(0.22, 1.12, 0.36, 1) both,
+    home-building-float 7s ease-in-out 0.8s infinite;
+}
 @keyframes home-pop {
   0% { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.965); }
   60% { opacity: 1; }
@@ -973,10 +979,10 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .home-hero-title { font-size: clamp(2rem, 10vw, 3.2rem); }
   .home-hero-description { font-size: 0.88rem; }
   .home-hero-building { max-height: min(26svh, 15rem); }
-  .home-hero-building-wrap { animation: none; }
+  .home-hero-building-wrap, .home-hero-building-wrap.hp { animation: none; }
   .home-hero-orbit span { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-hero-building-wrap, .home-hero-orbit span { animation: none; }
+  .home-hero-building-wrap, .home-hero-building-wrap.hp, .home-hero-orbit span { animation: none; }
   .hp { animation: none; opacity: 1; }
 }
