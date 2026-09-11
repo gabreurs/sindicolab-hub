@@ -44,7 +44,7 @@ export function Header() {
         <div
           className="mx-auto flex w-full max-w-[1536px] items-center justify-between box-border"
           style={{
-            height: scrolled ? "clamp(56px, 7svh, 64px)" : "clamp(60px, 8svh, 76px)",
+            height: scrolled ? "calc(var(--header-h) - 8px)" : "var(--header-h)",
             paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
             gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
             transition: "height 300ms cubic-bezier(0.22,1,0.36,1)",
