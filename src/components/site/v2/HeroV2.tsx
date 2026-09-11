@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import heroCondominio from "@/assets/v2/hero-condominio.png";
+import heroCondominio from "@/assets/v2/hero-condominio-pt.png";
 
 /**
  * Hero da home — nova porta de entrada.
