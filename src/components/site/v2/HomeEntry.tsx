@@ -3,18 +3,20 @@ import { SearchToday } from "./SearchToday";
 import { KnowledgeBanner } from "./KnowledgeBanner";
 
 /**
- * Primeira tela da home: hero + cards "O que você procura hoje?" +
- * faixa de cursos — tudo dentro de 100svh, como na referência.
- * Em telas pequenas (<lg) a altura é liberada para não comprimir o conteúdo.
+ * Primeira tela da home: header + hero + cards + faixa de cursos,
+ * tudo dentro de uma única viewport (proporção da referência).
+ * Hero ocupa ~44% da altura; cards e faixa dividem o resto.
  */
 export function HomeEntry() {
   return (
-    <section className="relative flex flex-col bg-v2-hero pt-[72px] lg:min-h-[100svh]">
-      <div className="flex flex-1 items-center py-4 lg:py-0">
+    <section className="relative flex flex-col bg-v2-hero pt-[72px] lg:h-[100svh]">
+      <div className="flex items-center py-6 lg:h-[40svh] lg:py-0">
         <HeroV2 />
       </div>
-      <SearchToday />
-      <KnowledgeBanner />
+      <div className="flex flex-1 flex-col justify-center">
+        <SearchToday />
+        <KnowledgeBanner />
+      </div>
     </section>
   );
 }
