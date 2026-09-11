@@ -769,3 +769,25 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .glass-tile { background: color-mix(in oklab, var(--surface-elevated) 90%, transparent); }
   .glass-dark { background: color-mix(in oklab, var(--ink) 92%, transparent); }
 }
+
+/* ===================== V2 — direção visual "O universo do condomínio" ===================== */
+@theme {
+  --color-v2-nav: #2a1042;
+  --color-v2-ink: #170a2b;
+  --color-v2-purple: #7c3aed;
+  --color-v2-purple-light: #b98cff;
+  --color-v2-section: #f2f0f7;
+  --color-v2-line: #e6e2ef;
+}
+
+.bg-v2-hero {
+  background:
+    radial-gradient(120% 90% at 78% 20%, rgba(167, 139, 250, 0.22) 0%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, #fbfaff 0%, #f6f4fb 100%);
+}
+.bg-v2-section {
+  background: #f2f0f7;
+}
+.bg-v2-card-featured {
+  background: linear-gradient(135deg, #8b46f0 0%, #7c3aed 55%, #6d28d9 100%);
+}
