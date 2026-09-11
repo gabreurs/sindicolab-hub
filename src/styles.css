@@ -141,6 +141,7 @@
 
 /* altura do header responsiva, usada por offsets de página */
 :root { --header-h: clamp(60px, 8svh, 76px); }
+.header-nav .nav-link { padding-inline: clamp(0.4rem, 0.85vw, 0.85rem); }
 
 @utility container-x {
   margin-inline: auto;

@@ -78,7 +78,7 @@ function PlayPage() {
       {/* Submenu de trilhas — abaixo da hero, sticky com altura fixa */}
       <nav
         aria-label="Trilhas"
-        className="play-subnav sticky top-[72px] z-30 border-y border-white/10 bg-[#0a0b12]/96"
+        className="play-subnav sticky top-[var(--header-h)] z-30 border-y border-white/10 bg-[#0a0b12]/96"
       >
         <div className="container-x py-3">
           <div className="horizontal-list flex gap-2 md:gap-3 -mx-1 px-1 snap-x scroll-smooth">
