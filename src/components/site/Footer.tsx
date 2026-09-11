@@ -174,7 +174,7 @@ export function Footer() {
               <a href="https://linkedin.com/company/sindicolab" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Linkedin className="w-3.5 h-3.5" /></a>
             </div>
             <a
-              href="https://studiomarqo.com"
+              href="https://studiomarqo.com.br"
               target="_blank"
               rel="noreferrer"
               className="group inline-flex items-center gap-1.5 hover:text-background transition-colors"
