@@ -78,7 +78,7 @@ export function Footer() {
   const [sent, setSent] = useState(false);
 
   return (
-    <footer className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden">
+    <footer id="newsletter" className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden scroll-mt-[var(--header-h)]">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-brand/15 blur-3xl pointer-events-none" />
 
