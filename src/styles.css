@@ -949,6 +949,12 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   will-change: transform, opacity;
 }
 .home-hero-title .hp { display: block; }
+/* o wrapper do prédio precisa da entrada E da flutuação contínua */
+.home-hero-building-wrap.hp {
+  animation:
+    home-pop 0.62s cubic-bezier(0.22, 1.12, 0.36, 1) both,
+    home-building-float 7s ease-in-out 0.8s infinite;
+}
 @keyframes home-pop {
   0% { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.965); }
   60% { opacity: 1; }
