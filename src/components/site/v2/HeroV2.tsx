@@ -42,7 +42,7 @@ export function HeroV2() {
             width={1280}
             height={1024}
             className="relative z-10 mx-auto w-full select-none"
-            style={{ height: "min(41svh, 520px)", objectFit: "contain" }}
+            style={{ height: "min(39svh, 520px)", objectFit: "contain" }}
             draggable={false}
           />
 
