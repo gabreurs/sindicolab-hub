@@ -41,7 +41,15 @@ export function Header() {
         }`}
         data-route={isHome ? "home" : "page"}
       >
-        <div className="container-x flex items-center justify-between gap-3 h-[72px] w-full max-w-full box-border px-4 md:px-10">
+        <div
+          className="mx-auto flex w-full max-w-[1536px] items-center justify-between box-border"
+          style={{
+            height: scrolled ? "clamp(56px, 7svh, 64px)" : "clamp(60px, 8svh, 76px)",
+            paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
+            gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
+            transition: "height 300ms cubic-bezier(0.22,1,0.36,1)",
+          }}
+        >
           <Link
             to="/"
             aria-label="SíndicoLab — home"
