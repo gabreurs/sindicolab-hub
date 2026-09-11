@@ -53,8 +53,7 @@ export function Header() {
           <Link
             to="/"
             aria-label="SíndicoLab — home"
-            className="flex-1 min-w-0 md:flex-none md:min-w-fit md:max-w-none"
-            style={{ maxWidth: "calc(100% - 112px)" }}
+            className="flex min-w-0 flex-1 shrink items-center overflow-hidden md:flex-none"
           >
             {/* Mobile: only the official logo image — no extra wordmark/text */}
             <img
