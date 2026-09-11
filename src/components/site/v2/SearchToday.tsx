@@ -117,8 +117,15 @@ function Card({ item }: { item: Item }) {
       </Link>
     );
   }
+  const isInternal = !!item.href && (item.href.startsWith("#") || item.href.startsWith("/"));
   return (
-    <a href={item.href} target="_blank" rel="noreferrer" aria-label={item.title} className="block h-full">
+    <a
+      href={item.href}
+      target={isInternal ? undefined : "_blank"}
+      rel={isInternal ? undefined : "noreferrer"}
+      aria-label={item.title}
+      className="block h-full"
+    >
       {inner}
     </a>
   );
