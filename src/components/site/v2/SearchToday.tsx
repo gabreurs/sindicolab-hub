@@ -43,7 +43,7 @@ const items: Item[] = [
 
 export function SearchToday() {
   return (
-    <section id="produtos" className="bg-v2-section pb-6 pt-6 lg:pb-[1.6svh] lg:pt-[1.6svh]" aria-labelledby="procura-h">
+    <section id="produtos" className="bg-v2-section pb-4 pt-4 lg:pb-[1.2svh] lg:pt-0" aria-labelledby="procura-h">
       <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
         <h2
           id="procura-h"
@@ -68,7 +68,7 @@ function Card({ item }: { item: Item }) {
 
   const inner = (
     <div
-      style={{ minHeight: "clamp(92px, 12.2svh, 150px)" }}
+      style={{ minHeight: "clamp(84px, 12.6svh, 146px)" }}
       className={`group flex h-full items-center gap-4 rounded-[1.35rem] px-5 py-4 transition-all duration-300 md:gap-5 md:px-6 ${
         featured
           ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
