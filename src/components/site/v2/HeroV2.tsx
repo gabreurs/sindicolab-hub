@@ -1,65 +1,90 @@
+import {
+  ArrowRight,
+  BookOpen,
+  Building2,
+  CalendarDays,
+  Download,
+  Handshake,
+  Mail,
+  PlayCircle,
+} from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import heroCondominio from "@/assets/v2/hero-condominio-pt.png";
+import { Button } from "@/components/ui/button";
 
-/**
- * Hero da home — bloco superior da primeira tela.
- * Altura controlada pelo HomeEntry (~44svh). Título grande à esquerda,
- * empreendimento 3D grande ao centro/direita, sem espaço morto.
- */
+const destinations = [
+  { label: "Portal", detail: "Notícias e ideias", to: "/portal", icon: BookOpen },
+  { label: "Materiais", detail: "Guias e downloads", to: "/materiais", icon: Download },
+  { label: "Cursos", detail: "SíndicoLab Play", to: "/play", icon: PlayCircle },
+  { label: "Eventos", detail: "Encontros e comunidade", to: "/quem-somos", icon: CalendarDays },
+  { label: "Patrocínios", detail: "Conecte sua marca", to: "/patrocinios", icon: Handshake },
+] as const;
+
 export function HeroV2() {
   return (
-    <div className="relative w-full">
-      <div className="mx-auto grid w-full max-w-[1536px] grid-cols-1 items-center gap-3 px-5 md:grid-cols-[0.88fr_1.32fr] md:px-10">
-        {/* Copy */}
-        <div className="relative z-10 max-w-[36rem]">
-          <h1
-            className="font-display text-v2-ink"
-            style={{
-              fontSize: "clamp(2rem, 5.6svh, 4.2rem)",
-              lineHeight: 1.02,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            O universo do
-            <br />
-            condomínio.
-            <br />
-            <span className="text-v2-purple">Em um só lugar.</span>
-          </h1>
-          <p
-            className="mt-3 max-w-[29rem] leading-snug text-v2-ink/70"
-            style={{ fontSize: "clamp(0.88rem, 2svh, 1.1rem)" }}
-          >
-            Conhecimento, conexões e ferramentas para quem vive a gestão
-            condominial.
+    <section className="home-hero" aria-labelledby="home-hero-title">
+      <div className="home-hero-grid" aria-hidden />
+      <div className="home-hero-shell">
+        <div className="home-hero-copy">
+          <p className="home-hero-kicker">
+            <span /> Ecossistema condominial brasileiro
           </p>
+          <h1 id="home-hero-title" className="home-hero-title">
+            Tudo o que move o
+            <br />
+            condomínio, <em>conectado.</em>
+          </h1>
+          <p className="home-hero-description">
+            Conteúdo, formação, ferramentas e conexões para transformar a gestão
+            e tornar a vida em condomínio melhor.
+          </p>
+
+          <div className="home-hero-actions">
+            <Button asChild size="lg" className="home-hero-primary">
+              <a href="https://quero1sindico.com/" target="_blank" rel="noreferrer">
+                <Building2 /> Encontrar um síndico <ArrowRight />
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="home-hero-secondary">
+              <a href="#newsletter">
+                <Mail /> Receber a newsletter
+              </a>
+            </Button>
+          </div>
         </div>
 
-        {/* Render + micro legendas */}
-        <div className="relative">
+        <div className="home-hero-visual">
+          <div className="home-hero-orbit" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </div>
           <img
             src={heroCondominio}
-            alt="Maquete 3D de um condomínio residencial moderno"
+            alt="Maquete do Residencial Jacarandá representando o universo condominial"
             width={1280}
             height={1024}
-            className="relative z-10 mx-auto w-full select-none"
-            style={{ height: "min(39svh, 520px)", objectFit: "contain" }}
+            className="home-hero-building"
             draggable={false}
+            fetchPriority="high"
           />
-
-          <div className="pointer-events-none absolute right-0 top-1 z-20 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/45 xl:block">
-            Conhecimento
-            <br />
-            Conexões
-            <br />
-            Gestão real
-          </div>
-          <div className="pointer-events-none absolute bottom-1 right-0 z-20 hidden text-right text-[10px] uppercase leading-[2] tracking-[0.28em] text-v2-ink/40 xl:block">
-            Condomínios mais fortes
-            <br />
-            Pessoas mais felizes
-          </div>
+          <p className="home-hero-caption">Pessoas melhores. Condomínios melhores.</p>
         </div>
+
+        <nav className="home-hero-destinations" aria-label="Explore o SíndicoLab">
+          {destinations.map(({ label, detail, to, icon: Icon }, index) => (
+            <Link key={label} to={to} className="home-destination">
+              <span className="home-destination-number">0{index + 1}</span>
+              <Icon aria-hidden />
+              <span className="home-destination-copy">
+                <strong>{label}</strong>
+                <small>{detail}</small>
+              </span>
+              <ArrowRight className="home-destination-arrow" aria-hidden />
+            </Link>
+          ))}
+        </nav>
       </div>
-    </div>
+    </section>
   );
 }

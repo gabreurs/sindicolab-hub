@@ -3,10 +3,6 @@ import { buildSeo } from "@/lib/seo";
 import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
 import { HomeEntry } from "@/components/site/v2/HomeEntry";
-import { AccessCards } from "@/components/site/AccessCards";
-import { QuemSomos } from "@/components/site/QuemSomos";
-import { ValuePillars } from "@/components/site/ValuePillars";
-import { Sponsors } from "@/components/site/Sponsors";
 import { Footer } from "@/components/site/Footer";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { EdgeBlur } from "@/components/site/EdgeBlur";
@@ -53,10 +49,6 @@ function Index() {
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
         <HomeEntry />
-        <AccessCards />
-        <QuemSomos />
-        <ValuePillars />
-        <Sponsors />
         <Footer />
       </main>
       <EdgeBlur />
