@@ -43,16 +43,17 @@ const items: Item[] = [
 
 export function SearchToday() {
   return (
-    <section id="produtos" className="bg-v2-section pb-12 pt-12 md:pt-16" aria-labelledby="procura-h">
+    <section id="produtos" className="bg-v2-section pb-6 pt-6 lg:pb-[1.6svh] lg:pt-[1.6svh]" aria-labelledby="procura-h">
       <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
         <h2
           id="procura-h"
-          className="font-display text-[1.6rem] tracking-[-0.03em] text-v2-ink md:text-[1.85rem]"
+          className="font-display tracking-[-0.03em] text-v2-ink"
+          style={{ fontSize: "clamp(1.35rem, 2.6svh, 1.85rem)" }}
         >
           O que você procura hoje?
         </h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" style={{ marginTop: "clamp(0.75rem, 1.6svh, 1.5rem)" }}>
           {items.map((it) => (
             <Card key={it.title} item={it} />
           ))}
@@ -67,7 +68,8 @@ function Card({ item }: { item: Item }) {
 
   const inner = (
     <div
-      className={`group flex h-full min-h-[164px] items-center gap-4 rounded-[1.35rem] px-5 py-6 transition-all duration-300 md:gap-6 md:px-7 ${
+      style={{ minHeight: "clamp(92px, 12.2svh, 150px)" }}
+      className={`group flex h-full items-center gap-4 rounded-[1.35rem] px-5 py-4 transition-all duration-300 md:gap-5 md:px-6 ${
         featured
           ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
           : "border border-v2-line bg-white shadow-[0_10px_30px_-26px_rgba(27,11,46,0.5)] hover:-translate-y-1 hover:shadow-[0_18px_40px_-26px_rgba(27,11,46,0.45)]"
@@ -80,28 +82,31 @@ function Card({ item }: { item: Item }) {
         loading="lazy"
         width={816}
         height={816}
-        className="h-[104px] w-[104px] shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04] md:h-[118px] md:w-[118px]"
+        className="shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04]"
+        style={{ height: "clamp(60px, 8.2svh, 104px)", width: "clamp(60px, 8.2svh, 104px)" }}
         draggable={false}
       />
       <div className="min-w-0 flex-1">
         <h3
-          className={`font-display text-[1.35rem] tracking-[-0.03em] ${
+          className={`font-display tracking-[-0.03em] ${
             featured ? "text-white" : "text-v2-ink"
           }`}
+          style={{ fontSize: "clamp(1.05rem, 2.2svh, 1.35rem)" }}
         >
           {item.title}
         </h3>
         <p
-          className={`mt-1.5 text-[0.95rem] leading-snug ${
+          className={`mt-1 leading-snug ${
             featured ? "text-white/85" : "text-v2-ink/60"
           }`}
+          style={{ fontSize: "clamp(0.8rem, 1.7svh, 0.95rem)" }}
         >
           {item.desc[0]}
           <br />
           {item.desc[1]}
         </p>
         <ArrowRight
-          className={`mt-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
+          className={`mt-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
             featured ? "text-white" : "text-v2-purple"
           }`}
           strokeWidth={2}

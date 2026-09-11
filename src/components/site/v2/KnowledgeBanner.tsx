@@ -4,7 +4,7 @@ import heroCondominio from "@/assets/v2/hero-condominio.png";
 
 export function KnowledgeBanner() {
   return (
-    <section className="bg-v2-section pb-14 md:pb-20">
+    <section className="bg-v2-section pb-6 lg:pb-[2svh]">
       <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
         <div className="relative overflow-hidden rounded-[1.35rem] bg-v2-nav">
           {/* imagem ambiente ao fundo */}
@@ -25,8 +25,11 @@ export function KnowledgeBanner() {
             draggable={false}
           />
 
-          <div className="relative flex flex-col items-center gap-6 px-6 py-8 text-center md:flex-row md:justify-center md:gap-10 md:px-10 md:py-9">
-            <p className="font-display text-[1.35rem] leading-tight tracking-[-0.03em] text-white md:text-[1.75rem]">
+          <div className="relative flex flex-col items-center gap-4 px-6 py-5 text-center md:flex-row md:justify-center md:gap-10 md:px-10 md:py-[2.2svh]">
+            <p
+              className="font-display leading-tight tracking-[-0.03em] text-white"
+              style={{ fontSize: "clamp(1.2rem, 2.8svh, 1.75rem)" }}
+            >
               Conhecimento que <span className="text-v2-purple-light">transforma</span> a gestão.
             </p>
 
