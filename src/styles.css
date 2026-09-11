@@ -139,6 +139,9 @@
 
 @utility text-balance { text-wrap: balance; }
 
+/* altura do header responsiva, usada por offsets de página */
+:root { --header-h: clamp(60px, 8svh, 76px); }
+
 @utility container-x {
   margin-inline: auto;
   padding-inline: 1.25rem;
