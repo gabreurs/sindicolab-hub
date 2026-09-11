@@ -1,18 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { buildSeo } from "@/lib/seo";
-import { HeaderV2 } from "@/components/site/v2/HeaderV2";
+import { IntroLoader } from "@/components/site/IntroLoader";
+import { Header } from "@/components/site/Header";
 import { HeroV2 } from "@/components/site/v2/HeroV2";
-import { SearchToday } from "@/components/site/v2/SearchToday";
-import { KnowledgeBanner } from "@/components/site/v2/KnowledgeBanner";
+import { AccessCards } from "@/components/site/AccessCards";
+import { QuemSomos } from "@/components/site/QuemSomos";
+import { ValuePillars } from "@/components/site/ValuePillars";
+import { Sponsors } from "@/components/site/Sponsors";
 import { Footer } from "@/components/site/Footer";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { EdgeBlur } from "@/components/site/EdgeBlur";
+import { GlobalSearch } from "@/components/site/GlobalSearch";
 
 export const Route = createFileRoute("/")({
   head: () =>
     buildSeo({
-      title:
-        "O universo do condomínio em um só lugar | SíndicoLab",
+      title: "Síndico profissional, cursos e materiais para condomínio | SíndicoLab",
       description:
-        "Conhecimento, conexões e ferramentas para quem vive a gestão condominial: blog, newsletter, downloads, agenda de eventos, cursos e síndicos profissionais.",
+        "SíndicoLab é o ecossistema condominial brasileiro: encontre síndico profissional, acesse cursos para síndicos, baixe materiais para condomínio e leia conteúdo de gestão condominial.",
       path: "/",
       jsonLd: [
         {
@@ -41,12 +46,20 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-v2-section text-v2-ink">
-      <HeaderV2 />
-      <HeroV2 />
-      <SearchToday />
-      <KnowledgeBanner />
-      <Footer />
-    </main>
+    <>
+      <SmoothScroll />
+      <IntroLoader />
+      <GlobalSearch />
+      <main className="min-h-screen bg-background text-ink flex flex-col">
+        <Header />
+        <HeroV2 />
+        <AccessCards />
+        <QuemSomos />
+        <ValuePillars />
+        <Sponsors />
+        <Footer />
+      </main>
+      <EdgeBlur />
+    </>
   );
 }
