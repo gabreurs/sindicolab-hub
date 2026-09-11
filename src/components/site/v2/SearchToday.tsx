@@ -1,0 +1,125 @@
+import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import iconBlog from "@/assets/v2/icon-blog.png";
+import iconNewsletter from "@/assets/v2/icon-newsletter.png";
+import iconDownloads from "@/assets/v2/icon-downloads.png";
+import iconAgenda from "@/assets/v2/icon-agenda.png";
+import iconSindico from "@/assets/v2/icon-sindico.png";
+import iconInstagram from "@/assets/v2/icon-instagram.png";
+
+type Item = {
+  title: string;
+  desc: string[];
+  icon: string;
+  to?: string;
+  href?: string;
+  featured?: boolean;
+};
+
+const items: Item[] = [
+  { title: "Blog", desc: ["Ideias que movimentam", "o mercado"], icon: iconBlog, to: "/portal" },
+  {
+    title: "Newsletter",
+    desc: ["Uma nova perspectiva", "na sua caixa de entrada"],
+    icon: iconNewsletter,
+    href: "https://instagram.com/sindicolab",
+    featured: true,
+  },
+  { title: "Downloads", desc: ["Materiais para aplicar", "na sua gestão"], icon: iconDownloads, to: "/materiais" },
+  { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/quem-somos" },
+  {
+    title: "Quero um síndico",
+    desc: ["Encontre o profissional", "para seu condomínio"],
+    icon: iconSindico,
+    href: "https://quero1sindico.com/",
+  },
+  {
+    title: "Instagram SíndicoLab",
+    desc: ["Acompanhe nossas", "conversas"],
+    icon: iconInstagram,
+    href: "https://instagram.com/sindicolab",
+  },
+];
+
+export function SearchToday() {
+  return (
+    <section id="produtos" className="bg-v2-section pb-12 pt-12 md:pt-16" aria-labelledby="procura-h">
+      <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
+        <h2
+          id="procura-h"
+          className="font-display text-[1.6rem] tracking-[-0.03em] text-v2-ink md:text-[1.85rem]"
+        >
+          O que você procura hoje?
+        </h2>
+
+        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((it) => (
+            <Card key={it.title} item={it} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Card({ item }: { item: Item }) {
+  const featured = !!item.featured;
+
+  const inner = (
+    <div
+      className={`group flex h-full min-h-[164px] items-center gap-4 rounded-[1.35rem] px-5 py-6 transition-all duration-300 md:gap-6 md:px-7 ${
+        featured
+          ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
+          : "border border-v2-line bg-white shadow-[0_10px_30px_-26px_rgba(27,11,46,0.5)] hover:-translate-y-1 hover:shadow-[0_18px_40px_-26px_rgba(27,11,46,0.45)]"
+      }`}
+    >
+      <img
+        src={item.icon}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={816}
+        height={816}
+        className="h-[104px] w-[104px] shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04] md:h-[118px] md:w-[118px]"
+        draggable={false}
+      />
+      <div className="min-w-0 flex-1">
+        <h3
+          className={`font-display text-[1.35rem] tracking-[-0.03em] ${
+            featured ? "text-white" : "text-v2-ink"
+          }`}
+        >
+          {item.title}
+        </h3>
+        <p
+          className={`mt-1.5 text-[0.95rem] leading-snug ${
+            featured ? "text-white/85" : "text-v2-ink/60"
+          }`}
+        >
+          {item.desc[0]}
+          <br />
+          {item.desc[1]}
+        </p>
+        <ArrowRight
+          className={`mt-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
+            featured ? "text-white" : "text-v2-purple"
+          }`}
+          strokeWidth={2}
+        />
+      </div>
+    </div>
+  );
+
+  if (item.to) {
+    return (
+      <Link to={item.to} aria-label={item.title} className="block h-full">
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <a href={item.href} target="_blank" rel="noreferrer" aria-label={item.title} className="block h-full">
+      {inner}
+    </a>
+  );
+}

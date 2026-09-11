@@ -1,35 +1,18 @@
-import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { buildSeo } from "@/lib/seo";
-import { IntroLoader } from "@/components/site/IntroLoader";
-import { Header } from "@/components/site/Header";
-import { Hero } from "@/components/site/Hero";
-import { AccessCards } from "@/components/site/AccessCards";
+import { HeaderV2 } from "@/components/site/v2/HeaderV2";
+import { HeroV2 } from "@/components/site/v2/HeroV2";
+import { SearchToday } from "@/components/site/v2/SearchToday";
+import { KnowledgeBanner } from "@/components/site/v2/KnowledgeBanner";
 import { Footer } from "@/components/site/Footer";
-import { SmoothScroll } from "@/components/site/SmoothScroll";
-import { EdgeBlur } from "@/components/site/EdgeBlur";
-
-// Below-the-fold: lazy para reduzir bundle inicial / acelerar LCP.
-const QuemSomos = lazy(() =>
-  import("@/components/site/QuemSomos").then((m) => ({ default: m.QuemSomos })),
-);
-const ValuePillars = lazy(() =>
-  import("@/components/site/ValuePillars").then((m) => ({ default: m.ValuePillars })),
-);
-const Sponsors = lazy(() =>
-  import("@/components/site/Sponsors").then((m) => ({ default: m.Sponsors })),
-);
-const GlobalSearch = lazy(() =>
-  import("@/components/site/GlobalSearch").then((m) => ({ default: m.GlobalSearch })),
-);
 
 export const Route = createFileRoute("/")({
   head: () =>
     buildSeo({
       title:
-        "Síndico profissional, cursos e materiais para condomínio | SíndicoLab",
+        "O universo do condomínio em um só lugar | SíndicoLab",
       description:
-        "SíndicoLab é o ecossistema condominial brasileiro: encontre síndico profissional, acesse cursos para síndicos, baixe materiais para condomínio e leia conteúdo de gestão condominial.",
+        "Conhecimento, conexões e ferramentas para quem vive a gestão condominial: blog, newsletter, downloads, agenda de eventos, cursos e síndicos profissionais.",
       path: "/",
       jsonLd: [
         {
@@ -58,24 +41,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <>
-      <SmoothScroll />
-      <IntroLoader />
-      <Suspense fallback={null}>
-        <GlobalSearch />
-      </Suspense>
-      <main className="min-h-screen bg-background text-ink flex flex-col">
-        <Header />
-        <Hero />
-        <AccessCards />
-        <Suspense fallback={null}>
-          <QuemSomos />
-          <ValuePillars />
-          <Sponsors />
-        </Suspense>
-        <Footer />
-      </main>
-      <EdgeBlur />
-    </>
+    <main className="min-h-screen bg-v2-section text-v2-ink">
+      <HeaderV2 />
+      <HeroV2 />
+      <SearchToday />
+      <KnowledgeBanner />
+      <Footer />
+    </main>
   );
 }
