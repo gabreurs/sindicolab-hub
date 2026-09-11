@@ -18,13 +18,7 @@ type Item = {
 
 const items: Item[] = [
   { title: "Blog", desc: ["Ideias que movimentam", "o mercado"], icon: iconBlog, to: "/portal" },
-  {
-    title: "Newsletter",
-    desc: ["Uma nova perspectiva", "na sua caixa de entrada"],
-    icon: iconNewsletter,
-    href: "https://instagram.com/sindicolab",
-    featured: true,
-  },
+  { title: "Newsletter", desc: ["Uma nova perspectiva", "na sua caixa de entrada"], icon: iconNewsletter, href: "#newsletter" },
   { title: "Downloads", desc: ["Materiais para aplicar", "na sua gestão"], icon: iconDownloads, to: "/materiais" },
   { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/quem-somos" },
   {
@@ -38,6 +32,7 @@ const items: Item[] = [
     desc: ["Acompanhe nossas", "conversas"],
     icon: iconInstagram,
     href: "https://instagram.com/sindicolab",
+    featured: true,
   },
 ];
 
@@ -122,8 +117,15 @@ function Card({ item }: { item: Item }) {
       </Link>
     );
   }
+  const isInternal = !!item.href && (item.href.startsWith("#") || item.href.startsWith("/"));
   return (
-    <a href={item.href} target="_blank" rel="noreferrer" aria-label={item.title} className="block h-full">
+    <a
+      href={item.href}
+      target={isInternal ? undefined : "_blank"}
+      rel={isInternal ? undefined : "noreferrer"}
+      aria-label={item.title}
+      className="block h-full"
+    >
       {inner}
     </a>
   );
