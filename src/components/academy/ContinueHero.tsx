@@ -87,7 +87,7 @@ export function ContinueHero({
           <div className="ax-hero-panel-actions">
             {primaryTo === "learn" ? (
               <Link
-                to="/curso/$courseSlug/aprender"
+                to="/academy/curso/$courseSlug/aprender"
                 params={{ courseSlug: course.slug }}
                 className="ax-btn"
                 data-variant="primary"
@@ -97,7 +97,7 @@ export function ContinueHero({
               </Link>
             ) : (
               <Link
-                to="/curso/$courseSlug"
+                to="/academy/curso/$courseSlug"
                 params={{ courseSlug: course.slug }}
                 className="ax-btn"
                 data-variant="primary"
@@ -107,7 +107,7 @@ export function ContinueHero({
               </Link>
             )}
             <Link
-              to="/curso/$courseSlug"
+              to="/academy/curso/$courseSlug"
               params={{ courseSlug: course.slug }}
               className="ax-btn ax-hero-panel-ghost"
               data-size="lg"

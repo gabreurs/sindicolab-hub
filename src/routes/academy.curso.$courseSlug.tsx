@@ -11,10 +11,10 @@ import { durationLabel, levelLabel } from "@/components/academy/types";
 import { LessonMedia } from "@/components/player/LessonMedia";
 import { resolveCourseAccess } from "@/lib/course/courseAccess";
 
-export const Route = createFileRoute("/curso/$courseSlug")({ ssr: false, component: CoursePage });
+export const Route = createFileRoute("/academy/curso/$courseSlug")({ ssr: false, component: CoursePage });
 
 function CoursePage() {
-  const { courseSlug } = useParams({ from: "/curso/$courseSlug" });
+  const { courseSlug } = useParams({ from: "/academy/curso/$courseSlug" });
   const { session, isPlatformAdmin } = useAuth();
   const exp = useAcademyExperience();
   const [course, setCourse] = useState<any>(null);
@@ -96,12 +96,12 @@ function CoursePage() {
     course.instructor_name,
   ].filter(Boolean);
   const primaryCta = !session ? (
-    <Link to="/login" search={{ next: `/curso/${courseSlug}` }} className="ax-btn" data-variant="primary" data-size="lg">
+    <Link to="/academy/login" search={{ next: `/curso/${courseSlug}` }} className="ax-btn" data-variant="primary" data-size="lg">
       {exp.type === "corporate" ? "Entrar na Academy" : "Entrar para começar"}
     </Link>
   ) : hasAccess ? (
     <Link
-      to="/curso/$courseSlug/aprender"
+      to="/academy/curso/$courseSlug/aprender"
       params={{ courseSlug }}
       className="ax-btn"
       data-variant="primary"
@@ -157,7 +157,7 @@ function CoursePage() {
             )}
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
               {primaryCta}
-              <Link to="/catalogo" className="ax-btn" data-variant="outline" data-size="lg">
+              <Link to="/academy/catalogo" className="ax-btn" data-variant="outline" data-size="lg">
                 Voltar ao catálogo
               </Link>
             </div>

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useTenant } from "@/lib/tenant/TenantProvider";
 import { TenantLogo } from "@/components/academy/TenantLogo";
 
-export const Route = createFileRoute("/solicitar-acesso")({
+export const Route = createFileRoute("/academy/solicitar-acesso")({
   ssr: false,
   head: () => ({
     meta: [

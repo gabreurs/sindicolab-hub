@@ -12,7 +12,7 @@ import { levelLabel } from "@/components/academy/types";
 
 type CatalogSearch = { q?: string; cat?: string };
 
-export const Route = createFileRoute("/catalogo")({
+export const Route = createFileRoute("/academy/catalogo")({
   ssr: false,
   validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
     q: typeof search.q === "string" && search.q ? search.q : undefined,
@@ -31,7 +31,7 @@ function Catalog() {
   const { tenant, loading: tenantLoading } = useTenant();
   const { session } = useAuth();
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: "/catalogo" });
+  const navigate = useNavigate({ from: "/academy/catalogo" });
   const { loading, courses, categories, categoryNameById, progress, ratings } = useAcademyCatalog(
     tenant?.organization.id,
     session?.user?.id,

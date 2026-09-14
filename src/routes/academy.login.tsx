@@ -4,15 +4,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
 
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/academy/login")({
   ssr: false,
-  validateSearch: (s: Record<string, unknown>) => ({ next: typeof s.next === "string" ? s.next : "/inicio" }),
+  validateSearch: (s: Record<string, unknown>) => ({ next: typeof s.next === "string" ? s.next : "/academy/inicio" }),
   component: LoginPage,
 });
 
 function LoginPage() {
   const nav = useNavigate();
-  const { next } = useSearch({ from: "/login" });
+  const { next } = useSearch({ from: "/academy/login" });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -28,7 +28,7 @@ function LoginPage() {
         toast.success("Bem-vindo!");
         nav({ to: next });
       } else {
-        const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/inicio" } });
+        const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/academy/inicio" } });
         if (error) throw error;
         toast.success("Conta criada.");
         nav({ to: next });
@@ -67,7 +67,7 @@ function LoginPage() {
           {mode === "login" ? "Não tem conta? Criar conta" : "Já tenho conta"}
         </button>
         <div>
-          <Link to="/solicitar-acesso" className="ax-btn" data-variant="link">
+          <Link to="/academy/solicitar-acesso" className="ax-btn" data-variant="link">
             Não tem acesso? Solicitar acesso
           </Link>
         </div>

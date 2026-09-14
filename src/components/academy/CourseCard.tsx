@@ -37,7 +37,7 @@ export const CourseCard = memo(function CourseCard({
   return (
     <article className="ax-card group/card">
       <Link
-        to="/curso/$courseSlug"
+        to="/academy/curso/$courseSlug"
         params={{ courseSlug: course.slug }}
         className="block focus-visible:outline-none"
         aria-label={course.title}
@@ -84,7 +84,7 @@ export const CourseCard = memo(function CourseCard({
       <div className="ax-card-body">
         {categoryName && <p className="ax-eyebrow truncate">{categoryName}</p>}
         <h3 className="ax-card-title">
-          <Link to="/curso/$courseSlug" params={{ courseSlug: course.slug }}>
+          <Link to="/academy/curso/$courseSlug" params={{ courseSlug: course.slug }}>
             {course.title}
           </Link>
         </h3>

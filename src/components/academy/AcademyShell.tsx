@@ -35,10 +35,10 @@ export function AcademyShell({
               © {new Date().getFullYear()} {orgName} · Academy operada por SíndicoLab
             </span>
             <nav className="flex items-center gap-4">
-              <Link to="/catalogo" className="hover:opacity-80">
+              <Link to="/academy/catalogo" className="hover:opacity-80">
                 Catálogo
               </Link>
-              <Link to="/login" search={{ next: "/inicio" }} className="hover:opacity-80">
+              <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="hover:opacity-80">
                 Acessar
               </Link>
             </nav>

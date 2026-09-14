@@ -51,7 +51,7 @@ function HomeRoute() {
   const shouldRedirect = !loading && !!visibleSession && isCorporate;
 
   useEffect(() => {
-    if (shouldRedirect) navigate({ to: "/inicio", replace: true });
+    if (shouldRedirect) navigate({ to: "/academy/inicio", replace: true });
   }, [shouldRedirect, navigate]);
 
   if (loading || shouldRedirect) {
@@ -171,7 +171,7 @@ function AuthenticatedHome() {
               {usedCategories.map((cat) => {
                 const count = courses.filter((c) => c.category_id === cat.id).length;
                 return (
-                  <Link key={cat.id} to="/catalogo" search={{ cat: cat.id }} className="ax-tile">
+                  <Link key={cat.id} to="/academy/catalogo" search={{ cat: cat.id }} className="ax-tile">
                     <p className="ax-card-title">{cat.name}</p>
                     <p className="ax-meta mt-1">
                       {count} {count === 1 ? "curso" : "cursos"}
@@ -226,8 +226,8 @@ function Storefront() {
           <p className="ax-body mt-3 max-w-[62ch] text-[15.5px]">{exp.copy.lead}</p>
           <div className="mt-5 flex flex-wrap items-center gap-2.5">
             <Link
-              to={session ? "/inicio" : "/login"}
-              search={session ? undefined : ({ next: "/inicio" } as any)}
+              to={session ? "/academy/inicio" : "/academy/login"}
+              search={session ? undefined : ({ next: "/academy/inicio" } as any)}
               className="ax-btn"
               data-variant="primary"
               data-size="md"
@@ -235,7 +235,7 @@ function Storefront() {
               {session ? "Continuar estudando" : "Acessar a plataforma"}
               <ArrowRight size={16} />
             </Link>
-            <Link to="/catalogo" className="ax-btn" data-variant="outline" data-size="md">
+            <Link to="/academy/catalogo" className="ax-btn" data-variant="outline" data-size="md">
               Ver catálogo
             </Link>
           </div>
@@ -267,7 +267,7 @@ function Storefront() {
             title="Em destaque no acervo"
             subtitle={`Títulos publicados por ${orgName}`}
             action={
-              <Link to="/catalogo" className="ax-btn" data-variant="ghost" data-size="sm">
+              <Link to="/academy/catalogo" className="ax-btn" data-variant="ghost" data-size="sm">
                 Ver tudo <ArrowRight size={14} />
               </Link>
             }
@@ -302,7 +302,7 @@ function Storefront() {
               {usedCategories.map((cat) => {
                 const count = courses.filter((c) => c.category_id === cat.id).length;
                 return (
-                  <Link key={cat.id} to="/catalogo" search={{ cat: cat.id }} className="ax-tile">
+                  <Link key={cat.id} to="/academy/catalogo" search={{ cat: cat.id }} className="ax-tile">
                     <p className="ax-card-title">{cat.name}</p>
                     <p className="ax-meta mt-1">
                       {count} {count === 1 ? "curso" : "cursos"}

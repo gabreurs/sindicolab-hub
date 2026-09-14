@@ -61,7 +61,7 @@ export function LearningStudioWorkspace({
     <div className="player-shell min-h-screen flex flex-col">
       <header className="flex items-center gap-3 px-4 lg:px-6 h-14 border-b player-border shrink-0">
         <Link
-          to="/curso/$courseSlug"
+          to="/academy/curso/$courseSlug"
           params={{ courseSlug: course.slug }}
           className="text-xs uppercase tracking-widest player-muted hover:opacity-80"
         >

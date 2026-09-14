@@ -7,7 +7,7 @@ import { LessonMedia } from "@/components/player/LessonMedia";
 import { LessonComments } from "@/components/course/LessonComments";
 import { LearningStudioWorkspace } from "@/components/player/LearningStudioWorkspace";
 
-export const Route = createFileRoute("/_authenticated/curso_/$courseSlug/aprender")({ ssr: false, component: Player });
+export const Route = createFileRoute("/academy/curso_/$courseSlug/aprender")({ ssr: false, component: Player });
 
 function Player() {
   const { courseSlug } = useParams({ from: "/_authenticated/curso_/$courseSlug/aprender" });
@@ -34,7 +34,7 @@ function Player() {
         // tratamos exatamente como acesso negado.
         setAccessChecked(true);
         setDenied(true);
-        navigate({ to: "/catalogo", replace: true });
+        navigate({ to: "/academy/catalogo", replace: true });
         return;
       }
 
@@ -49,7 +49,7 @@ function Player() {
       if (!allowed) {
         setAccessChecked(true);
         setDenied(true);
-        navigate({ to: "/curso/$courseSlug", params: { courseSlug }, search: { denied: 1 } as any, replace: true });
+        navigate({ to: "/academy/curso/$courseSlug", params: { courseSlug }, search: { denied: 1 } as any, replace: true });
         return;
       }
       setCourse(c);
@@ -156,7 +156,7 @@ function Player() {
     <div className="player-shell grid lg:grid-cols-[1fr_360px]">
       <div className="p-4 lg:p-8">
         <Link
-          to="/curso/$courseSlug"
+          to="/academy/curso/$courseSlug"
           params={{ courseSlug }}
           className="text-xs uppercase tracking-widest player-muted hover:opacity-80"
         >

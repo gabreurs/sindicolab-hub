@@ -10,7 +10,7 @@ import { ContinueHero } from "@/components/academy/ContinueHero";
 import { useAcademyCatalog } from "@/lib/academy/useCatalog";
 import { useMyList } from "@/lib/list/useMyList";
 
-export const Route = createFileRoute("/_authenticated/inicio")({ ssr: false, component: Home });
+export const Route = createFileRoute("/academy/inicio")({ ssr: false, component: Home });
 
 function Home() {
   const { session } = useAuth();
@@ -50,7 +50,7 @@ function Home() {
             <p className="ax-body text-center text-[14px]">
               Assim que a curadoria publicar cursos, eles aparecem aqui.
             </p>
-            <Link to="/catalogo" className="ax-btn" data-variant="secondary" data-size="sm">
+            <Link to="/academy/catalogo" className="ax-btn" data-variant="secondary" data-size="sm">
               Explorar catálogo <ArrowRight size={14} />
             </Link>
           </div>

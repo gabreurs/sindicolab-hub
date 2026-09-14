@@ -108,7 +108,7 @@ export function ConsoleShell({
               )}
             </button>
             {user?.email && <span className="hidden max-w-[200px] truncate px-2 text-xs c-muted lg:inline">{user.email}</span>}
-            <Link to="/inicio" className="c-btn" data-variant="ghost" data-size="sm">Ir para a Academy</Link>
+            <Link to="/academy/inicio" className="c-btn" data-variant="ghost" data-size="sm">Ir para a Academy</Link>
             <button onClick={signOut} className="c-btn" data-variant="secondary" data-size="sm">Sair</button>
           </div>
         </div>

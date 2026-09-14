@@ -29,17 +29,17 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
   return (
     <header className="ax-header" data-transparent={transparent && !scrolled ? "true" : "false"}>
       <div className="ax-container flex h-full items-center gap-3 md:gap-6">
-        <Link to={showAuthed ? "/inicio" : "/"} className="flex shrink-0 items-center" aria-label="Início">
+        <Link to={showAuthed ? "/academy/inicio" : "/"} className="flex shrink-0 items-center" aria-label="Início">
           <TenantLogo />
         </Link>
 
         <nav className="hidden min-w-0 items-center gap-0.5 md:flex">
           {showAuthed && (
-            <Link to="/inicio" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
+            <Link to="/academy/inicio" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
               Meus estudos
             </Link>
           )}
-          <Link to="/catalogo" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
+          <Link to="/academy/catalogo" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
             Catálogo
           </Link>
         </nav>
@@ -48,7 +48,7 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
           className="ax-search ml-auto w-full max-w-[120px] sm:max-w-[240px] lg:max-w-[320px]"
           onSubmit={(e) => {
             e.preventDefault();
-            navigate({ to: "/catalogo", search: { q: q.trim() || undefined } });
+            navigate({ to: "/academy/catalogo", search: { q: q.trim() || undefined } });
           }}
           role="search"
         >
@@ -71,7 +71,7 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
         ) : (
           <>
             <ThemeToggle />
-            <Link to="/login" search={{ next: "/inicio" }} className="ax-btn shrink-0" data-variant="primary">
+            <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="ax-btn shrink-0" data-variant="primary">
               Entrar
             </Link>
           </>
@@ -172,10 +172,10 @@ function AccountMenu({
             <ThemeToggle full />
           </div>
           <div className="ax-divider my-1" />
-          <MenuLink to="/inicio" onClick={() => setOpen(false)} icon={<User size={15} />}>
+          <MenuLink to="/academy/inicio" onClick={() => setOpen(false)} icon={<User size={15} />}>
             Meus estudos
           </MenuLink>
-          <MenuLink to="/catalogo" onClick={() => setOpen(false)} icon={<Search size={15} />}>
+          <MenuLink to="/academy/catalogo" onClick={() => setOpen(false)} icon={<Search size={15} />}>
             Catálogo
           </MenuLink>
           {isOrgAdmin && (

@@ -11,7 +11,7 @@ import {
   SaveState, SearchInput, Select, Stat, TableSkeleton, TableWrap,
 } from "@/components/console/ui";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({
     meta: [
@@ -141,7 +141,7 @@ function AdminPage() {
       </ConsoleShell>
     );
   }
-  if (!isPlatformAdmin) return <Navigate to="/inicio" replace />;
+  if (!isPlatformAdmin) return <Navigate to="/academy/inicio" replace />;
 
   const createOrg = async () => {
     const slug = newOrg.slug.trim().toLowerCase();

@@ -11,7 +11,7 @@ import {
   SaveState, SearchInput, Select, Stat, TableSkeleton, TableWrap,
 } from "@/components/console/ui";
 
-export const Route = createFileRoute("/_authenticated/empresa")({
+export const Route = createFileRoute("/empresa")({
   ssr: false,
   head: () => ({
     meta: [
@@ -148,7 +148,7 @@ function EmpresaPage() {
       </ConsoleShell>
     );
   }
-  if (!canAccess) return <Navigate to="/inicio" />;
+  if (!canAccess) return <Navigate to="/academy/inicio" />;
   if (!orgId) {
     return (
       <ConsoleShell kicker="Painel da Academy" title="SíndicoLab" nav={NAV} active="visao" onNavigate={() => {}}>

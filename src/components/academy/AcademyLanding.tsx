@@ -30,10 +30,10 @@ export function AcademyLanding({
             <h1 className="ax-display mt-3">{exp.copy.title}</h1>
             <p className="ax-body mt-4 max-w-[52ch] text-[16px]">{exp.copy.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-2.5">
-              <Link to="/login" search={{ next: "/inicio" }} className="ax-btn" data-variant="primary" data-size="lg">
+              <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="ax-btn" data-variant="primary" data-size="lg">
                 {exp.copy.primaryCta} <ArrowRight size={16} />
               </Link>
-              <Link to="/catalogo" className="ax-btn" data-variant="outline" data-size="lg">
+              <Link to="/academy/catalogo" className="ax-btn" data-variant="outline" data-size="lg">
                 Conhecer os conteúdos
               </Link>
             </div>
