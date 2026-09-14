@@ -28,6 +28,7 @@ import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
+import { Route as MateriaisSlugRouteImport } from './routes/materiais_.$slug'
 import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
 import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.solicitar-acesso'
 import { Route as AcademyLoginRouteImport } from './routes/academy.login'
@@ -131,6 +132,11 @@ const PortalSlugRoute = PortalSlugRouteImport.update({
   path: '/portal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MateriaisSlugRoute = MateriaisSlugRouteImport.update({
+  id: '/materiais_/$slug',
+  path: '/materiais/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventosSlugRoute = EventosSlugRouteImport.update({
   id: '/eventos_/$slug',
   path: '/eventos/$slug',
@@ -191,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
   '/eventos/$slug': typeof EventosSlugRoute
+  '/materiais/$slug': typeof MateriaisSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -218,6 +225,7 @@ export interface FileRoutesByTo {
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
   '/eventos/$slug': typeof EventosSlugRoute
+  '/materiais/$slug': typeof MateriaisSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -247,6 +255,7 @@ export interface FileRoutesById {
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
   '/eventos_/$slug': typeof EventosSlugRoute
+  '/materiais_/$slug': typeof MateriaisSlugRoute
   '/portal_/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/academy/login'
     | '/academy/solicitar-acesso'
     | '/eventos/$slug'
+    | '/materiais/$slug'
     | '/portal/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
     | '/academy/login'
     | '/academy/solicitar-acesso'
     | '/eventos/$slug'
+    | '/materiais/$slug'
     | '/portal/$slug'
     | '/academy'
     | '/academy/curso/$courseSlug'
@@ -332,6 +343,7 @@ export interface FileRouteTypes {
     | '/academy/login'
     | '/academy/solicitar-acesso'
     | '/eventos_/$slug'
+    | '/materiais_/$slug'
     | '/portal_/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
@@ -357,6 +369,7 @@ export interface RootRouteChildren {
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
   EventosSlugRoute: typeof EventosSlugRoute
+  MateriaisSlugRoute: typeof MateriaisSlugRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
 
@@ -495,6 +508,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/materiais_/$slug': {
+      id: '/materiais_/$slug'
+      path: '/materiais/$slug'
+      fullPath: '/materiais/$slug'
+      preLoaderRoute: typeof MateriaisSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/eventos_/$slug': {
       id: '/eventos_/$slug'
       path: '/eventos/$slug'
@@ -589,6 +609,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,
   EventosSlugRoute: EventosSlugRoute,
+  MateriaisSlugRoute: MateriaisSlugRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
