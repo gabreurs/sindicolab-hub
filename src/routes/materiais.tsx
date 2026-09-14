@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
@@ -7,7 +7,6 @@ import { Search, Download, FileText, ListChecks, BookOpen, Sheet, FileSignature,
 import { buildSeo } from "@/lib/seo";
 import { materialsService } from "@/services/materialsService";
 import { captureNewsletterEmail } from "@/services/newsletterService";
-import { EXTERNAL_LINKS } from "@/config/external-links";
 
 export const Route = createFileRoute("/materiais")({
   head: () =>
@@ -28,23 +27,34 @@ export const Route = createFileRoute("/materiais")({
 });
 
 type MaterialType = "Modelo" | "Checklist" | "Guia" | "Planilha" | "E-book";
-type Item = { tag: string; title: string; type: MaterialType; href: string };
+type Item = { tag: string; title: string; type: MaterialType; slug: string };
+
+/** Mesmo padrão de slug usado na biblioteca gerida pelo painel. */
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
 /** Lista base — permanece como garantia caso a biblioteca não responda. */
-const fallbackItems: Item[] = [
-  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
-  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha", href: EXTERNAL_LINKS.DOWNLOADS },
+const fallbackSeeds: Array<Omit<Item, "slug">> = [
+  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo" },
+  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo" },
+  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist" },
+  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia" },
+  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo" },
+  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist" },
+  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha" },
+  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia" },
+  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo" },
+  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book" },
+  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist" },
+  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha" },
 ];
+
+const fallbackItems: Item[] = fallbackSeeds.map((it) => ({ ...it, slug: slugify(it.title) }));
 
 const typeIcon: Record<Item["type"], typeof FileText> = {
   Modelo: FileSignature,
@@ -75,7 +85,7 @@ function MateriaisPage() {
             tag: m.category,
             title: m.title,
             type: (m.type as MaterialType) ?? "Guia",
-            href: m.file_url || EXTERNAL_LINKS.DOWNLOADS,
+            slug: m.slug,
           })),
         );
       })
@@ -160,11 +170,10 @@ function MateriaisPage() {
             {filtered.map((it) => {
               const Icon = typeIcon[it.type];
               return (
-                <a
-                  key={it.title}
-                  href={it.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  key={it.slug}
+                  to="/materiais/$slug"
+                  params={{ slug: it.slug }}
                   className="group rounded-xl border border-border bg-card p-5 hover:shadow-card hover:-translate-y-0.5 transition flex items-start gap-4"
                 >
                   <div className="grid place-items-center w-12 h-12 rounded-lg bg-secondary text-ink-soft group-hover:bg-ink group-hover:text-background transition shrink-0">
@@ -179,10 +188,10 @@ function MateriaisPage() {
                       {it.title}
                     </h3>
                     <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-ink-soft group-hover:text-ink">
-                      <Download className="w-3.5 h-3.5" /> Baixar PDF
+                      <Download className="w-3.5 h-3.5" /> Ver material
                     </div>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>
