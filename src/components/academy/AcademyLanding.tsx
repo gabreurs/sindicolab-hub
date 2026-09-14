@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { useAcademyExperience } from "@/lib/tenant/TenantProvider";
 import { Eyebrow } from "./ui";
+import { CourseCoverPlaceholder } from "./CourseCoverPlaceholder";
 import { durationLabel, levelLabel, type AcademyCourse } from "./types";
 import heroBackdrop from "@/assets/v2/hero-condominio.webp";
 
@@ -48,11 +49,11 @@ export function AcademyLanding({
     <>
       <section className="ax-hero" data-tone="brand">
         <div className="ax-hero-media" aria-hidden>
-          <img src={hero?.cover_url || heroBackdrop} alt="" loading="eager" />
+          <img src={heroBackdrop} alt="" loading="eager" />
         </div>
         <span className="ax-hero-scrim" aria-hidden />
 
-        <div className="ax-container relative w-full">
+        <div className="ax-container relative grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)]">
           <div className="ax-hero-copy">
             <Eyebrow>{exp.copy.eyebrow}</Eyebrow>
             <h1 className="ax-display mt-3">{exp.copy.title}</h1>
@@ -78,17 +79,20 @@ export function AcademyLanding({
             </p>
           </div>
 
-          {/* Destaque real do acervo — título, nível e duração vindos do catálogo. */}
+          {/* Destaque real do acervo — capa quando existe, placa neutra quando
+              o curso ainda não tem capa. Nunca emprestamos imagem de outro. */}
           {hero && (
-            <div className="mt-9 max-w-[560px]">
-              <div
-                className="rounded-[14px] p-4 backdrop-blur-[2px]"
-                style={{ background: "var(--ax-veil-strong, rgba(10,10,12,.42))" }}
-              >
+            <div>
+              <div className="ax-hero-art">
+                {hero.cover_url ? (
+                  <img src={hero.cover_url} alt={hero.title} loading="eager" />
+                ) : (
+                  <CourseCoverPlaceholder title={hero.title} />
+                )}
+              </div>
+              <div className="mt-4">
                 <p className="ax-meta">Em destaque na Academy</p>
-                <p className="mt-1 text-[17px] font-medium leading-snug" style={{ color: "#fff" }}>
-                  {hero.title}
-                </p>
+                <p className="ax-card-title mt-1 text-[17px] leading-snug">{hero.title}</p>
                 <p className="ax-meta mt-1">
                   {[levelLabel(hero.level), durationLabel(hero.duration_minutes)].filter(Boolean).join(" · ") ||
                     "Curso interativo"}
@@ -104,7 +108,7 @@ export function AcademyLanding({
               </div>
 
               {highlights.length > 1 && (
-                <div className="mt-3 flex items-center gap-1.5" role="tablist" aria-label="Destaques">
+                <div className="mt-4 flex items-center gap-1.5" role="tablist" aria-label="Destaques">
                   {highlights.map((h, idx) => (
                     <button
                       key={h.id}
@@ -115,7 +119,7 @@ export function AcademyLanding({
                       className="h-1.5 rounded-full transition-all"
                       style={{
                         width: idx === i ? 26 : 12,
-                        background: idx === i ? "var(--tenant-accent)" : "rgba(255,255,255,.4)",
+                        background: idx === i ? "var(--tenant-accent)" : "var(--ax-border)",
                       }}
                     />
                   ))}
