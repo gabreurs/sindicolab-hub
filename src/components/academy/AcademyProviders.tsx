@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Navigate } from "@tanstack/react-router";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
-import { AuthProvider, useAuth } from "@/lib/auth/AuthProvider";
+import { useAuth } from "@/lib/auth/AuthProvider";
 import { TenantProvider } from "@/lib/tenant/TenantProvider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -13,12 +13,12 @@ import { Toaster } from "@/components/ui/sonner";
 export function AcademyProviders({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <TenantProvider>
-          {children}
-          <Toaster />
-        </TenantProvider>
-      </AuthProvider>
+      {/* AuthProvider vive na raiz: o site inteiro precisa saber quem está
+          logado para mostrar a área da pessoa e o botão "Sair". */}
+      <TenantProvider>
+        {children}
+        <Toaster />
+      </TenantProvider>
     </ThemeProvider>
   );
 }

@@ -442,10 +442,15 @@ const s1 = "course-ia-gestao-condominial";
 const s2 = "course-conselheiros-fiscais";
 const s3 = "course-porteiro-alta-performance";
 
-export const enrollments: Row[] = [
-  { id: "enr-1", user_id: USERS.studentCasa, course_id: s1, status: "active", created_at: iso(20) },
-  { id: "enr-2", user_id: USERS.studentCasa, course_id: s2, status: "active", created_at: iso(11) },
-];
+// A CASA contratou o acervo completo (organization_course_catalog), portanto o
+// aluno demo tem matrícula ativa em todos os cursos visíveis da organização.
+export const enrollments: Row[] = published.map((c, i) => ({
+  id: `enr-${i + 1}`,
+  user_id: USERS.studentCasa,
+  course_id: c.id,
+  status: "active",
+  created_at: iso(20 - (i % 10)),
+}));
 
 export const course_entitlements: Row[] = [
   { id: "ent-1", user_id: USERS.studentCasa, course_id: s3, expires_at: null, created_at: iso(8) },

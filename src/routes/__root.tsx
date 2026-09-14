@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 import { TransitionProvider } from "@/providers/TransitionProvider";
+import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { clearNativeScrollLock } from "@/lib/scroll-lock";
 import { WhatsAppDock } from "@/components/site/WhatsAppDock";
 
@@ -113,9 +114,11 @@ function RootComponent() {
   const showDock = !/^\/(admin|empresa|academy)(\/|$)/.test(pathname);
 
   return (
-    <TransitionProvider>
-      <Outlet />
-      {showDock && <WhatsAppDock />}
-    </TransitionProvider>
+    <AuthProvider>
+      <TransitionProvider>
+        <Outlet />
+        {showDock && <WhatsAppDock />}
+      </TransitionProvider>
+    </AuthProvider>
   );
 }
