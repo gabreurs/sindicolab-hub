@@ -42,7 +42,7 @@ function EventoPage() {
   return (
     <main className="min-h-screen bg-background text-ink flex flex-col">
       <Header />
-      <Breadcrumbs items={[{ label: "Eventos", href: "/eventos" }, { label: event?.title ?? "Evento" }]} />
+      <Breadcrumbs items={[{ label: "Eventos", to: "/eventos" }, { label: event?.title ?? "Evento" }]} />
 
       {loading ? (
         <section className="container-x py-20">
