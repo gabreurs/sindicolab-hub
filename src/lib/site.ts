@@ -8,6 +8,9 @@ export const STATIC_ROUTES: Array<{ path: string; changefreq?: string; priority?
   { path: "/portal", changefreq: "daily", priority: 0.9 },
   { path: "/play", changefreq: "weekly", priority: 0.8 },
   { path: "/materiais", changefreq: "weekly", priority: 0.8 },
+  { path: "/eventos", changefreq: "weekly", priority: 0.8 },
+  { path: "/academy", changefreq: "weekly", priority: 0.8 },
+  { path: "/academy/catalogo", changefreq: "weekly", priority: 0.7 },
   { path: "/patrocinios", changefreq: "monthly", priority: 0.7 },
   { path: "/quem-somos", changefreq: "monthly", priority: 0.6 },
 ];

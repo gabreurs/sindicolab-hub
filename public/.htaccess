@@ -10,6 +10,9 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
+  # Painéis e Academy também caem no index.html (SPA) — sem servidor Node.
+  # As regras abaixo são apenas redirecionamentos de URLs antigas.
+
   # 301 de URLs legadas
   RewriteRule ^blog/?$           /portal           [R=301,L]
   RewriteRule ^artigos/?$        /portal           [R=301,L]
