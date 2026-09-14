@@ -18,7 +18,6 @@ const cols = [
       { label: "Academy", href: "/academy" },
       { label: "Materiais", href: "/materiais" },
       { label: "Eventos", href: "/eventos" },
-      { label: "Academy", href: "/academy" },
       { label: "Patrocínios", href: "/patrocinios" },
       { label: "Contato", href: "mailto:contato@sindicolab.com", external: true },
     ],
@@ -57,7 +56,6 @@ const cols = [
   {
     label: "Cursos",
     items: [
-      { label: "SíndicoLab Academy", href: "/academy" },
       { label: "SíndicoLab Academy", href: "/academy" },
       { label: "Cursos para síndicos", href: "/academy" },
       { label: "Treinamento para equipe", href: "/academy" },
