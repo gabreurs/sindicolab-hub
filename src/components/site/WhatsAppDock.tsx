@@ -112,7 +112,7 @@ export function WhatsAppDock() {
             )}
             {step >= 1 && (
               <p className="wa-msg max-w-[15rem] rounded-2xl rounded-bl-md bg-background px-3.5 py-2.5 text-[13px] leading-snug text-ink shadow-sm">
-                Oi! Aqui é o Rafael, do SíndicoLab 👋
+                Oi! Aqui é o Rafael, do SíndicoLab.
               </p>
             )}
             {step >= 2 && (
