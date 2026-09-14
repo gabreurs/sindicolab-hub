@@ -366,6 +366,21 @@ courses
     });
   });
 
+/* ------------------- fontes de entrega (Learning Studio) ---------------- */
+
+// Espelha `course_delivery_sources` das migrations: o player só monta o
+// ambiente do Learning Studio quando encontra o embed_url do curso aqui.
+export const course_delivery_sources: Row[] = courses
+  .filter((c) => c.delivery_type === "learning_studio_embed" && c.embed_url)
+  .map((c) => ({
+    id: `cds-${c.slug}`,
+    course_id: c.id,
+    provider: "learning_studio",
+    embed_url: c.embed_url,
+    created_at: c.created_at,
+    updated_at: c.updated_at,
+  }));
+
 /* ---------------------- catálogo por organização ----------------------- */
 
 const published = courses.filter((c) => c.status === "published" && c.visibility === "global");
@@ -427,10 +442,15 @@ const s1 = "course-ia-gestao-condominial";
 const s2 = "course-conselheiros-fiscais";
 const s3 = "course-porteiro-alta-performance";
 
-export const enrollments: Row[] = [
-  { id: "enr-1", user_id: USERS.studentCasa, course_id: s1, status: "active", created_at: iso(20) },
-  { id: "enr-2", user_id: USERS.studentCasa, course_id: s2, status: "active", created_at: iso(11) },
-];
+// A CASA contratou o acervo completo (organization_course_catalog), portanto o
+// aluno demo tem matrícula ativa em todos os cursos visíveis da organização.
+export const enrollments: Row[] = published.map((c, i) => ({
+  id: `enr-${i + 1}`,
+  user_id: USERS.studentCasa,
+  course_id: c.id,
+  status: "active",
+  created_at: iso(20 - (i % 10)),
+}));
 
 export const course_entitlements: Row[] = [
   { id: "ent-1", user_id: USERS.studentCasa, course_id: s3, expires_at: null, created_at: iso(8) },
