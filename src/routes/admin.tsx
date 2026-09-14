@@ -1,4 +1,5 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { AcademyProviders, RequireAuth } from "@/components/academy/AcademyProviders";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth/AuthProvider";
@@ -20,8 +21,18 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: AdminPage,
+  component: AdminPageRoute,
 });
+
+function AdminPageRoute() {
+  return (
+    <AcademyProviders>
+      <RequireAuth>
+        <AdminPage />
+      </RequireAuth>
+    </AcademyProviders>
+  );
+}
 
 type Org = {
   id: string; slug: string; name: string; status: "active" | "suspended";

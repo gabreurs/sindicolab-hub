@@ -1,4 +1,5 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { AcademyProviders, RequireAuth } from "@/components/academy/AcademyProviders";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth/AuthProvider";
@@ -20,8 +21,18 @@ export const Route = createFileRoute("/empresa")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: EmpresaPage,
+  component: EmpresaPageRoute,
 });
+
+function EmpresaPageRoute() {
+  return (
+    <AcademyProviders>
+      <RequireAuth>
+        <EmpresaPage />
+      </RequireAuth>
+    </AcademyProviders>
+  );
+}
 
 type Member = {
   id: string; user_id: string;
