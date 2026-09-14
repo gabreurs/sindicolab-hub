@@ -366,6 +366,21 @@ courses
     });
   });
 
+/* ------------------- fontes de entrega (Learning Studio) ---------------- */
+
+// Espelha `course_delivery_sources` das migrations: o player só monta o
+// ambiente do Learning Studio quando encontra o embed_url do curso aqui.
+export const course_delivery_sources: Row[] = courses
+  .filter((c) => c.delivery_type === "learning_studio_embed" && c.embed_url)
+  .map((c) => ({
+    id: `cds-${c.slug}`,
+    course_id: c.id,
+    provider: "learning_studio",
+    embed_url: c.embed_url,
+    created_at: c.created_at,
+    updated_at: c.updated_at,
+  }));
+
 /* ---------------------- catálogo por organização ----------------------- */
 
 const published = courses.filter((c) => c.status === "published" && c.visibility === "global");
