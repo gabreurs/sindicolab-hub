@@ -4,6 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { BrandMark } from "./BrandMark";
 import marqoLogo from "@/assets/logo-marqo.svg";
+import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
+import { captureNewsletterEmail } from "@/services/newsletterService";
 
 
 
@@ -15,6 +17,8 @@ const cols = [
       { label: "Portal", href: "/portal" },
       { label: "Play", href: "/play" },
       { label: "Materiais", href: "/materiais" },
+      { label: "Eventos", href: "/eventos" },
+      { label: "Academy", href: "/academy" },
       { label: "Patrocínios", href: "/patrocinios" },
       { label: "Contato", href: "mailto:contato@sindicolab.com", external: true },
     ],
@@ -54,6 +58,7 @@ const cols = [
     label: "Cursos",
     items: [
       { label: "SíndicoLab Play", href: "/play" },
+      { label: "SíndicoLab Academy", href: "/academy" },
       { label: "Cursos para síndicos", href: "/play" },
       { label: "Treinamento para equipe", href: "/play" },
       { label: "Inteligência condominial", href: "/play" },
@@ -65,9 +70,10 @@ const cols = [
       { label: "Patrocinar experiências", href: "/patrocinios" },
       { label: "Baixar mídia kit", href: "/patrocinios" },
       { label: "Falar com a equipe", href: "mailto:contato@sindicolab.com", external: true },
-      { label: "WhatsApp", href: "https://wa.me/5511000000000", external: true },
-      { label: "Instagram", href: "https://instagram.com/sindicolab", external: true },
-      { label: "YouTube", href: "https://youtube.com/@sindicolab", external: true },
+      { label: "WhatsApp", href: whatsappRafaelUrl(), external: true },
+      { label: "Grupo no WhatsApp", href: EXTERNAL_LINKS.WHATSAPP_GROUP, external: true },
+      { label: "Instagram", href: EXTERNAL_LINKS.INSTAGRAM, external: true },
+      { label: "YouTube", href: EXTERNAL_LINKS.YOUTUBE, external: true },
     ],
   },
 ];
@@ -75,7 +81,22 @@ const cols = [
 export function Footer() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setBusy(true);
+    const result = await captureNewsletterEmail(email);
+    setBusy(false);
+    if (!result.ok) {
+      setError("Digite um e-mail válido para continuar.");
+      return;
+    }
+    // A assinatura é concluída no Substack.
+    window.open(result.redirectTo, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <footer id="newsletter" className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden scroll-mt-[var(--header-h)]">
@@ -95,7 +116,7 @@ export function Footer() {
             </p>
           </div>
           <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+            onSubmit={handleSubscribe}
             className="lg:col-span-7 grid sm:grid-cols-5 gap-3 self-end"
           >
             <input
@@ -115,8 +136,16 @@ export function Footer() {
               className="sm:col-span-2 px-4 py-3 rounded-full bg-background/10 border border-background/15 text-sm placeholder:text-background/45 focus:outline-none focus:border-cyan transition"
             />
             <button type="submit" className="btn-primary justify-center" style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}>
-              {sent ? "Inscrito ✓" : "Inscrever-se"}
+              {busy ? "Abrindo…" : "Assinar newsletter"}
             </button>
+            {error && (
+              <p role="alert" className="sm:col-span-5 -mt-1 px-4 text-xs text-red-300">
+                {error}
+              </p>
+            )}
+            <p className="sm:col-span-5 px-4 text-[11px] leading-relaxed text-background/45">
+              A confirmação da assinatura acontece no Substack do SíndicoLab.
+            </p>
           </form>
         </div>
 
@@ -169,8 +198,8 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <a href="https://instagram.com/sindicolab" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Instagram className="w-3.5 h-3.5" /></a>
-              <a href="https://youtube.com/@sindicolab" target="_blank" rel="noreferrer" aria-label="YouTube" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Youtube className="w-3.5 h-3.5" /></a>
+              <a href={EXTERNAL_LINKS.INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Instagram className="w-3.5 h-3.5" /></a>
+              <a href={EXTERNAL_LINKS.YOUTUBE} target="_blank" rel="noreferrer" aria-label="YouTube" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Youtube className="w-3.5 h-3.5" /></a>
               <a href="https://linkedin.com/company/sindicolab" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid place-items-center w-8 h-8 rounded-full border border-background/15 hover:bg-background hover:text-ink transition"><Linkedin className="w-3.5 h-3.5" /></a>
             </div>
             <a

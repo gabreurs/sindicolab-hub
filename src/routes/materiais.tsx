@@ -2,9 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, Download, FileText, ListChecks, BookOpen, Sheet, FileSignature, Mail } from "lucide-react";
 import { buildSeo } from "@/lib/seo";
+import { materialsService } from "@/services/materialsService";
+import { captureNewsletterEmail } from "@/services/newsletterService";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 
 export const Route = createFileRoute("/materiais")({
   head: () =>
@@ -24,21 +27,23 @@ export const Route = createFileRoute("/materiais")({
   component: MateriaisPage,
 });
 
-type Item = { tag: string; title: string; type: "Modelo" | "Checklist" | "Guia" | "Planilha" | "E-book" };
+type MaterialType = "Modelo" | "Checklist" | "Guia" | "Planilha" | "E-book";
+type Item = { tag: string; title: string; type: MaterialType; href: string };
 
-const items: Item[] = [
-  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo" },
-  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo" },
-  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist" },
-  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia" },
-  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo" },
-  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist" },
-  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha" },
-  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia" },
-  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo" },
-  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book" },
-  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist" },
-  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha" },
+/** Lista base — permanece como garantia caso a biblioteca não responda. */
+const fallbackItems: Item[] = [
+  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist", href: EXTERNAL_LINKS.DOWNLOADS },
+  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha", href: EXTERNAL_LINKS.DOWNLOADS },
 ];
 
 const typeIcon: Record<Item["type"], typeof FileText> = {
@@ -54,6 +59,42 @@ const filters: Array<"Todos" | Item["type"]> = ["Todos", "Modelo", "Checklist", 
 function MateriaisPage() {
   const [q, setQ] = useState("");
   const [f, setF] = useState<(typeof filters)[number]>("Todos");
+  const [items, setItems] = useState<Item[]>(fallbackItems);
+  const [email, setEmail] = useState("");
+  const [mailError, setMailError] = useState<string | null>(null);
+
+  // A biblioteca é gerida no painel; a lista fixa segue como reserva.
+  useEffect(() => {
+    let cancelled = false;
+    materialsService
+      .list()
+      .then((rows) => {
+        if (cancelled || rows.length === 0) return;
+        setItems(
+          rows.map((m) => ({
+            tag: m.category,
+            title: m.title,
+            type: (m.type as MaterialType) ?? "Guia",
+            href: m.file_url || EXTERNAL_LINKS.DOWNLOADS,
+          })),
+        );
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function handleMaterialsNewsletter(e: React.FormEvent) {
+    e.preventDefault();
+    setMailError(null);
+    const result = await captureNewsletterEmail(email);
+    if (!result.ok) {
+      setMailError("Digite um e-mail válido para continuar.");
+      return;
+    }
+    window.open(result.redirectTo, "_blank", "noopener,noreferrer");
+  }
 
   const filtered = useMemo(
     () =>
@@ -62,7 +103,7 @@ function MateriaisPage() {
           (f === "Todos" || i.type === f) &&
           (q === "" || i.title.toLowerCase().includes(q.toLowerCase()) || i.tag.toLowerCase().includes(q.toLowerCase())),
       ),
-    [q, f],
+    [q, f, items],
   );
 
   return (
@@ -121,9 +162,9 @@ function MateriaisPage() {
               return (
                 <a
                   key={it.title}
-                  href="https://downloads.sindicolab.com/"
+                  href={it.href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="group rounded-xl border border-border bg-card p-5 hover:shadow-card hover:-translate-y-0.5 transition flex items-start gap-4"
                 >
                   <div className="grid place-items-center w-12 h-12 rounded-lg bg-secondary text-ink-soft group-hover:bg-ink group-hover:text-background transition shrink-0">
@@ -166,10 +207,12 @@ function MateriaisPage() {
               Toda semana, novos modelos, checklists e guias práticos para a sua rotina de síndico.
             </p>
           </div>
-          <form className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={handleMaterialsNewsletter} className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
               className="flex-1 px-4 py-3 rounded-full border border-white/20 bg-white/5 text-background placeholder:text-white/40 focus:outline-none focus:border-cyan"
             />
@@ -177,6 +220,11 @@ function MateriaisPage() {
               Inscrever
             </button>
           </form>
+          {mailError && (
+            <p role="alert" className="text-xs text-red-300 md:col-start-2">
+              {mailError}
+            </p>
+          )}
         </div>
       </section>
 

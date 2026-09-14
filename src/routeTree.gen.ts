@@ -16,13 +16,25 @@ import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
+import { Route as EventosRouteImport } from './routes/eventos'
+import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtigosRouteImport } from './routes/artigos'
 import { Route as AnuncieRouteImport } from './routes/anuncie'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
+import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
+import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.solicitar-acesso'
+import { Route as AcademyLoginRouteImport } from './routes/academy.login'
+import { Route as AcademyInicioRouteImport } from './routes/academy.inicio'
+import { Route as AcademyCatalogoRouteImport } from './routes/academy.catalogo'
+import { Route as AcademyCursoCourseSlugRouteImport } from './routes/academy.curso.$courseSlug'
+import { Route as AcademyCursoCourseSlugAprenderRouteImport } from './routes/academy.curso_.$courseSlug.aprender'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
@@ -59,6 +71,16 @@ const MateriaisRoute = MateriaisRouteImport.update({
   path: '/materiais',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventosRoute = EventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmpresaRoute = EmpresaRouteImport.update({
+  id: '/empresa',
+  path: '/empresa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DownloadsRoute = DownloadsRouteImport.update({
   id: '/downloads',
   path: '/downloads',
@@ -84,24 +106,79 @@ const AnuncieRoute = AnuncieRouteImport.update({
   path: '/anuncie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AcademyIndexRoute = AcademyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AcademyRoute,
 } as any)
 const PortalSlugRoute = PortalSlugRouteImport.update({
   id: '/portal_/$slug',
   path: '/portal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventosSlugRoute = EventosSlugRouteImport.update({
+  id: '/eventos_/$slug',
+  path: '/eventos/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademySolicitarAcessoRoute = AcademySolicitarAcessoRouteImport.update({
+  id: '/solicitar-acesso',
+  path: '/solicitar-acesso',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyLoginRoute = AcademyLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyInicioRoute = AcademyInicioRouteImport.update({
+  id: '/inicio',
+  path: '/inicio',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyCatalogoRoute = AcademyCatalogoRouteImport.update({
+  id: '/catalogo',
+  path: '/catalogo',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyCursoCourseSlugRoute = AcademyCursoCourseSlugRouteImport.update({
+  id: '/curso/$courseSlug',
+  path: '/curso/$courseSlug',
+  getParentRoute: () => AcademyRoute,
+} as any)
+const AcademyCursoCourseSlugAprenderRoute =
+  AcademyCursoCourseSlugAprenderRouteImport.update({
+    id: '/curso_/$courseSlug/aprender',
+    path: '/curso/$courseSlug/aprender',
+    getParentRoute: () => AcademyRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRouteWithChildren
+  '/admin': typeof AdminRoute
   '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
+  '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -109,15 +186,26 @@ export interface FileRoutesByFullPath {
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
+  '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/inicio': typeof AcademyInicioRoute
+  '/academy/login': typeof AcademyLoginRoute
+  '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
+  '/academy/': typeof AcademyIndexRoute
+  '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
+  '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -125,16 +213,28 @@ export interface FileRoutesByTo {
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
+  '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/inicio': typeof AcademyInicioRoute
+  '/academy/login': typeof AcademyLoginRoute
+  '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
+  '/academy': typeof AcademyIndexRoute
+  '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRouteWithChildren
+  '/admin': typeof AdminRoute
   '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
+  '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -142,17 +242,29 @@ export interface FileRoutesById {
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
+  '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/inicio': typeof AcademyInicioRoute
+  '/academy/login': typeof AcademyLoginRoute
+  '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos_/$slug': typeof EventosSlugRoute
   '/portal_/$slug': typeof PortalSlugRoute
+  '/academy/': typeof AcademyIndexRoute
+  '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/curso_/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/academy'
+    | '/admin'
     | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
     | '/downloads'
+    | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -160,15 +272,26 @@ export interface FileRouteTypes {
     | '/portal'
     | '/quem-somos'
     | '/sobre'
+    | '/academy/catalogo'
+    | '/academy/inicio'
+    | '/academy/login'
+    | '/academy/solicitar-acesso'
+    | '/eventos/$slug'
     | '/portal/$slug'
+    | '/academy/'
+    | '/academy/curso/$courseSlug'
+    | '/academy/curso/$courseSlug/aprender'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
     | '/downloads'
+    | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -176,15 +299,27 @@ export interface FileRouteTypes {
     | '/portal'
     | '/quem-somos'
     | '/sobre'
+    | '/academy/catalogo'
+    | '/academy/inicio'
+    | '/academy/login'
+    | '/academy/solicitar-acesso'
+    | '/eventos/$slug'
     | '/portal/$slug'
+    | '/academy'
+    | '/academy/curso/$courseSlug'
+    | '/academy/curso/$courseSlug/aprender'
   id:
     | '__root__'
     | '/'
+    | '/academy'
+    | '/admin'
     | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
     | '/downloads'
+    | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -192,16 +327,28 @@ export interface FileRouteTypes {
     | '/portal'
     | '/quem-somos'
     | '/sobre'
+    | '/academy/catalogo'
+    | '/academy/inicio'
+    | '/academy/login'
+    | '/academy/solicitar-acesso'
+    | '/eventos_/$slug'
     | '/portal_/$slug'
+    | '/academy/'
+    | '/academy/curso/$courseSlug'
+    | '/academy/curso_/$courseSlug/aprender'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademyRoute: typeof AcademyRouteWithChildren
+  AdminRoute: typeof AdminRoute
   AnuncieRoute: typeof AnuncieRoute
   ArtigosRoute: typeof ArtigosRoute
   BlogRoute: typeof BlogRoute
   CursosRoute: typeof CursosRoute
   DownloadsRoute: typeof DownloadsRoute
+  EmpresaRoute: typeof EmpresaRoute
+  EventosRoute: typeof EventosRoute
   MateriaisRoute: typeof MateriaisRoute
   MidiaKitRoute: typeof MidiaKitRoute
   PatrociniosRoute: typeof PatrociniosRoute
@@ -209,6 +356,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
+  EventosSlugRoute: typeof EventosSlugRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
 
@@ -263,6 +411,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MateriaisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/eventos': {
+      id: '/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof EventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empresa': {
+      id: '/empresa'
+      path: '/empresa'
+      fullPath: '/empresa'
+      preLoaderRoute: typeof EmpresaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/downloads': {
       id: '/downloads'
       path: '/downloads'
@@ -298,12 +460,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnuncieRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/academy/': {
+      id: '/academy/'
+      path: '/'
+      fullPath: '/academy/'
+      preLoaderRoute: typeof AcademyIndexRouteImport
+      parentRoute: typeof AcademyRoute
     }
     '/portal_/$slug': {
       id: '/portal_/$slug'
@@ -312,16 +495,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/eventos_/$slug': {
+      id: '/eventos_/$slug'
+      path: '/eventos/$slug'
+      fullPath: '/eventos/$slug'
+      preLoaderRoute: typeof EventosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy/solicitar-acesso': {
+      id: '/academy/solicitar-acesso'
+      path: '/solicitar-acesso'
+      fullPath: '/academy/solicitar-acesso'
+      preLoaderRoute: typeof AcademySolicitarAcessoRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/login': {
+      id: '/academy/login'
+      path: '/login'
+      fullPath: '/academy/login'
+      preLoaderRoute: typeof AcademyLoginRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/inicio': {
+      id: '/academy/inicio'
+      path: '/inicio'
+      fullPath: '/academy/inicio'
+      preLoaderRoute: typeof AcademyInicioRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/catalogo': {
+      id: '/academy/catalogo'
+      path: '/catalogo'
+      fullPath: '/academy/catalogo'
+      preLoaderRoute: typeof AcademyCatalogoRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/curso/$courseSlug': {
+      id: '/academy/curso/$courseSlug'
+      path: '/curso/$courseSlug'
+      fullPath: '/academy/curso/$courseSlug'
+      preLoaderRoute: typeof AcademyCursoCourseSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/curso_/$courseSlug/aprender': {
+      id: '/academy/curso_/$courseSlug/aprender'
+      path: '/curso/$courseSlug/aprender'
+      fullPath: '/academy/curso/$courseSlug/aprender'
+      preLoaderRoute: typeof AcademyCursoCourseSlugAprenderRouteImport
+      parentRoute: typeof AcademyRoute
+    }
   }
 }
 
+interface AcademyRouteChildren {
+  AcademyCatalogoRoute: typeof AcademyCatalogoRoute
+  AcademyInicioRoute: typeof AcademyInicioRoute
+  AcademyLoginRoute: typeof AcademyLoginRoute
+  AcademySolicitarAcessoRoute: typeof AcademySolicitarAcessoRoute
+  AcademyIndexRoute: typeof AcademyIndexRoute
+  AcademyCursoCourseSlugRoute: typeof AcademyCursoCourseSlugRoute
+  AcademyCursoCourseSlugAprenderRoute: typeof AcademyCursoCourseSlugAprenderRoute
+}
+
+const AcademyRouteChildren: AcademyRouteChildren = {
+  AcademyCatalogoRoute: AcademyCatalogoRoute,
+  AcademyInicioRoute: AcademyInicioRoute,
+  AcademyLoginRoute: AcademyLoginRoute,
+  AcademySolicitarAcessoRoute: AcademySolicitarAcessoRoute,
+  AcademyIndexRoute: AcademyIndexRoute,
+  AcademyCursoCourseSlugRoute: AcademyCursoCourseSlugRoute,
+  AcademyCursoCourseSlugAprenderRoute: AcademyCursoCourseSlugAprenderRoute,
+}
+
+const AcademyRouteWithChildren =
+  AcademyRoute._addFileChildren(AcademyRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademyRoute: AcademyRouteWithChildren,
+  AdminRoute: AdminRoute,
   AnuncieRoute: AnuncieRoute,
   ArtigosRoute: ArtigosRoute,
   BlogRoute: BlogRoute,
   CursosRoute: CursosRoute,
   DownloadsRoute: DownloadsRoute,
+  EmpresaRoute: EmpresaRoute,
+  EventosRoute: EventosRoute,
   MateriaisRoute: MateriaisRoute,
   MidiaKitRoute: MidiaKitRoute,
   PatrociniosRoute: PatrociniosRoute,
@@ -329,6 +588,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,
+  EventosSlugRoute: EventosSlugRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport

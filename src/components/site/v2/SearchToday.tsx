@@ -6,6 +6,9 @@ import iconDownloads from "@/assets/v2/icon-downloads.webp";
 import iconAgenda from "@/assets/v2/icon-agenda.webp";
 import iconSindico from "@/assets/v2/icon-sindico.webp";
 import iconInstagram from "@/assets/v2/icon-instagram.webp";
+import iconYoutube from "@/assets/v2/icon-youtube.webp";
+import iconAcademy from "@/assets/v2/icon-academy.webp";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 
 type Item = {
   title: string;
@@ -20,18 +23,25 @@ const items: Item[] = [
   { title: "Blog", desc: ["Ideias que movimentam", "o mercado"], icon: iconBlog, to: "/portal" },
   { title: "Newsletter", desc: ["Uma nova perspectiva", "na sua caixa de entrada"], icon: iconNewsletter, href: "#newsletter" },
   { title: "Downloads", desc: ["Materiais para aplicar", "na sua gestão"], icon: iconDownloads, to: "/materiais" },
-  { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/quem-somos" },
+  { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/eventos" },
+  { title: "SíndicoLab Academy", desc: ["Sua trilha de cursos", "em um só lugar"], icon: iconAcademy, to: "/academy" },
   {
     title: "Quero um síndico",
     desc: ["Encontre o profissional", "para seu condomínio"],
     icon: iconSindico,
-    href: "https://quero1sindico.com/",
+    href: EXTERNAL_LINKS.QUERO1SINDICO,
+  },
+  {
+    title: "YouTube SíndicoLab",
+    desc: ["Vídeos e lives sobre", "gestão condominial"],
+    icon: iconYoutube,
+    href: EXTERNAL_LINKS.YOUTUBE,
   },
   {
     title: "Instagram SíndicoLab",
     desc: ["Acompanhe nossas", "conversas"],
     icon: iconInstagram,
-    href: "https://instagram.com/sindicolab",
+    href: EXTERNAL_LINKS.INSTAGRAM,
     featured: true,
   },
 ];
@@ -49,7 +59,7 @@ export function SearchToday() {
         </h2>
 
         <div
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           style={{ marginTop: "clamp(0.75rem, 1.6svh, 1.5rem)" }}
         >
           {items.map((it, i) => (
@@ -128,7 +138,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
     <a
       href={item.href}
       target={isInternal ? undefined : "_blank"}
-      rel={isInternal ? undefined : "noreferrer"}
+      rel={isInternal ? undefined : "noopener noreferrer"}
       aria-label={item.title}
       className={wrapper}
       style={style}

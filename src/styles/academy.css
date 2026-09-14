@@ -1,0 +1,1114 @@
+/* SindicoLab Academy - camada visual migrada de academy-nexus-89.
+   Escopada em .academy / .player-shell / .ax-* / .cx-* / .admin-console. */
+
+/* ---------- Tokens do TENANT (light editorial default = SíndicoLab) ---------- */
+:root {
+
+  /* OKLCH reais extraídos de gabreurs/sindicolab-hub (src/styles.css) */
+  --brand-primary:   oklch(0.13 0.022 255);   /* ink */
+  --brand-secondary: oklch(0.16 0.022 255);   /* foreground */
+  --brand-accent:    oklch(0.55 0.21 258);    /* brand */
+  --brand-accent-deep: oklch(0.4 0.2 262);    /* brand-deep */
+  --brand-soft:      oklch(0.93 0.05 255);    /* brand-soft */
+  --brand-bg:        oklch(0.985 0.003 240);  /* background */
+  --brand-surface:   oklch(1 0 0);            /* surface-elevated / card */
+  --brand-surface-2: oklch(0.97 0.005 240);   /* surface */
+  --brand-text:      oklch(0.13 0.022 255);   /* ink */
+  --brand-muted:     oklch(0.45 0.018 255);   /* ink-soft */
+  --brand-border:    oklch(0.9 0.008 245);    /* border */
+  --shadow-brand:    0 16px 50px oklch(0.5 0.2 262 / 0.32);
+
+  /* Ponte semântica: acento do tenant, herda do branding.
+     No player escuro é a ÚNICA cor de marca que sobrevive. */
+  --tenant-accent:      var(--brand-accent);
+  --tenant-accent-soft: color-mix(in oklab, var(--tenant-accent) 18%, transparent);
+  --tenant-accent-ink:  #ffffff;
+  /* Tinta legível sobre o accent. Calculada pelo TenantProvider a partir
+     da luminância real do branding (nunca assumida como branco/preto). */
+  --tenant-accent-contrast: #ffffff;
+
+  /* Gradientes institucionais (Studio Marqo / Lab) */
+    oklch(0.45 0.20 262) 0%,
+    oklch(0.55 0.22 285) 50%,
+    oklch(0.78 0.14 220) 100%);
+    oklch(0.18 0.025 255), oklch(0.08 0.02 255));
+
+
+  /* ---------- Player: palco escuro FIXO (não muda por tenant) ---------- */
+  --player-bg:        #05070E;
+  --player-surface:   #0B0F1C;
+  --player-surface-2: #131A2C;
+  --player-ink:       #F7FAFF;
+  --player-ink-soft:  rgba(247, 250, 255, 0.68);
+  --player-border:    rgba(247, 250, 255, 0.08);
+  --player-hover:     rgba(247, 250, 255, 0.04);
+}
+
+/* ============================================================
+   PLAYER SHELL — área do aluno.
+   Aplicado em rotas /inicio e /curso/(slug)/aprender via className.
+   Fundo / superfícies / tipografia FIXOS para todos os tenants.
+   O ÚNICO respiro de marca é --tenant-accent (herda do branding).
+   ============================================================ */
+.player-shell {
+  background: var(--player-bg);
+  color: var(--player-ink);
+  min-height: 100vh;
+}
+.player-shell .player-surface   { background: var(--player-surface); }
+.player-shell .player-surface-2 { background: var(--player-surface-2); }
+.player-shell .player-border    { border-color: var(--player-border); }
+.player-shell .player-muted     { color: var(--player-ink-soft); }
+.player-shell .player-accent    { color: var(--tenant-accent); }
+.player-shell .player-cta {
+  background: var(--tenant-accent);
+  color: var(--tenant-accent-ink);
+  border-radius: 999px;
+  padding: .6rem 1.15rem;
+  font-weight: 500;
+  transition: filter .2s ease;
+}
+.player-shell .player-cta:hover { filter: brightness(1.08); }
+
+/* Sobrescreve o "brand-*" dentro do player para tudo virar acento neutro
+   — evita que fundos de marca clara vazem para o palco escuro. */
+.player-shell .brand-btn      { background: var(--tenant-accent); color: var(--tenant-accent-ink); }
+.player-shell .brand-surface  { background: var(--player-surface); }
+.player-shell .brand-surface-2{ background: var(--player-surface-2); }
+.player-shell .brand-border   { border-color: var(--player-border); }
+.player-shell .brand-accent   { color: var(--tenant-accent); }
+.player-shell .brand-text-muted { color: var(--player-ink-soft); }
+
+/* Header adere ao palco escuro quando dentro do player-shell */
+.player-shell > header {
+  background: color-mix(in oklab, var(--player-bg) 82%, transparent) !important;
+  border-color: var(--player-border) !important;
+}
+.player-shell > header a,
+.player-shell > header button { color: var(--player-ink) !important; }
+.player-shell > header .brand-text-muted { color: var(--player-ink-soft) !important; }
+
+/* Header integrado à hero (sem separador) quando existe .player-shell.has-hero-header */
+.player-shell.has-hero-header > header {
+  background: linear-gradient(180deg, rgba(5,7,14,.75) 0%, rgba(5,7,14,.25) 60%, transparent 100%) !important;
+  border-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Cover-art fallback: gradientes cinematográficos determinísticos */
+.cover-art {
+  position: relative;
+  overflow: hidden;
+  background: #0a0f1e;
+}
+.cover-art::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 80% at 20% 30%, color-mix(in srgb, var(--tenant-accent) 34%, transparent) 0%, transparent 58%),
+    linear-gradient(160deg, #141414 0%, #090909 100%);
+}
+.cover-art::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.15), transparent 50%),
+    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,.12), transparent 50%),
+    radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,.10), transparent 50%);
+  mix-blend-mode: screen;
+  opacity: .6;
+}
+.cover-art > .cover-art-title {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end;
+  padding: 14px 16px;
+  font-family: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: rgba(247,250,255,.95);
+  font-size: clamp(18px, 2.4vw, 28px);
+  text-shadow: 0 2px 24px rgba(0,0,0,.55);
+  z-index: 1;
+}
+
+/* Rails fora da viewport não pagam layout/paint (scroll fluido com 25+ cards) */
+.rail-section { content-visibility: auto; contain-intrinsic-size: 340px; }
+
+/* Rail scroller — esconde scrollbar mas mantém funcional */
+.rail-scroller { scrollbar-width: none; }
+.rail-scroller::-webkit-scrollbar { display: none; }
+
+/* Rail card hover reveal (desktop) */
+.rail-card { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+@media (hover: hover) {
+  .rail-card:hover { transform: translateY(-4px) scale(1.02); z-index: 2; }
+  .rail-card:hover .rail-card-reveal { opacity: 1; transform: translateY(0); }
+}
+.rail-card-reveal {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+/* Swap de logos: padrão = fundo claro (ink). Player-shell = fundo escuro (white). */
+.logo-on-dark { display: none; }
+.player-shell .logo-on-light { display: none; }
+.player-shell .logo-on-dark  { display: inline-block; }
+
+/* Hero do player */
+.player-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--player-bg);
+}
+.player-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, color-mix(in oklab, var(--tenant-accent) 14%, transparent), transparent 55%),
+    linear-gradient(180deg, #0C0C0C 0%, #090909 100%);
+  z-index: 0;
+}
+.player-hero > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   ACADEMY — CAMADA 1: ESTRUTURA GLOBAL COMPARTILHADA
+
+   Superfícies, contraste, tipografia, spacing, raios, estados.
+   Estes valores são IGUAIS para SíndicoLab, Guarida, CASA e qualquer
+   tenant futuro. Nenhuma organização pode sobrescrevê-los — é isso que
+   impede branding ruim de destruir a legibilidade do produto.
+
+   CAMADA 2 (tenant) entra apenas por --tenant-accent /
+   --tenant-accent-contrast, escritos pelo TenantProvider a partir de
+   organization_branding.
+   ============================================================ */
+.academy {
+  --academy-bg:         #090909;
+  --academy-surface-1:  #0F0F0F;
+  --academy-surface-2:  #151515;
+  --academy-surface-3:  #1B1B1B;
+
+  --academy-text:        #F5F5F5;
+  --academy-text-muted:  #A3A3A3;
+  --academy-text-subtle: #737373;
+
+  --academy-border:        rgba(255,255,255,.08);
+  --academy-border-strong: rgba(255,255,255,.14);
+
+  --academy-shadow: 0 1px 0 rgba(255,255,255,.04), 0 18px 50px rgba(0,0,0,.55);
+
+  background: var(--academy-bg);
+  color: var(--academy-text);
+  min-height: 100vh;
+}
+
+/* Container único de todas as superfícies tenant-facing */
+.academy-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px) { .academy-container { padding-inline: 32px; } }
+@media (min-width: 1280px) { .academy-container { padding-inline: 48px; } }
+
+.academy .academy-surface   { background: var(--academy-surface-1); }
+.academy .academy-surface-2 { background: var(--academy-surface-2); }
+.academy .academy-surface-3 { background: var(--academy-surface-3); }
+.academy .academy-border    { border-color: var(--academy-border); }
+.academy .academy-muted     { color: var(--academy-text-muted); }
+.academy .academy-subtle    { color: var(--academy-text-subtle); }
+.academy .academy-accent    { color: var(--tenant-accent); }
+
+/* --- CTA primário global: única superfície pintada pelo accent --- */
+.academy .academy-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  height: 48px;
+  padding-inline: 24px;
+  border-radius: 999px;
+  background: var(--tenant-accent);
+  color: var(--tenant-accent-contrast);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  border: 0;
+  transition: filter .18s ease, transform .18s ease;
+}
+.academy .academy-cta:hover { filter: brightness(1.08); }
+.academy .academy-cta:active { transform: translateY(1px); }
+.academy .academy-cta:disabled { filter: grayscale(.5) brightness(.75); cursor: not-allowed; }
+
+/* --- CTA secundário global: NUNCA recebe cor do tenant --- */
+.academy .academy-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  height: 48px;
+  padding-inline: 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  color: #F5F5F5;
+  border: 1px solid rgba(255,255,255,.12);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  transition: background .18s ease;
+}
+.academy .academy-cta-secondary:hover { background: rgba(255,255,255,.13); }
+
+/* Botão-ícone circular (lista, navegação de rail) */
+.academy .academy-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; width: 44px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #F5F5F5;
+  transition: background .18s ease;
+}
+.academy .academy-icon-btn:hover { background: rgba(255,255,255,.13); }
+.academy .academy-icon-btn[data-active="true"] {
+  background: color-mix(in srgb, var(--tenant-accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--tenant-accent) 55%, transparent);
+}
+
+/* Chip / badge estrutural. Accent só como detalhe (variante). */
+.academy .academy-chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  background: rgba(255,255,255,.07);
+  color: #D4D4D4;
+  border: 1px solid rgba(255,255,255,.09);
+}
+.academy .academy-chip[data-tone="accent"] {
+  background: color-mix(in srgb, var(--tenant-accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--tenant-accent) 40%, transparent);
+  color: #FFFFFF;
+}
+.academy .academy-chip[data-tone="solid"] {
+  background: var(--tenant-accent);
+  border-color: transparent;
+  color: var(--tenant-accent-contrast);
+  font-weight: 600;
+}
+
+/* --- Header global --- */
+.academy-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 72px;
+  background: rgba(9,9,9,.82);
+  backdrop-filter: blur(14px);
+}
+@media (min-width: 1024px) { .academy-header { height: 80px; } }
+.academy-header[data-transparent="true"] {
+  background: linear-gradient(180deg, rgba(9,9,9,.85) 0%, rgba(9,9,9,.35) 60%, transparent 100%);
+  backdrop-filter: none;
+}
+.academy-header[data-scrolled="true"] {
+  background: rgba(9,9,9,.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.06);
+}
+.academy-nav-link {
+  color: rgba(255,255,255,.78);
+  font-size: 15px;
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  transition: color .18s ease, background .18s ease;
+}
+.academy-nav-link:hover { color: #FFFFFF; background: rgba(255,255,255,.06); }
+.academy-nav-link[data-active="true"] { color: #FFFFFF; }
+
+/* --- Hero compartilhada --- */
+.academy-hero { position: relative; isolation: isolate; overflow: hidden; }
+.academy-hero-media { position: absolute; inset: 0; }
+.academy-hero-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, #090909 0%, rgba(9,9,9,.96) 30%, rgba(9,9,9,.68) 58%, rgba(9,9,9,.15) 100%),
+    linear-gradient(0deg, #090909 0%, rgba(9,9,9,.35) 28%, rgba(9,9,9,0) 60%);
+}
+.academy-hero-title {
+  font-size: clamp(34px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 550;
+  text-wrap: balance;
+}
+.academy-hero-desc {
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 560px;
+  color: var(--academy-text-muted);
+}
+@media (min-width: 1024px) { .academy-hero-desc { font-size: 19px; } }
+
+/* --- Rails --- */
+.academy-rail { content-visibility: auto; contain-intrinsic-size: 320px; }
+.academy-rail-title {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+@media (min-width: 1024px) { .academy-rail-title { font-size: 24px; } }
+.academy-rail-scroller {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding-block: 4px 8px;
+}
+.academy-rail-scroller::-webkit-scrollbar { display: none; }
+
+/* --- Card compartilhado --- */
+.academy-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 260px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--academy-surface-2);
+  box-shadow: var(--academy-shadow);
+  scroll-snap-align: start;
+  transition: transform .2s cubic-bezier(.2,.7,.2,1);
+}
+@media (min-width: 768px)  { .academy-card { width: 300px; } }
+@media (min-width: 1280px) { .academy-card { width: 328px; } }
+@media (hover: hover) {
+  .academy-card:hover { transform: scale(1.025); z-index: 2; }
+  .academy-card:hover .academy-card-actions { opacity: 1; transform: translateY(0); }
+}
+.academy-card-grid { width: 100%; }
+.academy-card-actions {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+@media (hover: none) { .academy-card-actions { opacity: 1; transform: none; } }
+
+/* Estados globais */
+.academy .academy-skeleton {
+  background: linear-gradient(90deg, #151515 25%, #1E1E1E 50%, #151515 75%);
+  background-size: 200% 100%;
+  animation: academy-shimmer 1.4s linear infinite;
+}
+@keyframes academy-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+.academy input, .academy textarea, .academy select {
+  background: var(--academy-surface-2);
+  border: 1px solid var(--academy-border);
+  color: var(--academy-text);
+  border-radius: 12px;
+}
+.academy input::placeholder, .academy textarea::placeholder { color: var(--academy-text-subtle); }
+.academy input:focus-visible, .academy textarea:focus-visible, .academy select:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--tenant-accent) 70%, transparent);
+  outline-offset: 1px;
+}
+.academy :focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--tenant-accent) 70%, transparent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   ADMIN CONSOLE — identidade neutra fixa.
+   Não herda branding do tenant selecionado no switcher.
+   ============================================================ */
+.admin-console {
+  /* Console = ferramenta interna. Light-first, neutro, sem tinta de tenant. */
+  --c-canvas:      oklch(0.985 0.002 255);
+  --c-surface:     oklch(1 0 0);
+  --c-surface-2:   oklch(0.972 0.003 255);
+  --c-text:        oklch(0.22 0.015 255);
+  --c-muted:       oklch(0.53 0.012 255);
+  --c-border:      oklch(0.22 0.015 255 / 0.12);
+  --c-border-soft: oklch(0.22 0.015 255 / 0.07);
+  --c-focus:       oklch(0.55 0.13 255);
+  --c-danger:      oklch(0.55 0.19 25);
+  --c-ok:          oklch(0.55 0.12 155);
+  --c-warn:        oklch(0.66 0.13 75);
+  --c-shadow:      0 1px 2px oklch(0.22 0.015 255 / 0.05), 0 8px 24px -16px oklch(0.22 0.015 255 / 0.28);
+
+  /* compat com utilitários brand-* legados dentro do console */
+  --brand-primary:   var(--c-text);
+  --brand-secondary: var(--c-muted);
+  --brand-accent:    var(--c-focus);
+  --brand-bg:        var(--c-canvas);
+  --brand-surface:   var(--c-surface);
+  --brand-surface-2: var(--c-surface-2);
+  --brand-text:      var(--c-text);
+  --brand-muted:     var(--c-muted);
+  --brand-border:    var(--c-border);
+  --tenant-accent:      var(--c-focus);
+  --tenant-accent-ink:  oklch(1 0 0);
+
+  background: var(--c-canvas);
+  color: var(--c-text);
+  min-height: 100vh;
+  font-synthesis-weight: none;
+  letter-spacing: -0.005em;
+}
+
+.dark .admin-console {
+  --c-canvas:      oklch(0.16 0.012 255);
+  --c-surface:     oklch(0.20 0.012 255);
+  --c-surface-2:   oklch(0.24 0.012 255);
+  --c-text:        oklch(0.96 0.004 255);
+  --c-muted:       oklch(0.70 0.010 255);
+  --c-border:      oklch(0.96 0.004 255 / 0.12);
+  --c-border-soft: oklch(0.96 0.004 255 / 0.07);
+  --c-focus:       oklch(0.72 0.11 255);
+  --c-shadow:      0 1px 2px oklch(0 0 0 / 0.3);
+}
+
+/* ---- primitivas do console ---- */
+.admin-console .c-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-soft);
+  border-radius: 14px;
+  box-shadow: var(--c-shadow);
+}
+.admin-console .c-muted { color: var(--c-muted); }
+.admin-console .c-divide { border-color: var(--c-border-soft); }
+
+.admin-console .c-input,
+.admin-console .c-select,
+.admin-console .c-textarea {
+  width: 100%;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.875rem;
+  color: var(--c-text);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.admin-console .c-input::placeholder,
+.admin-console .c-textarea::placeholder { color: var(--c-muted); }
+.admin-console .c-input:focus,
+.admin-console .c-select:focus,
+.admin-console .c-textarea:focus {
+  outline: none;
+  border-color: var(--c-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-focus) 22%, transparent);
+}
+.admin-console :focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-focus) 70%, transparent);
+  outline-offset: 2px;
+}
+
+.admin-console .c-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  border-radius: 10px; padding: 0.5rem 0.9rem;
+  font-size: 0.875rem; font-weight: 500; line-height: 1.2;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, opacity .15s ease;
+  white-space: nowrap;
+}
+.admin-console .c-btn:disabled { opacity: .55; cursor: not-allowed; }
+.admin-console .c-btn[data-variant="primary"] {
+  background: var(--c-text); color: var(--c-surface);
+}
+.admin-console .c-btn[data-variant="primary"]:not(:disabled):hover { opacity: .88; }
+.admin-console .c-btn[data-variant="secondary"] {
+  background: var(--c-surface); border-color: var(--c-border); color: var(--c-text);
+}
+.admin-console .c-btn[data-variant="secondary"]:not(:disabled):hover { background: var(--c-surface-2); }
+.admin-console .c-btn[data-variant="ghost"] { background: transparent; color: var(--c-muted); }
+.admin-console .c-btn[data-variant="ghost"]:not(:disabled):hover { background: var(--c-surface-2); color: var(--c-text); }
+.admin-console .c-btn[data-variant="danger"] {
+  background: transparent; color: var(--c-danger); border-color: color-mix(in srgb, var(--c-danger) 35%, transparent);
+}
+.admin-console .c-btn[data-variant="danger"]:not(:disabled):hover { background: color-mix(in srgb, var(--c-danger) 10%, transparent); }
+.admin-console .c-btn[data-size="sm"] { padding: 0.3rem 0.6rem; font-size: 0.8rem; border-radius: 8px; }
+
+.admin-console .c-badge {
+  display: inline-flex; align-items: center; gap: .3rem;
+  border-radius: 999px; padding: 0.12rem 0.55rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: .01em;
+  background: var(--c-surface-2); color: var(--c-muted);
+  border: 1px solid var(--c-border-soft);
+}
+.admin-console .c-badge[data-tone="ok"] { color: var(--c-ok); border-color: color-mix(in srgb, var(--c-ok) 30%, transparent); background: color-mix(in srgb, var(--c-ok) 10%, transparent); }
+.admin-console .c-badge[data-tone="warn"] { color: var(--c-warn); border-color: color-mix(in srgb, var(--c-warn) 30%, transparent); background: color-mix(in srgb, var(--c-warn) 12%, transparent); }
+.admin-console .c-badge[data-tone="danger"] { color: var(--c-danger); border-color: color-mix(in srgb, var(--c-danger) 30%, transparent); background: color-mix(in srgb, var(--c-danger) 10%, transparent); }
+.admin-console .c-badge[data-tone="info"] { color: var(--c-focus); border-color: color-mix(in srgb, var(--c-focus) 30%, transparent); background: color-mix(in srgb, var(--c-focus) 10%, transparent); }
+
+.admin-console table.c-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.admin-console .c-table thead th {
+  text-align: left; font-weight: 500; font-size: 0.72rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--c-muted);
+  padding: 0.6rem 0.9rem; background: var(--c-surface-2);
+  border-bottom: 1px solid var(--c-border-soft);
+  position: sticky; top: 0; z-index: 1;
+}
+.admin-console .c-table tbody td { padding: 0.65rem 0.9rem; border-top: 1px solid var(--c-border-soft); vertical-align: middle; }
+.admin-console .c-table tbody tr:hover td { background: color-mix(in srgb, var(--c-surface-2) 60%, transparent); }
+
+.admin-console .c-nav-item {
+  display: flex; align-items: center; gap: .55rem;
+  border-radius: 9px; padding: 0.45rem 0.65rem;
+  font-size: 0.86rem; color: var(--c-muted); width: 100%; text-align: left;
+  transition: background .15s ease, color .15s ease;
+}
+.admin-console .c-nav-item:hover { background: var(--c-surface-2); color: var(--c-text); }
+.admin-console .c-nav-item[data-active="true"] {
+  background: var(--c-surface-2); color: var(--c-text); font-weight: 500;
+}
+.admin-console .c-nav-item[data-active="true"]::before,
+.admin-console .c-nav-item[data-active="true"]::after { content: none; }
+
+.admin-console .c-skel {
+  background: linear-gradient(90deg, var(--c-surface-2), color-mix(in srgb, var(--c-surface-2) 55%, var(--c-surface)), var(--c-surface-2));
+  background-size: 200% 100%;
+  animation: c-shimmer 1.2s linear infinite;
+  border-radius: 8px;
+}
+@keyframes c-shimmer { to { background-position: -200% 0; } }
+
+/* Motion off */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+
+/* ============================================================
+   ACADEMY DS v2 — FUNDAÇÃO (Fase 1)
+
+   Camada 1 (fixa): superfícies, profundidade, tipografia, spacing,
+   raios, sombras, estados. Igual em todos os tenants.
+   Camada 2 (tenant): entra APENAS por --tenant-accent e por um tint
+   controlado de 3–6% aplicado às superfícies — profundidade com
+   personalidade, sem recolorir o produto.
+   ============================================================ */
+.academy {
+  /* ------------------------------------------------------------------
+     LIGHT-FIRST. O tema claro é a experiência primária do produto.
+     A estratégia neutra é do TENANT: --tenant-canvas-base /
+     --tenant-surface-base / --tenant-tint-strength são escritos pelo
+     TenantProvider a partir do branding. O fallback abaixo é o neutro
+     editorial padrão da plataforma.
+     ------------------------------------------------------------------ */
+  /* Valores CONFIGURADOS pelo tenant (painel de marca → TenantProvider).
+     Nenhuma superfície principal é derivada do accent. */
+  --tenant-canvas-base:    var(--tenant-canvas-light, #FFFFFF);
+  --tenant-surface-base:   var(--tenant-surface-light, #FFFFFF);
+  --tenant-ink-base:       var(--tenant-ink-light, #121214);
+
+  --ax-canvas:           var(--tenant-canvas-base);
+  --ax-surface:          var(--tenant-surface-base);
+  /* raised/hover: derivação NEUTRA (tinta), nunca accent */
+  --ax-surface-raised:   color-mix(in oklab, var(--tenant-ink-base) 4%, var(--tenant-surface-base));
+  --ax-surface-hover:    color-mix(in oklab, var(--tenant-ink-base) 7%, var(--tenant-surface-base));
+  /* microestado: aqui o accent é permitido */
+  --ax-surface-selected: color-mix(in oklab, var(--tenant-accent) 16%, var(--tenant-surface-base));
+  --ax-surface-inverse:  var(--tenant-ink-base);
+  --ax-surface-brand:    color-mix(in oklab, var(--tenant-accent) 12%, var(--tenant-surface-base));
+
+  --ax-veil:        color-mix(in oklab, var(--tenant-ink-base) 5%, transparent);
+  --ax-veil-strong: color-mix(in oklab, var(--tenant-ink-base) 10%, transparent);
+
+  --ax-border-subtle:  color-mix(in oklab, var(--tenant-ink-base) 9%, transparent);
+  --ax-border:         color-mix(in oklab, var(--tenant-ink-base) 14%, transparent);
+  --ax-border-strong:  color-mix(in oklab, var(--tenant-ink-base) 24%, transparent);
+
+  --ax-text:           var(--tenant-ink-base);
+  --ax-text-secondary: color-mix(in oklab, var(--tenant-ink-base) 66%, var(--tenant-canvas-base));
+  --ax-text-tertiary:  color-mix(in oklab, var(--tenant-ink-base) 48%, var(--tenant-canvas-base));
+  --ax-text-disabled:  color-mix(in oklab, var(--tenant-ink-base) 32%, var(--tenant-canvas-base));
+  --ax-on-accent:      var(--tenant-accent-contrast);
+  --ax-focus-ring:     var(--tenant-accent);
+  --ax-progress:       var(--tenant-accent);
+
+  --ax-success: #157F4B;
+  --ax-warning: #A66A00;
+  --ax-error:   #C0392B;
+  --ax-info:    #1B6FA8;
+
+  --ax-r-sm: 8px;
+  --ax-r-md: 12px;
+  --ax-r-lg: 16px;
+  --ax-r-xl: 22px;
+
+  --ax-shadow-sm: 0 1px 2px rgba(17,17,20,.05);
+  --ax-shadow-md: 0 2px 6px rgba(17,17,20,.06), 0 14px 34px rgba(17,17,20,.07);
+  --ax-shadow-lg: 0 4px 12px rgba(17,17,20,.08), 0 30px 70px rgba(17,17,20,.12);
+
+  --ax-header-h: 64px;
+
+  /* mantém compat com o layer .academy v1 */
+  --academy-bg:         var(--ax-canvas);
+  --academy-surface-1:  var(--ax-surface);
+  --academy-surface-2:  var(--ax-surface-raised);
+  --academy-surface-3:  var(--ax-surface-hover);
+  --academy-text:       var(--ax-text);
+  --academy-text-muted: var(--ax-text-secondary);
+  --academy-text-subtle:var(--ax-text-tertiary);
+  --academy-border:     var(--ax-border-subtle);
+  --academy-border-strong: var(--ax-border);
+
+  background: var(--ax-canvas);
+  color: var(--ax-text);
+}
+
+/* ---------- Tema escuro: recurso, não default ---------- */
+.dark .academy,
+.academy[data-surface="dark"],
+.ax-dark-band {
+  /* Paleta de superfície PRÓPRIA do modo escuro, configurada pelo tenant. */
+  --tenant-canvas-base:  var(--tenant-canvas-dark, #0B0B0E);
+  --tenant-surface-base: var(--tenant-surface-dark, #141418);
+  --tenant-ink-base:     var(--tenant-ink-dark, #F3F3F5);
+
+  --ax-canvas:           var(--tenant-canvas-base);
+  --ax-surface:          var(--tenant-surface-base);
+  --ax-surface-raised:   color-mix(in oklab, #FFFFFF 5%, var(--tenant-surface-base));
+  --ax-surface-hover:    color-mix(in oklab, #FFFFFF 9%, var(--tenant-surface-base));
+  --ax-surface-selected: color-mix(in oklab, var(--tenant-accent) 22%, var(--tenant-surface-base));
+  --ax-surface-inverse:  var(--tenant-ink-base);
+  --ax-surface-brand:    color-mix(in oklab, var(--tenant-accent) 16%, var(--tenant-surface-base));
+
+  --ax-veil:        rgba(255,255,255,.06);
+  --ax-veil-strong: rgba(255,255,255,.12);
+
+  --ax-border-subtle:  rgba(255,255,255,.07);
+  --ax-border:         rgba(255,255,255,.12);
+  --ax-border-strong:  rgba(255,255,255,.2);
+
+  --ax-text:           var(--tenant-ink-base);
+  --ax-text-secondary: color-mix(in oklab, var(--tenant-ink-base) 72%, var(--tenant-canvas-base));
+  --ax-text-tertiary:  color-mix(in oklab, var(--tenant-ink-base) 55%, var(--tenant-canvas-base));
+  --ax-text-disabled:  color-mix(in oklab, var(--tenant-ink-base) 38%, var(--tenant-canvas-base));
+  --ax-focus-ring:     var(--tenant-accent);
+  --ax-progress:       var(--tenant-accent);
+
+  --ax-success: #4ADE80;
+  --ax-warning: #FBBF24;
+  --ax-error:   #F87171;
+  --ax-info:    #7DD3FC;
+
+  --ax-shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --ax-shadow-md: 0 8px 24px rgba(0,0,0,.42);
+  --ax-shadow-lg: 0 24px 64px rgba(0,0,0,.5);
+
+  background: var(--ax-canvas);
+  color: var(--ax-text);
+}
+@media (min-width: 1024px) { .academy { --ax-header-h: 72px; } }
+
+/* --- grid / container único --- */
+.ax-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px)  { .ax-container { padding-inline: 32px; } }
+@media (min-width: 1280px) { .ax-container { padding-inline: 40px; } }
+.academy .academy-container { max-width: 1400px; }
+@media (min-width: 1280px) { .academy .academy-container { padding-inline: 40px; } }
+
+/* --- ritmo vertical --- */
+.ax-section { padding-block: 40px; }
+@media (min-width: 1024px) { .ax-section { padding-block: 56px; } }
+.ax-stack > * + * { margin-top: 12px; }
+
+/* --- escala tipográfica --- */
+.ax-display { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.06; letter-spacing: -.03em; font-weight: 450; text-wrap: balance; max-width: 18ch; }
+.ax-h1      { font-size: clamp(27px, 3.2vw, 40px);  line-height: 1.12; letter-spacing: -.028em; font-weight: 450; text-wrap: balance; max-width: 22ch; }
+.ax-h2      { font-size: clamp(20px, 2vw, 28px);    line-height: 1.2;  letter-spacing: -.024em; font-weight: 480; }
+.ax-h3      { font-size: clamp(17px, 1.4vw, 21px);  line-height: 1.3;  letter-spacing: -.02em;  font-weight: 500; }
+.ax-card-title { font-size: 15px; line-height: 1.35; letter-spacing: -.012em; font-weight: 520; }
+@media (min-width: 1280px) { .ax-card-title { font-size: 16px; } }
+.ax-body    { font-size: 15px; line-height: 1.6; color: var(--ax-text-secondary); max-width: 68ch; }
+.ax-meta    { font-size: 12.5px; line-height: 1.4; color: var(--ax-text-tertiary); }
+.ax-eyebrow { font-size: 11px; line-height: 1; letter-spacing: .16em; text-transform: uppercase; color: var(--ax-text-tertiary); font-weight: 520; }
+
+/* --- button system --- */
+.ax-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  height: 40px; padding-inline: 16px;
+  border-radius: 999px;
+  font-size: 14px; font-weight: 520; line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: background .16s ease, color .16s ease, border-color .16s ease, filter .16s ease;
+  cursor: pointer;
+}
+.ax-btn[data-size="sm"] { height: 34px; padding-inline: 13px; font-size: 13px; }
+.ax-btn[data-size="lg"] { height: 48px; padding-inline: 24px; font-size: 15px; }
+.ax-btn[data-variant="primary"]   { background: var(--tenant-accent); color: var(--tenant-accent-contrast); }
+.ax-btn[data-variant="primary"]:hover { filter: brightness(1.08); }
+.ax-btn[data-variant="secondary"] { background: var(--ax-surface-hover); color: var(--ax-text); }
+.ax-btn[data-variant="secondary"]:hover { background: var(--ax-surface-selected); }
+.ax-btn[data-variant="ghost"]     { background: transparent; color: var(--ax-text-secondary); }
+.ax-btn[data-variant="ghost"]:hover { background: var(--ax-veil); color: var(--ax-text); }
+.ax-btn[data-variant="outline"]   { background: transparent; color: var(--ax-text); border-color: var(--ax-border); }
+.ax-btn[data-variant="outline"]:hover { background: var(--ax-veil); }
+.ax-btn[data-variant="destructive"] { background: color-mix(in oklab, var(--ax-error) 20%, transparent); color: var(--ax-error); }
+.ax-btn[data-variant="link"] { height: auto; padding: 0; background: none; color: var(--tenant-accent); border-radius: 4px; }
+.ax-btn[data-variant="link"]:hover { text-decoration: underline; }
+.ax-btn:disabled, .ax-btn[data-loading="true"] { opacity: .55; pointer-events: none; }
+.ax-btn:active { transform: translateY(1px); }
+
+.ax-iconbtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 40px; width: 40px; min-height: 40px; min-width: 40px;
+  border-radius: 999px;
+  background: var(--ax-veil);
+  color: var(--ax-text);
+  border: 1px solid var(--ax-border-subtle);
+  transition: background .16s ease, border-color .16s ease;
+}
+.ax-iconbtn:hover { background: var(--ax-veil-strong); }
+.ax-iconbtn[data-active="true"] {
+  background: var(--tenant-accent);
+  border-color: transparent;
+  color: var(--ax-on-accent);
+}
+.ax-iconbtn[data-size="sm"] { height: 32px; width: 32px; min-height: 32px; min-width: 32px; }
+
+/* --- chips / badges --- */
+.ax-chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  height: 34px; padding-inline: 14px;
+  border-radius: 999px;
+  font-size: 13px; font-weight: 450; line-height: 1;
+  background: var(--ax-surface-raised);
+  color: var(--ax-text-secondary);
+  border: 1px solid transparent;
+  transition: background .16s ease, color .16s ease;
+  cursor: pointer;
+}
+.ax-chip:hover { background: var(--ax-surface-hover); color: var(--ax-text); }
+.ax-chip[data-selected="true"] {
+  background: var(--tenant-accent);
+  color: var(--ax-on-accent);
+  border-color: transparent;
+}
+.ax-badge {
+  display: inline-flex; align-items: center; gap: .32rem;
+  height: 22px; padding-inline: 8px;
+  border-radius: 6px;
+  font-size: 11px; font-weight: 520; letter-spacing: .01em;
+  background: var(--ax-veil-strong);
+  color: var(--ax-text);
+  backdrop-filter: blur(6px);
+}
+.ax-badge[data-tone="accent"]   { background: var(--tenant-accent); color: var(--tenant-accent-contrast); }
+.ax-badge[data-tone="progress"] { background: color-mix(in oklab, var(--ax-info) 22%, transparent); color: var(--ax-info); }
+.ax-badge[data-tone="done"]     { background: color-mix(in oklab, var(--ax-success) 20%, transparent); color: var(--ax-success); }
+
+/* --- progress --- */
+.ax-progress { height: 4px; border-radius: 999px; background: var(--ax-veil-strong); overflow: hidden; }
+.ax-progress > i { display: block; height: 100%; background: var(--tenant-accent); border-radius: inherit; }
+
+/* --- CourseCard 2.0 --- */
+.ax-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  border-radius: var(--ax-r-md);
+  background: var(--ax-surface);
+  border: 1px solid var(--ax-border-subtle);
+  overflow: hidden;
+  transition: background .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+@media (hover: hover) {
+  .ax-card:hover { background: var(--ax-surface-hover); box-shadow: var(--ax-shadow-md); }
+  .ax-card:hover .ax-card-save { opacity: 1; }
+}
+.ax-card-media { position: relative; aspect-ratio: 16 / 9; background: var(--ax-surface-raised); overflow: hidden; }
+.ax-card-media img { height: 100%; width: 100%; object-fit: cover; display: block; }
+.ax-card-body { display: flex; flex-direction: column; gap: 6px; padding: 11px 12px 13px; }
+.ax-card-body h3 {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  min-height: 2.6em;
+  overflow-wrap: anywhere;
+}
+.ax-card-save { position: absolute; right: 8px; top: 8px; opacity: 0; transition: opacity .16s ease; }
+@media (hover: none) { .ax-card-save { opacity: 1; } }
+.ax-card-overlay { position: absolute; inset-inline: 0; bottom: 0; padding: 8px; }
+
+/* rail denso */
+.ax-rail-scroller { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-block: 2px 6px; }
+.ax-rail-scroller::-webkit-scrollbar { display: none; }
+.ax-rail-item { flex: 0 0 auto; width: 232px; scroll-snap-align: start; }
+@media (min-width: 768px)  { .ax-rail-item { width: 252px; } }
+@media (min-width: 1280px) { .ax-rail-item { width: 268px; } }
+
+/* grid do catálogo — densidade organizada */
+.ax-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+@media (min-width: 1536px) { .ax-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); } }
+
+/* --- header v2 --- */
+.ax-header {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--ax-header-h);
+  background: color-mix(in oklab, var(--ax-canvas) 86%, transparent);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 -1px 0 var(--ax-border-subtle);
+}
+.ax-header[data-transparent="true"] {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--ax-canvas) 85%, transparent) 0%, transparent 100%);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.ax-navlink {
+  display: inline-flex; align-items: center; height: 36px; padding-inline: 12px;
+  border-radius: 999px; font-size: 14.5px; font-weight: 500;
+  color: var(--ax-text-secondary);
+  transition: color .16s ease, background .16s ease;
+}
+.ax-navlink:hover { color: var(--ax-text); background: var(--ax-veil); }
+.ax-navlink[data-active="true"] { color: var(--ax-text); background: var(--ax-surface-raised); }
+
+.ax-search {
+  display: flex; align-items: center; gap: 8px;
+  height: 38px; padding-inline: 12px;
+  border-radius: 999px;
+  background: var(--ax-surface-raised);
+  color: var(--ax-text-tertiary);
+  transition: background .16s ease;
+}
+.ax-search:focus-within { background: var(--ax-surface-hover); }
+.academy .ax-search input {
+  background: transparent; border: 0; outline: none; color: var(--ax-text);
+  font-size: 14px; width: 100%; padding: 0; border-radius: 0;
+}
+.academy .ax-search input:focus-visible { outline: none; }
+
+/* --- painéis / empty / skeleton --- */
+.ax-panel { background: var(--ax-surface); border-radius: var(--ax-r-lg); }
+.academy .ax-panel { border: 1px solid var(--ax-border-subtle); }
+.ax-panel-raised { background: var(--ax-surface-raised); border-radius: var(--ax-r-lg); border: 1px solid var(--ax-border-subtle); }
+.ax-divider { height: 1px; background: var(--ax-border-subtle); }
+.ax-skeleton {
+  background: linear-gradient(90deg, var(--ax-surface) 25%, var(--ax-surface-hover) 50%, var(--ax-surface) 75%);
+  background-size: 200% 100%;
+  animation: academy-shimmer 1.4s linear infinite;
+  border-radius: var(--ax-r-md);
+}
+.ax-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  background: var(--ax-surface);
+  border: 1px solid var(--ax-border-subtle);
+  border-radius: var(--ax-r-lg);
+  padding: 44px 24px;
+  text-align: center;
+}
+
+/* ============================================================
+   HERO COMPACTO (Camada 1) — usado em / e em /curso/:slug.
+   Altura contida (420–520px) para que o conteúdo comece cedo.
+   ============================================================ */
+.ax-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  padding-block: 40px;
+}
+@media (min-width: 1024px) { .ax-hero { min-height: 480px; } }
+@media (min-width: 1536px) { .ax-hero { min-height: 520px; } }
+.ax-hero-media { position: absolute; inset: 0; z-index: -2; }
+.ax-hero-media img { height: 100%; width: 100%; object-fit: cover; display: block; }
+.ax-hero-scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(90deg, var(--ax-canvas) 8%, color-mix(in oklab, var(--ax-canvas) 74%, transparent) 52%, transparent 92%),
+    linear-gradient(0deg, var(--ax-canvas) 2%, transparent 60%);
+}
+.ax-hero-copy { max-width: 620px; }
+.ax-hero-art {
+  position: relative;
+  border-radius: var(--ax-r-lg);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--ax-surface-raised);
+  box-shadow: var(--ax-shadow-lg);
+}
+.ax-hero-art img { height: 100%; width: 100%; object-fit: cover; display: block; }
+
+/* rodapé global */
+.ax-footer {
+  border-top: 1px solid var(--ax-border-subtle);
+  background: var(--ax-surface);
+  color: var(--ax-text-tertiary);
+  font-size: 13px;
+}
+
+/* faixa de categorias / links secos */
+.ax-tile {
+  display: block;
+  border-radius: var(--ax-r-md);
+  background: var(--ax-surface);
+  padding: 16px;
+  transition: background .16s ease, transform .16s ease;
+}
+.ax-tile:hover { background: var(--ax-surface-hover); }
+
+/* ============================================================
+   EXPRESSÃO DA MARCA (Camada 2) — intensidade por superfície.
+   A estrutura nunca muda; o que muda é quanto da marca aparece.
+   ============================================================ */
+.ax-dark-band { background: var(--ax-canvas); color: var(--ax-text); }
+
+/* hero: variações de tratamento, mesma estrutura */
+.ax-hero[data-tone="brand"] {
+  background:
+    radial-gradient(120% 140% at 88% 0%, color-mix(in oklab, var(--tenant-accent) 26%, transparent) 0%, transparent 62%),
+    linear-gradient(180deg, color-mix(in oklab, var(--tenant-accent) 8%, var(--ax-canvas)) 0%, var(--ax-canvas) 100%);
+}
+.ax-hero[data-tone="editorial"] {
+  background: linear-gradient(180deg, var(--ax-surface) 0%, var(--ax-canvas) 100%);
+}
+
+/* grafismo institucional discreto (não é imagem, não é hardcode de marca) */
+.ax-motif {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  opacity: .5;
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--tenant-accent) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--tenant-accent) 16%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(90% 80% at 78% 12%, #000 0%, transparent 72%);
+}
+.ax-accent-bar {
+  display: inline-block; height: 3px; width: 44px; border-radius: 999px;
+  background: var(--tenant-accent);
+}
+.ax-accent-strip { height: 4px; background: var(--tenant-accent); }
+
+/* bloco institucional em cor de marca (uso controlado) */
+.ax-brand-block {
+  background: var(--tenant-accent);
+  color: var(--ax-on-accent);
+  border-radius: var(--ax-r-lg);
+}
+.ax-brand-soft {
+  background: var(--ax-surface-brand);
+  border: 1px solid color-mix(in oklab, var(--tenant-accent) 26%, transparent);
+  border-radius: var(--ax-r-lg);
+}
+
+/* passo numerado (como acessar) */
+.ax-step { display: flex; gap: 14px; }
+.ax-step-num {
+  flex: 0 0 auto; height: 30px; width: 30px; border-radius: 999px;
+  display: grid; place-items: center; font-size: 13px; font-weight: 520;
+  background: var(--tenant-accent); color: var(--ax-on-accent);
+}
+
+.ax-menuitem:hover { background: var(--ax-veil); }
+
+/* ============================================================
+   HERO CINEMATOGRÁFICO DE RETOMADA (home autenticada).
+   Bloco editorial imersivo derivado da ARTE DO CURSO — não do
+   accent do tenant. Vive dentro de uma interface light-first.
+   ============================================================ */
+/* ============================================================
+   HERO EDITORIAL DE CONTEÚDO (.ax-hero-panel)
+   Painel dentro do container: margem lateral, radius, altura
+   controlada. Não é background de página, não usa 100vh.
+   ============================================================ */
+.ax-hero-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 24px;
+  height: clamp(420px, 38vw, 620px);
+  color: #F7F7F8;
+  background: #0B0B0E;
+  box-shadow: var(--ax-shadow-md);
+}
+@media (max-width: 767px) {
+  .ax-hero-panel { border-radius: 20px; height: auto; min-height: 470px; }
+}
+
+/* a arte preenche o retângulo, sem deformar */
+.ax-hero-panel-art {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 38%;
+}
+
+/* escurecimento UNIFORME leve + reforço discreto sob o texto */
+.ax-hero-panel-veil {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(0deg, rgba(6,6,9,.72) 0%, rgba(6,6,9,.34) 34%, rgba(6,6,9,0) 62%),
+    rgba(0,0,0,.22);
+}
+
+.ax-hero-panel-copy {
+  position: relative;
+  max-width: min(560px, 82%);
+  padding: 28px 24px;
+}
+@media (min-width: 768px) { .ax-hero-panel-copy { padding: 40px 44px; max-width: 600px; } }
+@media (min-width: 1280px) { .ax-hero-panel-copy { padding: 48px 56px; } }
+
+.ax-hero-panel-eyebrow {
+  font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(247,247,248,.78);
+}
+.ax-hero-panel-title {
+  margin-top: 10px;
+  font-size: clamp(27px, 3.1vw, 44px);
+  line-height: 1.08; letter-spacing: -0.02em; font-weight: 450;
+  text-shadow: 0 1px 24px rgba(0,0,0,.35);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ax-hero-panel-meta {
+  margin-top: 12px; font-size: 13px; color: rgba(247,247,248,.8);
+}
+.ax-hero-panel-lead {
+  margin-top: 12px;
+  font-size: 14.5px; line-height: 1.55; color: rgba(247,247,248,.84);
+  max-width: 52ch;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+@media (max-width: 767px) { .ax-hero-panel-lead { -webkit-line-clamp: 2; font-size: 14px; } }
+
+.ax-hero-panel-progress {
+  margin-top: 18px; max-width: 300px;
+  display: flex; flex-direction: column; gap: 7px;
+  font-size: 12.5px; color: rgba(247,247,248,.82);
+}
+.ax-hero-panel-bar { height: 4px; border-radius: 999px; background: rgba(255,255,255,.28); overflow: hidden; }
+.ax-hero-panel-bar > i { display: block; height: 100%; background: var(--tenant-accent); }
+
+.ax-hero-panel-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+/* vidro pontual apenas no CTA secundário */
+.ax-hero-panel-ghost {
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(10px);
+  color: #F7F7F8;
+}
+.ax-hero-panel-ghost:hover { background: rgba(255,255,255,.22); }
