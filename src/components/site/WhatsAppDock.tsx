@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { X, Users } from "lucide-react";
 import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
 
-const INVITE_DISMISSED_KEY = "sindicolab.groupInvite.dismissed";
+const TEASER_DISMISSED_KEY = "sindicolab.chatDock.teaserDismissed";
 
 function WhatsAppGlyph({ className }: { className?: string }) {
   return (
@@ -13,80 +13,179 @@ function WhatsAppGlyph({ className }: { className?: string }) {
 }
 
 /**
- * Dock de contato: um único botão permanente (Rafael) e, acima dele, um
- * convite discreto para o grupo — que aparece depois de alguns segundos e
- * pode ser fechado pela sessão.
+ * Dock de conversa (referência: joinchat).
+ * Um único botão. Primeiro uma chamada curta e animada; ao abrir, o painel
+ * simula um papo — o Rafael "digita" e manda duas mensagens; só então
+ * aparecem as duas ações, visualmente distintas: falar com ele (1:1) ou
+ * entrar no grupo de conversas (coletivo).
  */
 export function WhatsAppDock() {
-  const [showInvite, setShowInvite] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [teaser, setTeaser] = useState(false);
+  const [step, setStep] = useState(0); // 0 digitando · 1 primeira msg · 2 segunda msg · 3 ações
+  const timers = useRef<number[]>([]);
 
   useEffect(() => {
     let dismissed = false;
     try {
-      dismissed = sessionStorage.getItem(INVITE_DISMISSED_KEY) === "1";
+      dismissed = sessionStorage.getItem(TEASER_DISMISSED_KEY) === "1";
     } catch {
       /* sessionStorage indisponível */
     }
     if (dismissed) return;
-    const t = window.setTimeout(() => setShowInvite(true), 6000);
+    const t = window.setTimeout(() => setTeaser(true), 4500);
     return () => window.clearTimeout(t);
   }, []);
 
-  function dismissInvite() {
-    setShowInvite(false);
+  // Sequência do "papo" — cada etapa entra sozinha, como mensagem chegando.
+  useEffect(() => {
+    if (!open) return;
+    setStep(0);
+    const schedule = (fn: () => void, ms: number) => timers.current.push(window.setTimeout(fn, ms));
+    schedule(() => setStep(1), 750);
+    schedule(() => setStep(2), 1750);
+    schedule(() => setStep(3), 2500);
+    return () => {
+      timers.current.forEach(window.clearTimeout);
+      timers.current = [];
+    };
+  }, [open]);
+
+  function dismissTeaser() {
+    setTeaser(false);
     try {
-      sessionStorage.setItem(INVITE_DISMISSED_KEY, "1");
+      sessionStorage.setItem(TEASER_DISMISSED_KEY, "1");
     } catch {
       /* sessionStorage indisponível */
     }
   }
 
+  function toggle() {
+    dismissTeaser();
+    setOpen((o) => !o);
+  }
+
   return (
     <div
-      className="fixed z-[60] flex flex-col items-end gap-2"
+      className="fixed z-[60] flex flex-col items-end gap-3"
       style={{
         right: "max(1rem, env(safe-area-inset-right))",
         bottom: "max(1rem, env(safe-area-inset-bottom))",
       }}
     >
-      {showInvite && (
-        <div className="wa-invite flex max-w-[16rem] items-start gap-2 rounded-2xl border border-border/70 bg-background/95 p-3 shadow-[0_18px_40px_-24px_rgba(27,11,46,0.55)] backdrop-blur-sm sm:max-w-[18rem]">
-          <div className="min-w-0">
-            <p className="text-[13px] font-medium leading-snug text-ink">
-              Grupo de apoio entre síndicas e síndicos
-            </p>
-            <a
-              href={EXTERNAL_LINKS.WHATSAPP_GROUP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1.5 inline-flex items-center gap-1.5 text-[13px] font-medium text-brand hover:underline"
+      {open && (
+        <div
+          role="dialog"
+          aria-label="Conversar com o SíndicoLab"
+          className="wa-panel w-[min(20.5rem,calc(100vw-2rem))] overflow-hidden rounded-[1.5rem] border border-border/70 bg-background shadow-[0_28px_70px_-30px_rgba(27,11,46,0.6)]"
+        >
+          {/* Cabeçalho do "chat" */}
+          <div className="flex items-center gap-3 bg-ink px-4 py-3.5 text-background">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-background/15 font-display text-sm">
+              RB
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium">Rafael Bernardes</p>
+              <p className="flex items-center gap-1.5 text-[11px] text-background/70">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+                SíndicoLab · normalmente responde rápido
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Fechar conversa"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-background/70 transition hover:bg-background/15 hover:text-background"
             >
-              Entrar no grupo
-            </a>
+              <X className="h-4 w-4" />
+            </button>
           </div>
+
+          {/* Mensagens */}
+          <div className="space-y-2 bg-secondary/50 px-4 py-4">
+            {step === 0 && (
+              <div className="wa-msg inline-flex items-center gap-1 rounded-2xl rounded-bl-md bg-background px-3.5 py-3 shadow-sm">
+                <span className="wa-dot h-1.5 w-1.5 rounded-full bg-ink-soft/60" />
+                <span className="wa-dot h-1.5 w-1.5 rounded-full bg-ink-soft/60" style={{ animationDelay: "0.16s" }} />
+                <span className="wa-dot h-1.5 w-1.5 rounded-full bg-ink-soft/60" style={{ animationDelay: "0.32s" }} />
+              </div>
+            )}
+            {step >= 1 && (
+              <p className="wa-msg max-w-[15rem] rounded-2xl rounded-bl-md bg-background px-3.5 py-2.5 text-[13px] leading-snug text-ink shadow-sm">
+                Oi! Aqui é o Rafael, do SíndicoLab 👋
+              </p>
+            )}
+            {step >= 2 && (
+              <p className="wa-msg max-w-[16.5rem] rounded-2xl rounded-bl-md bg-background px-3.5 py-2.5 text-[13px] leading-snug text-ink shadow-sm">
+                Prefere falar comigo agora ou trocar ideia com outros síndicos no nosso grupo?
+              </p>
+            )}
+          </div>
+
+          {/* Ações — duas coisas diferentes, com pesos diferentes */}
+          {step >= 3 && (
+            <div className="wa-msg space-y-2 border-t border-border/70 bg-background px-4 py-4">
+              <a
+                href={whatsappRafaelUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-2xl bg-ink px-4 py-3 text-background transition hover:bg-brand"
+              >
+                <WhatsAppGlyph className="h-5 w-5 shrink-0" />
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium">Falar com o Rafael</span>
+                  <span className="block text-[11px] text-background/70">Conversa direta, só vocês dois</span>
+                </span>
+              </a>
+              <a
+                href={EXTERNAL_LINKS.WHATSAPP_GROUP}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3 text-ink transition hover:border-ink hover:bg-secondary"
+              >
+                <Users className="h-5 w-5 shrink-0 text-brand" />
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium">Entrar no grupo de síndicos</span>
+                  <span className="block text-[11px] text-ink-soft">Conversas entre colegas, no WhatsApp</span>
+                </span>
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Chamada animada antes de abrir */}
+      {teaser && !open && (
+        <div className="wa-teaser flex items-center gap-1.5 rounded-2xl rounded-br-md border border-border/70 bg-background px-3.5 py-2.5 shadow-[0_18px_40px_-24px_rgba(27,11,46,0.55)]">
+          <button type="button" onClick={toggle} className="text-[13px] font-medium leading-snug text-ink">
+            Podemos ajudar?
+          </button>
           <button
             type="button"
-            onClick={dismissInvite}
-            aria-label="Fechar convite do grupo"
-            className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-ink-soft transition hover:bg-secondary hover:text-ink"
+            onClick={dismissTeaser}
+            aria-label="Fechar chamada"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-ink-soft transition hover:bg-secondary hover:text-ink"
           >
-            <X className="h-3.5 w-3.5" />
+            <X className="h-3 w-3" />
           </button>
         </div>
       )}
 
-      <a
-        href={whatsappRafaelUrl()}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Fale conosco no WhatsApp"
-        className="group inline-flex min-h-[48px] items-center gap-2 rounded-full bg-ink pl-3 pr-4 text-background shadow-[0_16px_36px_-20px_rgba(27,11,46,0.8)] transition hover:opacity-95"
+      <button
+        type="button"
+        onClick={toggle}
+        aria-expanded={open}
+        aria-label={open ? "Fechar conversa" : "Abrir conversa no WhatsApp"}
+        className="group relative inline-flex min-h-[52px] items-center gap-2 rounded-full bg-ink pl-3 pr-4 text-background shadow-[0_16px_36px_-18px_rgba(27,11,46,0.85)] transition hover:opacity-95"
       >
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-background/15">
-          <WhatsAppGlyph className="h-4.5 w-4.5" />
+        {!open && teaser && <span className="wa-ping absolute inset-0 rounded-full" aria-hidden />}
+        <span className="relative grid h-9 w-9 place-items-center rounded-full bg-background/15">
+          {open ? <X className="h-4 w-4" /> : <WhatsAppGlyph className="h-5 w-5" />}
         </span>
-        <span className="text-sm font-medium">Fale conosco</span>
-      </a>
+        <span className="relative text-sm font-medium">{open ? "Fechar" : "Fale conosco"}</span>
+      </button>
     </div>
   );
 }
