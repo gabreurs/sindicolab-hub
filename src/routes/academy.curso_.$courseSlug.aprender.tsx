@@ -10,7 +10,7 @@ import { LearningStudioWorkspace } from "@/components/player/LearningStudioWorks
 export const Route = createFileRoute("/academy/curso_/$courseSlug/aprender")({ ssr: false, component: Player });
 
 function Player() {
-  const { courseSlug } = useParams({ from: "/_authenticated/curso_/$courseSlug/aprender" });
+  const { courseSlug } = useParams({ from: "/academy/curso_/$courseSlug/aprender" });
   const { session, isPlatformAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [course, setCourse] = useState<any>(null);

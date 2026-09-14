@@ -33,6 +33,6 @@ export function RequireAuth({ children }: { children: ReactNode }) {
       </div>
     );
   }
-  if (!session) return <Navigate to="/academy/login" replace />;
+  if (!session) return <Navigate to="/academy/login" search={{ next: "/academy/inicio" }} replace />;
   return <>{children}</>;
 }

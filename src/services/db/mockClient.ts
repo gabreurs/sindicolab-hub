@@ -18,7 +18,11 @@ const RELATIONS: Record<string, { table: TableName; fk: string }[]> = {
   course_modules: [{ table: "course_lessons", fk: "module_id" }],
 };
 
-const ok = <T,>(data: T, count: number | null = null) => ({ data, error: null, count });
+const ok = <T,>(data: T, count: number | null = null) => ({
+  data,
+  error: null as { message: string } | null,
+  count,
+});
 
 function uid(prefix = "id") {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36).slice(-4)}`;
@@ -30,7 +34,7 @@ function rows(table: string): Row[] {
   return t[table];
 }
 
-type Filter = { col: string; op: "eq" | "in" | "neq" | "is"; value: any };
+type Filter = { col: string; op: "eq" | "in" | "neq" | "is" | "not"; value: any };
 
 class Query implements PromiseLike<{ data: any; error: { message: string } | null; count: number | null }> {
   private filters: Filter[] = [];
@@ -67,6 +71,7 @@ class Query implements PromiseLike<{ data: any; error: { message: string } | nul
   neq(col: string, value: any) { this.filters.push({ col, op: "neq", value }); return this; }
   is(col: string, value: any) { this.filters.push({ col, op: "is", value }); return this; }
   in(col: string, value: any[]) { this.filters.push({ col, op: "in", value }); return this; }
+  not(col: string, _op: string, value: any) { this.filters.push({ col, op: "not", value }); return this; }
   order(col: string, opts?: { ascending?: boolean }) {
     this.orderBy.push({ col, asc: opts?.ascending !== false });
     return this;
@@ -81,6 +86,7 @@ class Query implements PromiseLike<{ data: any; error: { message: string } | nul
       if (f.op === "eq") return v === f.value;
       if (f.op === "neq") return v !== f.value;
       if (f.op === "is") return f.value === null ? v == null : v === f.value;
+      if (f.op === "not") return f.value === null ? v != null : v !== f.value;
       return Array.isArray(f.value) && f.value.includes(v);
     });
   }

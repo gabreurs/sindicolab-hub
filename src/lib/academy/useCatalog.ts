@@ -48,7 +48,7 @@ export function useAcademyCatalog(organizationId?: string | null, userId?: strin
       let entIds: string[] = [];
       if (userId) {
         const { data: ents } = await supabase.from("course_entitlements").select("course_id").eq("user_id", userId);
-        entIds = Array.from(new Set((ents ?? []).map((e: any) => e.course_id))).filter((id) => !ids.includes(id));
+        entIds = Array.from(new Set((ents ?? []).map((e: any) => String(e.course_id)))).filter((id) => !ids.includes(id));
         const { data: pcs } = entIds.length
           ? await supabase.from("courses").select(COURSE_COLUMNS).in("id", entIds).eq("status", "published")
           : { data: [] as any[] };
