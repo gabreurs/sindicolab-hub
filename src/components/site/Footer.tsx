@@ -75,25 +75,6 @@ const cols = [
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setBusy(true);
-    const result = await captureNewsletterEmail(email);
-    setBusy(false);
-    if (!result.ok) {
-      setError("Digite um e-mail válido para continuar.");
-      return;
-    }
-    // A assinatura é concluída no Substack.
-    window.open(result.redirectTo, "_blank", "noopener,noreferrer");
-  }
-
   return (
     <footer id="newsletter" className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden scroll-mt-[var(--header-h)]">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />
@@ -111,38 +92,20 @@ export function Footer() {
               Receba conteúdos, materiais e novidades do SíndicoLab toda semana.
             </p>
           </div>
-          <form
-            onSubmit={handleSubscribe}
-            className="lg:col-span-7 grid sm:grid-cols-5 gap-3 self-end"
-          >
-            <input
-              required
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Nome"
-              className="sm:col-span-2 px-4 py-3 rounded-full bg-background/10 border border-background/15 text-sm placeholder:text-background/45 focus:outline-none focus:border-cyan transition"
-            />
-            <input
-              required
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Seu e-mail"
-              className="sm:col-span-2 px-4 py-3 rounded-full bg-background/10 border border-background/15 text-sm placeholder:text-background/45 focus:outline-none focus:border-cyan transition"
-            />
-            <button type="submit" className="btn-primary justify-center" style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}>
-              {busy ? "Abrindo…" : "Assinar newsletter"}
-            </button>
-            {error && (
-              <p role="alert" className="sm:col-span-5 -mt-1 px-4 text-xs text-red-300">
-                {error}
-              </p>
-            )}
-            <p className="sm:col-span-5 px-4 text-[11px] leading-relaxed text-background/45">
-              A confirmação da assinatura acontece no Substack do SíndicoLab.
+          <div className="lg:col-span-7 self-end">
+            <a
+              href={EXTERNAL_LINKS.SUBSTACK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary justify-center"
+              style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}
+            >
+              Assinar newsletter
+            </a>
+            <p className="mt-3 px-1 text-[11px] leading-relaxed text-background/45">
+              A assinatura é concluída no Substack do SíndicoLab.
             </p>
-          </form>
+          </div>
         </div>
 
         {/* Columns */}
