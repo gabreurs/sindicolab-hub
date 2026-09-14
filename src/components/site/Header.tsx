@@ -6,6 +6,7 @@ import logoSindicoLab from "@/assets/logo-sindicolab.svg";
 import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
+import { SessionMenu } from "./SessionMenu";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -95,6 +96,7 @@ export function Header() {
 
 
           <div className="flex items-center gap-2 flex-none shrink-0" style={{ minWidth: "max-content" }}>
+            <SessionMenu dark={isDarkPage && solid} />
             <button
               onClick={search.open}
               aria-label="Abrir busca"
