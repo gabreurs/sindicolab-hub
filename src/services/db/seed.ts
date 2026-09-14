@@ -249,7 +249,7 @@ courses.slice(0, 6).forEach((course, ci) => {
     course_id: course.id,
     title: "Material de apoio do curso",
     kind: "pdf",
-    file_url: EXTERNAL_LINKS.DOWNLOADS,
+    file_url: null,
     created_at: iso(180),
   });
 });
@@ -329,7 +329,8 @@ const site_materials: Row[] = materialSeeds.map((m, i) => ({
   category: m.tag,
   type: m.type,
   cover_url: null,
-  file_url: EXTERNAL_LINKS.DOWNLOADS,
+  // O arquivo é cadastrado no painel; sem arquivo, a página mostra o aviso.
+  file_url: null,
   cta_label: "Baixar material",
   status: "published",
   is_featured: i < 2,
