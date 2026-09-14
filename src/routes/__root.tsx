@@ -9,6 +9,7 @@ import {
 import type { QueryClient } from "@tanstack/react-query";
 import { TransitionProvider } from "@/providers/TransitionProvider";
 import { clearNativeScrollLock } from "@/lib/scroll-lock";
+import { WhatsAppDock } from "@/components/site/WhatsAppDock";
 
 function NotFoundComponent() {
   return (
@@ -108,9 +109,13 @@ function RootComponent() {
     });
   }, [matches]);
 
+  // O dock de contato pertence ao site público; consoles e player ficam livres.
+  const showDock = !/^\/(admin|empresa|academy)(\/|$)/.test(pathname);
+
   return (
     <TransitionProvider>
       <Outlet />
+      {showDock && <WhatsAppDock />}
     </TransitionProvider>
   );
 }

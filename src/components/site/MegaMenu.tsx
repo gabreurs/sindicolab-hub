@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 import { ArrowUpRight, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
@@ -84,7 +85,16 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
               </div>
 
               {/* Secondary navigation */}
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <SmallCard
+                  delay={0.16}
+                  to="/academy"
+                  eyebrow="Academy"
+                  title="Entrar na SíndicoLab Academy"
+                  description="Trilhas, turmas e certificados em um ambiente só de aprendizado."
+                  preview={<CoursesPreview />}
+                  onClose={onClose}
+                />
                 <SmallCard
                   delay={0.18}
                   to="/portal"
@@ -122,7 +132,25 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
                   onClose={onClose}
                 />
                 <SmallCard
-                  delay={0.34}
+                  delay={0.32}
+                  to="/eventos"
+                  eyebrow="Eventos"
+                  title="Ver a agenda de eventos"
+                  description="Workshops, lives e encontros presenciais do ecossistema."
+                  preview={<GalleryPreview />}
+                  onClose={onClose}
+                />
+                <SmallCard
+                  delay={0.36}
+                  href={EXTERNAL_LINKS.YOUTUBE}
+                  eyebrow="YouTube"
+                  title="Assistir no YouTube"
+                  description="Vídeos, lives e bastidores do mercado condominial."
+                  preview={<EditorialPreview />}
+                  onClose={onClose}
+                />
+                <SmallCard
+                  delay={0.4}
                   href="mailto:contato@sindicolab.com"
                   eyebrow="Contato"
                   title="Falar com a equipe"
@@ -358,7 +386,7 @@ function SmallCard({
           href={href}
           onClick={onClose}
           className={className}
-          {...(href?.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}
+          {...(href?.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         >
           {inner}
         </a>
