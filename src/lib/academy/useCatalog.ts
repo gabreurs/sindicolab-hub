@@ -38,7 +38,7 @@ export function useAcademyCatalog(organizationId?: string | null, userId?: strin
         .select("course_id")
         .eq("organization_id", organizationId)
         .eq("is_visible", true);
-      const ids = (cat ?? []).map((c: any) => c.course_id);
+      const ids: string[] = (cat ?? []).map((c: any) => String(c.course_id));
       const { data: cs } = ids.length
         ? await supabase.from("courses").select(COURSE_COLUMNS).in("id", ids).eq("status", "published")
         : { data: [] as any[] };

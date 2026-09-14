@@ -302,8 +302,35 @@ export const mockClient = {
   auth,
   rpc,
   functions: {
-    async invoke(_name: string, _opts?: { body?: Row }) {
-      return { data: { ok: true }, error: null };
+    /**
+     * Substitui as funções de servidor. Hoje registra o convite localmente;
+     * com o banco conectado, volta a ser uma chamada de edge function.
+     */
+    async invoke(name: string, opts?: { body?: Row }) {
+      const error = null as { message: string; context?: any } | null;
+      if (name === "invite-user" && opts?.body) {
+        const body = opts.body;
+        const already = rows("organization_invites").find(
+          (i) =>
+            i.organization_id === body.organization_id &&
+            i.email === String(body.email).toLowerCase() &&
+            i.status === "pending",
+        );
+        if (already) {
+          return { data: null, error: { message: "Já existe um convite pendente para este e-mail." } };
+        }
+        rows("organization_invites").push({
+          id: uid("inv"),
+          organization_id: body.organization_id,
+          email: String(body.email).toLowerCase(),
+          role: body.role ?? "student",
+          status: "pending",
+          created_at: new Date().toISOString(),
+          expires_at: null,
+        });
+        return { data: { ok: true }, error };
+      }
+      return { data: { ok: true }, error };
     },
   },
   channel: () => ({
