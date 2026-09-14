@@ -7,6 +7,7 @@ import { TenantDemoSwitcher } from "@/components/site/TenantDemoSwitcher";
 import { CourseManager } from "@/components/admin/CourseManager";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
+import { SiteContentManager } from "@/components/admin/SiteContentManager";
 import {
   Badge, Button, Card, ConfirmAction, EmptyState, Field, Input, PageHeader,
   SaveState, SearchInput, Select, Stat, TableSkeleton, TableWrap,
@@ -49,9 +50,14 @@ const NAV: ConsoleNavGroup[] = [
     { id: "orgs", label: "Organizações" },
     { id: "dominios", label: "Domínios" },
   ] },
-  { label: "Conteúdo", items: [
-    { id: "catalogo", label: "Catálogo global" },
+  { label: "Academy", items: [
+    { id: "catalogo", label: "Cursos (catálogo global)" },
     { id: "distribuicao", label: "Distribuição por org" },
+  ] },
+  { label: "Conteúdo do site", items: [
+    { id: "materiais", label: "Materiais" },
+    { id: "artigos", label: "Artigos" },
+    { id: "eventos", label: "Eventos" },
   ] },
   { label: "Pessoas", items: [
     { id: "acessos", label: "Usuários e permissões" },
@@ -231,6 +237,10 @@ function AdminPage() {
       onNavigate={(id) => { setSection(id); if (id === "orgs") setSelectedOrg(null); }}
       footer={<p>Ambiente global. Alterações aqui afetam todas as Academies.</p>}
     >
+      {section === "materiais" && <SiteContentManager kind="materiais" />}
+      {section === "artigos" && <SiteContentManager kind="artigos" />}
+      {section === "eventos" && <SiteContentManager kind="eventos" />}
+
       {section === "visao" && (
         <>
           <PageHeader
