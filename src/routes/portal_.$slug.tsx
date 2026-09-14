@@ -127,15 +127,15 @@ function ArticlePage() {
 
             {/* CTA Play */}
             <div className="mt-12 rounded-xl border border-border bg-secondary/40 p-6 max-w-2xl">
-              <div className="text-xs text-brand font-medium">SíndicoLab Play</div>
+              <div className="text-xs text-brand font-medium">SíndicoLab Academy</div>
               <h3 className="mt-1 font-display text-2xl tracking-[-0.02em] text-balance">
                 Aprofunde-se com cursos para síndicos profissionais
               </h3>
               <Link
-                to="/play"
+                to="/academy"
                 className="mt-4 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md bg-ink text-background hover:bg-brand transition text-sm font-medium"
               >
-                Ver cursos do Play <ArrowUpRight className="w-4 h-4" />
+                Ver cursos na Academy <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
 

@@ -16,7 +16,7 @@
   # 301 de URLs legadas
   RewriteRule ^blog/?$           /portal           [R=301,L]
   RewriteRule ^artigos/?$        /portal           [R=301,L]
-  RewriteRule ^cursos/?$         /play             [R=301,L]
+  RewriteRule ^cursos/?$         /academy             [R=301,L]
   RewriteRule ^downloads/?$      /materiais        [R=301,L]
   RewriteRule ^anuncie/?$        /patrocinios      [R=301,L]
   RewriteRule ^midia-kit/?$      /patrocinios      [R=301,L]

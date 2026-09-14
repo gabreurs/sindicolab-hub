@@ -210,55 +210,12 @@ function Storefront() {
   );
 
   return (
-    <AcademyShell>
-      {/* A entrada muda com o MODELO da Academy:
-          corporate → porta institucional (quem somos, como se entra)
-          marketplace → storefront de descoberta (conteúdo primeiro) */}
-      {isCorporate ? (
-        <AcademyLanding courseCount={courses.length} courses={courses} />
-      ) : (
-      <>
-        {/* Marketplace deslogado: apresentação curta + o MESMO hero editorial
-            de conteúdo usado na área autenticada, promovendo um destaque. */}
-        <section className="ax-container pt-10">
-          <Eyebrow>{exp.copy.eyebrow}</Eyebrow>
-          <h1 className="ax-h1 mt-2 max-w-[20ch]">{exp.copy.title}</h1>
-          <p className="ax-body mt-3 max-w-[62ch] text-[15.5px]">{exp.copy.lead}</p>
-          <div className="mt-5 flex flex-wrap items-center gap-2.5">
-            <Link
-              to={session ? "/academy/inicio" : "/academy/login"}
-              search={session ? undefined : ({ next: "/academy/inicio" } as any)}
-              className="ax-btn"
-              data-variant="primary"
-              data-size="md"
-            >
-              {session ? "Continuar estudando" : "Acessar a plataforma"}
-              <ArrowRight size={16} />
-            </Link>
-            <Link to="/academy/catalogo" className="ax-btn" data-variant="outline" data-size="md">
-              Ver catálogo
-            </Link>
-          </div>
-          {!tenantLoading && (
-            <p className="ax-meta mt-4">
-              Acervo de {orgName}
-              {courses.length ? ` · ${courses.length} títulos publicados` : ""}
-            </p>
-          )}
-        </section>
+    <AcademyShell transparentHeader>
+      {/* Entrada única e forte da Academy — hero ampla com destaque real do
+          acervo. O modelo da Academy só decide se explicamos "como acessar"
+          (corporate) ou vamos direto à descoberta (marketplace). */}
+      <AcademyLanding courseCount={courses.length} courses={courses} accessSteps={isCorporate} />
 
-        {spotlight && (
-          <ContinueHero
-            course={spotlight}
-            resuming={false}
-            eyebrow="Em destaque"
-            primaryLabel="Ver curso"
-            primaryTo="details"
-            categoryName={spotlight.category_id ? categoryNameById[spotlight.category_id] : undefined}
-          />
-        )}
-      </>
-      )}
 
       {/* DESTAQUES DO ACERVO */}
       <section className="ax-section">

@@ -106,7 +106,7 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
                 />
                 <SmallCard
                   delay={0.22}
-                  to="/play"
+                  to="/academy"
                   eyebrow="Play"
                   title="Fazer cursos para síndicos"
                   description="Aulas e formações para profissionalizar a gestão condominial."

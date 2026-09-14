@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
-import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
@@ -34,6 +33,7 @@ import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.sol
 import { Route as AcademyLoginRouteImport } from './routes/academy.login'
 import { Route as AcademyInicioRouteImport } from './routes/academy.inicio'
 import { Route as AcademyCatalogoRouteImport } from './routes/academy.catalogo'
+import { Route as AcademyDemoTenantSlugRouteImport } from './routes/academy.demo.$tenantSlug'
 import { Route as AcademyCursoCourseSlugRouteImport } from './routes/academy.curso.$courseSlug'
 import { Route as AcademyCursoCourseSlugAprenderRouteImport } from './routes/academy.curso_.$courseSlug.aprender'
 
@@ -50,11 +50,6 @@ const QuemSomosRoute = QuemSomosRouteImport.update({
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlayRoute = PlayRouteImport.update({
-  id: '/play',
-  path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatrociniosRoute = PatrociniosRouteImport.update({
@@ -162,6 +157,11 @@ const AcademyCatalogoRoute = AcademyCatalogoRouteImport.update({
   path: '/catalogo',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyDemoTenantSlugRoute = AcademyDemoTenantSlugRouteImport.update({
+  id: '/demo/$tenantSlug',
+  path: '/demo/$tenantSlug',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCursoCourseSlugRoute = AcademyCursoCourseSlugRouteImport.update({
   id: '/curso/$courseSlug',
   path: '/curso/$courseSlug',
@@ -188,7 +188,6 @@ export interface FileRoutesByFullPath {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -201,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/portal/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesByTo {
@@ -216,7 +216,6 @@ export interface FileRoutesByTo {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -229,6 +228,7 @@ export interface FileRoutesByTo {
   '/portal/$slug': typeof PortalSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesById {
@@ -246,7 +246,6 @@ export interface FileRoutesById {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -259,6 +258,7 @@ export interface FileRoutesById {
   '/portal_/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso_/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRouteTypes {
@@ -277,7 +277,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -290,6 +289,7 @@ export interface FileRouteTypes {
     | '/portal/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso/$courseSlug/aprender'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -305,7 +305,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -318,6 +317,7 @@ export interface FileRouteTypes {
     | '/portal/$slug'
     | '/academy'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso/$courseSlug/aprender'
   id:
     | '__root__'
@@ -334,7 +334,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -347,6 +346,7 @@ export interface FileRouteTypes {
     | '/portal_/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso_/$courseSlug/aprender'
   fileRoutesById: FileRoutesById
 }
@@ -364,7 +364,6 @@ export interface RootRouteChildren {
   MateriaisRoute: typeof MateriaisRoute
   MidiaKitRoute: typeof MidiaKitRoute
   PatrociniosRoute: typeof PatrociniosRoute
-  PlayRoute: typeof PlayRoute
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
@@ -394,13 +393,6 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/play': {
-      id: '/play'
-      path: '/play'
-      fullPath: '/play'
-      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patrocinios': {
@@ -550,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCatalogoRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/demo/$tenantSlug': {
+      id: '/academy/demo/$tenantSlug'
+      path: '/demo/$tenantSlug'
+      fullPath: '/academy/demo/$tenantSlug'
+      preLoaderRoute: typeof AcademyDemoTenantSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/curso/$courseSlug': {
       id: '/academy/curso/$courseSlug'
       path: '/curso/$courseSlug'
@@ -574,6 +573,7 @@ interface AcademyRouteChildren {
   AcademySolicitarAcessoRoute: typeof AcademySolicitarAcessoRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   AcademyCursoCourseSlugRoute: typeof AcademyCursoCourseSlugRoute
+  AcademyDemoTenantSlugRoute: typeof AcademyDemoTenantSlugRoute
   AcademyCursoCourseSlugAprenderRoute: typeof AcademyCursoCourseSlugAprenderRoute
 }
 
@@ -584,6 +584,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademySolicitarAcessoRoute: AcademySolicitarAcessoRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   AcademyCursoCourseSlugRoute: AcademyCursoCourseSlugRoute,
+  AcademyDemoTenantSlugRoute: AcademyDemoTenantSlugRoute,
   AcademyCursoCourseSlugAprenderRoute: AcademyCursoCourseSlugAprenderRoute,
 }
 
@@ -604,7 +605,6 @@ const rootRouteChildren: RootRouteChildren = {
   MateriaisRoute: MateriaisRoute,
   MidiaKitRoute: MidiaKitRoute,
   PatrociniosRoute: PatrociniosRoute,
-  PlayRoute: PlayRoute,
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,

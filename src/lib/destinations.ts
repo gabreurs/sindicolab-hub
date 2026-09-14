@@ -44,7 +44,7 @@ export const destinations: Destination[] = [
     short: "Aulas, trilhas e formações para profissionais do mercado condominial.",
     description: "Conteúdo prático em finanças, jurídico, manutenção, liderança e inteligência condominial.",
     cta: "Ver cursos para síndicos",
-    href: "/play",
+    href: "/academy",
     external: false,
     accent: "cyan",
   },

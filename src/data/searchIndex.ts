@@ -23,11 +23,11 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "play",
-    title: "Cursos para síndicos — SíndicoLab Play",
+    title: "Cursos para síndicos — SíndicoLab Academy",
     description: "Cursos, trilhas e formações para gestão condominial.",
     category: "Cursos",
     type: "internal",
-    href: "/play",
+    href: "/academy",
     priority: 85,
     keywords: ["curso", "cursos para síndico", "aula", "treinamento", "formação", "play", "inteligência condominial", "como captar mais clientes"],
   },
@@ -74,7 +74,7 @@ export const searchIndex: SearchItem[] = [
   // Temas / atalhos editoriais
   { id: "t-assembleia", title: "Assembleia de condomínio", description: "Materiais e artigos sobre assembleias.", category: "Tema", type: "internal", href: "/materiais", priority: 60, keywords: ["assembleia", "convocação", "votação", "ata", "reunião"] },
   { id: "t-seguranca", title: "Segurança condominial", description: "Conteúdos e casos sobre portaria e controle de acesso.", category: "Tema", type: "internal", href: "/portal", priority: 55, keywords: ["segurança", "portaria", "controle de acesso", "câmeras"] },
-  { id: "t-financas", title: "Finanças e inadimplência", description: "Orçamento, prestação de contas e inadimplência.", category: "Tema", type: "internal", href: "/play", priority: 55, keywords: ["finanças", "orçamento", "inadimplência", "prestação de contas"] },
+  { id: "t-financas", title: "Finanças e inadimplência", description: "Orçamento, prestação de contas e inadimplência.", category: "Tema", type: "internal", href: "/academy", priority: 55, keywords: ["finanças", "orçamento", "inadimplência", "prestação de contas"] },
   { id: "t-comportamento", title: "Comportamento condominial", description: "Convivência, regras e conflitos.", category: "Tema", type: "internal", href: "/portal", priority: 50, keywords: ["comportamento", "convivência", "conflitos", "regras"] },
   { id: "t-manutencao", title: "Manutenção predial", description: "Checklists e rotinas de manutenção.", category: "Tema", type: "internal", href: "/materiais", priority: 50, keywords: ["manutenção", "predial", "elevador", "fachada"] },
 ];
@@ -82,7 +82,7 @@ export const searchIndex: SearchItem[] = [
 export const popularSearches = [
   { label: "Encontrar síndico profissional", href: "https://quero1sindico.com/", external: true },
   { label: "Acessar e-books e estudos exclusivos", href: "/materiais" },
-  { label: "Ver cursos para síndicos", href: "/play" },
+  { label: "Ver cursos para síndicos", href: "/academy" },
   { label: "Ler conteúdo sobre gestão condominial", href: "/portal" },
   { label: "Patrocinar experiências condominiais", href: "/patrocinios" },
 ];

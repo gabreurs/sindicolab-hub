@@ -15,7 +15,7 @@ const cols = [
     items: [
       { label: "Quem somos", href: "/quem-somos" },
       { label: "Portal", href: "/portal" },
-      { label: "Play", href: "/play" },
+      { label: "Academy", href: "/academy" },
       { label: "Materiais", href: "/materiais" },
       { label: "Eventos", href: "/eventos" },
       { label: "Academy", href: "/academy" },
@@ -57,11 +57,11 @@ const cols = [
   {
     label: "Cursos",
     items: [
-      { label: "SíndicoLab Play", href: "/play" },
       { label: "SíndicoLab Academy", href: "/academy" },
-      { label: "Cursos para síndicos", href: "/play" },
-      { label: "Treinamento para equipe", href: "/play" },
-      { label: "Inteligência condominial", href: "/play" },
+      { label: "SíndicoLab Academy", href: "/academy" },
+      { label: "Cursos para síndicos", href: "/academy" },
+      { label: "Treinamento para equipe", href: "/academy" },
+      { label: "Inteligência condominial", href: "/academy" },
     ],
   },
   {
