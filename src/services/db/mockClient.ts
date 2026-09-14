@@ -12,6 +12,7 @@
  * Nada aqui persiste em localStorage: mutações valem para a sessão atual.
  */
 import { tables, type TableName } from "./seed";
+import { DEMO_ACCOUNTS, ORG } from "./academyFixtures";
 import type { AuthChangeEvent, Row, Session, User } from "./types";
 
 const RELATIONS: Record<string, { table: TableName; fk: string }[]> = {
@@ -242,10 +243,17 @@ const auth = {
     Promise.resolve().then(() => cb("INITIAL_SESSION", currentSession));
     return { data: { subscription: { unsubscribe: () => listeners.delete(cb) } } };
   },
-  async signInWithPassword({ email }: { email: string; password: string }) {
-    const profile = rows("profiles").find((p) => p.email?.toLowerCase() === email.trim().toLowerCase());
+  async signInWithPassword({ email, password }: { email: string; password: string }) {
+    const mail = email.trim().toLowerCase();
+    const profile = rows("profiles").find((p) => p.email?.toLowerCase() === mail);
     if (!profile) {
       return { data: { session: null, user: null }, error: { message: "E-mail não encontrado nesta plataforma." } };
+    }
+    // Acessos de demonstração do repositório da Academy: a senha documentada é
+    // exigida. Contas criadas durante a sessão (signUp) seguem sem validação.
+    const demo = DEMO_ACCOUNTS.find((a) => a.email === mail);
+    if (demo && password !== demo.password) {
+      return { data: { session: null, user: null }, error: { message: "Senha incorreta para este acesso." } };
     }
     setSession(profile);
     return { data: { session: currentSession, user: currentSession!.user }, error: null };
@@ -263,7 +271,7 @@ const auth = {
     rows("profiles").push(profile);
     rows("organization_memberships").push({
       id: uid("mem"),
-      organization_id: "org-sindicolab",
+      organization_id: ORG.sindicolab,
       user_id: profile.id,
       role: "student",
       is_active: true,

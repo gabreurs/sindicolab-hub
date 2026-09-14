@@ -28,7 +28,7 @@ const timeline = [
   { y: "2019", t: "Primeiros encontros de síndicos profissionais com Rafael Bernardes." },
   { y: "2021", t: "Nasce o SíndicoLab como espaço editorial e comunidade." },
   { y: "2023", t: "Workshops mensais no CondoHuby começam a pautar o setor." },
-  { y: "2025", t: "Lançamento do Play, Materiais e do hub Quero1Síndico." },
+  { y: "2025", t: "Lançamento da Academy, Materiais e do hub Quero1Síndico." },
   { y: "2026", t: "Ecossistema integrado: portal, cursos, materiais e patrocínios." },
 ];
 
@@ -43,7 +43,7 @@ const fazemos = [
   { i: Calendar, t: "Workshops presenciais", d: "Encontros no CondoHuby que conectam síndicos, conselheiros, marcas e administradoras." },
   { i: BookOpen, t: "Curadoria editorial", d: "Portal com matérias, entrevistas e bastidores do mercado condominial." },
   { i: Mic, t: "Conteúdo em vídeo", d: "Episódios, recortes e bastidores publicados nos canais do SíndicoLab." },
-  { i: Sparkles, t: "Cursos no Play", d: "Catálogo de formação contínua para síndicos e profissionais do setor." },
+  { i: Sparkles, t: "Cursos na Academy", d: "Catálogo de formação contínua para síndicos e profissionais do setor." },
   { i: Users, t: "Comunidade ativa", d: "Rede de síndicos profissionais que trocam pautas, casos e oportunidades." },
 ];
 
@@ -54,7 +54,7 @@ const galeria = [
   "Workshop jurídico de alta performance",
   "Encontro temático — captação",
   "Edição especial — fim de ano",
-  "Bastidor — gravação Play",
+  "Bastidor — gravação Academy",
   "Encontro com administradoras",
 ];
 
@@ -196,8 +196,8 @@ function QuemSomosPage() {
               <a href="/portal" className="btn-ghost">
                 Ler o Portal <ArrowUpRight className="w-4 h-4 btn-arrow" />
               </a>
-              <a href="/play" className="btn-ghost">
-                Ver cursos no Play <ArrowUpRight className="w-4 h-4 btn-arrow" />
+              <a href="/academy" className="btn-ghost">
+                Ver cursos na Academy <ArrowUpRight className="w-4 h-4 btn-arrow" />
               </a>
             </div>
           </div>
@@ -240,7 +240,7 @@ function QuemSomosPage() {
               <Instagram className="w-4 h-4" /> @sindicolab
             </a>
             <a
-              href="/play"
+              href="/academy"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-background/30 text-background hover:bg-background hover:text-ink transition"
             >
               Ver cursos

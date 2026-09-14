@@ -1,298 +1,44 @@
 /**
- * Dados de exemplo do ecossistema (organizações, Academy, materiais, artigos,
- * eventos). Estruturados com os MESMOS nomes de tabela e coluna que o banco
- * usará, para que a troca pelo Supabase seja apenas de cliente.
+ * Dados de exemplo do ecossistema. Estruturados com os MESMOS nomes de tabela
+ * e coluna que o banco usará, para que a troca pelo Supabase seja apenas de
+ * cliente.
+ *
+ * ACADEMY: todo o acervo, organizações, papéis e acessos vêm de
+ * `academyFixtures.ts`, derivado das migrations do repositório oficial da
+ * Academy. Abaixo ficam apenas os conteúdos do site institucional
+ * (materiais, artigos, eventos, newsletter).
  */
-import { cursos } from "@/data/cursos";
 import { articles } from "@/data/articles";
 import { EXTERNAL_LINKS } from "@/config/external-links";
 import type { Row } from "./types";
+import {
+  access_requests,
+  course_categories,
+  course_comments,
+  course_entitlements,
+  course_lessons,
+  course_materials,
+  course_modules,
+  course_progress,
+  course_reviews,
+  courses,
+  enrollments,
+  lesson_comments,
+  lesson_progress,
+  organization_branding,
+  organization_course_catalog,
+  organization_domains,
+  organization_invites,
+  organization_memberships,
+  organizations,
+  profiles,
+  user_course_list,
+} from "./academyFixtures";
 
 const now = new Date();
 const iso = (daysAgo: number) => new Date(now.getTime() - daysAgo * 86400000).toISOString();
 const future = (days: number) => new Date(now.getTime() + days * 86400000).toISOString();
 
-const CATEGORY_IDS: Record<string, string> = {
-  "Para síndicos": "cat-sindicos",
-  "Equipe condominial": "cat-equipe",
-  Administradoras: "cat-administradoras",
-  "Materiais & ferramentas": "cat-ferramentas",
-};
-
-const organizations: Row[] = [
-  {
-    id: "org-sindicolab",
-    slug: "sindicolab",
-    name: "SíndicoLab",
-    is_platform: true,
-    status: "active",
-    created_at: iso(720),
-  },
-  {
-    id: "org-guarida",
-    slug: "guarida",
-    name: "Guarida Imóveis",
-    is_platform: false,
-    status: "active",
-    created_at: iso(320),
-  },
-  {
-    id: "org-casa",
-    slug: "casa",
-    name: "CASA Administradora",
-    is_platform: false,
-    status: "active",
-    created_at: iso(140),
-  },
-];
-
-const brandingBase = {
-  logo_light_url: null,
-  logo_dark_url: null,
-  favicon_url: null,
-  banner_url: null,
-  dark_background_color: "#0B0B0E",
-  dark_surface_color: "#151518",
-  dark_text_color: "#F3F3F5",
-};
-
-const organization_branding: Row[] = [
-  {
-    id: "brand-sindicolab",
-    organization_id: "org-sindicolab",
-    ...brandingBase,
-    primary_color: "#12151C",
-    secondary_color: "#1B1F29",
-    accent_color: "#3F5BF6",
-    background_color: "#FBFBFD",
-    surface_color: "#FFFFFF",
-    text_color: "#12151C",
-    welcome_title: "Bem-vindo à SíndicoLab Academy",
-    welcome_message: "Formação contínua para quem vive a gestão condominial todos os dias.",
-    environment_name: null,
-  },
-  {
-    id: "brand-guarida",
-    organization_id: "org-guarida",
-    ...brandingBase,
-    primary_color: "#14202B",
-    secondary_color: "#1D2C3A",
-    accent_color: "#0F7B6C",
-    background_color: "#FAFBFB",
-    surface_color: "#FFFFFF",
-    text_color: "#14202B",
-    welcome_title: "Universidade Guarida",
-    welcome_message: "Trilhas de formação para o time e para os síndicos parceiros.",
-    environment_name: null,
-  },
-  {
-    id: "brand-casa",
-    organization_id: "org-casa",
-    ...brandingBase,
-    primary_color: "#231A14",
-    secondary_color: "#3A2A1F",
-    accent_color: "#C2551F",
-    background_color: "#FDFBF8",
-    surface_color: "#FFFFFF",
-    text_color: "#231A14",
-    welcome_title: "CASA Educação",
-    welcome_message: "Conteúdo aplicado para equipes de administração de condomínios.",
-    environment_name: null,
-  },
-];
-
-const organization_domains: Row[] = [
-  { id: "dom-1", organization_id: "org-sindicolab", hostname: "sindicolab.com", is_primary: true },
-  { id: "dom-2", organization_id: "org-guarida", hostname: "academy.guarida.com.br", is_primary: true },
-  { id: "dom-3", organization_id: "org-casa", hostname: "educacao.casaadm.com.br", is_primary: true },
-];
-
-const profiles: Row[] = [
-  {
-    id: "user-gabriel",
-    email: "gabriel@studiomarqo.com.br",
-    full_name: "Gabriel Reus — Studio Marqo",
-    avatar_url: null,
-    created_at: iso(700),
-  },
-  {
-    id: "user-mari",
-    email: "mari@sindicolab.com",
-    full_name: "Mari — SíndicoLab",
-    avatar_url: null,
-    created_at: iso(500),
-  },
-  {
-    id: "user-guarida",
-    email: "educacao@guarida.com.br",
-    full_name: "Coordenação Guarida",
-    avatar_url: null,
-    created_at: iso(300),
-  },
-  {
-    id: "user-sindico",
-    email: "sindico@exemplo.com",
-    full_name: "Síndica Demonstração",
-    avatar_url: null,
-    created_at: iso(60),
-  },
-];
-
-const organization_memberships: Row[] = [
-  { id: "mem-1", organization_id: "org-sindicolab", user_id: "user-gabriel", role: "platform_admin", is_active: true, created_at: iso(700) },
-  { id: "mem-2", organization_id: "org-sindicolab", user_id: "user-mari", role: "platform_admin", is_active: true, created_at: iso(500) },
-  { id: "mem-3", organization_id: "org-guarida", user_id: "user-guarida", role: "org_admin", is_active: true, created_at: iso(300) },
-  { id: "mem-4", organization_id: "org-sindicolab", user_id: "user-sindico", role: "student", is_active: true, created_at: iso(60) },
-];
-
-const organization_invites: Row[] = [
-  {
-    id: "inv-1",
-    organization_id: "org-guarida",
-    email: "novo.coordenador@guarida.com.br",
-    role: "org_admin",
-    status: "pending",
-    created_at: iso(9),
-  },
-];
-
-const course_categories: Row[] = [
-  { id: "cat-sindicos", name: "Para síndicos", sort_order: 1 },
-  { id: "cat-equipe", name: "Equipe condominial", sort_order: 2 },
-  { id: "cat-administradoras", name: "Administradoras", sort_order: 3 },
-  { id: "cat-ferramentas", name: "Materiais & ferramentas", sort_order: 4 },
-];
-
-const courses: Row[] = cursos.map((c, i) => ({
-  id: `course-${c.slug}`,
-  slug: c.slug,
-  title: c.titulo,
-  subtitle: c.destaque ?? null,
-  description: c.resumo,
-  cover_url: c.capa,
-  banner_url: c.capa,
-  instructor_name: "SíndicoLab Academy",
-  duration_minutes: 90 + (i % 6) * 45,
-  category_id: CATEGORY_IDS[c.categoria] ?? "cat-sindicos",
-  level: i % 3 === 0 ? "Iniciante" : i % 3 === 1 ? "Intermediário" : "Avançado",
-  is_featured: !!c.destaque,
-  is_required: false,
-  visibility: "catalog",
-  status: "published",
-  organization_id: "org-sindicolab",
-  external_url: c.url,
-  price_label: c.preco ?? null,
-  certificate: c.certificado ?? false,
-  access_label: c.acesso ?? null,
-  created_at: iso(400 - i * 9),
-  updated_at: iso(30),
-}));
-
-const organization_course_catalog: Row[] = [
-  ...courses.map((c, i) => ({
-    id: `occ-lab-${i}`,
-    organization_id: "org-sindicolab",
-    course_id: c.id,
-    is_visible: true,
-    created_at: iso(200),
-  })),
-  ...courses.slice(0, 6).map((c, i) => ({
-    id: `occ-guarida-${i}`,
-    organization_id: "org-guarida",
-    course_id: c.id,
-    is_visible: true,
-    created_at: iso(120),
-  })),
-  ...courses.slice(3, 8).map((c, i) => ({
-    id: `occ-casa-${i}`,
-    organization_id: "org-casa",
-    course_id: c.id,
-    is_visible: true,
-    created_at: iso(90),
-  })),
-];
-
-const course_modules: Row[] = [];
-const course_lessons: Row[] = [];
-const course_materials: Row[] = [];
-
-courses.slice(0, 6).forEach((course, ci) => {
-  ["Fundamentos", "Na prática", "Aprofundamento"].forEach((modTitle, mi) => {
-    const moduleId = `mod-${ci}-${mi}`;
-    course_modules.push({
-      id: moduleId,
-      course_id: course.id,
-      title: modTitle,
-      sort_order: mi + 1,
-      created_at: iso(200),
-    });
-    for (let li = 0; li < 3; li++) {
-      course_lessons.push({
-        id: `les-${ci}-${mi}-${li}`,
-        course_id: course.id,
-        module_id: moduleId,
-        title: `${modTitle} · aula ${li + 1}`,
-        description: "Aula de demonstração. O vídeo definitivo entra com o banco conectado.",
-        sort_order: li + 1,
-        duration_minutes: 8 + li * 4,
-        video_provider: "vimeo",
-        video_id: null,
-        video_url: null,
-        content_html: null,
-        is_free: mi === 0 && li === 0,
-        created_at: iso(200),
-      });
-    }
-  });
-  course_materials.push({
-    id: `cmat-${ci}`,
-    course_id: course.id,
-    title: "Material de apoio do curso",
-    kind: "pdf",
-    file_url: null,
-    created_at: iso(180),
-  });
-});
-
-const enrollments: Row[] = [
-  { id: "enr-1", user_id: "user-sindico", course_id: courses[0].id, created_at: iso(20) },
-  { id: "enr-2", user_id: "user-sindico", course_id: courses[2].id, created_at: iso(11) },
-];
-
-const course_entitlements: Row[] = [
-  { id: "ent-1", user_id: "user-sindico", course_id: courses[4].id, created_at: iso(8) },
-];
-
-const course_progress: Row[] = [
-  {
-    id: "cp-1",
-    user_id: "user-sindico",
-    course_id: courses[0].id,
-    percent: 42,
-    open_count: 7,
-    last_accessed_at: iso(1),
-    updated_at: iso(1),
-  },
-  {
-    id: "cp-2",
-    user_id: "user-sindico",
-    course_id: courses[2].id,
-    percent: 12,
-    open_count: 2,
-    last_accessed_at: iso(4),
-    updated_at: iso(4),
-  },
-];
-
-const lesson_progress: Row[] = [
-  { id: "lp-1", user_id: "user-sindico", lesson_id: "les-0-0-0", course_id: courses[0].id, completed_at: iso(3), updated_at: iso(3) },
-  { id: "lp-2", user_id: "user-sindico", lesson_id: "les-0-0-1", course_id: courses[0].id, completed_at: iso(2), updated_at: iso(2) },
-];
-
-const course_reviews: Row[] = [
-  { id: "rev-1", course_id: courses[0].id, user_id: "user-sindico", rating: 5, comment: "Conteúdo direto ao ponto.", created_at: iso(6) },
-  { id: "rev-2", course_id: courses[2].id, user_id: "user-sindico", rating: 4, comment: "Muito aplicável no dia a dia.", created_at: iso(15) },
-];
 
 /* ------------------------- conteúdo do site ------------------------- */
 
@@ -426,22 +172,6 @@ const site_events: Row[] = [
 ];
 
 const newsletter_subscribers: Row[] = [];
-const access_requests: Row[] = [
-  {
-    id: "req-1",
-    email: "interessada@condominio.com.br",
-    full_name: "Ana Interessada",
-    organization_id: "org-sindicolab",
-    status: "pending",
-    message: "Gostaria de acesso à Academy para minha equipe.",
-    created_at: iso(5),
-  },
-];
-const user_course_list: Row[] = [
-  { id: "ucl-1", user_id: "user-sindico", course_id: courses[5].id, created_at: iso(7) },
-];
-const course_comments: Row[] = [];
-const lesson_comments: Row[] = [];
 
 export const tables = {
   organizations,

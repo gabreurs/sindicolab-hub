@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 
 const nav = [
   { label: "Conteúdos", to: "/portal" },
-  { label: "Cursos", to: "/play" },
+  { label: "Cursos", to: "/academy" },
   { label: "Eventos", to: "/quem-somos" },
 ];
 

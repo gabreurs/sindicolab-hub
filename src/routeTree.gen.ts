@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
-import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
@@ -50,11 +49,6 @@ const QuemSomosRoute = QuemSomosRouteImport.update({
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlayRoute = PlayRouteImport.update({
-  id: '/play',
-  path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatrociniosRoute = PatrociniosRouteImport.update({
@@ -188,7 +182,6 @@ export interface FileRoutesByFullPath {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -216,7 +209,6 @@ export interface FileRoutesByTo {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -246,7 +238,6 @@ export interface FileRoutesById {
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
-  '/play': typeof PlayRoute
   '/portal': typeof PortalRoute
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -277,7 +268,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -305,7 +295,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -334,7 +323,6 @@ export interface FileRouteTypes {
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
-    | '/play'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -364,7 +352,6 @@ export interface RootRouteChildren {
   MateriaisRoute: typeof MateriaisRoute
   MidiaKitRoute: typeof MidiaKitRoute
   PatrociniosRoute: typeof PatrociniosRoute
-  PlayRoute: typeof PlayRoute
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
@@ -394,13 +381,6 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/play': {
-      id: '/play'
-      path: '/play'
-      fullPath: '/play'
-      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patrocinios': {
@@ -604,7 +584,6 @@ const rootRouteChildren: RootRouteChildren = {
   MateriaisRoute: MateriaisRoute,
   MidiaKitRoute: MidiaKitRoute,
   PatrociniosRoute: PatrociniosRoute,
-  PlayRoute: PlayRoute,
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,

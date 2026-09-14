@@ -1,21 +1,37 @@
 import { useTenant } from "@/lib/tenant/TenantProvider";
 import { useTheme } from "@/lib/theme/ThemeProvider";
+import { BrandMark } from "@/components/site/BrandMark";
 
 /**
- * Logo real da organização, sempre a partir de organization_branding.
- * A variante é escolhida pela SUPERFÍCIE em que o logo está: `onDark` força
- * a leitura em fundo escuro (player, faixas institucionais), caso contrário
- * seguimos o tema resolvido — light-first. Nunca recolorimos o asset: se a
- * variante necessária não existe, usamos a outra sobre uma placa neutra.
+ * Marca da organização na Academy.
+ *
+ * SíndicoLab (tenant plataforma) usa SEMPRE o logotipo oficial do site — nunca
+ * placeholder, nunca bolinha, nunca só o nome. Outros tenants usam o logo
+ * cadastrado em `organization_branding`; a variante é escolhida pela SUPERFÍCIE
+ * (`onDark` força leitura em fundo escuro), caso contrário seguimos o tema
+ * resolvido. Nunca recolorimos o asset: se a variante necessária não existe,
+ * usamos a outra sobre uma placa neutra. O fallback genérico existe apenas para
+ * organizações que ainda não configuraram marca.
  */
 export function TenantLogo({ className = "", onDark = false }: { className?: string; onDark?: boolean }) {
   const { tenant } = useTenant();
   const { resolved } = useTheme();
-  const name = tenant?.organization?.name ?? "Academy";
-  const forDark = tenant?.branding?.logo_dark_url;
-  const forLight = tenant?.branding?.logo_light_url;
+  const name = tenant?.organization?.name ?? "SíndicoLab";
   const darkSurface = onDark || resolved === "dark";
 
+  // Tenant plataforma → identidade SíndicoLab, sempre.
+  if (!tenant || tenant.organization.is_platform || tenant.organization.slug === "sindicolab") {
+    return (
+      <BrandMark
+        size={26}
+        tone={darkSurface ? "light" : "dark"}
+        className={className}
+      />
+    );
+  }
+
+  const forDark = tenant.branding?.logo_dark_url;
+  const forLight = tenant.branding?.logo_light_url;
   const preferred = darkSurface ? forDark : forLight;
   const fallback = darkSurface ? forLight : forDark;
 

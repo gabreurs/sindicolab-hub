@@ -6,7 +6,7 @@ export const SITE_URL = "https://sindicolab.com";
 export const STATIC_ROUTES: Array<{ path: string; changefreq?: string; priority?: number }> = [
   { path: "/", changefreq: "weekly", priority: 1.0 },
   { path: "/portal", changefreq: "daily", priority: 0.9 },
-  { path: "/play", changefreq: "weekly", priority: 0.8 },
+  { path: "/academy", changefreq: "weekly", priority: 0.8 },
   { path: "/materiais", changefreq: "weekly", priority: 0.8 },
   { path: "/eventos", changefreq: "weekly", priority: 0.8 },
   { path: "/academy", changefreq: "weekly", priority: 0.8 },
@@ -20,7 +20,7 @@ export const STATIC_ROUTES: Array<{ path: string; changefreq?: string; priority?
 export const LEGACY_REDIRECTS: Record<string, string> = {
   "/blog": "/portal",
   "/artigos": "/portal",
-  "/cursos": "/play",
+  "/cursos": "/academy",
   "/downloads": "/materiais",
   "/anuncie": "/patrocinios",
   "/midia-kit": "/patrocinios",

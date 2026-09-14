@@ -213,9 +213,9 @@ function PortalPage() {
       {/* Banners internos */}
       <section className="bg-secondary/30">
         <div className="container-x py-12 grid md:grid-cols-3 gap-5">
-          <Link to="/play" className="rounded-xl bg-background p-6 hover:shadow-card transition group border border-border">
+          <Link to="/academy" className="rounded-xl bg-background p-6 hover:shadow-card transition group border border-border">
             <GraduationCap className="w-5 h-5 text-brand" />
-            <span className="mt-3 block text-xs text-brand font-medium">SíndicoLab Play</span>
+            <span className="mt-3 block text-xs text-brand font-medium">SíndicoLab Academy</span>
             <h3 className="mt-1 font-display text-xl tracking-[-0.02em] text-balance">
               Cursos para síndicos profissionais
             </h3>

@@ -39,7 +39,7 @@ export function KnowledgeBanner() {
             </p>
 
             <Link
-              to="/play"
+              to="/academy"
               className="inline-flex items-center gap-3 rounded-full border border-white/45 px-7 py-3 text-[0.95rem] font-semibold text-white transition-colors hover:bg-white/10"
             >
               Conheça nossos cursos
