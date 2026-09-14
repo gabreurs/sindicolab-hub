@@ -16,6 +16,7 @@ import { Route as PlayRouteImport } from './routes/play'
 import { Route as PatrociniosRouteImport } from './routes/patrocinios'
 import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
+import { Route as EventosRouteImport } from './routes/eventos'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as CursosRouteImport } from './routes/cursos'
@@ -27,6 +28,7 @@ import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as PortalSlugRouteImport } from './routes/portal_.$slug'
+import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
 import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.solicitar-acesso'
 import { Route as AcademyLoginRouteImport } from './routes/academy.login'
 import { Route as AcademyInicioRouteImport } from './routes/academy.inicio'
@@ -67,6 +69,11 @@ const MidiaKitRoute = MidiaKitRouteImport.update({
 const MateriaisRoute = MateriaisRouteImport.update({
   id: '/materiais',
   path: '/materiais',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventosRoute = EventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmpresaRoute = EmpresaRouteImport.update({
@@ -124,6 +131,11 @@ const PortalSlugRoute = PortalSlugRouteImport.update({
   path: '/portal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventosSlugRoute = EventosSlugRouteImport.update({
+  id: '/eventos_/$slug',
+  path: '/eventos/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademySolicitarAcessoRoute = AcademySolicitarAcessoRouteImport.update({
   id: '/solicitar-acesso',
   path: '/solicitar-acesso',
@@ -166,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
   '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -177,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -191,6 +205,7 @@ export interface FileRoutesByTo {
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
   '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -202,6 +217,7 @@ export interface FileRoutesByTo {
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos/$slug': typeof EventosSlugRoute
   '/portal/$slug': typeof PortalSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -218,6 +234,7 @@ export interface FileRoutesById {
   '/cursos': typeof CursosRoute
   '/downloads': typeof DownloadsRoute
   '/empresa': typeof EmpresaRoute
+  '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
   '/midia-kit': typeof MidiaKitRoute
   '/patrocinios': typeof PatrociniosRoute
@@ -229,6 +246,7 @@ export interface FileRoutesById {
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
+  '/eventos_/$slug': typeof EventosSlugRoute
   '/portal_/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
@@ -246,6 +264,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/downloads'
     | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -257,6 +276,7 @@ export interface FileRouteTypes {
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
+    | '/eventos/$slug'
     | '/portal/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
@@ -271,6 +291,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/downloads'
     | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -282,6 +303,7 @@ export interface FileRouteTypes {
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
+    | '/eventos/$slug'
     | '/portal/$slug'
     | '/academy'
     | '/academy/curso/$courseSlug'
@@ -297,6 +319,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/downloads'
     | '/empresa'
+    | '/eventos'
     | '/materiais'
     | '/midia-kit'
     | '/patrocinios'
@@ -308,6 +331,7 @@ export interface FileRouteTypes {
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
+    | '/eventos_/$slug'
     | '/portal_/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
@@ -324,6 +348,7 @@ export interface RootRouteChildren {
   CursosRoute: typeof CursosRoute
   DownloadsRoute: typeof DownloadsRoute
   EmpresaRoute: typeof EmpresaRoute
+  EventosRoute: typeof EventosRoute
   MateriaisRoute: typeof MateriaisRoute
   MidiaKitRoute: typeof MidiaKitRoute
   PatrociniosRoute: typeof PatrociniosRoute
@@ -331,6 +356,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRoute
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
+  EventosSlugRoute: typeof EventosSlugRoute
   PortalSlugRoute: typeof PortalSlugRoute
 }
 
@@ -383,6 +409,13 @@ declare module '@tanstack/react-router' {
       path: '/materiais'
       fullPath: '/materiais'
       preLoaderRoute: typeof MateriaisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventos': {
+      id: '/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof EventosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/empresa': {
@@ -460,6 +493,13 @@ declare module '@tanstack/react-router' {
       path: '/portal/$slug'
       fullPath: '/portal/$slug'
       preLoaderRoute: typeof PortalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventos_/$slug': {
+      id: '/eventos_/$slug'
+      path: '/eventos/$slug'
+      fullPath: '/eventos/$slug'
+      preLoaderRoute: typeof EventosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/academy/solicitar-acesso': {
@@ -540,6 +580,7 @@ const rootRouteChildren: RootRouteChildren = {
   CursosRoute: CursosRoute,
   DownloadsRoute: DownloadsRoute,
   EmpresaRoute: EmpresaRoute,
+  EventosRoute: EventosRoute,
   MateriaisRoute: MateriaisRoute,
   MidiaKitRoute: MidiaKitRoute,
   PatrociniosRoute: PatrociniosRoute,
@@ -547,6 +588,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRoute,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,
+  EventosSlugRoute: EventosSlugRoute,
   PortalSlugRoute: PortalSlugRoute,
 }
 export const routeTree = rootRouteImport
