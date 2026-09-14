@@ -28,9 +28,11 @@
   --tenant-accent-contrast: #ffffff;
 
   /* Gradientes institucionais (Studio Marqo / Lab) */
+  --gradient-lab: linear-gradient(135deg,
     oklch(0.45 0.20 262) 0%,
     oklch(0.55 0.22 285) 50%,
     oklch(0.78 0.14 220) 100%);
+  --gradient-ink: linear-gradient(180deg,
     oklch(0.18 0.025 255), oklch(0.08 0.02 255));
 
 
