@@ -18,9 +18,12 @@ import heroBackdrop from "@/assets/v2/hero-condominio.webp";
 export function AcademyLanding({
   courseCount,
   courses = [],
+  accessSteps = true,
 }: {
   courseCount: number;
   courses?: AcademyCourse[];
+  /** "Como acessar" só faz sentido em Academy corporativa (acesso concedido). */
+  accessSteps?: boolean;
 }) {
   const exp = useAcademyExperience();
 
@@ -124,6 +127,7 @@ export function AcademyLanding({
       </section>
 
       {/* COMO ACESSAR — existe apenas para quem ainda está fora da Academy. */}
+      {accessSteps && (
       <section className="ax-section pt-0">
         <div className="ax-container">
           <span className="ax-accent-bar" aria-hidden />
@@ -141,6 +145,7 @@ export function AcademyLanding({
           </div>
         </div>
       </section>
+      )}
     </>
   );
 }
