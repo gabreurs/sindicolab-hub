@@ -96,7 +96,7 @@ function CoursePage() {
     course.instructor_name,
   ].filter(Boolean);
   const primaryCta = !session ? (
-    <Link to="/academy/login" search={{ next: `/curso/${courseSlug}` }} className="ax-btn" data-variant="primary" data-size="lg">
+    <Link to="/academy/login" search={{ next: `/academy/curso/${courseSlug}` }} className="ax-btn" data-variant="primary" data-size="lg">
       {exp.type === "corporate" ? "Entrar na Academy" : "Entrar para começar"}
     </Link>
   ) : hasAccess ? (
