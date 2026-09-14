@@ -33,6 +33,7 @@ import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.sol
 import { Route as AcademyLoginRouteImport } from './routes/academy.login'
 import { Route as AcademyInicioRouteImport } from './routes/academy.inicio'
 import { Route as AcademyCatalogoRouteImport } from './routes/academy.catalogo'
+import { Route as AcademyDemoTenantSlugRouteImport } from './routes/academy.demo.$tenantSlug'
 import { Route as AcademyCursoCourseSlugRouteImport } from './routes/academy.curso.$courseSlug'
 import { Route as AcademyCursoCourseSlugAprenderRouteImport } from './routes/academy.curso_.$courseSlug.aprender'
 
@@ -156,6 +157,11 @@ const AcademyCatalogoRoute = AcademyCatalogoRouteImport.update({
   path: '/catalogo',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyDemoTenantSlugRoute = AcademyDemoTenantSlugRouteImport.update({
+  id: '/demo/$tenantSlug',
+  path: '/demo/$tenantSlug',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCursoCourseSlugRoute = AcademyCursoCourseSlugRouteImport.update({
   id: '/curso/$courseSlug',
   path: '/curso/$courseSlug',
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/portal/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesByTo {
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/portal/$slug': typeof PortalSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRoutesById {
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/portal_/$slug': typeof PortalSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/curso/$courseSlug': typeof AcademyCursoCourseSlugRoute
+  '/academy/demo/$tenantSlug': typeof AcademyDemoTenantSlugRoute
   '/academy/curso_/$courseSlug/aprender': typeof AcademyCursoCourseSlugAprenderRoute
 }
 export interface FileRouteTypes {
@@ -280,6 +289,7 @@ export interface FileRouteTypes {
     | '/portal/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso/$courseSlug/aprender'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/portal/$slug'
     | '/academy'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso/$courseSlug/aprender'
   id:
     | '__root__'
@@ -335,6 +346,7 @@ export interface FileRouteTypes {
     | '/portal_/$slug'
     | '/academy/'
     | '/academy/curso/$courseSlug'
+    | '/academy/demo/$tenantSlug'
     | '/academy/curso_/$courseSlug/aprender'
   fileRoutesById: FileRoutesById
 }
@@ -530,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCatalogoRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/demo/$tenantSlug': {
+      id: '/academy/demo/$tenantSlug'
+      path: '/demo/$tenantSlug'
+      fullPath: '/academy/demo/$tenantSlug'
+      preLoaderRoute: typeof AcademyDemoTenantSlugRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/curso/$courseSlug': {
       id: '/academy/curso/$courseSlug'
       path: '/curso/$courseSlug'
@@ -554,6 +573,7 @@ interface AcademyRouteChildren {
   AcademySolicitarAcessoRoute: typeof AcademySolicitarAcessoRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   AcademyCursoCourseSlugRoute: typeof AcademyCursoCourseSlugRoute
+  AcademyDemoTenantSlugRoute: typeof AcademyDemoTenantSlugRoute
   AcademyCursoCourseSlugAprenderRoute: typeof AcademyCursoCourseSlugAprenderRoute
 }
 
@@ -564,6 +584,7 @@ const AcademyRouteChildren: AcademyRouteChildren = {
   AcademySolicitarAcessoRoute: AcademySolicitarAcessoRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   AcademyCursoCourseSlugRoute: AcademyCursoCourseSlugRoute,
+  AcademyDemoTenantSlugRoute: AcademyDemoTenantSlugRoute,
   AcademyCursoCourseSlugAprenderRoute: AcademyCursoCourseSlugAprenderRoute,
 }
 

@@ -30,8 +30,8 @@ function detectSlugFromEnvironment(): string | null {
   const params = new URLSearchParams(window.location.search);
   const q = params.get("tenant");
   if (q) return q;
-  // 3. path /demo/:slug (client-side match)
-  const m = window.location.pathname.match(/^\/demo\/([^\/]+)/);
+  // 3. path /academy/demo/:slug (client-side match)
+  const m = window.location.pathname.match(/^\/(?:academy\/)?demo\/([^/]+)/);
   if (m) return m[1];
   return null;
 }
