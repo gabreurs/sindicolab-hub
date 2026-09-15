@@ -172,7 +172,7 @@ export function GlobalSearch() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.985 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[210] w-[min(760px,94vw)] max-h-[84vh] rounded-3xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
+            className="fixed left-1/2 -translate-x-1/2 top-[8vh] md:top-[12vh] z-[210] w-[min(760px,94vw)] max-h-[84vh] rounded-xl bg-background border border-border shadow-lift overflow-hidden flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -189,7 +189,7 @@ export function GlobalSearch() {
               </div>
               <button
                 onClick={close}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background hover:bg-secondary text-ink px-3 h-11 min-w-[44px] min-h-[44px] transition"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-ink px-3 h-11 min-w-[44px] min-h-[44px] transition"
                 aria-label="Fechar busca"
               >
                 <X className="w-4 h-4" />

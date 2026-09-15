@@ -24,7 +24,7 @@ export function TenantLogo({ className = "", onDark = false }: { className?: str
     return (
       <BrandMark
         size={26}
-        variant={darkSurface ? "white-blue" : "navy-purple"}
+        variant={darkSurface ? "white-blue" : "black-blue"}
         className={className}
       />
     );

@@ -12,10 +12,11 @@ Unificar cantos, grid horizontal, controles e uso da marca em todo o produto, ma
 - Reservar `pill` para badges, tags, filtros, indicadores e botões circulares; botões comuns e inputs usarão `radius-control`.
 
 ### 2. Grid e alinhamento único
-- Criar `.site-container` com uma única largura máxima e gutters responsivos derivados da hero atual.
-- Fazer os containers legados (`container-x`, Academy, admin e páginas especiais) herdarem os mesmos tokens de largura e gutter quando forem estruturas principais.
+- Criar `.site-container` com gutters, breakpoints e eixos de alinhamento derivados da hero atual.
+- Disponibilizar `content-max` para home/site e `content-max-wide` para admin/empresa quando necessário, sem alterar gutters ou âncoras.
+- Fazer os containers legados (`container-x`, Academy, admin e páginas especiais) herdarem essas regras quando forem estruturas principais.
 - Alinhar header, páginas internas, breadcrumbs e conteúdo do mega menu nesse grid.
-- Manter logo, busca e botão Menu espacialmente ancorados ao abrir o mega menu; a superfície pode ocupar a tela inteira, mas seu conteúdo não mudará de coordenada.
+- Manter o mesmo elemento de logo, busca e botão Menu fisicamente ancorado ao abrir o mega menu, evitando um segundo logo ou remount sempre que possível; a superfície pode ocupar a tela inteira, mas seus controles persistentes não mudarão de coordenada.
 
 ### 3. Header e controles
 - Ajustar o header normal e compacto para usar a família de cantos global, sem excesso de cápsulas.
@@ -24,7 +25,7 @@ Unificar cantos, grid horizontal, controles e uso da marca em todo o produto, ma
 
 ### 4. Uso contextual dos logos
 - Auditar todas as aparições da marca.
-- Aplicar Preto-Azul em contextos claros/azuis neutros; Preto-Roxo em contextos claros/roxos; branco com acento azul em fundos azul-marinho; branco com acento roxo em fundos roxos.
+- Escolher a variante pela família cromática da composição, não apenas pela luminosidade: azul com azul, roxo com roxo e neutro com a variante institucional adequada.
 - Preservar Preto-Azul entre o header fechado e o mega menu aberto.
 - Corrigir especificamente o banner roxo e o rodapé azul-marinho.
 - Manter logos próprios dos tenants e usar o logo oficial SíndicoLab, nunca placeholder, quando o tenant for a plataforma.

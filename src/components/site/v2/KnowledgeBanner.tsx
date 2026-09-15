@@ -2,14 +2,14 @@ import { ArrowRight, Users } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import heroCondominio from "@/assets/v2/hero-condominio.webp";
 import { EXTERNAL_LINKS } from "@/config/external-links";
-import symbolWhiteBlue from "@/assets/brand/symbol-white-blue.svg";
+import { BrandMark } from "@/components/site/BrandMark";
 
 export function KnowledgeBanner() {
   return (
     <section className="home-row">
-      <div className="mx-auto w-full max-w-[1536px] px-5 md:px-10">
+      <div className="site-container">
         <div
-          className="hp relative overflow-hidden rounded-[1.35rem] bg-v2-nav"
+          className="hp relative overflow-hidden rounded-xl bg-v2-nav"
           style={{ animationDelay: "900ms" }}
         >
           {/* imagem ambiente ao fundo */}
@@ -34,7 +34,7 @@ export function KnowledgeBanner() {
 
           <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-center md:grid-cols-[minmax(0,1fr)_auto_auto] md:px-10 md:text-left md:py-[2.2svh]">
             <div className="flex items-center justify-center gap-4 md:justify-start">
-              <img src={symbolWhiteBlue} alt="" aria-hidden className="hidden h-11 w-auto shrink-0 sm:block" />
+              <BrandMark size={34} variant="white-purple" className="hidden shrink-0 sm:inline-flex" />
               <div>
               <p className="font-display leading-tight text-background" style={{ fontSize: "clamp(1.2rem, 2.8svh, 1.75rem)" }}>
                 Conhecimento que <span className="text-v2-purple-light">transforma</span> a gestão.

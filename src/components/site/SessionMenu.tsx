@@ -17,7 +17,7 @@ export function SessionMenu({ dark = false }: { dark?: boolean }) {
   const label = isPlatformAdmin ? "Plataforma" : isOrgAdmin() ? "Empresa" : "Meus cursos";
 
   const base =
-    "inline-flex items-center justify-center min-h-[44px] shrink-0 rounded-full text-sm transition whitespace-nowrap";
+    "inline-flex items-center justify-center min-h-[44px] shrink-0 rounded-lg text-sm transition whitespace-nowrap";
   const soft = "header-action-white";
 
   return (

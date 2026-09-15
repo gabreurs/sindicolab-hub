@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { SindicoLabMark } from "@/components/brand/SindicoLabMark";
+import { BrandMark } from "@/components/site/BrandMark";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTheme } from "@/lib/theme/ThemeProvider";
@@ -66,9 +66,9 @@ export function ConsoleShell({
         className="sticky top-0 z-40 border-b backdrop-blur"
         style={{ borderColor: "var(--c-border-soft)", background: "color-mix(in oklab, var(--c-surface) 88%, transparent)" }}
       >
-        <div className="mx-auto grid max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2.5 sm:px-6">
+        <div className="site-container-wide grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2.5">
           <div className="flex min-w-0 items-center gap-3">
-            <SindicoLabMark className="h-7 w-auto shrink-0" />
+            <BrandMark size={28} variant={resolved === "dark" ? "white-blue" : "black-blue"} className="shrink-0" />
             <div className="min-w-0 leading-tight">
               <p className="truncate text-sm font-medium">{title}</p>
               <p className="truncate text-[11px] uppercase tracking-[0.1em] c-muted">{kicker}</p>
@@ -114,7 +114,7 @@ export function ConsoleShell({
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-[1400px] gap-8 px-4 py-7 sm:px-6 lg:grid-cols-[228px_minmax(0,1fr)]">
+      <div className="site-container-wide grid gap-8 py-7 lg:grid-cols-[228px_minmax(0,1fr)]">
         <aside className="lg:sticky lg:top-[68px] lg:h-fit">
           {navList}
           {footer && <div className="mt-6 border-t c-divide pt-4 text-xs c-muted">{footer}</div>}

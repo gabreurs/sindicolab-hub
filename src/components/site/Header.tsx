@@ -32,17 +32,17 @@ export function Header() {
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isHome ? 0.6 : 0 }}
-        className="site-header fixed inset-x-0 top-0 z-[70]"
+        className="site-header fixed inset-x-0 top-0 z-[100]"
         data-route={isHome ? "home" : "page"}
         data-scrolled={scrolled ? "true" : "false"}
+        data-menu-open={open ? "true" : "false"}
       >
         <div
-          className={`site-header-shell mx-auto flex w-full max-w-[1536px] items-center justify-between box-border ${
-            solid ? (isDarkPage ? "glass-dark glass-nav" : "glass glass-nav") : "bg-transparent"
+          className={`site-header-shell site-container flex items-center justify-between box-border ${
+            (solid || open) ? (isDarkPage ? "glass-dark glass-nav" : "glass glass-nav") : "bg-transparent"
           }`}
           style={{
             height: scrolled ? "calc(var(--header-h) - 8px)" : "var(--header-h)",
-            paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
             gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
           }}
         >
@@ -86,7 +86,7 @@ export function Header() {
             <button
               onClick={search.open}
               aria-label="Abrir busca"
-               className="header-action-white group inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] shrink-0 pl-3 pr-1.5 py-1.5 rounded-full transition text-sm"
+               className="header-action-white group inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] shrink-0 pl-3 pr-1.5 py-1.5 rounded-lg transition text-sm"
             >
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Buscar</span>
@@ -99,10 +99,10 @@ export function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Fechar menu" : "Abrir menu do ecossistema"}
               aria-expanded={open}
-              className="group inline-flex items-center gap-2.5 min-w-[44px] min-h-[44px] shrink-0 pl-4 pr-1.5 py-1.5 rounded-full bg-ink text-background hover:opacity-95 transition"
+              className="group inline-flex items-center gap-2.5 min-w-[44px] min-h-[44px] shrink-0 pl-4 pr-1.5 py-1.5 rounded-lg bg-ink text-background hover:opacity-95 transition"
             >
               <span className="text-sm font-medium hidden sm:inline">Menu</span>
-              <span className="relative grid place-items-center w-9 h-9 rounded-full bg-background/15 overflow-hidden">
+              <span className="relative grid place-items-center w-9 h-9 rounded-md bg-background/15 overflow-hidden">
                 <AnimatePresence mode="wait">
                   {open ? (
                     <motion.span

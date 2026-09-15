@@ -91,7 +91,7 @@ function ThemeToggle({ full = false }: { full?: boolean }) {
   ];
   return (
     <div
-      className={`${full ? "flex w-full" : "hidden sm:flex"} shrink-0 items-center gap-0.5 rounded-full p-0.5`}
+      className={`${full ? "flex w-full" : "hidden sm:flex"} shrink-0 items-center gap-0.5 rounded-lg p-0.5`}
       style={{ background: "var(--ax-veil)" }}
       role="group"
       aria-label="Tema da interface"
@@ -103,7 +103,7 @@ function ThemeToggle({ full = false }: { full?: boolean }) {
           onClick={() => setChoice(o.value)}
           aria-pressed={choice === o.value}
           title={o.label}
-          className={`inline-flex ${full ? "flex-1 justify-center" : ""} items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[12px] transition`}
+          className={`inline-flex ${full ? "flex-1 justify-center" : ""} items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] transition`}
           style={
             choice === o.value
               ? { background: "var(--ax-surface)", color: "var(--ax-text)", boxShadow: "var(--ax-shadow-sm)" }
@@ -195,7 +195,7 @@ function AccountMenu({
               setOpen(false);
               void onSignOut();
             }}
-            className="ax-menuitem flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-left text-[14px] transition"
+            className="ax-menuitem flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-[14px] transition"
             style={{ color: "var(--ax-text-secondary)" }}
           >
             <LogOut size={15} /> Sair
@@ -222,7 +222,7 @@ function MenuLink({
       to={to as any}
       role="menuitem"
       onClick={onClick}
-      className="ax-menuitem flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[14px] transition"
+      className="ax-menuitem flex items-center gap-2.5 rounded-md px-3 py-2 text-[14px] transition"
       style={{ color: "var(--ax-text)" }}
     >
       {icon}

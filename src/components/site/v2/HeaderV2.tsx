@@ -14,7 +14,7 @@ export function HeaderV2() {
 
   return (
     <header className="sticky top-0 z-[70] w-full bg-v2-nav text-white">
-      <div className="mx-auto flex h-[62px] w-full max-w-[1536px] items-center justify-between gap-4 px-5 md:px-10">
+      <div className="site-container flex h-[62px] items-center justify-between gap-4">
         <Link to="/" aria-label="SíndicoLab — página inicial" className="shrink-0">
           <BrandMark size={28} variant="white-purple" />
         </Link>
@@ -36,7 +36,7 @@ export function HeaderV2() {
             href="https://instagram.com/sindicolab"
             target="_blank"
             rel="noreferrer"
-            className="hidden rounded-full bg-v2-purple px-6 py-2.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-v2-purple-light md:inline-flex"
+            className="hidden rounded-lg bg-v2-purple px-6 py-2.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-v2-purple-light md:inline-flex"
           >
             Faça parte
           </a>
@@ -45,7 +45,7 @@ export function HeaderV2() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
-            className="grid h-11 w-11 place-items-center rounded-full bg-white/10 md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-md bg-white/10 md:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -70,7 +70,7 @@ export function HeaderV2() {
             href="https://instagram.com/sindicolab"
             target="_blank"
             rel="noreferrer"
-            className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-v2-purple px-6 py-3 text-[0.95rem] font-semibold text-white"
+            className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-v2-purple px-6 py-3 text-[0.95rem] font-semibold text-white"
           >
             Faça parte
           </a>
