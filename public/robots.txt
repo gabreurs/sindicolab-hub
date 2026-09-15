@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /empresa
+Disallow: /academy/login
+Disallow: /academy/demo
 
 Sitemap: https://sindicolab.com/sitemap.xml

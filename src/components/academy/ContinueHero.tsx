@@ -56,7 +56,7 @@ export function ContinueHero({
     <section className="ax-container pt-6 md:pt-8">
       <div className="ax-hero-panel">
         {art ? (
-          <img className="ax-hero-panel-art" src={art} alt="" aria-hidden fetchPriority="high" />
+          <img loading="lazy" decoding="async" className="ax-hero-panel-art" src={art} alt="" aria-hidden fetchPriority="high" />
         ) : (
           <CourseCoverPlaceholder title={course.title} showTitle={false} className="ax-hero-panel-art" />
         )}

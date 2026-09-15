@@ -137,7 +137,7 @@ function CoursePage() {
       >
         <div className="ax-hero-media">
           {course.cover_url ? (
-            <img src={course.cover_url} alt="" aria-hidden fetchPriority="high" />
+            <img loading="lazy" decoding="async" src={course.cover_url} alt="" aria-hidden fetchPriority="high" />
           ) : (
             <CourseCoverPlaceholder title={course.title} showTitle={false} className="h-full w-full" />
           )}

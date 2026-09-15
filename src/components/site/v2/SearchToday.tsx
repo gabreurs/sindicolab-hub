@@ -83,12 +83,11 @@ function Card({ item, delay }: { item: Item; delay: number }) {
           : "border border-v2-line bg-surface-elevated shadow-soft hover:-translate-y-1 hover:shadow-card"
       }`}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={item.icon}
         alt=""
         aria-hidden
         data-motion="card-icon"
-        decoding="async"
         width={256}
         height={256}
         className="shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04]"

@@ -1,52 +1,85 @@
-# SPA fallback para Apache (Hostinger). Tudo que não for arquivo/diretório real
-# cai em /index.html para o React Router resolver a rota no cliente.
+# SíndicoLab — SPA estática em Apache (cPanel/Hostinger)
 
+# ---------- HTTPS + domínio canônico ----------
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Não reescrever arquivos e pastas existentes
+  # Força HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Remove www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Fallback de rotas do SPA: qualquer caminho que não seja arquivo real serve index.html
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-
-  # Painéis e Academy também caem no index.html (SPA) — sem servidor Node.
-  # As regras abaixo são apenas redirecionamentos de URLs antigas.
-
-  # 301 de URLs legadas
-  RewriteRule ^blog/?$           /portal           [R=301,L]
-  RewriteRule ^artigos/?$        /portal           [R=301,L]
-  RewriteRule ^cursos/?$         /academy             [R=301,L]
-  RewriteRule ^downloads/?$      /materiais        [R=301,L]
-  RewriteRule ^anuncie/?$        /patrocinios      [R=301,L]
-  RewriteRule ^midia-kit/?$      /patrocinios      [R=301,L]
-  RewriteRule ^sobre/?$          /quem-somos       [R=301,L]
-
-  # Se parece asset/arquivo real e não existe, retornar 404 em vez de HTML.
-  # Isso evita erro de MIME type quando algum .js/.css não foi enviado.
-  RewriteCond %{REQUEST_URI} \.[A-Za-z0-9]{2,8}$
-  RewriteRule ^ - [R=404,L]
-
-  # Tudo o mais → index.html (SPA)
-  RewriteRule ^ index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>
 
-<IfModule mod_mime.c>
-  AddType application/javascript .js
-  AddType text/css .css
+# ---------- Compressão ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE application/manifest+json
+  AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf font/woff font/woff2
 </IfModule>
 
-# Cache agressivo para assets versionados
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml font/woff2
+</IfModule>
+
+# ---------- Cache ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/manifest+json "access plus 1 week"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+</IfModule>
+
 <IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2|woff|ttf|svg|jpg|jpeg|png|webp|avif)$">
+  # Arquivos com hash no nome podem ser cacheados para sempre
+  <FilesMatch "\.(js|css|woff2?|ttf|otf|jpg|jpeg|png|webp|avif|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "\.(html)$">
-    Header set Cache-Control "no-cache"
+  <FilesMatch "\.(html|webmanifest|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
+
+  # Segurança
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
 </IfModule>
 
-# Compressão
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+# ---------- Tipos MIME ----------
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+  AddType image/avif .avif
 </IfModule>
+
+# ---------- Diversos ----------
+Options -Indexes
+ErrorDocument 404 /index.html
+DirectoryIndex index.html
+AddDefaultCharset UTF-8

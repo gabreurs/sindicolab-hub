@@ -100,7 +100,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="newsletter-card group"
             >
-               <span className="newsletter-card-icon"><img src={symbolBlackBlue} alt="" aria-hidden className="h-6 w-auto" /></span>
+               <span className="newsletter-card-icon"><img loading="lazy" decoding="async" src={symbolBlackBlue} alt="" aria-hidden className="h-6 w-auto" /></span>
               <span className="mt-auto">
                 <span className="block font-display text-xl leading-tight">Assinar newsletter</span>
                 <span className="mt-2 flex items-center justify-between gap-4 text-xs text-ink/60">
@@ -173,7 +173,7 @@ export function Footer() {
             >
               Feito com
               <Heart className="w-3.5 h-3.5 fill-red-500 text-red-500 group-hover:scale-110 transition-transform" />
-              por <img src={marqoLogo} alt="Studio Marqo" className="h-3.5 w-auto opacity-80 group-hover:opacity-100 transition" />
+              por <img loading="lazy" decoding="async" src={marqoLogo} alt="Studio Marqo" className="h-3.5 w-auto opacity-80 group-hover:opacity-100 transition" />
             </a>
           </div>
         </div>
