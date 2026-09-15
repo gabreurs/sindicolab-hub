@@ -509,7 +509,7 @@
 
 .midia-kit-page .mk-btn-solid {
   display: inline-flex; align-items: center; gap: .5rem;
-  border-radius: 9999px; padding: .85rem 1.5rem;
+  border-radius: var(--radius-control); padding: .85rem 1.5rem;
   background: hsl(var(--mk-fg)); color: hsl(var(--mk-bg));
   font-size: .875rem; font-weight: 500;
   transition: gap .3s ease, background .3s ease;
@@ -517,7 +517,7 @@
 .midia-kit-page .mk-btn-solid:hover { gap: .75rem; background: hsl(var(--mk-purple)); }
 .midia-kit-page .mk-btn-ghost {
   display: inline-flex; align-items: center; gap: .5rem;
-  border-radius: 9999px; padding: .85rem 1.5rem;
+  border-radius: var(--radius-control); padding: .85rem 1.5rem;
   border: 1px solid hsl(var(--mk-fg) / 0.2);
   color: hsl(var(--mk-fg)); background: transparent;
   font-size: .875rem; font-weight: 500;
