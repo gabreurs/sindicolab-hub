@@ -2,8 +2,7 @@ import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-r
 import { useState } from "react";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
-import { academyAuthService, demoAccounts, demoRoleFor } from "@/services/academyAuthService";
-import { DEMO_ACCESS_ENABLED } from "@/lib/academy/demoAccess";
+import { academyAuthService, demoRoleFor } from "@/services/academyAuthService";
 
 export const Route = createFileRoute("/academy/login")({
   ssr: false,
@@ -73,31 +72,6 @@ function LoginPage() {
             {busy ? "…" : mode === "login" ? "Entrar" : "Criar conta"}
           </button>
         </form>
-
-        {mode === "login" && DEMO_ACCESS_ENABLED && (
-          <div className="ax-divider-block mt-7 rounded-[12px] p-4" style={{ background: "var(--ax-veil)" }}>
-            <p className="ax-meta">Acessos de demonstração</p>
-            <div className="mt-2.5 space-y-1.5">
-              {demoAccounts.map((a) => (
-                <button
-                  key={a.email}
-                  type="button"
-                  onClick={() => {
-                    setEmail(a.email);
-                    setPassword(a.password);
-                  }}
-                  className="flex w-full flex-col items-start rounded-[9px] px-2.5 py-2 text-left transition hover:opacity-80"
-                  style={{ background: "var(--ax-surface)" }}
-                >
-                  <span className="text-[13.5px] font-medium" style={{ color: "var(--ax-text)" }}>
-                    {a.label} · {a.organization}
-                  </span>
-                  <span className="ax-meta">{a.email}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
 
         <button onClick={() => setMode(mode === "login" ? "signup" : "login")} className="ax-btn mt-5" data-variant="link">
           {mode === "login" ? "Não tem conta? Criar conta" : "Já tenho conta"}
