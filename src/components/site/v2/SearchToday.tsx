@@ -79,8 +79,8 @@ function Card({ item, delay }: { item: Item; delay: number }) {
       style={{ minHeight: "clamp(84px, 12svh, 146px)" }}
       className={`home-access-card group flex h-full items-center gap-4 rounded-xl px-5 py-4 transition-[transform,box-shadow] duration-300 md:gap-5 md:px-6 ${
         featured
-          ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
-          : "border border-v2-line bg-white shadow-[0_10px_30px_-26px_rgba(27,11,46,0.5)] hover:-translate-y-1 hover:shadow-[0_18px_40px_-26px_rgba(27,11,46,0.45)]"
+          ? "bg-v2-card-featured text-background shadow-brand hover:-translate-y-1"
+          : "border border-v2-line bg-surface-elevated shadow-soft hover:-translate-y-1 hover:shadow-card"
       }`}
     >
       <img
@@ -98,7 +98,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
       <div className="min-w-0 flex-1">
         <h3
           className={`font-display tracking-[-0.03em] ${
-            featured ? "text-white" : "text-v2-ink"
+            featured ? "text-background" : "text-v2-ink"
           }`}
           style={{ fontSize: "clamp(1.05rem, 2.2svh, 1.35rem)" }}
         >
@@ -106,7 +106,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
         </h3>
         <p
           className={`mt-1 leading-snug ${
-            featured ? "text-white/85" : "text-v2-ink/60"
+            featured ? "text-background/85" : "text-v2-ink/60"
           }`}
           style={{ fontSize: "clamp(0.8rem, 1.7svh, 0.95rem)" }}
         >
@@ -116,7 +116,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
         </p>
         <ArrowRight
           className={`mt-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 ${
-            featured ? "text-white" : "text-v2-purple"
+            featured ? "text-background" : "text-v2-purple"
           }`}
           strokeWidth={2}
         />

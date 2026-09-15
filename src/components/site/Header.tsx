@@ -83,14 +83,14 @@ export function Header() {
             <IconButton
               onClick={search.open}
               label="Abrir busca"
-              className="header-search-icon header-action-white sm:hidden"
+              className="header-search-icon header-action-white h-[var(--header-control-size)] w-[var(--header-control-size)] rounded-[var(--header-inner-radius)] sm:hidden"
             >
               <Search className="w-4 h-4" />
             </IconButton>
             <button
               onClick={search.open}
               aria-label="Abrir busca"
-              className="header-control header-action-white group hidden items-center justify-center gap-2 shrink-0 text-sm sm:inline-flex"
+                className="header-control header-action-white group hidden items-center justify-center gap-2 shrink-0 text-sm sm:inline-flex"
             >
               <Search className="block h-4 w-4 shrink-0" />
               <span className="hidden sm:inline">Buscar</span>
