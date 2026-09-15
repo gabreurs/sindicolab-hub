@@ -5,4 +5,4 @@ Disallow: /empresa
 Disallow: /academy/login
 Disallow: /academy/demo
 
-Sitemap: https://sindicolab.com/sitemap.xml
+Sitemap: https://sindicolab.com.br/sitemap.xml
