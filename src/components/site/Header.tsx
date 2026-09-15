@@ -43,7 +43,6 @@ export function Header() {
           }`}
           style={{
             height: scrolled ? "calc(var(--header-h) - 8px)" : "var(--header-h)",
-            paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
             gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
           }}
         >

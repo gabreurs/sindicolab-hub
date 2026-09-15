@@ -65,7 +65,7 @@
 .player-shell .player-cta {
   background: var(--tenant-accent);
   color: var(--tenant-accent-ink);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   padding: .6rem 1.15rem;
   font-weight: 500;
   transition: filter .2s ease;
@@ -231,7 +231,7 @@
   gap: .55rem;
   height: 48px;
   padding-inline: 24px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   background: var(--tenant-accent);
   color: var(--tenant-accent-contrast);
   font-weight: 600;
@@ -252,7 +252,7 @@
   gap: .5rem;
   height: 48px;
   padding-inline: 22px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   background: rgba(255,255,255,.08);
   color: #F5F5F5;
   border: 1px solid rgba(255,255,255,.12);
@@ -746,7 +746,7 @@
 .ax-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
   height: 40px; padding-inline: 16px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   font-size: 14px; font-weight: 520; line-height: 1;
   border: 1px solid transparent;
   white-space: nowrap;
@@ -873,7 +873,7 @@
 }
 .ax-navlink {
   display: inline-flex; align-items: center; height: 36px; padding-inline: 12px;
-  border-radius: var(--radius-pill); font-size: 14.5px; font-weight: 500;
+  border-radius: var(--radius-control); font-size: 14.5px; font-weight: 500;
   color: var(--ax-text-secondary);
   transition: color .16s ease, background .16s ease;
 }
@@ -883,7 +883,7 @@
 .ax-search {
   display: flex; align-items: center; gap: 8px;
   height: 38px; padding-inline: 12px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   background: var(--ax-surface-raised);
   color: var(--ax-text-tertiary);
   transition: background .16s ease;
