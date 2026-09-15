@@ -6,6 +6,7 @@
 - [x] Corrigir responsividade do site institucional e conteúdo
 - [x] Corrigir responsividade da Academy, login, catálogo e cursos
 - [x] Corrigir responsividade de /admin e /empresa
+- [ ] Corrigir 404 em rotas internas no site publicado (.htaccess/SPA fallback no cPanel)
 - [x] Validar visualmente cada rota em 360, 390, 430, 768, 1024 e desktop
 
 ## Integração Portal Content Hub
