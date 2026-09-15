@@ -10,13 +10,17 @@
 }
 
 .portal-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  inset-inline: 0;
   z-index: 70;
   background: color-mix(in oklab, var(--background) 92%, transparent);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(18px) saturate(150%);
 }
+.portal-shell { padding-top: 176px; }
+.portal-header.is-compact + .portal-main,
+.portal-header.is-compact + .portal-page { scroll-margin-top: 112px; }
 
 .portal-topbar {
   background: var(--ink);
@@ -54,6 +58,8 @@
 .portal-session { margin-left: auto; }
 .portal-header.is-compact .portal-topbar { height: 0; opacity: 0; overflow: hidden; }
 .portal-header.is-compact .portal-brandbar { min-height: 64px; }
+.portal-login { display: inline-flex; align-items: center; gap: 5px; }
+.portal-login svg { width: 14px; }
 
 .portal-main { padding-block: 24px var(--section-gap); }
 .portal-ad { display: flex; min-height: 92px; align-items: center; gap: 32px; margin-bottom: 28px; padding: 18px 28px; border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--brand-soft); box-shadow: var(--shadow-soft); }
@@ -192,6 +198,7 @@
 }
 
 @media (max-width: 767px) {
+  .portal-shell { padding-top: 102px; }
   .portal-topbar-inner nav, .portal-topbar p span, .portal-brandbar > .portal-search { display: none; }
   .portal-brandbar { min-height: 72px; }
   .portal-brandbar > a { width: 165px; }
