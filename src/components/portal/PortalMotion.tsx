@@ -6,7 +6,7 @@ export function PortalMotion({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let cleanup = () => undefined;
+    let cleanup: () => void = () => {};
     let cancelled = false;
     void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([gsapModule, triggerModule]) => {
       if (cancelled) return;
