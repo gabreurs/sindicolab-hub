@@ -6,6 +6,7 @@ import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
 import { SessionMenu } from "./SessionMenu";
+import { IconButton } from "@/components/ui/icon-button";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -79,12 +80,19 @@ export function Header() {
 
           <div className="site-header-actions flex items-center flex-none shrink-0">
             <SessionMenu dark={isDarkPage && solid} />
+            <IconButton
+              onClick={search.open}
+              label="Abrir busca"
+              className="header-search-icon header-action-white sm:hidden"
+            >
+              <Search className="w-4 h-4" />
+            </IconButton>
             <button
               onClick={search.open}
               aria-label="Abrir busca"
-               className="header-control header-action-white group inline-flex items-center justify-center gap-2 shrink-0 text-sm"
+              className="header-control header-action-white group hidden items-center justify-center gap-2 shrink-0 text-sm sm:inline-flex"
             >
-              <Search className="w-4 h-4" />
+              <Search className="block h-4 w-4 shrink-0" />
               <span className="hidden sm:inline">Buscar</span>
               <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-md bg-background border border-border text-[10px] font-mono text-ink-soft ml-1">
                 ⌘K
@@ -95,7 +103,7 @@ export function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Fechar menu" : "Abrir menu do ecossistema"}
               aria-expanded={open}
-              className="header-control header-menu-control group inline-flex items-center gap-2.5 shrink-0 bg-ink text-background hover:opacity-95 transition"
+              className="header-control header-menu-control group inline-flex items-center justify-center gap-2.5 shrink-0 bg-ink text-background hover:opacity-95 transition"
             >
               <span className="text-sm font-medium hidden sm:inline">Menu</span>
               <span className="header-menu-icon relative grid place-items-center bg-background/15 overflow-hidden">

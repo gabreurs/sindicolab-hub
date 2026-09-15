@@ -9,7 +9,8 @@ export function KnowledgeBanner() {
     <section className="home-row">
       <div className="site-container">
         <div
-          className="hp relative overflow-hidden rounded-xl bg-v2-nav"
+          className="hp knowledge-banner relative overflow-hidden rounded-xl bg-v2-nav"
+          data-motion="banner"
           style={{ animationDelay: "900ms" }}
         >
           {/* imagem ambiente ao fundo */}
@@ -32,7 +33,7 @@ export function KnowledgeBanner() {
             draggable={false}
           />
 
-          <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-center md:grid-cols-[minmax(0,1fr)_auto_auto] md:px-10 md:text-left md:py-[2.2svh]">
+          <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-left md:grid-cols-[minmax(0,1fr)_auto_auto] md:px-10 md:py-[2.2svh]">
             <div className="flex items-center justify-center gap-4 md:justify-start">
               <BrandMark size={34} variant="white-purple" className="hidden shrink-0 sm:inline-flex" />
               <div>

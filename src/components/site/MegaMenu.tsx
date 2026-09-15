@@ -57,7 +57,7 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             exit={panelExit}
             transition={panelTransition}
             data-lenis-prevent
-            className="mega-menu-overlay fixed inset-0 z-[90] pt-[calc(var(--header-h)+1rem)] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none overscroll-contain"
+            className="mega-menu-overlay fixed inset-0 z-[90] pt-[calc(var(--header-h)+1rem)] bg-background overflow-y-auto scrollbar-none overscroll-contain"
             role="dialog"
             aria-modal="true"
             aria-label="Menu do SíndicoLab"

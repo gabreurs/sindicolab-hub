@@ -59,7 +59,7 @@ export function SearchToday() {
         </h2>
 
         <div
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="home-access-grid grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4"
           style={{ marginTop: "clamp(0.75rem, 1.6svh, 1.5rem)" }}
         >
           {items.map((it, i) => (
@@ -77,7 +77,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
   const inner = (
     <div
       style={{ minHeight: "clamp(84px, 12svh, 146px)" }}
-      className={`group flex h-full items-center gap-4 rounded-xl px-5 py-4 transition-[transform,box-shadow] duration-300 md:gap-5 md:px-6 ${
+      className={`home-access-card group flex h-full items-center gap-4 rounded-xl px-5 py-4 transition-[transform,box-shadow] duration-300 md:gap-5 md:px-6 ${
         featured
           ? "bg-v2-card-featured text-white shadow-[0_18px_40px_-24px_rgba(124,58,237,0.75)] hover:-translate-y-1"
           : "border border-v2-line bg-white shadow-[0_10px_30px_-26px_rgba(27,11,46,0.5)] hover:-translate-y-1 hover:shadow-[0_18px_40px_-26px_rgba(27,11,46,0.45)]"
@@ -87,6 +87,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
         src={item.icon}
         alt=""
         aria-hidden
+        data-motion="card-icon"
         decoding="async"
         width={256}
         height={256}
@@ -128,7 +129,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
 
   if (item.to) {
     return (
-      <Link to={item.to} aria-label={item.title} className={wrapper} style={style}>
+      <Link to={item.to} aria-label={item.title} className={wrapper} data-motion="access-card" style={style}>
         {inner}
       </Link>
     );
@@ -140,6 +141,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
       target={isInternal ? undefined : "_blank"}
       rel={isInternal ? undefined : "noopener noreferrer"}
       aria-label={item.title}
+      data-motion="access-card"
       className={wrapper}
       style={style}
     >
