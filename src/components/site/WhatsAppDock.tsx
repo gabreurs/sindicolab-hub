@@ -68,7 +68,7 @@ export function WhatsAppDock() {
 
   return (
     <div
-      className="fixed z-[60] flex flex-col items-end gap-3"
+      className="wa-dock fixed z-[60] flex flex-col items-end gap-3"
       style={{
         right: "max(1rem, env(safe-area-inset-right))",
         bottom: "max(1rem, env(safe-area-inset-bottom))",
@@ -179,13 +179,13 @@ export function WhatsAppDock() {
         onClick={toggle}
         aria-expanded={open}
         aria-label={open ? "Fechar conversa" : "Abrir conversa no WhatsApp"}
-        className="group relative inline-flex min-h-[52px] items-center gap-2 rounded-full bg-ink pl-3 pr-4 text-background shadow-[0_16px_36px_-18px_rgba(27,11,46,0.85)] transition hover:opacity-95"
+        className="wa-trigger group relative inline-flex min-h-[52px] items-center gap-2 rounded-full bg-ink pl-3 pr-4 text-background shadow-[0_16px_36px_-18px_rgba(27,11,46,0.85)] transition hover:opacity-95"
       >
         {!open && teaser && <span className="wa-ping absolute inset-0 rounded-full" aria-hidden />}
         <span className="relative grid h-9 w-9 place-items-center rounded-full bg-background/15">
           {open ? <X className="h-4 w-4" /> : <WhatsAppGlyph className="h-5 w-5" />}
         </span>
-        <span className="relative text-sm font-medium">{open ? "Fechar" : "Fale conosco"}</span>
+        <span className="wa-trigger-label relative text-sm font-medium">{open ? "Fechar" : "Fale conosco"}</span>
       </button>
     </div>
   );

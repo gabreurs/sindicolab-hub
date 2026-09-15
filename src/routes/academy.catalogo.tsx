@@ -133,7 +133,7 @@ function Catalog() {
                 {l.label}
               </Chip>
             ))}
-            <div className="ml-auto flex items-center gap-2">
+            <div className="catalog-sort ml-auto flex max-w-full flex-wrap items-center gap-2">
               {SORTS.map((s) => (
                 <Chip key={s.id} selected={sort === s.id} onClick={() => setSort(s.id)}>
                   {s.label}

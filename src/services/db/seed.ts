@@ -9,6 +9,7 @@
  * (materiais, artigos, eventos, newsletter).
  */
 import { articles } from "@/data/articles";
+import { portalAuthorRows, portalCategoryRows, portalPostRows } from "@/data/portal";
 import { EXTERNAL_LINKS } from "@/config/external-links";
 import type { Row } from "./types";
 import {
@@ -201,6 +202,9 @@ export const tables = {
   site_articles,
   site_events,
   newsletter_subscribers,
+  portal_categories: portalCategoryRows,
+  portal_authors: portalAuthorRows,
+  portal_posts: portalPostRows,
 };
 
 export type TableName = keyof typeof tables;

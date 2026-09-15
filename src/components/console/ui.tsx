@@ -34,12 +34,12 @@ export function PageHeader({
           ))}
         </nav>
       )}
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+      <div className="responsive-page-header grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
         <div className="min-w-0">
           <h1 className="text-[1.45rem] font-medium tracking-tight">{title}</h1>
           {description && <p className="mt-1 text-sm c-muted max-w-2xl">{description}</p>}
         </div>
-        {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
+        {actions && <div className="responsive-page-actions flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
       </div>
     </header>
   );
@@ -65,7 +65,7 @@ export function Card({
   return (
     <section className={cn("c-card overflow-hidden", className)}>
       {(title || actions) && (
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b c-divide px-5 py-4">
+        <div className="responsive-card-header grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b c-divide px-5 py-4">
           <div className="min-w-0">
             {title && <h2 className="text-sm font-medium">{title}</h2>}
             {description && <p className="mt-1 text-xs c-muted">{description}</p>}
@@ -193,7 +193,7 @@ export function TableSkeleton({ rows = 4, cols = 4 }: { rows?: number; cols?: nu
 }
 
 export function TableWrap({ children }: { children: ReactNode }) {
-  return <div className="overflow-x-auto">{children}</div>;
+  return <div className="c-table-wrap">{children}</div>;
 }
 
 /** Ação destrutiva com confirmação inline (sem window.confirm). */
