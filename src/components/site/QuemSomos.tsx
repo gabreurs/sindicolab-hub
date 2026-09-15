@@ -106,9 +106,9 @@ export function QuemSomos() {
                 {/* Header logos */}
                 <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <img src={logoSindicolab} alt="" className="h-4 w-auto" />
+                    <img loading="lazy" decoding="async" src={logoSindicolab} alt="" className="h-4 w-auto" />
                     <span className="text-white/20">×</span>
-                    <img src={logoCondohuby} alt="" className="h-4 w-auto" />
+                    <img loading="lazy" decoding="async" src={logoCondohuby} alt="" className="h-4 w-auto" />
                   </div>
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/70">
                     {t.tag}

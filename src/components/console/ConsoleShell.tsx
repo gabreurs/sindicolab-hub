@@ -79,7 +79,7 @@ export function ConsoleShell({
                 style={{ borderColor: "var(--c-border-soft)" }}
               >
                 {brand.logoUrl ? (
-                  <img src={brand.logoUrl} alt="" className="h-4 w-auto max-w-[72px] object-contain" />
+                  <img loading="lazy" decoding="async" src={brand.logoUrl} alt="" className="h-4 w-auto max-w-[72px] object-contain" />
                 ) : (
                   <span className="h-2 w-2 rounded-full" style={{ background: brand.accent ?? "var(--c-focus)" }} />
                 )}

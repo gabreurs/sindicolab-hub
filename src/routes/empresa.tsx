@@ -375,7 +375,7 @@ function EmpresaPage() {
             <Card title="Identidade da Academy" description="O que seus alunos veem hoje." >
               <div className="flex items-center gap-3">
                 {brandMark.logoUrl ? (
-                  <img src={brandMark.logoUrl} alt={`Logo ${brandMark.name}`} className="h-9 w-auto max-w-[140px] object-contain" />
+                  <img loading="lazy" decoding="async" src={brandMark.logoUrl} alt={`Logo ${brandMark.name}`} className="h-9 w-auto max-w-[140px] object-contain" />
                 ) : (
                   <span className="grid h-9 w-9 place-items-center rounded-md text-xs" style={{ background: brandMark.accent ?? "var(--c-surface-2)" }} aria-hidden />
                 )}

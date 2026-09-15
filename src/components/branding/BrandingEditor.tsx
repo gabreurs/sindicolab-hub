@@ -178,7 +178,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
                       className="mt-2 flex h-12 items-center rounded-lg border px-3"
                       style={{ borderColor: "var(--c-border-soft)", background: key === "logo_dark_url" ? "#111114" : "#FFFFFF" }}
                     >
-                      <img src={branding[key] as string} alt="" className="max-h-8 w-auto max-w-[160px] object-contain" />
+                      <img loading="lazy" decoding="async" src={branding[key] as string} alt="" className="max-h-8 w-auto max-w-[160px] object-contain" />
                     </span>
                   )}
                 </Field>
@@ -231,7 +231,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
                 <Input value={branding.banner_url ?? ""} onChange={(e) => upd("banner_url", e.target.value || null)} placeholder="https://…" />
               </Field>
               {branding.banner_url && (
-                <img src={branding.banner_url} alt="" className="aspect-[16/6] w-full rounded-lg object-cover" />
+                <img loading="lazy" decoding="async" src={branding.banner_url} alt="" className="aspect-[16/6] w-full rounded-lg object-cover" />
               )}
               <Field label="Título de boas-vindas">
                 <Input value={branding.welcome_title ?? ""} onChange={(e) => upd("welcome_title", e.target.value || null)} />
@@ -284,7 +284,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
             >
               <span className="flex items-center gap-2">
                 {preview.logo ? (
-                  <img src={preview.logo} alt="" className="h-5 w-auto max-w-[110px] object-contain" />
+                  <img loading="lazy" decoding="async" src={preview.logo} alt="" className="h-5 w-auto max-w-[110px] object-contain" />
                 ) : (
                   <span style={{ fontWeight: 500 }}>{branding.environment_name || "Academy"}</span>
                 )}
@@ -296,7 +296,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
               className="relative m-3 overflow-hidden rounded-xl"
               style={{ background: branding.banner_url ? undefined : `${preview.ink}0f`, aspectRatio: "16/8" }}
             >
-              {branding.banner_url && <img src={branding.banner_url} alt="" className="absolute inset-0 h-full w-full object-cover" />}
+              {branding.banner_url && <img loading="lazy" decoding="async" src={branding.banner_url} alt="" className="absolute inset-0 h-full w-full object-cover" />}
               <div className="absolute inset-0" style={{ background: branding.banner_url ? "rgba(0,0,0,.28)" : "transparent" }} />
               <div className="absolute inset-0 flex flex-col justify-end gap-2 p-4" style={{ color: branding.banner_url ? "#fff" : preview.ink }}>
                 <p className="text-[15px]" style={{ fontWeight: 500 }}>{branding.welcome_title || "Continue de onde parou"}</p>

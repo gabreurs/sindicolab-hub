@@ -83,7 +83,7 @@ function Card({ item, delay }: { item: Item; delay: number }) {
           : "border border-v2-line bg-surface-elevated shadow-soft hover:-translate-y-1 hover:shadow-card"
       }`}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={item.icon}
         alt=""
         aria-hidden
