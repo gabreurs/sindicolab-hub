@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
@@ -8,11 +8,7 @@ import { buildSeo } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/portal_/$slug")({
-  loader: ({ params }) => {
-    const article = getArticle(params.slug);
-    if (!article) throw notFound();
-    return { article };
-  },
+  beforeLoad: ({ params }) => { throw redirect({ href: `/portal/noticia/${params.slug}`, statusCode: 301 }); },
   head: ({ loaderData }) => {
     const a = loaderData?.article;
     if (!a) {
