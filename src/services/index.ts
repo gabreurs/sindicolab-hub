@@ -15,3 +15,4 @@ export { newsletterService, captureNewsletterEmail, isValidEmail } from "./newsl
 export { academyService } from "./academyService";
 export { authService } from "./authService";
 export { tenantService } from "./tenantService";
+export { portalService } from "./portalService";

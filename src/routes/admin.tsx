@@ -8,6 +8,7 @@ import { CourseManager } from "@/components/admin/CourseManager";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
 import { SiteContentManager } from "@/components/admin/SiteContentManager";
+import { PortalContentManager } from "@/components/admin/PortalContentManager";
 import {
   Badge, Button, Card, ConfirmAction, EmptyState, Field, Input, PageHeader,
   SaveState, SearchInput, Select, Stat, TableSkeleton, TableWrap,
@@ -58,6 +59,11 @@ const NAV: ConsoleNavGroup[] = [
     { id: "materiais", label: "Materiais" },
     { id: "artigos", label: "Artigos" },
     { id: "eventos", label: "Eventos" },
+  ] },
+  { label: "Portal", items: [
+    { id: "portal-posts", label: "Notícias" },
+    { id: "portal-categories", label: "Categorias" },
+    { id: "portal-authors", label: "Colunistas" },
   ] },
   { label: "Pessoas", items: [
     { id: "acessos", label: "Usuários e permissões" },
@@ -240,6 +246,9 @@ function AdminPage() {
       {section === "materiais" && <SiteContentManager kind="materiais" />}
       {section === "artigos" && <SiteContentManager kind="artigos" />}
       {section === "eventos" && <SiteContentManager kind="eventos" />}
+      {section === "portal-posts" && <PortalContentManager kind="posts" />}
+      {section === "portal-categories" && <PortalContentManager kind="categories" />}
+      {section === "portal-authors" && <PortalContentManager kind="authors" />}
 
       {section === "visao" && (
         <>
