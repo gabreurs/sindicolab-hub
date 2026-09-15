@@ -785,9 +785,13 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 
 .intro-wordmark {
+  position: relative;
+  display: inline-block;
   line-height: 1;
 }
 .intro-wordmark-mask {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: baseline;
   font-family: var(--font-display);
@@ -798,16 +802,19 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 .intro-wordmark-sindico { color: #F7FAFF; }
 .intro-wordmark-lab {
-  position: relative;
   color: #20C7F5;
   margin-left: 0.04em;
 }
 .intro-lab-glow {
   position: absolute;
-  inset: -60% -80%;
+  top: 50%;
+  right: -15%;
+  width: 60%;
+  height: 300%;
+  transform: translateY(-50%);
   background: radial-gradient(ellipse at center, rgba(32,199,245,0.4) 0%, rgba(32,199,245,0.12) 35%, transparent 60%);
-  filter: blur(10px);
-  z-index: -1;
+  filter: blur(12px);
+  z-index: 0;
   pointer-events: none;
 }
 
