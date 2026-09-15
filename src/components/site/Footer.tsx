@@ -84,7 +84,7 @@ export function Footer() {
         {/* Newsletter */}
         <div className="grid items-center gap-10 border-b border-background/10 pb-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <Link to="/" className="inline-flex"><BrandMark size={32} tone="light" /></Link>
+            <Link to="/" className="inline-flex"><BrandMark size={32} variant="white-purple" /></Link>
             <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1.05] max-w-md">
               Fique por dentro do mercado condominial.
             </h3>

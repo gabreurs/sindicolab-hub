@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, MessageSquare, Sparkles } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
-import logoSindicolab from "@/assets/logo-sindicolab.svg";
+import logoSindicolab from "@/assets/brand/logo-white-purple.svg";
 import logoCondohuby from "@/assets/midia-kit/brand/logo-condohuby.svg";
 
 const stats = [

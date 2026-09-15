@@ -66,7 +66,7 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             {/* Bar */}
             <div className="container-x py-5 flex items-center justify-between">
               <Link to="/" onClick={onClose} aria-label="SíndicoLab — home">
-                <BrandMark size={30} tone="dark" />
+                <BrandMark size={30} variant="black-purple" />
               </Link>
               <button
                 onClick={onClose}

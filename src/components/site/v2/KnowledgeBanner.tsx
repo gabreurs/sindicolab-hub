@@ -2,6 +2,7 @@ import { ArrowRight, Users } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import heroCondominio from "@/assets/v2/hero-condominio.webp";
 import { EXTERNAL_LINKS } from "@/config/external-links";
+import symbolWhiteBlue from "@/assets/brand/symbol-white-blue.svg";
 
 export function KnowledgeBanner() {
   return (
@@ -32,11 +33,14 @@ export function KnowledgeBanner() {
           />
 
           <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-center md:grid-cols-[minmax(0,1fr)_auto_auto] md:px-10 md:text-left md:py-[2.2svh]">
-            <div>
+            <div className="flex items-center justify-center gap-4 md:justify-start">
+              <img src={symbolWhiteBlue} alt="" aria-hidden className="hidden h-11 w-auto shrink-0 sm:block" />
+              <div>
               <p className="font-display leading-tight text-background" style={{ fontSize: "clamp(1.2rem, 2.8svh, 1.75rem)" }}>
                 Conhecimento que <span className="text-v2-purple-light">transforma</span> a gestão.
               </p>
               <p className="mt-1 text-sm text-background/65">Aprenda, troque experiências e fortaleça sua rede.</p>
+              </div>
             </div>
 
             <Link to="/academy" className="knowledge-banner-action">

@@ -18,9 +18,7 @@ export function SessionMenu({ dark = false }: { dark?: boolean }) {
 
   const base =
     "inline-flex items-center justify-center min-h-[44px] shrink-0 rounded-full text-sm transition whitespace-nowrap";
-  const soft = dark
-    ? "bg-white/10 text-white hover:bg-white/20"
-    : "bg-secondary text-ink-soft hover:bg-accent hover:text-ink";
+  const soft = "header-action-white";
 
   return (
     <div className="flex items-center gap-2 flex-none shrink-0">
