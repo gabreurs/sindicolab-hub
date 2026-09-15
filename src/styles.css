@@ -59,6 +59,11 @@
   --radius-small: 0.5rem;
   --radius-pill: 9999px;
 
+  --header-outer-radius: 1.375rem;
+  --header-inner-gap: 0.3125rem;
+  --header-inner-radius: calc(var(--header-outer-radius) - var(--header-inner-gap));
+  --header-control-size: 2.75rem;
+
   --content-max: 96rem;
   --content-max-wide: 100rem;
   --content-gutter: 1.25rem;
@@ -153,36 +158,67 @@
 @media (min-width: 768px) { :root { --content-gutter: 2.5rem; } }
 .header-nav .nav-link { padding-inline: clamp(0.4rem, 0.85vw, 0.85rem); }
 
-/* O cabeçalho mantém a largura total no topo e vira uma barra compacta ao rolar. */
+/* Header como uma única peça: controles usam o mesmo gap e a geometria derivada da casca. */
 .site-header {
-  padding: 0;
+  padding: 8px 10px 0;
   transition: padding 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .site-header-shell {
-  border: 1px solid transparent;
-  border-radius: var(--radius-card);
-  transition: height 300ms cubic-bezier(0.22, 1, 0.36, 1), max-width 320ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease;
+  height: var(--header-h);
+  gap: clamp(0.5rem, 1.25vw, 1rem);
+  padding: var(--header-inner-gap);
+  border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
+  border-radius: var(--header-outer-radius);
+  box-shadow: var(--shadow-soft);
+  overflow: clip;
+  transition: height 300ms cubic-bezier(0.22, 1, 0.36, 1), max-width 320ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease, padding 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-header-brand { padding-left: clamp(0.65rem, 1.25vw, 1.15rem); }
+.site-header-actions,
+.site-session-actions { gap: var(--header-inner-gap); }
+.header-control {
+  min-width: var(--header-control-size);
+  height: var(--header-control-size);
+  min-height: var(--header-control-size);
+  border-radius: var(--header-inner-radius);
+  padding: 0 0.65rem;
+  line-height: 1;
+}
+.header-menu-control { padding-left: 0.9rem; padding-right: var(--header-inner-gap); }
+.header-menu-icon {
+  width: calc(var(--header-control-size) - (var(--header-inner-gap) * 2));
+  height: calc(var(--header-control-size) - (var(--header-inner-gap) * 2));
+  border-radius: calc(var(--header-inner-radius) - var(--header-inner-gap));
 }
 .site-header[data-scrolled="true"] { padding: 10px 12px 0; }
 .site-header[data-scrolled="true"] .site-header-shell {
+  height: calc(var(--header-h) - 8px);
   max-width: 1180px;
   border-color: color-mix(in oklab, var(--border) 72%, transparent);
-  border-radius: var(--radius-card);
+  border-radius: var(--header-outer-radius);
   box-shadow: var(--shadow-card);
 }
 .header-action-white {
   background: var(--surface-elevated);
   color: var(--ink);
-  border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
-  box-shadow: var(--shadow-soft);
+  border: 0;
+  box-shadow: none;
 }
 .header-action-white:hover {
   background: var(--background);
   color: var(--ink);
 }
 @media (max-width: 767px) {
+  :root {
+    --header-outer-radius: 1.25rem;
+    --header-control-size: 2.75rem;
+  }
+  .site-header { padding: 6px 6px 0; }
   .site-header[data-scrolled="true"] { padding: 7px 8px 0; }
-  .site-header[data-scrolled="true"] .site-header-shell { border-radius: var(--radius-card); }
+  .site-header[data-scrolled="true"] .site-header-shell { border-radius: var(--header-outer-radius); }
+  .site-header-brand { padding-left: 0.55rem; }
+  .header-control { padding-inline: 0.55rem; }
+  .header-menu-control { padding-left: 0.65rem; padding-right: var(--header-inner-gap); }
 }
 
 @utility site-container {

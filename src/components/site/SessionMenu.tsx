@@ -17,11 +17,11 @@ export function SessionMenu({ dark = false }: { dark?: boolean }) {
   const label = isPlatformAdmin ? "Plataforma" : isOrgAdmin() ? "Empresa" : "Meus cursos";
 
   const base =
-    "inline-flex items-center justify-center min-h-[44px] shrink-0 rounded-lg text-sm transition whitespace-nowrap";
+    "header-control inline-flex items-center justify-center shrink-0 text-sm transition whitespace-nowrap";
   const soft = "header-action-white";
 
   return (
-    <div className="flex items-center gap-2 flex-none shrink-0">
+    <div className="site-session-actions flex items-center flex-none shrink-0">
       <Link to={home} className={`${base} ${soft} hidden sm:inline-flex px-4`}>
         {label}
       </Link>
