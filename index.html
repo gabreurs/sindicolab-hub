@@ -4,22 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1020" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="SíndicoLab" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <title>SíndicoLab — Síndico profissional, cursos e materiais para condomínio</title>
     <meta
       name="description"
-      content="O SíndicoLab é o ecossistema de síndico profissional, cursos para síndicos, materiais para condomínio e conteúdo de gestão condominial."
+      content="O SíndicoLab é o ecossistema de síndico profissional: portal de notícias condominiais, cursos para síndicos e materiais prontos para a gestão do condomínio."
     />
+    <meta name="author" content="SíndicoLab" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="/" />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SíndicoLab" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="/" />
     <meta property="og:title" content="SíndicoLab — Ecossistema condominial" />
-    <meta property="og:description" content="Síndico profissional, cursos, materiais e conteúdo condominial em um só lugar." />
+    <meta
+      property="og:description"
+      content="Portal de notícias, cursos e materiais para síndicos profissionais e gestão condominial."
+    />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SíndicoLab — Ecossistema condominial" />
+    <meta
+      name="twitter:description"
+      content="Portal de notícias, cursos e materiais para síndicos profissionais e gestão condominial."
+    />
+
+    <link rel="preload" href="/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/Boldonse-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="dns-prefetch" href="https://sindicolab.substack.com" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://sindicolab.com/#organization",
+            "name": "SíndicoLab",
+            "url": "https://sindicolab.com/",
+            "logo": "https://sindicolab.com/brand/logo-sindicolab-ink.svg",
+            "description": "Ecossistema brasileiro de gestão condominial: portal editorial, cursos e materiais para síndicos.",
+            "areaServed": "BR",
+            "knowsLanguage": "pt-BR"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://sindicolab.com/#website",
+            "url": "https://sindicolab.com/",
+            "name": "SíndicoLab",
+            "inLanguage": "pt-BR",
+            "publisher": { "@id": "https://sindicolab.com/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://sindicolab.com/portal?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
