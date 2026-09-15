@@ -1,9 +1,10 @@
-import { Heart, ArrowUpRight, Mail } from "lucide-react";
+import { Heart, ArrowUpRight } from "lucide-react";
 import { InstagramIcon as Instagram, YoutubeIcon as Youtube, LinkedinIcon as Linkedin } from "@/components/icons/SocialIcons";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import marqoLogo from "@/assets/logo-marqo.svg";
 import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
+import symbolNavyPurple from "@/assets/brand/symbol-navy-purple.svg";
 
 
 
@@ -99,7 +100,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="newsletter-card group"
             >
-              <span className="newsletter-card-icon"><Mail className="h-5 w-5" /></span>
+               <span className="newsletter-card-icon"><img src={symbolNavyPurple} alt="" aria-hidden className="h-6 w-auto" /></span>
               <span className="mt-auto">
                 <span className="block font-display text-xl leading-tight">Assinar newsletter</span>
                 <span className="mt-2 flex items-center justify-between gap-4 text-xs text-ink/60">
