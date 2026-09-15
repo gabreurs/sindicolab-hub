@@ -33,22 +33,18 @@ export function Header() {
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isHome ? 0.6 : 0 }}
-        className={`fixed inset-x-0 top-0 z-[70] transition-all duration-500 ${
-          solid
-            ? isDarkPage
-              ? "glass-dark glass-nav border-b border-white/10"
-              : "glass glass-nav border-b border-border/60"
-            : "bg-transparent"
-        }`}
+        className="site-header fixed inset-x-0 top-0 z-[70]"
         data-route={isHome ? "home" : "page"}
+        data-scrolled={scrolled ? "true" : "false"}
       >
         <div
-          className="mx-auto flex w-full max-w-[1536px] items-center justify-between box-border"
+          className={`site-header-shell mx-auto flex w-full max-w-[1536px] items-center justify-between box-border ${
+            solid ? (isDarkPage ? "glass-dark glass-nav" : "glass glass-nav") : "bg-transparent"
+          }`}
           style={{
             height: scrolled ? "calc(var(--header-h) - 8px)" : "var(--header-h)",
             paddingInline: "clamp(1rem, 3.2vw, 2.5rem)",
             gap: "clamp(0.5rem, 1.6vw, 1.25rem)",
-            transition: "height 300ms cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           <Link

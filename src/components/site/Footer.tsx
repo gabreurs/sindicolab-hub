@@ -1,4 +1,4 @@
-import { Heart, ArrowUpRight } from "lucide-react";
+import { Heart, ArrowUpRight, Mail } from "lucide-react";
 import { InstagramIcon as Instagram, YoutubeIcon as Youtube, LinkedinIcon as Linkedin } from "@/components/icons/SocialIcons";
 import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
@@ -82,8 +82,8 @@ export function Footer() {
 
       <div className="container-x relative">
         {/* Newsletter */}
-        <div className="grid lg:grid-cols-12 gap-10 pb-14 border-b border-background/10">
-          <div className="lg:col-span-5">
+        <div className="grid items-center gap-10 border-b border-background/10 pb-14 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <Link to="/" className="inline-flex"><BrandMark size={32} tone="light" /></Link>
             <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1.05] max-w-md">
               Fique por dentro do mercado condominial.
@@ -92,19 +92,22 @@ export function Footer() {
               Receba conteúdos, materiais e novidades do SíndicoLab toda semana.
             </p>
           </div>
-          <div className="lg:col-span-7 self-end">
+          <div className="lg:col-span-5 lg:justify-self-end">
             <a
               href={EXTERNAL_LINKS.SUBSTACK}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary justify-center"
-              style={{ background: "oklch(0.78 0.14 220)", color: "var(--ink)" }}
+              className="newsletter-card group"
             >
-              Assinar newsletter
+              <span className="newsletter-card-icon"><Mail className="h-5 w-5" /></span>
+              <span className="mt-auto">
+                <span className="block font-display text-xl leading-tight">Assinar newsletter</span>
+                <span className="mt-2 flex items-center justify-between gap-4 text-xs text-ink/60">
+                  Abrir no Substack
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </span>
             </a>
-            <p className="mt-3 px-1 text-[11px] leading-relaxed text-background/45">
-              A assinatura é concluída no Substack do SíndicoLab.
-            </p>
           </div>
         </div>
 

@@ -1,11 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 /**
- * Tema da plataforma: claro (default), escuro ou sistema.
- *
- * LIGHT-FIRST: a Academy é desenhada primeiro no claro. O escuro é uma
- * preferência do usuário — nunca o canvas universal do produto.
- * A escolha persiste localmente até existir preferência no perfil.
+ * Tema da plataforma: a Academy sempre abre no modo escuro.
+ * A pessoa ainda pode alternar o tema durante a sessão atual.
  */
 export type ThemeChoice = "light" | "dark" | "system";
 
@@ -20,12 +17,10 @@ function systemPrefersDark() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [choice, setChoiceState] = useState<ThemeChoice>("light");
+  const [choice, setChoiceState] = useState<ThemeChoice>("dark");
   const [systemDark, setSystemDark] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(KEY) as ThemeChoice | null;
-    if (stored === "light" || stored === "dark" || stored === "system") setChoiceState(stored);
     setSystemDark(systemPrefersDark());
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = (e: MediaQueryListEvent) => setSystemDark(e.matches);
