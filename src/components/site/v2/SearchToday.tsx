@@ -20,7 +20,7 @@ type Item = {
 };
 
 const items: Item[] = [
-  { title: "Blog", desc: ["Ideias que movimentam", "o mercado"], icon: iconBlog, to: "/portal" },
+  { title: "Portal", desc: ["Notícias, análises e conteúdos", "do mercado condominial"], icon: iconBlog, to: "/portal" },
   { title: "Newsletter", desc: ["Uma nova perspectiva", "na sua caixa de entrada"], icon: iconNewsletter, href: EXTERNAL_LINKS.SUBSTACK },
   { title: "Downloads", desc: ["Materiais para aplicar", "na sua gestão"], icon: iconDownloads, to: "/materiais" },
   { title: "Agenda de eventos", desc: ["Encontros para aprender", "e se conectar"], icon: iconAgenda, to: "/eventos" },

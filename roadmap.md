@@ -10,7 +10,15 @@
 
 ## Integração Portal Content Hub
 
-- [x] Auditar o repositório fonte e o Portal atual
+- [x] Comparar diretamente o repositório fonte com o Portal atual, item por item
+- [ ] Migrar integralmente conteúdos, imagens, metadados e vínculos reais do repositório
+- [ ] Reproduzir fielmente a composição editorial original da segunda dobra em diante
+- [ ] Aplicar somente o microdesign global do LAB, removendo bold excessivo e faixas coloridas
+- [ ] Tornar o header editorial sticky/compacto e fazer o logo navegar para `/`
+- [ ] Substituir o footer editorial pelo footer global do SíndicoLab
+- [ ] Trocar “Blog” por “Portal” em todas as interfaces públicas e metadados pertinentes
+- [ ] Auditar conteúdo, seções, páginas internas e responsividade antes da conclusão
+- [x] Auditar inicialmente o repositório fonte e o Portal atual
 - [x] Portar modelo editorial, serviços e conteúdo para a infraestrutura atual
 - [x] Substituir `/portal` e criar categoria, notícia e colunistas sem alterar `/`
 - [x] Integrar notícias, categorias e colunistas ao `/admin` global
