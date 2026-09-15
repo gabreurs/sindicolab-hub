@@ -88,7 +88,6 @@ function Card({ item, delay }: { item: Item; delay: number }) {
         alt=""
         aria-hidden
         data-motion="card-icon"
-        decoding="async"
         width={256}
         height={256}
         className="shrink-0 select-none object-contain transition-transform duration-300 group-hover:scale-[1.04]"
