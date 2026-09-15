@@ -128,6 +128,7 @@ export function IntroLoader() {
             stagger: { each: 0.07, from: "random" },
           })
             .to(wordmark, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power4.out" }, "-=0.25")
+            .set(wordmark, { clearProps: "clipPath" })
             .to(labGlow, { opacity: 1, duration: 0.35, ease: "sine.out" }, "-=0.4")
             .to(phrase, { opacity: 1, y: 0, duration: 0.45 }, "-=0.35")
             .to({}, { duration: 0.25 })
