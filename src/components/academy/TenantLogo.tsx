@@ -35,21 +35,21 @@ export function TenantLogo({ className = "", onDark = false }: { className?: str
   const preferred = darkSurface ? forDark : forLight;
   const fallback = darkSurface ? forLight : forDark;
 
-  if (preferred) return <img src={preferred} alt={name} className={`h-7 w-auto ${className}`} />;
+  if (preferred) return <img src={preferred} alt={name} className={`h-7 w-auto max-w-[120px] object-contain sm:max-w-[180px] ${className}`} />;
   if (fallback) {
     return (
       <span
         className="inline-flex items-center rounded-lg px-2.5 py-1.5"
         style={{ background: darkSurface ? "#FFFFFF" : "#101014" }}
       >
-        <img src={fallback} alt={name} className={`h-5 w-auto ${className}`} />
+        <img src={fallback} alt={name} className={`h-5 w-auto max-w-[112px] object-contain sm:max-w-[170px] ${className}`} />
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-2">
+    <span className="inline-flex min-w-0 items-center gap-2">
       <span className="h-6 w-6 rounded-md" style={{ background: "var(--tenant-accent)" }} aria-hidden />
-      <span className="font-display text-[17px] leading-none" style={{ color: "var(--ax-text)", letterSpacing: "-0.03em" }}>
+      <span className="max-w-[96px] truncate font-display text-[17px] leading-none sm:max-w-[160px]" style={{ color: "var(--ax-text)", letterSpacing: "-0.03em" }}>
         {name}
       </span>
     </span>

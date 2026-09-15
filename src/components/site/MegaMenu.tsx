@@ -57,20 +57,20 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             exit={panelExit}
             transition={panelTransition}
             data-lenis-prevent
-            className="mega-menu-overlay fixed inset-0 z-[90] pt-[calc(var(--header-h)+1rem)] bg-background overflow-y-auto scrollbar-none overscroll-contain"
+            className="mega-menu-overlay fixed inset-0 z-[90] bg-background overflow-y-auto scrollbar-none overscroll-contain"
             role="dialog"
             aria-modal="true"
             aria-label="Menu do SíndicoLab"
           >
-            <div className="site-container pb-16 pt-2">
+            <div className="site-container mega-menu-content">
               {/* Hero grid: Quero1Síndico (col-7) + Patrocínios (col-5) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+              <div className="mega-feature-grid grid grid-cols-1 lg:grid-cols-12">
                 <FeaturedQ1S onClose={onClose} />
                 <FeaturedSponsorship onClose={onClose} />
               </div>
 
               {/* Secondary navigation */}
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="mega-secondary-grid grid grid-cols-2 lg:grid-cols-4">
                 <SmallCard
                   delay={0.16}
                   to="/academy"
@@ -163,7 +163,7 @@ function FeaturedQ1S({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0, scale: 0.985, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.05, duration: 0.55, ease }}
-      className="group relative lg:col-span-7 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#08122b] via-[#0a1f4a] to-[#061029] text-background min-h-[360px] md:min-h-[440px] cursor-glow"
+      className="mega-feature group relative lg:col-span-7 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#08122b] via-[#0a1f4a] to-[#061029] text-background cursor-glow"
       aria-label="Encontrar síndico profissional no Quero1Síndico"
     >
       {/* bg glow */}
@@ -269,7 +269,7 @@ function FeaturedSponsorship({ onClose }: { onClose: () => void }) {
       <Link
         to="/patrocinios"
         onClick={onClose}
-        className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-deep via-[#0e0820] to-[#08040f] text-background min-h-[360px] md:min-h-[440px] cursor-glow"
+        className="mega-feature group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-deep via-[#0e0820] to-[#08040f] text-background cursor-glow"
         aria-label="Ver mídia kit de patrocínios CondoHuby × SíndicoLab"
       >
         <div className="absolute -top-20 -right-10 w-[20rem] h-[20rem] rounded-full bg-violet/35 blur-2xl" />

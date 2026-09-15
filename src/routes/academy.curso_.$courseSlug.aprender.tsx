@@ -164,7 +164,7 @@ function Player() {
         </Link>
         <div
           className={
-            "mt-4 player-surface rounded-2xl overflow-hidden border player-border " +
+            "player-native-stage mt-4 player-surface rounded-2xl overflow-hidden border player-border " +
             (isInteractive ? "h-[78vh] min-h-[520px]" : "aspect-video")
           }
         >

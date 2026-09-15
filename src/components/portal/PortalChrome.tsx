@@ -1,0 +1,19 @@
+import { Link, useNavigate } from "@tanstack/react-router";
+import { CalendarDays, Cloud, Menu, Search, X } from "lucide-react";
+import { useState } from "react";
+import { BrandMark } from "@/components/site/BrandMark";
+import { IconButton } from "@/components/ui/icon-button";
+import { EXTERNAL_LINKS } from "@/config/external-links";
+import type { PortalCategory } from "@/data/portal";
+
+export function PortalHeader({ categories }: { categories: PortalCategory[] }) {
+  const navigate = useNavigate(); const [open, setOpen] = useState(false); const [query, setQuery] = useState("");
+  const date = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "2-digit", month: "long", year: "numeric" }).format(new Date());
+  const search = (event: React.FormEvent) => { event.preventDefault(); const q = query.trim(); if (q) navigate({ to: "/portal", search: { q } }); setOpen(false); };
+  const SearchForm = ({ mobile = false }: { mobile?: boolean }) => <form className={`portal-search ${mobile ? "portal-search-mobile" : ""}`} onSubmit={search}><input value={query} onChange={(e) => setQuery(e.target.value)} type="search" placeholder="Buscar no Portal..." aria-label="Buscar no Portal" /><button type="submit" aria-label="Buscar"><Search /></button></form>;
+  return <header className="portal-header"><div className="portal-topbar"><div className="portal-container portal-topbar-inner"><span className="portal-live">Ao vivo</span><p>Cobertura: Encontro Nacional de Síndicos 2026 <span>• Painel: o futuro da gestão condominial</span></p><nav><Link to="/patrocinios">Anuncie</Link><a href={EXTERNAL_LINKS.SUBSTACK}>Newsletter</a><a href={EXTERNAL_LINKS.INSTAGRAM} aria-label="Instagram">IG</a></nav></div></div><div className="portal-container portal-brandbar"><a href="/portal" aria-label="Portal SíndicoLab"><BrandMark variant="black-blue" responsive /></a><div className="portal-context"><span><CalendarDays /><b>{date}</b><small>São Paulo, SP</small></span><span><Cloud /><b>23°C</b><small>São Paulo</small></span></div><SearchForm /><IconButton label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen((value) => !value)} className="portal-menu-button">{open ? <X /> : <Menu />}</IconButton></div><nav className={`portal-nav ${open ? "is-open" : ""}`} aria-label="Editorias"><div className="portal-container"><SearchForm mobile />{categories.slice(0, 8).map((category) => <a key={category.id} href={`/portal/categoria/${category.slug}`} onClick={() => setOpen(false)}>{category.name}</a>)}<a href="/portal/colunistas" onClick={() => setOpen(false)}>Colunistas</a></div></nav></header>;
+}
+
+export function PortalFooter({ categories }: { categories: PortalCategory[] }) {
+  return <footer className="portal-footer"><div className="portal-container portal-footer-grid"><div><BrandMark variant="white-blue" responsive /><p>Conteúdo, notícias e negócios para o mercado condominial.</p><div className="portal-social"><a href={EXTERNAL_LINKS.INSTAGRAM}>IG</a><a href={EXTERNAL_LINKS.YOUTUBE}>YT</a></div></div><div><h3>Editorias</h3>{categories.slice(0, 6).map((category) => <a key={category.id} href={`/portal/categoria/${category.slug}`}>{category.name}</a>)}</div><div><h3>Ecossistema</h3><Link to="/">Site institucional</Link><Link to="/academy">Academy</Link><Link to="/eventos">Eventos</Link><Link to="/materiais">Materiais</Link><Link to="/patrocinios">Anuncie</Link></div><div><h3>Portal</h3><a href="/portal/colunistas">Colunistas</a><a href={EXTERNAL_LINKS.YOUTUBE}>Vídeos</a><a href={EXTERNAL_LINKS.SUBSTACK}>Newsletter</a><a href={EXTERNAL_LINKS.WHATSAPP_GROUP}>Comunidade</a></div></div><div className="portal-container portal-footer-bottom"><span>© {new Date().getFullYear()} SíndicoLab.</span><span>Informação para transformar a gestão.</span></div></footer>;
+}

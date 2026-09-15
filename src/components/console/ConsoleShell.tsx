@@ -66,7 +66,7 @@ export function ConsoleShell({
         className="sticky top-0 z-40 border-b backdrop-blur"
         style={{ borderColor: "var(--c-border-soft)", background: "color-mix(in oklab, var(--c-surface) 88%, transparent)" }}
       >
-        <div className="site-container-wide grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2.5">
+        <div className="site-container-wide console-header-grid grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2.5">
           <div className="flex min-w-0 items-center gap-3">
             <BrandMark size={28} variant={resolved === "dark" ? "white-blue" : "black-blue"} className="shrink-0" />
             <div className="min-w-0 leading-tight">
@@ -88,7 +88,7 @@ export function ConsoleShell({
             )}
           </div>
 
-          <div className="flex shrink-0 items-center gap-1">
+          <div className="console-header-actions flex shrink-0 items-center gap-1">
             <button
               type="button"
               aria-label={resolved === "dark" ? "Usar tema claro" : "Usar tema escuro"}
@@ -114,12 +114,12 @@ export function ConsoleShell({
         </div>
       </header>
 
-      <div className="site-container-wide grid gap-8 py-7 lg:grid-cols-[228px_minmax(0,1fr)]">
-        <aside className="lg:sticky lg:top-[68px] lg:h-fit">
+      <div className="site-container-wide console-layout grid lg:grid-cols-[228px_minmax(0,1fr)]">
+        <aside className="console-sidebar lg:sticky lg:top-[68px] lg:h-fit">
           {navList}
           {footer && <div className="mt-6 border-t c-divide pt-4 text-xs c-muted">{footer}</div>}
         </aside>
-        <main className="min-w-0 pb-16">{children}</main>
+        <main className="console-main min-w-0 pb-16">{children}</main>
       </div>
     </div>
   );

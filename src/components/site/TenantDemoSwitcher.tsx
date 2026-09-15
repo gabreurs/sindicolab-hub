@@ -20,9 +20,9 @@ export function TenantDemoSwitcher() {
   if (loading || !isPlatformAdmin) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-50">
       {open && (
-        <div className="mb-2 brand-surface border brand-border rounded-lg p-3 w-64 shadow-2xl">
+        <div className="mb-2 max-h-[70svh] w-[min(16rem,calc(100vw-2rem))] overflow-y-auto rounded-lg border brand-border brand-surface p-3 shadow-2xl">
           <p className="text-xs brand-text-muted mb-2 uppercase tracking-wider">Demo — trocar white label</p>
           <div className="space-y-1">
             {orgs.map((o) => (

@@ -22,7 +22,7 @@ export function PageShell({
     <main className="min-h-screen bg-background text-ink flex flex-col">
       <Header />
 
-      <section className="relative pt-36 md:pt-44 pb-20 md:pb-28 overflow-hidden">
+      <section className="page-shell-hero relative overflow-hidden">
         <div className="absolute -top-28 -right-16 w-[28rem] h-[28rem] rounded-full bg-brand-soft opacity-55 -z-10 hero-blob" />
         <div className="absolute top-1/2 -left-28 w-[22rem] h-[22rem] rounded-full bg-cyan-soft opacity-45 -z-10 hero-blob" />
 

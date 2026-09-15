@@ -1,0 +1,4 @@
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { PortalListing } from "@/components/portal/PortalPages";
+import { portalService } from "@/services/portalService";
+export const Route=createFileRoute("/portal/categoria/$slug")({loader:async({params})=>{const categories=await portalService.categories();const category=categories.find(c=>c.slug===params.slug);if(!category)throw notFound();return{categories,category,posts:await portalService.postsByCategory(params.slug)};},component:()=>{const data=Route.useLoaderData();return <PortalListing title={data.category.name} description={`Notícias, análises e conteúdos de ${data.category.name.toLowerCase()}.`} posts={data.posts} categories={data.categories}/>;}});

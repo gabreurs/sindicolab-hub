@@ -24,7 +24,7 @@ export function Breadcrumbs({
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`container-x pt-24 md:pt-28 ${toneClass} ${className}`}
+      className={`container-x page-breadcrumbs ${toneClass} ${className}`}
     >
       <ol className="text-xs flex items-center gap-1.5 flex-wrap py-3">
         <li>

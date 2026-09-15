@@ -1,0 +1,4 @@
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { PortalArticle } from "@/components/portal/PortalPages";
+import { portalService } from "@/services/portalService";
+export const Route=createFileRoute("/portal/noticia/$slug")({loader:async({params})=>{const [post,categories,all]=await Promise.all([portalService.postBySlug(params.slug),portalService.categories(),portalService.posts()]);if(!post)throw notFound();void portalService.incrementViews(post.id);return{post,categories,related:all.filter(p=>p.id!==post.id&&p.category_id===post.category_id).slice(0,3)};},component:()=> <PortalArticle {...Route.useLoaderData()}/>});

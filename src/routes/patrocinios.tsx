@@ -75,7 +75,7 @@ function PatrociniosPage() {
 
         {/* Action bar mobile */}
         <div
-          className="fixed inset-x-0 bottom-0 z-40 md:hidden"
+          className="mk-mobile-action fixed inset-x-0 bottom-0 z-40 md:hidden"
           style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         >
           <div className="mx-3 mb-3 flex items-center gap-2 rounded-full border border-[hsl(var(--mk-fg))]/10 bg-[hsl(var(--mk-bg))]/95 p-1.5 shadow-[0_6px_18px_-14px_hsl(var(--mk-fg)/0.18)]">

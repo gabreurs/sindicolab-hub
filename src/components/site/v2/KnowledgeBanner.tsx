@@ -33,26 +33,24 @@ export function KnowledgeBanner() {
             draggable={false}
           />
 
-          <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-left lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:px-10 lg:py-[2.2svh]">
-            <div className="flex items-center justify-center gap-4 lg:justify-start">
-              <BrandMark size={34} variant="white-purple" className="hidden shrink-0 lg:inline-flex" />
-              <div>
+          <div className="knowledge-banner-content relative grid items-center text-left">
+            <BrandMark size={34} variant="white-purple" className="knowledge-banner-logo shrink-0" />
+            <div className="knowledge-banner-copy">
               <p className="font-display leading-tight text-background" style={{ fontSize: "clamp(1.2rem, 2.8svh, 1.75rem)" }}>
                 Conhecimento que <span className="text-v2-purple-light">transforma</span> a gestão.
               </p>
               <p className="mt-1 text-sm text-background/65">Aprenda, troque experiências e fortaleça sua rede.</p>
-              </div>
             </div>
-
-            <Link to="/academy" className="knowledge-banner-action">
-              Conheça nossos cursos
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-
-            <a href={EXTERNAL_LINKS.WHATSAPP_GROUP} target="_blank" rel="noopener noreferrer" className="knowledge-banner-action knowledge-banner-action-primary">
-              <Users className="h-4 w-4" />
-              Entre no grupo de síndicos
-            </a>
+            <div className="knowledge-banner-actions">
+              <Link to="/academy" className="knowledge-banner-action">
+                Conheça nossos cursos
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a href={EXTERNAL_LINKS.WHATSAPP_GROUP} target="_blank" rel="noopener noreferrer" className="knowledge-banner-action knowledge-banner-action-primary">
+                <Users className="h-4 w-4" />
+                Entre no grupo de síndicos
+              </a>
+            </div>
           </div>
         </div>
       </div>

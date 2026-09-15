@@ -45,8 +45,11 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
           </Link>
         </nav>
 
+        <Link to="/academy/catalogo" search={{ q: undefined }} className="ax-iconbtn ml-auto sm:hidden" aria-label="Buscar cursos">
+          <Search size={16} />
+        </Link>
         <form
-          className="ax-search ml-auto w-full max-w-[120px] sm:max-w-[240px] lg:max-w-[320px]"
+          className="ax-search ml-auto hidden w-full max-w-[240px] sm:flex lg:max-w-[320px]"
           onSubmit={(e) => {
             e.preventDefault();
             navigate({ to: "/academy/catalogo", search: { q: q.trim() || undefined } });

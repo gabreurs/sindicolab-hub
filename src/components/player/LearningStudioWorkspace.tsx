@@ -90,7 +90,7 @@ export function LearningStudioWorkspace({
       <div className={"flex-1 min-h-0 grid " + (panelOpen ? "lg:grid-cols-[1fr_380px]" : "grid-cols-1")}>
         <div
           ref={stageRef}
-          className="relative bg-black min-h-0 h-[72vh] lg:h-auto"
+          className="learning-studio-stage relative bg-black min-h-0 h-[72vh] lg:h-auto"
         >
           {/* O iframe existe apenas aqui — depois do gate — e some ao desmontar a rota. */}
           <iframe

@@ -77,13 +77,13 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer id="newsletter" className="relative bg-ink text-background pt-20 md:pt-28 pb-10 overflow-hidden scroll-mt-[var(--header-h)]">
+    <footer id="newsletter" className="site-footer relative bg-ink text-background overflow-hidden scroll-mt-[var(--header-h)]">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan/50 to-transparent" />
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-brand/15 blur-3xl pointer-events-none" />
 
       <div className="container-x relative">
         {/* Newsletter */}
-        <div className="grid items-center gap-10 border-b border-background/10 pb-14 lg:grid-cols-12">
+        <div className="footer-newsletter grid items-center border-b border-background/10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Link to="/" className="inline-flex"><BrandMark size={32} variant="white-blue" /></Link>
             <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1.05] max-w-md">
@@ -113,7 +113,7 @@ export function Footer() {
         </div>
 
         {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 md:gap-8 pt-14">
+        <div className="footer-links-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {cols.map((c) => (
             <div key={c.label}>
               <div className="text-[11px] tracking-tight text-background/45 mb-4">
@@ -143,7 +143,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 pt-6 border-t border-background/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-background/55">
+        <div className="footer-legal border-t border-background/10 flex flex-col md:flex-row items-start md:items-center justify-between text-xs text-background/55">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span>© {new Date().getFullYear()} SíndicoLab. Todos os direitos reservados.</span>
             <a href="/politica-de-privacidade" className="hover:text-background transition">Privacidade</a>
