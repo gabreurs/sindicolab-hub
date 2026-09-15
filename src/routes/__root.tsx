@@ -78,21 +78,28 @@ function RootComponent() {
     let title: string | undefined;
 
     for (const m of matches) {
-      const head = (m as unknown as { meta?: { meta?: Array<Record<string, string>>; links?: Array<Record<string, string>>; scripts?: Array<{ type?: string; children?: string }> } }).meta;
-      if (!head) continue;
+      const match = m as unknown as {
+        meta?: Array<Record<string, string>> | { meta?: Array<Record<string, string>>; links?: Array<Record<string, string>>; scripts?: Array<{ type?: string; children?: string }> };
+        links?: Array<Record<string, string>>;
+        scripts?: Array<{ type?: string; children?: string }>;
+      };
+      const nested = Array.isArray(match.meta) ? undefined : match.meta;
+      const meta = Array.isArray(match.meta) ? match.meta : nested?.meta;
+      const links = match.links ?? nested?.links;
+      const scripts = match.scripts ?? nested?.scripts;
 
-      head.meta?.forEach((tag) => {
+      meta?.forEach((tag) => {
         if ("title" in tag && tag.title) { title = tag.title; return; }
         const el = document.createElement("meta");
         Object.entries(tag).forEach(([k, v]) => el.setAttribute(k, v));
         collected.push({ type: "meta", el });
       });
-      head.links?.forEach((link) => {
+      links?.forEach((link) => {
         const el = document.createElement("link");
         Object.entries(link).forEach(([k, v]) => el.setAttribute(k, v));
         collected.push({ type: "link", el });
       });
-      head.scripts?.forEach((s) => {
+      scripts?.forEach((s) => {
         const el = document.createElement("script");
         if (s.type) el.setAttribute("type", s.type);
         if (s.children) el.textContent = s.children;
