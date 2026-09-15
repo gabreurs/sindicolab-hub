@@ -17,7 +17,7 @@
 - [x] Tornar o header editorial sticky/compacto e fazer o logo navegar para `/`
 - [x] Substituir o footer editorial pelo footer global do SíndicoLab
 - [x] Trocar “Blog” por “Portal” em todas as interfaces públicas e metadados pertinentes
-- [ ] Auditar conteúdo, seções, páginas internas e responsividade antes da conclusão
+- [x] Auditar conteúdo, seções, páginas internas e responsividade antes da conclusão
 - [x] Auditar inicialmente o repositório fonte e o Portal atual
 - [x] Portar modelo editorial, serviços e conteúdo para a infraestrutura atual
 - [x] Substituir `/portal` e criar categoria, notícia e colunistas sem alterar `/`
