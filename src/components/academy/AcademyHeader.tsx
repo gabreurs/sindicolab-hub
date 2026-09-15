@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenantIdentity } from "@/lib/tenant/useTenantIdentity";
 import { useTheme, type ThemeChoice } from "@/lib/theme/ThemeProvider";
 import { TenantLogo } from "./TenantLogo";
+import { IconButton } from "@/components/ui/icon-button";
 
 /**
  * Header global da Academy — compartilhado por todos os tenants.
@@ -149,17 +150,16 @@ function AccountMenu({
 
   return (
     <div className="relative shrink-0" ref={ref}>
-      <button
-        type="button"
+      <IconButton
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label="Conta"
-        className="grid h-10 w-10 place-items-center rounded-full text-[15px] font-semibold"
+        label="Conta"
+        className="rounded-full text-[15px] font-semibold"
         style={{ background: "var(--tenant-accent)", color: "var(--tenant-accent-contrast)" }}
       >
         {initial}
-      </button>
+      </IconButton>
       {open && (
         <div
           role="menu"

@@ -239,6 +239,10 @@
   .site-header-brand { padding-left: 0.55rem; }
   .header-control { padding-inline: 0.55rem; }
   .header-menu-control { padding-left: 0.65rem; padding-right: var(--header-inner-gap); }
+  .header-menu-control {
+    width: var(--header-control-size);
+    padding: 0;
+  }
   .site-header[data-menu-open="true"] { padding: 0; }
   .site-header[data-menu-open="true"] .site-header-shell {
     height: var(--header-h);
@@ -797,6 +801,8 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 
   .edge-blur-bottom { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
+
+[data-icon-button] svg { display: block; flex-shrink: 0; }
 
 @media (max-width: 1023px) {
   .midia-kit-page .mk-glass-card,

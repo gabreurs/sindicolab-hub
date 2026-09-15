@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { X } from "lucide-react";
+import { IconButton } from "@/components/ui/icon-button";
 
 type Org = { id: string; name: string; slug: string; is_platform: boolean };
 type Course = {
@@ -168,7 +170,9 @@ function CourseFormModal({
       <div className="w-full max-w-3xl brand-surface rounded-xl border brand-border p-6 mx-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">{title}</h3>
-          <button onClick={onCancel} className="brand-text-muted hover:text-white">✕</button>
+          <IconButton onClick={onCancel} label="Fechar formulário" size="sm" className="brand-text-muted hover:text-foreground">
+            <X />
+          </IconButton>
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
