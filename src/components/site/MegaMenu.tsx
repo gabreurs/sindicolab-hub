@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { EXTERNAL_LINKS } from "@/config/external-links";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { BrandMark } from "./BrandMark";
 import { getLenis } from "./SmoothScroll";
 
 import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
@@ -58,26 +57,12 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             exit={panelExit}
             transition={panelTransition}
             data-lenis-prevent
-            className="mega-menu-overlay fixed inset-0 z-[90] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none overscroll-contain"
+            className="mega-menu-overlay fixed inset-0 z-[90] pt-[calc(var(--header-h)+1rem)] bg-background border-b border-border/60 shadow-lift overflow-y-auto scrollbar-none overscroll-contain"
             role="dialog"
             aria-modal="true"
             aria-label="Menu do SíndicoLab"
           >
-            {/* Bar */}
-            <div className="container-x py-5 flex items-center justify-between">
-              <Link to="/" onClick={onClose} aria-label="SíndicoLab — home">
-                <BrandMark size={30} variant="black-purple" />
-              </Link>
-              <button
-                onClick={onClose}
-                aria-label="Fechar menu"
-                className="grid place-items-center w-10 h-10 rounded-full border border-border hover:bg-secondary transition"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="container-x pb-16 pt-2">
+            <div className="site-container pb-16 pt-2">
               {/* Hero grid: Quero1Síndico (col-7) + Patrocínios (col-5) */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 <FeaturedQ1S onClose={onClose} />

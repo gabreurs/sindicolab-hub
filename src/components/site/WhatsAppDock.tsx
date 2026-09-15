@@ -77,7 +77,7 @@ export function WhatsAppDock() {
         <div
           role="dialog"
           aria-label="Conversar com o SíndicoLab"
-          className="wa-panel w-[min(20.5rem,calc(100vw-2rem))] overflow-hidden rounded-[1.5rem] border border-border/70 bg-background shadow-[0_28px_70px_-30px_rgba(27,11,46,0.6)]"
+          className="wa-panel w-[min(20.5rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border/70 bg-background shadow-[0_28px_70px_-30px_rgba(27,11,46,0.6)]"
         >
           {/* Cabeçalho do "chat" */}
           <div className="flex items-center gap-3 bg-ink px-4 py-3.5 text-background">

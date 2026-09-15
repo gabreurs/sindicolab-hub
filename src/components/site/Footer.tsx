@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { BrandMark } from "./BrandMark";
 import marqoLogo from "@/assets/logo-marqo.svg";
 import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
-import symbolNavyPurple from "@/assets/brand/symbol-navy-purple.svg";
+import symbolBlackBlue from "@/assets/brand/symbol-black-blue.svg";
 
 
 
@@ -85,7 +85,7 @@ export function Footer() {
         {/* Newsletter */}
         <div className="grid items-center gap-10 border-b border-background/10 pb-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <Link to="/" className="inline-flex"><BrandMark size={32} variant="white-purple" /></Link>
+            <Link to="/" className="inline-flex"><BrandMark size={32} variant="white-blue" /></Link>
             <h3 className="mt-6 font-display text-3xl md:text-4xl tracking-[-0.03em] leading-[1.05] max-w-md">
               Fique por dentro do mercado condominial.
             </h3>
@@ -100,7 +100,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="newsletter-card group"
             >
-               <span className="newsletter-card-icon"><img src={symbolNavyPurple} alt="" aria-hidden className="h-6 w-auto" /></span>
+               <span className="newsletter-card-icon"><img src={symbolBlackBlue} alt="" aria-hidden className="h-6 w-auto" /></span>
               <span className="mt-auto">
                 <span className="block font-display text-xl leading-tight">Assinar newsletter</span>
                 <span className="mt-2 flex items-center justify-between gap-4 text-xs text-ink/60">
