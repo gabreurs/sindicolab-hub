@@ -80,6 +80,7 @@
 .portal-post-horizontal { display: grid; grid-template-columns: 130px 1fr; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .portal-post-image { display: block; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--radius-media); background: var(--muted); }
 .portal-post-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 320ms ease; }
+.portal-image-fallback { width: 100%; height: 100%; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-deep); font-weight: 600; }
 .portal-post-card:hover .portal-post-image img { transform: scale(1.035); }
 .portal-post-copy h3 { margin: 5px 0; font-size: .98rem; font-weight: 500; line-height: 1.2; transition: color 180ms ease; }
 .portal-post-card:hover h3 { color: var(--brand); }
