@@ -785,7 +785,6 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 
 .intro-wordmark {
-  overflow: hidden;
   line-height: 1;
 }
 .intro-wordmark-mask {
@@ -805,9 +804,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 .intro-lab-glow {
   position: absolute;
-  inset: -10% -18%;
-  background: radial-gradient(ellipse at center, rgba(32,199,245,0.45), transparent 65%);
-  filter: blur(12px);
+  inset: -60% -80%;
+  background: radial-gradient(ellipse at center, rgba(32,199,245,0.4) 0%, rgba(32,199,245,0.12) 35%, transparent 60%);
+  filter: blur(10px);
   z-index: -1;
   pointer-events: none;
 }
@@ -1201,7 +1200,10 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 .site-footer { padding-block: var(--section-gap) 1.5rem; }
 .footer-newsletter { gap: var(--section-gap); padding-bottom: var(--section-gap); }
 .footer-links-grid { gap: clamp(1.25rem, 3vw, 2.5rem); padding-top: var(--section-gap); }
-.footer-legal { gap: 1rem; margin-top: var(--section-gap); padding-top: 1.25rem; }
+.footer-legal { gap: 1rem; margin-top: var(--section-gap); padding-top: 1.25rem; padding-right: 5rem; }
+@media (min-width: 431px) {
+  .footer-legal { padding-right: 11.5rem; }
+}
 @media (max-width: 767px) {
   .footer-newsletter { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
   .footer-newsletter h3 { font-size: 1.5rem; margin-top: 1rem; }
