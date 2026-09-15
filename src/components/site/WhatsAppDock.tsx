@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X, Users } from "lucide-react";
 import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
+import { IconButton } from "@/components/ui/icon-button";
 
 const TEASER_DISMISSED_KEY = "sindicolab.chatDock.teaserDismissed";
 
@@ -91,14 +92,14 @@ export function WhatsAppDock() {
                 SíndicoLab · normalmente responde rápido
               </p>
             </div>
-            <button
-              type="button"
+            <IconButton
               onClick={() => setOpen(false)}
-              aria-label="Fechar conversa"
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-background/70 transition hover:bg-background/15 hover:text-background"
+              label="Fechar conversa"
+              size="sm"
+              className="rounded-full text-background/70 transition hover:bg-background/15 hover:text-background"
             >
               <X className="h-4 w-4" />
-            </button>
+            </IconButton>
           </div>
 
           {/* Mensagens */}
@@ -162,14 +163,14 @@ export function WhatsAppDock() {
           <button type="button" onClick={toggle} className="text-[13px] font-medium leading-snug text-ink">
             Podemos ajudar?
           </button>
-          <button
-            type="button"
+          <IconButton
             onClick={dismissTeaser}
-            aria-label="Fechar chamada"
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-ink-soft transition hover:bg-secondary hover:text-ink"
+            label="Fechar chamada"
+            size="sm"
+            className="h-6 w-6 rounded-full text-ink-soft transition hover:bg-secondary hover:text-ink"
           >
             <X className="h-3 w-3" />
-          </button>
+          </IconButton>
         </div>
       )}
 

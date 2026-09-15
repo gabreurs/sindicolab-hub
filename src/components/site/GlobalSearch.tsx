@@ -7,6 +7,7 @@ import { Link } from "@tanstack/react-router";
 import { searchIndex, popularSearches, trackSearch, type SearchItem } from "@/data/searchIndex";
 import { getLenis } from "@/components/site/SmoothScroll";
 import { lockNativeScroll, unlockNativeScroll } from "@/lib/scroll-lock";
+import { IconButton } from "@/components/ui/icon-button";
 
 
 type SearchStore = {
@@ -187,14 +188,13 @@ export function GlobalSearch() {
                   Síndico profissional, cursos, materiais e gestão condominial
                 </div>
               </div>
-              <button
+              <IconButton
                 onClick={close}
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-ink px-3 h-11 min-w-[44px] min-h-[44px] transition"
-                aria-label="Fechar busca"
+                label="Fechar busca"
+                className="border border-border bg-background text-ink transition hover:bg-secondary"
               >
                 <X className="w-4 h-4" />
-                <span className="text-sm font-medium hidden sm:inline">Fechar</span>
-              </button>
+              </IconButton>
             </div>
 
             {/* Search field */}

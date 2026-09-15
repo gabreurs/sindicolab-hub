@@ -200,6 +200,21 @@
   border-radius: var(--header-outer-radius);
   box-shadow: var(--shadow-card);
 }
+.site-header[data-menu-open="true"] { padding-inline: 0; padding-top: 0; }
+.site-header[data-menu-open="true"] .site-header-shell {
+  max-width: var(--content-max);
+  height: var(--header-h);
+  padding-inline: var(--content-gutter);
+  border-color: transparent;
+  border-radius: 0;
+  background: var(--background);
+  background-image: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  overflow: visible;
+}
+.site-header[data-menu-open="true"] .site-header-brand { padding-left: 0; }
 .header-action-white {
   background: var(--surface-elevated);
   color: var(--ink);
@@ -224,6 +239,15 @@
   .site-header-brand { padding-left: 0.55rem; }
   .header-control { padding-inline: 0.55rem; }
   .header-menu-control { padding-left: 0.65rem; padding-right: var(--header-inner-gap); }
+  .header-menu-control {
+    width: var(--header-control-size);
+    padding: 0;
+  }
+  .site-header[data-menu-open="true"] { padding: 0; }
+  .site-header[data-menu-open="true"] .site-header-shell {
+    height: var(--header-h);
+    padding-inline: var(--content-gutter);
+  }
 }
 
 @utility site-container {
@@ -778,6 +802,8 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   .edge-blur-bottom { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
+[data-icon-button] svg { display: block; flex-shrink: 0; }
+
 @media (max-width: 1023px) {
   .midia-kit-page .mk-glass-card,
   .midia-kit-page .backdrop-blur,
@@ -1040,6 +1066,8 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
   animation: home-pop 0.62s cubic-bezier(0.22, 1.12, 0.36, 1) both;
   will-change: transform, opacity;
 }
+.home-motion-ready .hp { animation: none; opacity: 1; }
+.home-headline-line { overflow: clip; }
 .home-hero-title .hp { display: block; }
 /* o wrapper do prédio precisa da entrada E da flutuação contínua */
 .home-hero-building-wrap.hp {
@@ -1104,8 +1132,20 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 @media (max-width: 1023px) {
   .newsletter-card { width: 190px; }
 }
-@media (max-width: 767px) {
-  .knowledge-banner-content { grid-template-columns: 1fr; }
+@media (max-width: 1023px) {
+  .knowledge-banner-content {
+    grid-template-columns: 1fr 1fr;
+    gap: .65rem;
+    padding: 1rem;
+  }
+  .knowledge-banner-content > :first-child { grid-column: 1 / -1; }
+  .knowledge-banner-action {
+    min-height: 42px;
+    padding-inline: .75rem;
+    font-size: .78rem;
+    line-height: 1.15;
+    white-space: normal;
+  }
   .knowledge-banner-action { width: 100%; white-space: normal; }
   .newsletter-card { width: min(100%, 180px); }
 }
@@ -1121,9 +1161,34 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 @media (max-width: 767px) {
   .home-entry { min-height: auto; }
+  .home-hero-shell { padding-top: .35rem; padding-bottom: .55rem; }
   .home-hero-title { font-size: clamp(2rem, 10vw, 3.2rem); }
   .home-hero-description { font-size: 0.88rem; }
-  .home-hero-building { max-height: min(26svh, 15rem); }
+  .home-hero-building { max-height: min(23svh, 13.5rem); }
+  .home-access-grid { gap: .65rem; }
+  .home-access-card {
+    min-height: 0 !important;
+    aspect-ratio: 1 / .94;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .35rem;
+    padding: .8rem;
+  }
+  .home-access-card > img {
+    width: clamp(3.2rem, 16vw, 4.25rem) !important;
+    height: clamp(3.2rem, 16vw, 4.25rem) !important;
+  }
+  .home-access-card h3 {
+    font-size: clamp(.9rem, 4vw, 1.05rem) !important;
+    line-height: 1.05;
+  }
+  .home-access-card p { display: none; }
+  .home-access-card svg { margin-top: .2rem; }
+  .home-row + .home-row { margin-top: .7rem; }
+  .home-row:last-child { padding-bottom: .7rem; }
+  .knowledge-banner { min-height: 0; }
+  .knowledge-banner-content p:first-child { font-size: 1.12rem !important; }
+  .knowledge-banner-content p + p { font-size: .75rem; line-height: 1.35; }
   /* sem animação no celular o elemento precisa nascer visível
      (a classe .hp começa com opacity: 0) */
   .home-hero-building-wrap, .home-hero-building-wrap.hp { animation: none; opacity: 1; }
@@ -1132,6 +1197,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 @media (prefers-reduced-motion: reduce) {
   .home-hero-building-wrap, .home-hero-building-wrap.hp, .home-hero-orbit span { animation: none; opacity: 1; }
   .hp { animation: none; opacity: 1; }
+  .home-access-card, .knowledge-banner-action, .newsletter-card { transition: none; }
 }
 
 

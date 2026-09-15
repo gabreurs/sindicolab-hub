@@ -2,6 +2,7 @@ import { memo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CourseCard } from "./CourseCard";
 import type { AcademyCourse } from "./types";
+import { IconButton } from "@/components/ui/icon-button";
 
 type Props = {
   title: string;
@@ -44,12 +45,12 @@ export const CourseRail = memo(function CourseRail({
           {subtitle && <p className="ax-meta mt-0.5 truncate">{subtitle}</p>}
         </div>
         <div className="hidden items-center gap-1.5 opacity-0 transition group-hover/rail:opacity-100 md:flex">
-          <button className="ax-iconbtn" data-size="sm" onClick={() => scrollBy(-1)} aria-label="Anterior">
+          <IconButton className="ax-iconbtn" size="sm" onClick={() => scrollBy(-1)} label="Anterior">
             <ChevronLeft size={16} />
-          </button>
-          <button className="ax-iconbtn" data-size="sm" onClick={() => scrollBy(1)} aria-label="Próximo">
+          </IconButton>
+          <IconButton className="ax-iconbtn" size="sm" onClick={() => scrollBy(1)} label="Próximo">
             <ChevronRight size={16} />
-          </button>
+          </IconButton>
         </div>
       </div>
       <div className="ax-container mt-3">

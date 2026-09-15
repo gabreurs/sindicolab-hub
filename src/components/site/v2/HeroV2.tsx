@@ -6,23 +6,23 @@ export function HeroV2() {
       <div className="home-hero-shell">
         <div className="home-hero-copy">
           <h1 id="home-hero-title" className="home-hero-title">
-            <span className="hp" style={{ animationDelay: "60ms" }}>
+            <span className="hp home-headline-line" data-motion="headline-line" style={{ animationDelay: "60ms" }}>
               O universo do
             </span>
-            <span className="hp" style={{ animationDelay: "160ms" }}>
+            <span className="hp home-headline-line" data-motion="headline-line" style={{ animationDelay: "160ms" }}>
               condomínio.
             </span>
-            <span className="hp" style={{ animationDelay: "260ms" }}>
+            <span className="hp home-headline-line" data-motion="headline-line" style={{ animationDelay: "260ms" }}>
               <em>Em um só lugar.</em>
             </span>
           </h1>
-          <p className="home-hero-description hp" style={{ animationDelay: "380ms" }}>
+          <p className="home-hero-description hp" data-motion="hero-support" style={{ animationDelay: "380ms" }}>
             Conhecimento, conexões e ferramentas para quem vive a gestão
             condominial.
           </p>
         </div>
 
-        <div className="home-hero-visual">
+        <div className="home-hero-visual" data-motion="hero-visual">
           <div className="home-hero-orbit hp" style={{ animationDelay: "260ms" }} aria-hidden>
             <span />
             <span />
