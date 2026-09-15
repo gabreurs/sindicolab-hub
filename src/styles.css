@@ -161,6 +161,16 @@
   border-radius: 8px;
   box-shadow: var(--shadow-card);
 }
+.header-action-white {
+  background: var(--surface-elevated);
+  color: var(--ink);
+  border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+.header-action-white:hover {
+  background: var(--background);
+  color: var(--ink);
+}
 @media (max-width: 767px) {
   .site-header[data-scrolled="true"] { padding: 7px 8px 0; }
   .site-header[data-scrolled="true"] .site-header-shell { border-radius: 7px; }

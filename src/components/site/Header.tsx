@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
-import logoSindicoLab from "@/assets/logo-sindicolab.svg";
 import { MegaMenu } from "./MegaMenu";
 import { BrandMark } from "./BrandMark";
 import { useSearch } from "./GlobalSearch";
@@ -52,23 +51,14 @@ export function Header() {
             aria-label="SíndicoLab — home"
             className="flex min-w-0 flex-1 shrink items-center overflow-hidden md:flex-none"
           >
-            {/* Mobile: only the official logo image — no extra wordmark/text */}
-            <img
-              src={logoSindicoLab}
-              alt="SíndicoLab"
-              className="block md:hidden w-full max-w-full h-auto shrink"
-              style={{
-                width: "clamp(126px, 42vw, 185px)",
-                maxWidth: "100%",
-                objectFit: "contain",
-                objectPosition: "left center",
-                filter: isDarkPage && solid ? "none" : "invert(1)",
-              }}
-              draggable={false}
-            />
-            {/* Desktop: fixed size */}
+            <span className="inline-flex min-w-0 md:hidden">
+              <BrandMark
+                responsive
+                variant={isDarkPage && solid ? "white-blue" : "black-blue"}
+              />
+            </span>
             <span className="hidden md:inline-flex items-center">
-              <BrandMark size={30} tone={isDarkPage && solid ? "light" : "dark"} />
+              <BrandMark size={30} variant={isDarkPage && solid ? "white-blue" : "black-blue"} />
             </span>
           </Link>
 
@@ -96,7 +86,7 @@ export function Header() {
             <button
               onClick={search.open}
               aria-label="Abrir busca"
-              className="group inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] shrink-0 pl-3 pr-1.5 py-1.5 rounded-full bg-secondary hover:bg-accent transition text-sm text-ink-soft hover:text-ink"
+               className="header-action-white group inline-flex items-center justify-center gap-2 min-w-[44px] min-h-[44px] shrink-0 pl-3 pr-1.5 py-1.5 rounded-full transition text-sm"
             >
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Buscar</span>
