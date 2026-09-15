@@ -10,11 +10,11 @@
 
 ## Integração Portal Content Hub
 
-- [ ] Auditar o repositório fonte e o Portal atual
-- [ ] Portar modelo editorial, serviços e conteúdo para a infraestrutura atual
-- [ ] Substituir `/portal` e criar categoria, notícia e colunistas sem alterar `/`
-- [ ] Integrar notícias, categorias e colunistas ao `/admin` global
-- [ ] Reutilizar eventos, newsletter, autenticação, logos e tokens do ecossistema
-- [ ] Remover Portal antigo e código órfão sem afetar os demais módulos
-- [ ] Validar Portal e admin em 360, 390, 430, 768, 1024 e desktop
-- [ ] Validar build estático e pacote de produção para cPanel
+- [x] Auditar o repositório fonte e o Portal atual
+- [x] Portar modelo editorial, serviços e conteúdo para a infraestrutura atual
+- [x] Substituir `/portal` e criar categoria, notícia e colunistas sem alterar `/`
+- [x] Integrar notícias, categorias e colunistas ao `/admin` global
+- [x] Reutilizar eventos, newsletter, autenticação, logos e tokens do ecossistema
+- [x] Remover Portal antigo e código órfão sem afetar os demais módulos
+- [x] Validar Portal e admin em 360, 390, 430, 768, 1024 e desktop
+- [x] Validar build estático e pacote de produção para cPanel
