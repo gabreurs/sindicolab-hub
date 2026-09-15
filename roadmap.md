@@ -10,7 +10,7 @@
 
 ## Integração Portal Content Hub
 
-- [ ] Comparar diretamente o repositório fonte com o Portal atual, item por item
+- [x] Comparar diretamente o repositório fonte com o Portal atual, item por item
 - [ ] Migrar integralmente conteúdos, imagens, metadados e vínculos reais do repositório
 - [ ] Reproduzir fielmente a composição editorial original da segunda dobra em diante
 - [ ] Aplicar somente o microdesign global do LAB, removendo bold excessivo e faixas coloridas
