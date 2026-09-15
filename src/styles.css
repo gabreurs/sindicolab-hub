@@ -194,6 +194,7 @@
 .site-header[data-scrolled="true"] { padding: 10px 12px 0; }
 .site-header[data-scrolled="true"] .site-header-shell {
   --header-shell-height: 3.375rem;
+  --header-control-size: calc(var(--header-shell-height) - (var(--header-inner-gap) * 2));
   max-width: 1180px;
   border-color: color-mix(in oklab, var(--border) 72%, transparent);
   border-radius: var(--header-outer-radius);
