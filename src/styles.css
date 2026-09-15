@@ -805,9 +805,9 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 }
 .intro-lab-glow {
   position: absolute;
-  inset: -10% -18%;
-  background: radial-gradient(ellipse at center, rgba(32,199,245,0.45), transparent 65%);
-  filter: blur(12px);
+  inset: -60% -80%;
+  background: radial-gradient(ellipse at center, rgba(32,199,245,0.4) 0%, rgba(32,199,245,0.12) 35%, transparent 60%);
+  filter: blur(10px);
   z-index: -1;
   pointer-events: none;
 }
