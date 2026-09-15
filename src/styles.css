@@ -1132,7 +1132,7 @@ html.no-scroll, body.no-scroll { overflow: hidden !important; }
 @media (max-width: 1023px) {
   .newsletter-card { width: 190px; }
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .knowledge-banner-content {
     grid-template-columns: 1fr 1fr;
     gap: .65rem;

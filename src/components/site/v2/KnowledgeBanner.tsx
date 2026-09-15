@@ -33,9 +33,9 @@ export function KnowledgeBanner() {
             draggable={false}
           />
 
-          <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-left md:grid-cols-[minmax(0,1fr)_auto_auto] md:px-10 md:py-[2.2svh]">
-            <div className="flex items-center justify-center gap-4 md:justify-start">
-              <BrandMark size={34} variant="white-purple" className="hidden shrink-0 sm:inline-flex" />
+          <div className="knowledge-banner-content relative grid items-center gap-5 px-6 py-5 text-left lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:px-10 lg:py-[2.2svh]">
+            <div className="flex items-center justify-center gap-4 lg:justify-start">
+              <BrandMark size={34} variant="white-purple" className="hidden shrink-0 lg:inline-flex" />
               <div>
               <p className="font-display leading-tight text-background" style={{ fontSize: "clamp(1.2rem, 2.8svh, 1.75rem)" }}>
                 Conhecimento que <span className="text-v2-purple-light">transforma</span> a gestão.
