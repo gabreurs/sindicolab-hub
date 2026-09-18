@@ -3,6 +3,7 @@ import {
   Badge, Button, Card, ConfirmAction, EmptyState, Field, Input, PageHeader,
   SaveState, SearchInput, Select, TableSkeleton, TableWrap, Textarea,
 } from "@/components/console/ui";
+import { FileDrop } from "@/components/console/FileDrop";
 import { materialsService } from "@/services/materialsService";
 import { articlesService } from "@/services/articlesService";
 import { eventsService } from "@/services/eventsService";
