@@ -289,6 +289,27 @@ function AdminPage() {
             <Stat label="Convites pendentes" value={totals.pending} tone={totals.pending ? "warn" : undefined} hint={totals.pending ? "Aguardando aceite" : "Nada pendente"} />
           </div>
 
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            {OVERVIEW_GROUPS.map((group) => (
+              <Card key={group.label} title={group.label}>
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  {group.items.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => { setSection(item.id); if (item.id === "orgs") setSelectedOrg(null); }}
+                      className="rounded-[14px] border p-3 text-left transition-colors hover:bg-[color-mix(in_oklab,var(--c-focus)_7%,transparent)]"
+                      style={{ borderColor: "var(--c-border-soft)" }}
+                    >
+                      <span className="block text-sm font-medium">{item.label}</span>
+                      <span className="mt-1 block text-xs c-muted">{item.description}</span>
+                    </button>
+                  ))}
+                </div>
+              </Card>
+            ))}
+          </div>
+
           <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
             <Card title="Organizações recentes" padded={false}>
               {loading ? <TableSkeleton /> : orgs.length === 0 ? (
