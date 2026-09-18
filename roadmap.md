@@ -32,3 +32,5 @@
 - [x] Página do curso externo: "Comprar acesso" (Kiwify) mesmo deslogado — só afeta tenant SíndicoLab
 - [x] Remover lupa de busca duplicada no header da Academy (desktop)
 - [x] Hero /academy: remover foto do prédio do fundo (só capa do curso com blur)
+
+- [ ] /admin: upload explícito, menu lateral reorganizado, visão geral com atalhos, lupa da busca sobrepondo o texto
