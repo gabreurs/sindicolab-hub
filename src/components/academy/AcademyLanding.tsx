@@ -50,6 +50,21 @@ export function AcademyLanding({
       <section className="ax-hero" data-tone="brand">
         <div className="ax-hero-media" aria-hidden>
           <img src={heroBackdrop} alt="" loading="eager" />
+          {/* Fundo reativo: a capa do curso em destaque cobre o backdrop
+              institucional com blur pesado (efeito vidro), com crossfade
+              suave a cada troca do carrossel. */}
+          {highlights.map((h, idx) =>
+            h.cover_url ? (
+              <img
+                key={h.id}
+                src={h.cover_url}
+                alt=""
+                loading="lazy"
+                className="ax-hero-media-course"
+                style={{ opacity: idx === i ? 1 : 0 }}
+              />
+            ) : null,
+          )}
         </div>
         <span className="ax-hero-scrim" aria-hidden />
 
