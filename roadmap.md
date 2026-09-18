@@ -17,4 +17,4 @@
 - [x] Eliminar o lag e aprimorar a UI/UX da busca/filtro da home
 - [x] Aplicar as novas fotos reais na página Quem somos
 - [x] Corrigir os acessos ao YouTube no Portal
-- [ ] Validar o login administrativo de demonstração
+- [x] Validar o login administrativo de demonstração
