@@ -11,7 +11,6 @@ export const STATIC_ROUTES: Array<{ path: string; changefreq?: string; priority?
   { path: "/eventos", changefreq: "weekly", priority: 0.8 },
   { path: "/academy", changefreq: "weekly", priority: 0.8 },
   { path: "/academy/catalogo", changefreq: "weekly", priority: 0.7 },
-  { path: "/patrocinios", changefreq: "monthly", priority: 0.7 },
   { path: "/quem-somos", changefreq: "monthly", priority: 0.6 },
 ];
 
@@ -22,8 +21,6 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/artigos": "/portal",
   "/cursos": "/academy",
   "/downloads": "/materiais",
-  "/anuncie": "/patrocinios",
-  "/midia-kit": "/patrocinios",
   "/sobre": "/quem-somos",
   "/quem-somos.html": "/quem-somos",
   "/index.html": "/",

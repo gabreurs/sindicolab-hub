@@ -4,6 +4,7 @@ import {
   SaveState, SearchInput, Select, TableSkeleton, TableWrap, Textarea,
 } from "@/components/console/ui";
 import { FileDrop } from "@/components/console/FileDrop";
+import { matchesSearch } from "@/lib/searchText";
 import { materialsService } from "@/services/materialsService";
 import { articlesService } from "@/services/articlesService";
 import { eventsService } from "@/services/eventsService";
@@ -254,9 +255,7 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
   }, [kind, refresh]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter((r) => String(r.title ?? "").toLowerCase().includes(q));
+    return rows.filter((r) => matchesSearch(query, r.title));
   }, [rows, query]);
 
   async function save() {

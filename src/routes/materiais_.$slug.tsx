@@ -5,6 +5,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { materialsService, type Material } from "@/services/materialsService";
+import { trackMaterialDownload } from "@/services/analyticsService";
 
 export const Route = createFileRoute("/materiais_/$slug")({
   component: MaterialPage,
@@ -62,6 +63,7 @@ function MaterialPage() {
                     {...(material.file_url.startsWith("data:")
                       ? { download: (material as any).file_name || material.slug }
                       : { target: "_blank", rel: "noopener noreferrer" })}
+                    onClick={() => trackMaterialDownload(material)}
                     className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-background transition hover:bg-brand"
                   >
                     <Download className="h-4 w-4" />

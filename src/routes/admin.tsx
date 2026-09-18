@@ -9,10 +9,12 @@ import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
 import { SiteContentManager } from "@/components/admin/SiteContentManager";
 import { PortalContentManager } from "@/components/admin/PortalContentManager";
+import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard";
 import {
   Badge, Button, Card, ConfirmAction, EmptyState, Field, Input, PageHeader,
   SaveState, SearchInput, Select, Stat, TableSkeleton, TableWrap,
 } from "@/components/console/ui";
+import { matchesSearch } from "@/lib/searchText";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -48,6 +50,7 @@ type Membership = { organization_id: string; role: string; is_active: boolean };
 const NAV: ConsoleNavGroup[] = [
   { label: "Início", items: [
     { id: "visao", label: "Visão geral" },
+    { id: "metricas", label: "Métricas" },
   ] },
   { label: "Portal (notícias)", items: [
     { id: "portal-posts", label: "Notícias" },
@@ -171,15 +174,13 @@ function AdminPage() {
   const current = selectedOrg ? orgById[selectedOrg] : null;
 
   const filteredOrgs = useMemo(() => {
-    const q = orgQuery.trim().toLowerCase();
     return orgs.filter((o) =>
       (orgStatus === "all" || o.status === orgStatus) &&
-      (!q || o.name.toLowerCase().includes(q) || o.slug.includes(q)));
+      matchesSearch(orgQuery, o.name, o.slug));
   }, [orgs, orgQuery, orgStatus]);
 
   const filteredCourses = useMemo(() => {
-    const q = courseQuery.trim().toLowerCase();
-    return q ? courses.filter((c) => c.title.toLowerCase().includes(q) || c.slug.includes(q)) : courses;
+    return courses.filter((c) => matchesSearch(courseQuery, c.title, c.slug));
   }, [courses, courseQuery]);
 
   if (authLoading) {
@@ -274,6 +275,7 @@ function AdminPage() {
       {section === "portal-posts" && <PortalContentManager kind="posts" />}
       {section === "portal-categories" && <PortalContentManager kind="categories" />}
       {section === "portal-authors" && <PortalContentManager kind="authors" />}
+      {section === "metricas" && <AnalyticsDashboard />}
 
       {section === "visao" && (
         <>

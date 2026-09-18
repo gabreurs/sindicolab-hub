@@ -24,7 +24,7 @@ export function Header() {
   }, []);
 
   // Off-home pages always show the solid header so it doesn't sit
-  // transparent over colored heroes (Play/Patrocínios/etc).
+  // transparent over colored heroes (Play/etc.).
   const solid = scrolled || !isHome;
 
   return (
@@ -93,9 +93,6 @@ export function Header() {
             >
               <Search className="block h-4 w-4 shrink-0" />
               <span className="hidden sm:inline">Buscar</span>
-              <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-md bg-background border border-border text-[10px] font-mono text-ink-soft ml-1">
-                ⌘K
-              </kbd>
             </button>
 
             <button

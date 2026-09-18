@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenantIdentity } from "@/lib/tenant/useTenantIdentity";
 import { useTheme, type ThemeChoice } from "@/lib/theme/ThemeProvider";
 import { TenantLogo } from "./TenantLogo";
+import { useTenant } from "@/lib/tenant/TenantProvider";
 import { IconButton } from "@/components/ui/icon-button";
 
 /**
@@ -19,6 +20,9 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
   const [scrolled, setScrolled] = useState(false);
   const [q, setQ] = useState("");
   const navigate = useNavigate();
+  const { tenant } = useTenant();
+  const isSindicoLab =
+    !tenant || tenant.organization.is_platform || tenant.organization.slug === "sindicolab";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,22 +34,39 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
   return (
     <header className="ax-header" data-transparent={transparent && !scrolled ? "true" : "false"}>
       <div className="ax-container flex h-full items-center gap-3 md:gap-6">
-        <Link to={showAuthed ? "/academy/inicio" : "/"} className="flex shrink-0 items-center" aria-label="Início">
+        <Link
+          to={isSindicoLab ? "/" : showAuthed ? "/academy/inicio" : "/"}
+          className="flex shrink-0 items-center"
+          aria-label="Início"
+        >
           <TenantLogo />
         </Link>
 
         <nav className="hidden min-w-0 items-center gap-0.5 md:flex">
           {showAuthed && (
-            <Link to="/academy/inicio" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
+            <Link
+              to="/academy/inicio"
+              className="ax-navlink"
+              activeProps={{ "data-active": "true" } as any}
+            >
               Meus estudos
             </Link>
           )}
-          <Link to="/academy/catalogo" className="ax-navlink" activeProps={{ "data-active": "true" } as any}>
+          <Link
+            to="/academy/catalogo"
+            className="ax-navlink"
+            activeProps={{ "data-active": "true" } as any}
+          >
             Catálogo
           </Link>
         </nav>
 
-        <Link to="/academy/catalogo" search={{ q: undefined }} className="ax-iconbtn ax-search-toggle ml-auto" aria-label="Buscar cursos">
+        <Link
+          to="/academy/catalogo"
+          search={{ q: undefined }}
+          className="ax-iconbtn ax-search-toggle ml-auto"
+          aria-label="Buscar cursos"
+        >
           <Search size={16} />
         </Link>
         <form
@@ -75,7 +96,12 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
         ) : (
           <>
             <ThemeToggle />
-            <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="ax-btn shrink-0" data-variant="primary">
+            <Link
+              to="/academy/login"
+              search={{ next: "/academy/inicio" }}
+              className="ax-btn shrink-0"
+              data-variant="primary"
+            >
               Entrar
             </Link>
           </>
@@ -110,7 +136,11 @@ function ThemeToggle({ full = false }: { full?: boolean }) {
           className={`inline-flex ${full ? "flex-1 justify-center" : ""} items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] transition`}
           style={
             choice === o.value
-              ? { background: "var(--ax-surface)", color: "var(--ax-text)", boxShadow: "var(--ax-shadow-sm)" }
+              ? {
+                  background: "var(--ax-surface)",
+                  color: "var(--ax-text)",
+                  boxShadow: "var(--ax-shadow-sm)",
+                }
               : { color: "var(--ax-text-tertiary)" }
           }
         >
@@ -178,7 +208,11 @@ function AccountMenu({
           <MenuLink to="/academy/inicio" onClick={() => setOpen(false)} icon={<User size={15} />}>
             Meus estudos
           </MenuLink>
-          <MenuLink to="/academy/catalogo" onClick={() => setOpen(false)} icon={<Search size={15} />}>
+          <MenuLink
+            to="/academy/catalogo"
+            onClick={() => setOpen(false)}
+            icon={<Search size={15} />}
+          >
             Catálogo
           </MenuLink>
           {isOrgAdmin && (

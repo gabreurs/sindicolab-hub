@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { memo, useState } from "react";
-import { Bookmark, BookmarkCheck, Clock, Star } from "lucide-react";
+import { ArrowUpRight, Bookmark, BookmarkCheck, Clock, Info, Star } from "lucide-react";
 import { CourseCoverPlaceholder } from "./CourseCoverPlaceholder";
 import { CourseCheckoutDialog } from "./CourseCheckoutDialog";
 import { Badge, Progress } from "./ui";
 import { durationLabel, levelLabel, type AcademyCourse } from "./types";
+import { trackCheckoutClick } from "@/services/analyticsService";
 
 type Props = {
   course: AcademyCourse;
@@ -68,16 +69,7 @@ export const CourseCard = memo(function CourseCard({
 
   return (
     <article className="ax-card group/card">
-      {isCheckout ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="block w-full text-left focus-visible:outline-none"
-          aria-label={course.title}
-        >
-          {media}
-        </button>
-      ) : (
+      {isCheckout ? media : (
         <Link
           to="/academy/curso/$courseSlug"
           params={{ courseSlug: course.slug }}
@@ -105,11 +97,7 @@ export const CourseCard = memo(function CourseCard({
       <div className="ax-card-body">
         {categoryName && <p className="ax-eyebrow truncate">{categoryName}</p>}
         <h3 className="ax-card-title">
-          {isCheckout ? (
-            <button type="button" onClick={() => setOpen(true)} className="text-left">
-              {course.title}
-            </button>
-          ) : (
+          {isCheckout ? course.title : (
             <Link to="/academy/curso/$courseSlug" params={{ courseSlug: course.slug }}>
               {course.title}
             </Link>
@@ -129,11 +117,41 @@ export const CourseCard = memo(function CourseCard({
               {rating.avg.toFixed(1)}
             </span>
           )}
-          {isCheckout && course.price_brl ? (
-            <span style={{ color: "var(--tenant-accent)" }}>R$ {course.price_brl.toLocaleString("pt-BR")}</span>
-          ) : null}
           {started && !done && <span style={{ color: "var(--tenant-accent)" }}>{percent}%</span>}
         </div>
+
+        {isCheckout && (
+          <div className="ax-card-commerce">
+            <div>
+              <span className="ax-meta">Investimento</span>
+              <p className="ax-card-price">
+                {course.price_brl ? `R$ ${course.price_brl.toLocaleString("pt-BR")}` : "Consulte o valor"}
+              </p>
+            </div>
+            <div className="ax-card-actions">
+              <a
+                href={course.external_checkout_url ?? undefined}
+                target="_blank"
+                rel="noopener"
+                onClick={() => trackCheckoutClick(course, "catalog_card")}
+                className="ax-btn flex-1"
+                data-variant="primary"
+                data-size="sm"
+              >
+                Comprar <ArrowUpRight size={14} />
+              </a>
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                className="ax-btn flex-1"
+                data-variant="outline"
+                data-size="sm"
+              >
+                <Info size={14} /> Detalhes
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {open && (

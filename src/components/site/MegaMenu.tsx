@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { EXTERNAL_LINKS } from "@/config/external-links";
+import { EXTERNAL_LINKS, whatsappRafaelUrl } from "@/config/external-links";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
@@ -63,10 +63,9 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
             aria-label="Menu do SíndicoLab"
           >
             <div className="site-container mega-menu-content">
-              {/* Hero grid: Quero1Síndico (col-7) + Patrocínios (col-5) */}
+              {/* Destaque principal do ecossistema */}
               <div className="mega-feature-grid grid grid-cols-1 lg:grid-cols-12">
                 <FeaturedQ1S onClose={onClose} />
-                <FeaturedSponsorship onClose={onClose} />
               </div>
 
               {/* Secondary navigation */}
@@ -127,9 +126,9 @@ export function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void
                 />
                 <SmallCard
                   delay={0.4}
-                  href="mailto:contato@sindicolab.com"
+                  href={whatsappRafaelUrl()}
                   eyebrow="Contato"
-                  title="Falar com a equipe"
+                  title="Falar com Rafael Bernardes"
                   description="Parcerias, dúvidas, projetos e relacionamento."
                   preview={<ContactPreview />}
                   onClose={onClose}
@@ -154,7 +153,7 @@ function FeaturedQ1S({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0, scale: 0.985, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.05, duration: 0.55, ease }}
-      className="mega-feature group relative lg:col-span-7 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#08122b] via-[#0a1f4a] to-[#061029] text-background cursor-glow"
+      className="mega-feature group relative lg:col-span-12 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#08122b] via-[#0a1f4a] to-[#061029] text-background cursor-glow"
       aria-label="Encontrar síndico profissional no Quero1Síndico"
     >
       {/* bg glow */}
@@ -245,65 +244,6 @@ function Q1SInterfacePreview() {
         ))}
       </div>
     </div>
-  );
-}
-
-/* ───────────────────── Featured: Patrocínios ───────────────────── */
-function FeaturedSponsorship({ onClose }: { onClose: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.985, y: 12 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay: 0.12, duration: 0.55, ease }}
-      className="lg:col-span-5"
-    >
-      <Link
-        to="/patrocinios"
-        onClick={onClose}
-        className="mega-feature group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-deep via-[#0e0820] to-[#08040f] text-background cursor-glow"
-        aria-label="Ver mídia kit de patrocínios CondoHuby × SíndicoLab"
-      >
-        <div className="absolute -top-20 -right-10 w-[20rem] h-[20rem] rounded-full bg-violet/35 blur-2xl" />
-        <div className="absolute inset-0 pattern-windows opacity-20" />
-
-        <div className="relative h-full p-7 md:p-10 flex flex-col justify-between">
-          <div>
-            <div className="text-[10px] tracking-tight font-mono text-violet">
-              Mídia Kit · CondoHuby × SíndicoLab
-            </div>
-            <h3 className="mt-5 font-display text-2xl md:text-4xl tracking-[-0.035em] leading-[1.02] text-balance">
-              Patrocinar experiências condominiais
-            </h3>
-            <p className="mt-3 text-white/65 text-sm md:text-base max-w-sm leading-relaxed">
-              Aproxime sua marca de síndicos, gestores e decisores do mercado condominial.
-            </p>
-          </div>
-
-          {/* mini stats */}
-          <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-5">
-            {[
-              ["+12k", "Decisores"],
-              ["+50", "Workshops"],
-              ["+150", "Conteúdos"],
-            ].map(([n, l]) => (
-              <div key={l}>
-                <div className="font-display text-2xl tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-br from-white to-violet/70">
-                  {n}
-                </div>
-                <div className="text-[10px] text-white/50 mt-0.5">{l}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6">
-            <span className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/25 text-sm group-hover:bg-white/10 transition">
-              Ver mídia kit
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
   );
 }
 
@@ -444,8 +384,9 @@ function ContactPreview() {
   return (
     <div className="absolute inset-0 bg-ink p-3 flex flex-col justify-end">
       <div className="text-[9px] font-mono text-cyan tracking-tight">→ contato</div>
-      <div className="text-xs text-background mt-1 truncate">contato@sindicolab.com</div>
-      <div className="mt-2 h-1 w-1/2 bg-cyan/60 rounded" />
+      <div className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-md bg-background px-2.5 py-1.5 text-[10px] font-medium text-ink">
+        Falar com Rafael <ArrowUpRight className="h-3 w-3" />
+      </div>
     </div>
   );
 }

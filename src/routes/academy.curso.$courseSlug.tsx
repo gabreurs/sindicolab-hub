@@ -10,6 +10,7 @@ import { CourseCoverPlaceholder } from "@/components/academy/CourseCoverPlacehol
 import { durationLabel, levelLabel } from "@/components/academy/types";
 import { LessonMedia } from "@/components/player/LessonMedia";
 import { resolveCourseAccess } from "@/lib/course/courseAccess";
+import { trackCheckoutClick, trackCourseView } from "@/services/analyticsService";
 
 export const Route = createFileRoute("/academy/curso/$courseSlug")({ ssr: false, component: CoursePage });
 
@@ -40,6 +41,7 @@ function CoursePage() {
         .maybeSingle();
       if (!c) { setLoading(false); return; }
       setCourse(c);
+      trackCourseView(c);
 
       // Cursos entregues por embed externo NÃO listam módulos/aulas aqui:
       // a trilha real vive dentro do LearningStudio e a "aula" local é apenas
@@ -106,6 +108,7 @@ function CoursePage() {
       href={course.external_checkout_url}
       target="_blank"
       rel="noopener"
+      onClick={() => trackCheckoutClick(course, "course_detail")}
       className="ax-btn"
       data-variant="primary"
       data-size="lg"
@@ -131,6 +134,7 @@ function CoursePage() {
       href={course.external_checkout_url}
       target="_blank"
       rel="noopener"
+      onClick={() => trackCheckoutClick(course, "course_detail")}
       className="ax-btn"
       data-variant="primary"
       data-size="lg"

@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { CourseCoverPlaceholder } from "./CourseCoverPlaceholder";
 import { Eyebrow } from "./ui";
 import type { AcademyCourse } from "./types";
+import { trackCheckoutClick } from "@/services/analyticsService";
 
 type Props = {
   course: AcademyCourse;
@@ -83,6 +84,7 @@ export function CourseCheckoutDialog({ course, categoryName, onClose }: Props) {
                 href={course.external_checkout_url}
                 target="_blank"
                 rel="noopener"
+                onClick={() => trackCheckoutClick(course, "course_dialog")}
                 className="ax-btn"
                 data-variant="primary"
                 data-size="lg"

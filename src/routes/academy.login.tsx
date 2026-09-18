@@ -6,7 +6,9 @@ import { academyAuthService, demoRoleFor } from "@/services/academyAuthService";
 
 export const Route = createFileRoute("/academy/login")({
   ssr: false,
-  validateSearch: (s: Record<string, unknown>) => ({ next: typeof s.next === "string" ? s.next : "/academy/inicio" }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : "/academy/inicio",
+  }),
   component: LoginPage,
 });
 
@@ -43,12 +45,18 @@ function LoginPage() {
     <div className="academy flex min-h-screen items-center justify-center p-6">
       <div className="ax-panel w-full max-w-md p-8">
         <div className="flex items-center justify-between gap-4">
-          <TenantLogo />
-          <Link to="/" className="ax-meta hover:opacity-80">← Voltar</Link>
+          <Link to="/" aria-label="SíndicoLab — página inicial">
+            <TenantLogo />
+          </Link>
+          <Link to="/" className="ax-meta hover:opacity-80">
+            ← Voltar
+          </Link>
         </div>
         <h1 className="ax-h2 mt-7">{mode === "login" ? "Entrar na Academy" : "Criar sua conta"}</h1>
         <p className="ax-body mt-1.5 text-[14px]">
-          {mode === "login" ? "Acesse seus cursos e continue de onde parou." : "Leva menos de um minuto."}
+          {mode === "login"
+            ? "Acesse seus cursos e continue de onde parou."
+            : "Leva menos de um minuto."}
         </p>
         <form onSubmit={submit} className="mt-7 space-y-3">
           <input
@@ -68,12 +76,22 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 text-[15px]"
           />
-          <button disabled={busy} type="submit" className="ax-btn w-full" data-variant="primary" data-size="lg">
+          <button
+            disabled={busy}
+            type="submit"
+            className="ax-btn w-full"
+            data-variant="primary"
+            data-size="lg"
+          >
             {busy ? "…" : mode === "login" ? "Entrar" : "Criar conta"}
           </button>
         </form>
 
-        <button onClick={() => setMode(mode === "login" ? "signup" : "login")} className="ax-btn mt-5" data-variant="link">
+        <button
+          onClick={() => setMode(mode === "login" ? "signup" : "login")}
+          className="ax-btn mt-5"
+          data-variant="link"
+        >
           {mode === "login" ? "Não tem conta? Criar conta" : "Já tenho conta"}
         </button>
         <div>

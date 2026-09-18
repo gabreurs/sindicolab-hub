@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 import { buildSeo } from "@/lib/seo";
+import { whatsappRafaelUrl } from "@/config/external-links";
 
 export const Route = createFileRoute("/quem-somos")({
   head: () =>
@@ -246,10 +247,12 @@ function QuemSomosPage() {
               Ver cursos
             </a>
             <a
-              href="/patrocinios"
+              href={whatsappRafaelUrl()}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-background text-ink font-medium hover:bg-brand hover:text-background transition shrink-0"
             >
-              Falar com a equipe <ArrowUpRight className="w-4 h-4" />
+              Falar com Rafael <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
         </div>
