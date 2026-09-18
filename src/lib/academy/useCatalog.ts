@@ -5,7 +5,7 @@ import type { AcademyCourse } from "@/components/academy/types";
 type Progress = { percent: number; open_count?: number; last_accessed_at?: string; updated_at?: string };
 
 const COURSE_COLUMNS =
-  "id, slug, title, subtitle, description, cover_url, banner_url, instructor_name, duration_minutes, category_id, level, is_featured, is_required, visibility, created_at";
+  "id, slug, title, subtitle, description, cover_url, banner_url, instructor_name, duration_minutes, category_id, level, is_featured, is_required, visibility, created_at, delivery_type, external_checkout_url, price_brl, access_label";
 
 /**
  * Fonte única de dados das superfícies tenant-facing.

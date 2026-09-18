@@ -57,8 +57,11 @@ function MaterialPage() {
                 {material.file_url ? (
                   <a
                     href={material.file_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    // Arquivo enviado pelo console vem embutido: baixa direto,
+                    // com o nome original. Links externos seguem abrindo em aba.
+                    {...(material.file_url.startsWith("data:")
+                      ? { download: (material as any).file_name || material.slug }
+                      : { target: "_blank", rel: "noopener noreferrer" })}
                     className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-background transition hover:bg-brand"
                   >
                     <Download className="h-4 w-4" />

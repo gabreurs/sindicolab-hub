@@ -24,6 +24,15 @@ import coverCompetencias from "@/assets/cursos/competencias-do-sindico.webp";
 import coverConselheiros from "@/assets/cursos/conselheiros-fiscais-e-consultivos.webp";
 import coverLimpeza from "@/assets/cursos/limpeza-de-alta-performance.webp";
 import coverZelador from "@/assets/cursos/zelador-de-alta-performance.webp";
+/* Capas oficiais dos cursos vendidos no checkout externo (SíndicoLab Play). */
+import playSindico from "@/assets/cursos/play/sindico-alta-performance.webp";
+import playInteligencia from "@/assets/cursos/play/inteligencia-condominial.webp";
+import playCaptar from "@/assets/cursos/play/captar-mais-clientes.webp";
+import playConselheiros from "@/assets/cursos/play/conselheiros.webp";
+import playOratoria from "@/assets/cursos/play/oratoria-vendas.webp";
+import playZelador from "@/assets/cursos/play/zelador-excelencia.webp";
+import playLimpeza from "@/assets/cursos/play/limpeza-alta-performance.webp";
+import playControlador from "@/assets/cursos/play/controlador-de-acessos.webp";
 import casaLogoBlack from "@/assets/casa-logo-black.png.asset.json";
 import casaLogoWhite from "@/assets/casa-logo-white.png.asset.json";
 
@@ -328,7 +337,71 @@ const archivedCourse: Row = {
   updated_at: iso(60),
 };
 
-export const courses: Row[] = [...globalCourses, guaridaCourse, archivedCourse];
+/* ------------- acervo comercial do SíndicoLab (checkout Kiwify) -------------
+ * A SíndicoLab vende direto no B2C: estes cursos NÃO usam Learning Studio.
+ * O aluno — logado ou não — vê a ficha do curso e segue para a Kiwify.
+ * São exclusivos do tenant plataforma: nenhuma outra organização os recebe. */
+type PlayCourse = [
+  slug: string,
+  title: string,
+  category: string,
+  cover: string,
+  price: number,
+  checkout: string,
+  description: string,
+];
+
+const PLAY_COURSES: PlayCourse[] = [
+  ["sindico-alta-performance", "Síndico Alta Performance", CATEGORY.carreira, playSindico, 349, "https://pay.kiwify.com.br/lTGYaNe",
+    "Aplique práticas de liderança e estratégias que garantem resultados eficientes para seu condomínio."],
+  ["inteligencia-condominial", "Inteligência Condominial", CATEGORY.ia, playInteligencia, 450, "https://pay.kiwify.com.br/KTRK6dv",
+    "Descubra como a inteligência artificial pode simplificar a gestão condominial, otimizar processos e trazer mais eficiência."],
+  ["inteligencia-condominial-pt-2", "Inteligência Condominial Pt. II", CATEGORY.ia, playInteligencia, 250, "https://pay.kiwify.com.br/yZEm6OM",
+    "Aprofunde-se em técnicas avançadas de inteligência artificial e automação para elevar a gestão condominial a um novo nível."],
+  ["como-captar-mais-clientes", "Como Captar Mais Clientes", CATEGORY.carreira, playCaptar, 500, "https://pay.kiwify.com.br/s0Z3UNQ",
+    "Aprenda estratégias de captação e técnicas de networking para expandir sua carteira de clientes e consolidar-se como referência."],
+  ["conselheiros", "Conselheiros", CATEGORY.assembleias, playConselheiros, 99, "https://pay.kiwify.com.br/FDgSb70",
+    "Descubra como a inteligência artificial pode simplificar a gestão condominial, otimizar processos e trazer mais eficiência."],
+  ["oratoria-e-vendas", "Oratória & Vendas", CATEGORY.carreira, playOratoria, 250, "https://pay.kiwify.com.br/a0fOXfo",
+    "Aprenda a arte da comunicação e as técnicas de vendas essenciais para influenciar e conquistar resultados."],
+  ["zelador-de-excelencia", "Zelador de Excelência", CATEGORY.operacao, playZelador, 150, "https://pay.kiwify.com.br/UaBKUDA",
+    "Aprenda práticas de manutenção, segurança e atendimento que fazem a diferença na rotina do condomínio."],
+  ["limpeza-alta-performance-play", "Limpeza Alta Performance", CATEGORY.operacao, playLimpeza, 150, "https://pay.kiwify.com.br/HYLI6B4",
+    "Aprenda métodos eficientes que garantem ambientes sempre sustentáveis, limpos, seguros e agradáveis para o condomínio."],
+  ["controlador-de-acessos", "Controlador de Acessos", CATEGORY.operacao, playControlador, 150, "https://pay.kiwify.com.br/V1zlia6",
+    "Desenvolva as competências fundamentais para um atendimento seguro e ágil, tornando-se um porteiro de referência."],
+];
+
+const kiwifyCourses: Row[] = PLAY_COURSES.map(
+  ([slug, title, category_id, cover, price, checkout, description], i) => ({
+    id: `course-play-${slug}`,
+    slug,
+    title,
+    subtitle: null,
+    description,
+    cover_url: cover,
+    banner_url: cover,
+    instructor_name: "SíndicoLab",
+    instructor_bio: null,
+    duration_minutes: null,
+    level: null,
+    category_id,
+    owner_org_id: ORG.sindicolab,
+    visibility: "exclusive",
+    status: "published",
+    delivery_type: "external_checkout",
+    embed_url: null,
+    external_checkout_url: checkout,
+    price_brl: price,
+    access_label: "Certificado · 90 dias de acesso",
+    is_featured: i === 1,
+    is_required: false,
+    created_at: iso(120 - i * 3),
+    updated_at: iso(10),
+  }),
+);
+
+export const courses: Row[] = [...globalCourses, guaridaCourse, archivedCourse, ...kiwifyCourses];
 
 /* --------------------------- módulos e aulas ---------------------------- */
 
@@ -337,7 +410,8 @@ export const course_lessons: Row[] = [];
 export const course_materials: Row[] = [];
 
 courses
-  .filter((c) => c.status === "published")
+  // Cursos vendidos em checkout externo não têm trilha local: a entrega é da Kiwify.
+  .filter((c) => c.status === "published" && c.delivery_type !== "external_checkout")
   .forEach((c) => {
     const moduleId = `mod-${c.slug}`;
     course_modules.push({
@@ -386,8 +460,9 @@ export const course_delivery_sources: Row[] = courses
 const published = courses.filter((c) => c.status === "published" && c.visibility === "global");
 
 export const organization_course_catalog: Row[] = [
-  // SíndicoLab e CASA recebem todo o acervo global (migration 20260817202331).
-  ...published.map((c, i) => ({ id: `occ-lab-${i}`, organization_id: ORG.sindicolab, course_id: c.id, is_visible: true, created_at: iso(200) })),
+  // SíndicoLab (B2C): o catálogo é exclusivamente o acervo comercial da Kiwify.
+  ...kiwifyCourses.map((c, i) => ({ id: `occ-lab-${i}`, organization_id: ORG.sindicolab, course_id: c.id, is_visible: true, created_at: iso(120) })),
+  // CASA recebe todo o acervo global do Learning Studio (migration 20260817202331).
   ...published.map((c, i) => ({ id: `occ-casa-${i}`, organization_id: ORG.casa, course_id: c.id, is_visible: true, created_at: iso(120) })),
   // Guarida: acervo global + o curso exclusivo da própria organização.
   ...published.map((c, i) => ({ id: `occ-gua-${i}`, organization_id: ORG.guarida, course_id: c.id, is_visible: true, created_at: iso(150) })),
