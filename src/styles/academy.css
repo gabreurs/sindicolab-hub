@@ -791,6 +791,8 @@
   color: var(--ax-on-accent);
 }
 .ax-iconbtn[data-size="sm"] { height: 32px; width: 32px; min-height: 32px; min-width: 32px; }
+/* Lupa redonda do header: só no mobile — no desktop a barra de busca já aparece. */
+@media (min-width: 640px) { .ax-search-toggle { display: none; } }
 
 /* --- chips / badges --- */
 .ax-chip {
