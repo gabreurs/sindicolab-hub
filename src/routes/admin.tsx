@@ -46,32 +46,57 @@ type Domain = { id: string; hostname: string; is_primary: boolean; organization_
 type Membership = { organization_id: string; role: string; is_active: boolean };
 
 const NAV: ConsoleNavGroup[] = [
-  { label: "Plataforma", items: [
+  { label: "Início", items: [
     { id: "visao", label: "Visão geral" },
-    { id: "orgs", label: "Organizações" },
-    { id: "dominios", label: "Domínios" },
   ] },
-  { label: "Academy", items: [
-    { id: "catalogo", label: "Cursos (catálogo global)" },
-    { id: "distribuicao", label: "Distribuição por org" },
-  ] },
-  { label: "Conteúdo do site", items: [
-    { id: "materiais", label: "Materiais" },
-    { id: "artigos", label: "Artigos" },
-    { id: "eventos", label: "Eventos" },
-  ] },
-  { label: "Portal", items: [
+  { label: "Portal (notícias)", items: [
     { id: "portal-posts", label: "Notícias" },
     { id: "portal-categories", label: "Categorias" },
     { id: "portal-authors", label: "Colunistas" },
   ] },
-  { label: "Pessoas", items: [
+  { label: "Conteúdo do site", items: [
+    { id: "materiais", label: "Materiais para download" },
+    { id: "artigos", label: "Artigos" },
+    { id: "eventos", label: "Eventos" },
+  ] },
+  { label: "Academy (cursos)", items: [
+    { id: "catalogo", label: "Catálogo de cursos" },
+    { id: "distribuicao", label: "Quem vê cada curso" },
+    { id: "marca", label: "Marca das Academies" },
+  ] },
+  { label: "Clientes e acessos", items: [
+    { id: "orgs", label: "Organizações" },
+    { id: "dominios", label: "Domínios" },
     { id: "acessos", label: "Usuários e permissões" },
     { id: "convites", label: "Convites" },
   ] },
-  { label: "Configuração", items: [
-    { id: "marca", label: "Marca das Academies" },
+  { label: "Sistema", items: [
     { id: "operacional", label: "Operacional" },
+  ] },
+];
+
+/** Atalhos da Visão geral: os mesmos destinos do menu, agrupados em quadros. */
+const OVERVIEW_GROUPS: { label: string; items: { id: string; label: string; description: string }[] }[] = [
+  { label: "Portal (notícias)", items: [
+    { id: "portal-posts", label: "Notícias", description: "Publicar e editar matérias do Portal." },
+    { id: "portal-categories", label: "Categorias", description: "Editorias que organizam as notícias." },
+    { id: "portal-authors", label: "Colunistas", description: "Perfis dos autores e suas páginas." },
+  ] },
+  { label: "Conteúdo do site", items: [
+    { id: "materiais", label: "Materiais para download", description: "Modelos, checklists e planilhas com arquivo." },
+    { id: "artigos", label: "Artigos", description: "Textos editoriais com campos de SEO." },
+    { id: "eventos", label: "Eventos", description: "Agenda de encontros, lives e workshops." },
+  ] },
+  { label: "Academy (cursos)", items: [
+    { id: "catalogo", label: "Catálogo de cursos", description: "Cursos disponíveis em todas as Academies." },
+    { id: "distribuicao", label: "Quem vê cada curso", description: "Liberar cursos por organização." },
+    { id: "marca", label: "Marca das Academies", description: "Logo, cores e identidade de cada cliente." },
+  ] },
+  { label: "Clientes e acessos", items: [
+    { id: "orgs", label: "Organizações", description: "Cadastro, assentos e status de cada cliente." },
+    { id: "dominios", label: "Domínios", description: "Endereços que apontam para cada Academy." },
+    { id: "acessos", label: "Usuários e permissões", description: "Quem entra e com qual papel." },
+    { id: "convites", label: "Convites", description: "Convites enviados e pendentes." },
   ] },
 ];
 
