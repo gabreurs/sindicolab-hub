@@ -503,6 +503,7 @@
   color: var(--c-text);
   transition: border-color .15s ease, box-shadow .15s ease;
 }
+.admin-console .c-input.c-input-search { padding-left: 2.15rem; }
 .admin-console .c-input::placeholder,
 .admin-console .c-textarea::placeholder { color: var(--c-muted); }
 .admin-console .c-input:focus,

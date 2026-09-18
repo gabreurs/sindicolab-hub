@@ -334,33 +334,23 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                       Marcar como destaque
                     </span>
                   ) : f.kind === "file" ? (
-                    <div className="flex flex-col gap-2">
-                      <input
-                        type="file"
-                        className="text-sm"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (!file) return;
-                          if (file.size > 8 * 1024 * 1024) {
-                            setMsg({ kind: "err", text: "Arquivo acima de 8 MB. Envie uma versão menor." });
-                            return;
-                          }
-                          const reader = new FileReader();
-                          reader.onload = () =>
-                            setEditing({
-                              ...editing,
-                              file_url: String(reader.result ?? ""),
-                              file_name: file.name,
-                            });
-                          reader.readAsDataURL(file);
-                        }}
-                      />
-                      {editing.file_name ? (
-                        <span className="text-xs opacity-70">Arquivo atual: {String(editing.file_name)}</span>
-                      ) : value ? (
-                        <span className="text-xs opacity-70">Arquivo já enviado.</span>
-                      ) : null}
-                    </div>
+                    <FileDrop
+                      fileName={editing.file_name ? String(editing.file_name) : null}
+                      hasFile={Boolean(value)}
+                      hint={f.hint}
+                      onError={(text) => setMsg({ kind: "err", text })}
+                      onClear={() => setEditing({ ...editing, file_url: "", file_name: "" })}
+                      onFile={(file) => {
+                        const reader = new FileReader();
+                        reader.onload = () =>
+                          setEditing({
+                            ...editing,
+                            file_url: String(reader.result ?? ""),
+                            file_name: file.name,
+                          });
+                        reader.readAsDataURL(file);
+                      }}
+                    />
                   ) : (
                     <Input
                       type={f.kind === "date" ? "date" : "text"}
