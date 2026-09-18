@@ -56,12 +56,12 @@ const fazemos = [
 ];
 
 const galeria = [
-  { src: encontroCondohuby.url, label: "Encontro de profissionais no CondoHuby", position: "center" },
-  { src: rafaelPalco1.url, label: "Rafael Bernardes apresentando no CondoHuby", position: "center" },
-  { src: rafaelPalco2.url, label: "Conteúdo e conversa com profissionais do setor", position: "center" },
-  { src: workshopSeguranca.url, label: "Workshop sobre segurança condominial", position: "center" },
-  { src: workshopIa.url, label: "Workshop de inteligência artificial", position: "center" },
-  { src: comunidadeCondohuby.url, label: "Comunidade reunida no CondoHuby", position: "center 35%" },
+  { src: encontroCondohuby.url, label: "Encontro de profissionais no CondoHuby", positionClass: "object-center" },
+  { src: rafaelPalco1.url, label: "Rafael Bernardes apresentando no CondoHuby", positionClass: "object-center" },
+  { src: rafaelPalco2.url, label: "Conteúdo e conversa com profissionais do setor", positionClass: "object-center" },
+  { src: workshopSeguranca.url, label: "Workshop sobre segurança condominial", positionClass: "object-center" },
+  { src: workshopIa.url, label: "Workshop de inteligência artificial", positionClass: "object-center" },
+  { src: comunidadeCondohuby.url, label: "Comunidade reunida no CondoHuby", positionClass: "object-top" },
 ];
 
 function QuemSomosPage() {
@@ -142,8 +142,7 @@ function QuemSomosPage() {
                   alt={photo.label}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
-                  style={{ objectPosition: photo.position }}
+                  className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] ${photo.positionClass}`}
                 />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/80 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3 text-[12px] text-background leading-snug">
