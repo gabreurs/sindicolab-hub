@@ -136,7 +136,7 @@ export function SearchInput({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="c-input pl-8"
+        className="c-input c-input-search pl-8"
       />
     </div>
   );
