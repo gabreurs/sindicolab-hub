@@ -27,3 +27,8 @@
 - [x] Remover Portal antigo e código órfão sem afetar os demais módulos
 - [x] Validar Portal e admin em 360, 390, 430, 768, 1024 e desktop
 - [x] Validar build estático e pacote de produção para cPanel
+- [x] Hero da Academy: fundo alterna com a capa do curso em destaque (blur/vidro)
+- [x] Trocar capa de Inteligência Condominial Pt. II pela arte oficial enviada
+- [x] Página do curso externo: "Comprar acesso" (Kiwify) mesmo deslogado — só afeta tenant SíndicoLab
+- [x] Remover lupa de busca duplicada no header da Academy (desktop)
+- [x] Hero /academy: remover foto do prédio do fundo (só capa do curso com blur)

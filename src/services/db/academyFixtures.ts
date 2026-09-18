@@ -27,6 +27,7 @@ import coverZelador from "@/assets/cursos/zelador-de-alta-performance.webp";
 /* Capas oficiais dos cursos vendidos no checkout externo (SíndicoLab Play). */
 import playSindico from "@/assets/cursos/play/sindico-alta-performance.webp";
 import playInteligencia from "@/assets/cursos/play/inteligencia-condominial.webp";
+import playInteligencia2 from "@/assets/cursos/play/inteligencia-condominial-2.webp";
 import playCaptar from "@/assets/cursos/play/captar-mais-clientes.webp";
 import playConselheiros from "@/assets/cursos/play/conselheiros.webp";
 import playOratoria from "@/assets/cursos/play/oratoria-vendas.webp";
@@ -356,7 +357,7 @@ const PLAY_COURSES: PlayCourse[] = [
     "Aplique práticas de liderança e estratégias que garantem resultados eficientes para seu condomínio."],
   ["inteligencia-condominial", "Inteligência Condominial", CATEGORY.ia, playInteligencia, 450, "https://pay.kiwify.com.br/KTRK6dv",
     "Descubra como a inteligência artificial pode simplificar a gestão condominial, otimizar processos e trazer mais eficiência."],
-  ["inteligencia-condominial-pt-2", "Inteligência Condominial Pt. II", CATEGORY.ia, playInteligencia, 250, "https://pay.kiwify.com.br/yZEm6OM",
+  ["inteligencia-condominial-pt-2", "Inteligência Condominial Pt. II", CATEGORY.ia, playInteligencia2, 250, "https://pay.kiwify.com.br/yZEm6OM",
     "Aprofunde-se em técnicas avançadas de inteligência artificial e automação para elevar a gestão condominial a um novo nível."],
   ["como-captar-mais-clientes", "Como Captar Mais Clientes", CATEGORY.carreira, playCaptar, 500, "https://pay.kiwify.com.br/s0Z3UNQ",
     "Aprenda estratégias de captação e técnicas de networking para expandir sua carteira de clientes e consolidar-se como referência."],

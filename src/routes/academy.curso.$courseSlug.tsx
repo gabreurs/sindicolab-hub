@@ -99,7 +99,20 @@ function CoursePage() {
     durationLabel(course.duration_minutes),
     course.instructor_name,
   ].filter(Boolean);
-  const primaryCta = !session ? (
+  // Checkout externo (SíndicoLab B2C): a compra não exige conta — o botão
+  // principal leva direto ao checkout, mesmo para visitante deslogado.
+  const primaryCta = course.external_checkout_url ? (
+    <a
+      href={course.external_checkout_url}
+      target="_blank"
+      rel="noopener"
+      className="ax-btn"
+      data-variant="primary"
+      data-size="lg"
+    >
+      Comprar acesso
+    </a>
+  ) : !session ? (
     <Link to="/academy/login" search={{ next: `/academy/curso/${courseSlug}` }} className="ax-btn" data-variant="primary" data-size="lg">
       {exp.type === "corporate" ? "Entrar na Academy" : "Entrar para começar"}
     </Link>

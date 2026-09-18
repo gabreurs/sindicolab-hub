@@ -791,6 +791,9 @@
   color: var(--ax-on-accent);
 }
 .ax-iconbtn[data-size="sm"] { height: 32px; width: 32px; min-height: 32px; min-width: 32px; }
+/* Lupa redonda do header: só no mobile — no desktop a barra de busca já aparece. */
+@media (min-width: 640px) { .ax-search-toggle { display: none; } }
+@media (max-width: 639px) { .ax-header form.ax-search { display: none; } }
 
 /* --- chips / badges --- */
 .ax-chip {
@@ -938,12 +941,19 @@
 }
 @media (min-width: 1024px) { .ax-hero { min-height: 480px; } }
 @media (min-width: 1536px) { .ax-hero { min-height: 520px; } }
-.ax-hero-media { position: absolute; inset: 0; z-index: -2; }
+.ax-hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: var(--ax-canvas); }
 .ax-hero-media img { height: 100%; width: 100%; object-fit: cover; display: block; }
+.ax-hero-media-course {
+  position: absolute;
+  inset: 0;
+  filter: blur(56px) saturate(1.15);
+  transform: scale(1.35);
+  transition: opacity 0.9s ease;
+}
 .ax-hero-scrim {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(90deg, var(--ax-canvas) 8%, color-mix(in oklab, var(--ax-canvas) 74%, transparent) 52%, transparent 92%),
+    linear-gradient(90deg, var(--ax-canvas) 4%, color-mix(in oklab, var(--ax-canvas) 58%, transparent) 46%, transparent 88%),
     linear-gradient(0deg, var(--ax-canvas) 2%, transparent 60%);
 }
 .ax-hero-copy { max-width: 620px; }

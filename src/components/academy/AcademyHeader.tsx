@@ -45,7 +45,7 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
           </Link>
         </nav>
 
-        <Link to="/academy/catalogo" search={{ q: undefined }} className="ax-iconbtn ml-auto sm:hidden" aria-label="Buscar cursos">
+        <Link to="/academy/catalogo" search={{ q: undefined }} className="ax-iconbtn ax-search-toggle ml-auto" aria-label="Buscar cursos">
           <Search size={16} />
         </Link>
         <form
