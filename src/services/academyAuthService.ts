@@ -12,7 +12,6 @@
  */
 import { supabase } from "@/integrations/supabase/client";
 import { DEMO_ACCOUNTS } from "./db/academyFixtures";
-import { DEMO_ACCESS_ENABLED, DEMO_ACCESS_CLOSED_MESSAGE } from "@/lib/academy/demoAccess";
 
 export type AcademyRole = "platform_admin" | "org_admin" | "student";
 
@@ -37,13 +36,10 @@ const homeByRole: Record<AcademyRole, string> = {
 export const DemoAcademyAuthAdapter: AcademyAuthAdapter = {
   kind: "demo",
   async signIn(email, password) {
-    // Site publicado sem acesso demo liberado: ninguém entra com conta de exemplo.
-    if (!DEMO_ACCESS_ENABLED) return { error: { message: DEMO_ACCESS_CLOSED_MESSAGE } };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error ?? null };
   },
   async signUp(email, password) {
-    if (!DEMO_ACCESS_ENABLED) return { error: { message: DEMO_ACCESS_CLOSED_MESSAGE } };
     const { error } = await supabase.auth.signUp({
       email,
       password,
