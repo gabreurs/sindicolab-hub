@@ -7,13 +7,13 @@ import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-r
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 import { buildSeo } from "@/lib/seo";
 import { whatsappRafaelUrl } from "@/config/external-links";
-import rafaelBernardes from "@/assets/institucional/rafael-bernardes.jpg.asset.json";
-import encontroCondohuby from "@/assets/institucional/encontro-condohuby.jpg.asset.json";
-import rafaelPalco1 from "@/assets/institucional/rafael-palco-1.jpg.asset.json";
-import rafaelPalco2 from "@/assets/institucional/rafael-palco-2.jpg.asset.json";
-import workshopSeguranca from "@/assets/institucional/workshop-seguranca.jpg.asset.json";
-import workshopIa from "@/assets/institucional/workshop-ia.jpg.asset.json";
-import comunidadeCondohuby from "@/assets/institucional/comunidade-condohuby.jpg.asset.json";
+import rafaelBernardes from "@/assets/institucional/rafael-bernardes.webp";
+import encontroCondohuby from "@/assets/institucional/encontro-condohuby.webp";
+import rafaelPalco1 from "@/assets/institucional/rafael-palco-1.webp";
+import rafaelPalco2 from "@/assets/institucional/rafael-palco-2.webp";
+import workshopSeguranca from "@/assets/institucional/workshop-seguranca.webp";
+import workshopIa from "@/assets/institucional/workshop-ia.webp";
+import comunidadeCondohuby from "@/assets/institucional/comunidade-condohuby.webp";
 
 export const Route = createFileRoute("/quem-somos")({
   head: () =>
@@ -56,12 +56,12 @@ const fazemos = [
 ];
 
 const galeria = [
-  { src: encontroCondohuby.url, label: "Encontro de profissionais no CondoHuby", positionClass: "object-center" },
-  { src: rafaelPalco1.url, label: "Rafael Bernardes apresentando no CondoHuby", positionClass: "object-center" },
-  { src: rafaelPalco2.url, label: "Conteúdo e conversa com profissionais do setor", positionClass: "object-center" },
-  { src: workshopSeguranca.url, label: "Workshop sobre segurança condominial", positionClass: "object-center" },
-  { src: workshopIa.url, label: "Workshop de inteligência artificial", positionClass: "object-center" },
-  { src: comunidadeCondohuby.url, label: "Comunidade reunida no CondoHuby", positionClass: "object-top" },
+  { src: encontroCondohuby, label: "Encontro de profissionais no CondoHuby", positionClass: "object-center" },
+  { src: rafaelPalco1, label: "Rafael Bernardes apresentando no CondoHuby", positionClass: "object-center" },
+  { src: rafaelPalco2, label: "Conteúdo e conversa com profissionais do setor", positionClass: "object-center" },
+  { src: workshopSeguranca, label: "Workshop sobre segurança condominial", positionClass: "object-center" },
+  { src: workshopIa, label: "Workshop de inteligência artificial", positionClass: "object-center" },
+  { src: comunidadeCondohuby, label: "Comunidade reunida no CondoHuby", positionClass: "object-top" },
 ];
 
 function QuemSomosPage() {
@@ -96,7 +96,7 @@ function QuemSomosPage() {
               <p className="text-xs text-ink-soft">Fundador</p>
               <div className="mt-4 flex items-center gap-4">
                 <img
-                  src={rafaelBernardes.url}
+                  src={rafaelBernardes}
                   alt="Rafael Bernardes"
                   width="64"
                   height="64"
