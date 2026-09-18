@@ -31,3 +31,4 @@
 - [x] Trocar capa de Inteligência Condominial Pt. II pela arte oficial enviada
 - [x] Página do curso externo: "Comprar acesso" (Kiwify) mesmo deslogado — só afeta tenant SíndicoLab
 - [x] Remover lupa de busca duplicada no header da Academy (desktop)
+- [x] Hero /academy: remover foto do prédio do fundo (só capa do curso com blur)
