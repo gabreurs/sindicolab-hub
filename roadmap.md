@@ -9,7 +9,7 @@
 - [x] Reestruturar sugestões da busca para o ecossistema condominial
 - [x] Trocar e-mail sem ação por contato direto com Rafael Bernardes no mega menu
 - [x] Corrigir todos os botões “Falar com a equipe” para contato funcional
-- [ ] Validar /admin, /empresa e /portal em vários tamanhos, acesso direto e recarga estilo cPanel
+- [x] Validar /admin, /empresa e /portal em vários tamanhos, acesso direto e recarga estilo cPanel
 - [x] Adicionar métricas de cursos, Kiwify, materiais e conversões por produto no admin
 - [ ] Assistente em linguagem natural — bloqueado: AI Gateway é pago e requer servidor seguro
 - [x] Remover a página /patrocinios e toda navegação, busca ou redirecionamento para ela
