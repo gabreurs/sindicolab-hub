@@ -938,8 +938,15 @@
 }
 @media (min-width: 1024px) { .ax-hero { min-height: 480px; } }
 @media (min-width: 1536px) { .ax-hero { min-height: 520px; } }
-.ax-hero-media { position: absolute; inset: 0; z-index: -2; }
+.ax-hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .ax-hero-media img { height: 100%; width: 100%; object-fit: cover; display: block; }
+.ax-hero-media-course {
+  position: absolute;
+  inset: 0;
+  filter: blur(56px) saturate(1.15);
+  transform: scale(1.35);
+  transition: opacity 0.9s ease;
+}
 .ax-hero-scrim {
   position: absolute; inset: 0; z-index: -1;
   background:
