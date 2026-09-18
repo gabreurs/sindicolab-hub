@@ -5,7 +5,7 @@ export const EXTERNAL_LINKS = {
   /** Newsletter — publicação oficial no Substack */
   SUBSTACK: "https://substack.com/@sindicolab",
   /** Canal oficial no YouTube */
-  YOUTUBE: "https://www.youtube.com/@SindicoLab",
+  YOUTUBE: "https://www.youtube.com/@SindicoLab/videos",
   /** Instagram oficial */
   INSTAGRAM: "https://instagram.com/sindicolab",
   /** Grupo de apoio entre síndicas e síndicos no WhatsApp */

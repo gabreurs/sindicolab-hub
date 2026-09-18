@@ -15,6 +15,6 @@
 - [x] Remover a página /patrocinios e toda navegação, busca ou redirecionamento para ela
 - [x] Fazer todo logo SíndicoLab voltar à home e exibir globalmente o botão do grupo no WhatsApp
 - [x] Eliminar o lag e aprimorar a UI/UX da busca/filtro da home
-- [ ] Aplicar as novas fotos reais na página Quem somos
-- [ ] Corrigir os acessos ao YouTube no Portal
+- [x] Aplicar as novas fotos reais na página Quem somos
+- [x] Corrigir os acessos ao YouTube no Portal
 - [ ] Validar o login administrativo de demonstração

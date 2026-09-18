@@ -7,6 +7,13 @@ import { ArrowUpRight, Mic, Users, Calendar, BookOpen, Sparkles } from "lucide-r
 import { InstagramIcon as Instagram } from "@/components/icons/SocialIcons";
 import { buildSeo } from "@/lib/seo";
 import { whatsappRafaelUrl } from "@/config/external-links";
+import rafaelBernardes from "@/assets/institucional/rafael-bernardes.jpg.asset.json";
+import encontroCondohuby from "@/assets/institucional/encontro-condohuby.jpg.asset.json";
+import rafaelPalco1 from "@/assets/institucional/rafael-palco-1.jpg.asset.json";
+import rafaelPalco2 from "@/assets/institucional/rafael-palco-2.jpg.asset.json";
+import workshopSeguranca from "@/assets/institucional/workshop-seguranca.jpg.asset.json";
+import workshopIa from "@/assets/institucional/workshop-ia.jpg.asset.json";
+import comunidadeCondohuby from "@/assets/institucional/comunidade-condohuby.jpg.asset.json";
 
 export const Route = createFileRoute("/quem-somos")({
   head: () =>
@@ -49,14 +56,12 @@ const fazemos = [
 ];
 
 const galeria = [
-  "Workshop Inteligência condominial",
-  "Encontro de síndicos · CondoHuby",
-  "Bastidor — produção de conteúdo",
-  "Workshop jurídico de alta performance",
-  "Encontro temático — captação",
-  "Edição especial — fim de ano",
-  "Bastidor — gravação Academy",
-  "Encontro com administradoras",
+  { src: encontroCondohuby.url, label: "Encontro de profissionais no CondoHuby", position: "center" },
+  { src: rafaelPalco1.url, label: "Rafael Bernardes apresentando no CondoHuby", position: "center" },
+  { src: rafaelPalco2.url, label: "Conteúdo e conversa com profissionais do setor", position: "center" },
+  { src: workshopSeguranca.url, label: "Workshop sobre segurança condominial", position: "center" },
+  { src: workshopIa.url, label: "Workshop de inteligência artificial", position: "center" },
+  { src: comunidadeCondohuby.url, label: "Comunidade reunida no CondoHuby", position: "center 35%" },
 ];
 
 function QuemSomosPage() {
@@ -90,7 +95,15 @@ function QuemSomosPage() {
             <div className="rounded-3xl border border-border bg-card p-6 md:p-8 shadow-card">
               <p className="text-xs text-ink-soft">Fundador</p>
               <div className="mt-4 flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand to-violet" />
+                <img
+                  src={rafaelBernardes.url}
+                  alt="Rafael Bernardes"
+                  width="64"
+                  height="64"
+                  loading="eager"
+                  decoding="async"
+                  className="h-16 w-16 shrink-0 rounded-full border border-border object-cover"
+                />
                 <div>
                   <div className="font-display text-xl tracking-[-0.02em]">Rafael Bernardes</div>
                   <div className="text-sm text-ink-soft">Síndico profissional · curador · host</div>
@@ -115,18 +128,26 @@ function QuemSomosPage() {
             <span className="text-xs text-ink-soft hidden md:inline">Edição contínua</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {galeria.map((label, i) => (
+            {galeria.map((photo, i) => (
               <motion.div
-                key={label}
+                key={photo.src}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: (i % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="aspect-[4/5] rounded-xl bg-gradient-to-br from-brand-soft via-cyan-soft to-secondary relative overflow-hidden group border border-border"
+                className="aspect-[4/5] rounded-xl bg-secondary relative overflow-hidden group border border-border"
               >
-                <div className="absolute inset-0 pattern-grid-dark opacity-40 group-hover:opacity-20 transition" />
-                <div className="absolute bottom-3 left-3 right-3 text-[12px] text-ink/80 leading-snug">
-                  {label}
+                <img
+                  src={photo.src}
+                  alt={photo.label}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                  style={{ objectPosition: photo.position }}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/80 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 text-[12px] text-background leading-snug">
+                  {photo.label}
                 </div>
               </motion.div>
             ))}
