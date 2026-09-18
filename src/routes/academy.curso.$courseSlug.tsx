@@ -89,7 +89,11 @@ function CoursePage() {
       </AcademyShell>
     );
 
-  const isEmbedCourse = course.delivery_type === "learning_studio_embed";
+  // Curso de checkout externo (SíndicoLab B2C) também não tem trilha local:
+  // a entrega acontece na plataforma do vendedor após a compra.
+  const isExternalCourse = course.delivery_type === "external_checkout";
+  const isEmbedCourse =
+    course.delivery_type === "learning_studio_embed" || isExternalCourse;
   const meta = [
     levelLabel(course.level),
     durationLabel(course.duration_minutes),
@@ -221,7 +225,15 @@ function CoursePage() {
             </>
           )}
 
-          {isEmbedCourse ? (
+          {isExternalCourse ? (
+            <div className="ax-panel mt-8 p-6">
+              <h3 className="ax-h3">Como este curso funciona</h3>
+              <p className="ax-body mt-2 text-[14px]">
+                A compra é feita em checkout externo e, na sequência, você recebe o acesso
+                completo às aulas por e-mail. Certificado incluído.
+              </p>
+            </div>
+          ) : isEmbedCourse ? (
             <div className="ax-panel mt-8 p-6">
               <h3 className="ax-h3">Como este curso funciona</h3>
               <p className="ax-body mt-2 text-[14px]">

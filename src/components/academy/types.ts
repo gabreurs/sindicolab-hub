@@ -14,6 +14,12 @@ export type AcademyCourse = {
   is_required?: boolean | null;
   is_featured?: boolean | null;
   visibility?: string | null;
+  /** "learning_studio_embed" | "external_checkout" */
+  delivery_type?: string | null;
+  /** Checkout externo (ex.: Kiwify) — quando existe, a compra acontece fora. */
+  external_checkout_url?: string | null;
+  price_brl?: number | null;
+  access_label?: string | null;
   created_at?: string;
 };
 

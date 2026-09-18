@@ -9,7 +9,7 @@ import { eventsService } from "@/services/eventsService";
 
 export type ContentKind = "materiais" | "artigos" | "eventos";
 
-type FieldKind = "text" | "textarea" | "date" | "select" | "checkbox";
+type FieldKind = "text" | "textarea" | "date" | "select" | "checkbox" | "file";
 
 type FieldDef = {
   key: string;
@@ -48,23 +48,19 @@ const CONFIG: Record<
     title: "Materiais",
     description: "Biblioteca pública de modelos, checklists, guias, planilhas e e-books.",
     singular: "material",
+    // Publicar material exige só o essencial: título, descrição e o arquivo.
+    // Slug, tipo, data e texto do botão são derivados automaticamente.
     fields: [
-      { key: "title", label: "Título", kind: "text", required: true },
-      { key: "slug", label: "Slug", kind: "text", hint: "Endereço do material" },
+      { key: "title", label: "Título", kind: "text", required: true, full: true },
       { key: "description", label: "Descrição", kind: "textarea", full: true },
-      { key: "category", label: "Categoria", kind: "text" },
       {
-        key: "type",
-        label: "Tipo",
-        kind: "select",
-        options: ["Modelo", "Checklist", "Guia", "Planilha", "E-book"].map((v) => ({ value: v, label: v })),
+        key: "file_url",
+        label: "Arquivo",
+        kind: "file",
+        full: true,
+        required: true,
+        hint: "PDF, planilha, documento ou imagem (até 8 MB).",
       },
-      { key: "cover_url", label: "Imagem de capa (URL)", kind: "text", full: true },
-      { key: "file_url", label: "Arquivo ou link", kind: "text", full: true, required: true },
-      { key: "cta_label", label: "Texto do botão", kind: "text" },
-      { key: "published_at", label: "Data", kind: "date" },
-      STATUS_FIELD,
-      { key: "is_featured", label: "Destaque", kind: "checkbox" },
     ],
     columns: [
       { key: "title", label: "Título" },
@@ -72,9 +68,10 @@ const CONFIG: Record<
       { key: "category", label: "Categoria" },
     ],
     empty: {
-      title: "", slug: "", description: "", category: "", type: "Guia", cover_url: "",
-      file_url: "", cta_label: "Baixar material", published_at: new Date().toISOString().slice(0, 10),
-      status: "draft", is_featured: false,
+      title: "", slug: "", description: "", category: "Materiais", type: "Guia", cover_url: "",
+      file_url: "", file_name: "", cta_label: "Baixar material",
+      published_at: new Date().toISOString().slice(0, 10),
+      status: "published", is_featured: false,
     },
   },
   artigos: {
@@ -205,8 +202,18 @@ function fromForm(kind: ContentKind, form: Row): Row {
     out.meta_description = form.meta_description || String(form.excerpt ?? "").slice(0, 155);
   }
   if (kind === "materiais") {
+    // Campos operacionais ficam fora do formulário: derivamos aqui.
     out.file_url = String(form.file_url ?? "").trim();
+    out.file_name = form.file_name || null;
+    out.category = form.category || "Materiais";
+    out.type = form.type || "Guia";
+    out.cover_url = form.cover_url || null;
     out.cta_label = form.cta_label || "Baixar material";
+    out.status = form.status || "published";
+    out.is_featured = Boolean(form.is_featured);
+    out.published_at = form.published_at
+      ? new Date(String(form.published_at)).toISOString()
+      : new Date().toISOString();
   }
   if (kind === "eventos") {
     out.content = String(form.content ?? "");
@@ -326,6 +333,34 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                       <input type="checkbox" checked={Boolean(value)} onChange={(e) => set(e.target.checked)} />
                       Marcar como destaque
                     </span>
+                  ) : f.kind === "file" ? (
+                    <div className="flex flex-col gap-2">
+                      <input
+                        type="file"
+                        className="text-sm"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          if (file.size > 8 * 1024 * 1024) {
+                            setMsg({ kind: "err", text: "Arquivo acima de 8 MB. Envie uma versão menor." });
+                            return;
+                          }
+                          const reader = new FileReader();
+                          reader.onload = () =>
+                            setEditing({
+                              ...editing,
+                              file_url: String(reader.result ?? ""),
+                              file_name: file.name,
+                            });
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+                      {editing.file_name ? (
+                        <span className="text-xs opacity-70">Arquivo atual: {String(editing.file_name)}</span>
+                      ) : value ? (
+                        <span className="text-xs opacity-70">Arquivo já enviado.</span>
+                      ) : null}
+                    </div>
                   ) : (
                     <Input
                       type={f.kind === "date" ? "date" : "text"}
