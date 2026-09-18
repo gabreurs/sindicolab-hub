@@ -1,5 +1,5 @@
 export type Destination = {
-  key: "quero1" | "portal" | "play" | "materiais" | "patrocinios" | "quem-somos";
+  key: "quero1" | "portal" | "play" | "materiais" | "quem-somos";
   number: string;
   category: string;
   title: string;
@@ -59,18 +59,6 @@ export const destinations: Destination[] = [
     href: "/materiais",
     external: false,
     accent: "ink",
-  },
-  {
-    key: "patrocinios",
-    number: "05",
-    category: "Mídia, workshops e patrocínio condominial",
-    title: "Patrocine experiências com decisores do mercado condominial",
-    short: "Aproxime sua marca de síndicos, gestores e profissionais em workshops e ações de relacionamento.",
-    description: "Mídia kit CondoHuby + SíndicoLab: agenda, formatos, audiência e oportunidades de patrocínio.",
-    cta: "Ver mídia kit",
-    href: "/patrocinios",
-    external: false,
-    accent: "violet",
   },
 ];
 

@@ -17,8 +17,7 @@ const cols = [
       { label: "Academy", href: "/academy" },
       { label: "Materiais", href: "/materiais" },
       { label: "Eventos", href: "/eventos" },
-      { label: "Patrocínios", href: "/patrocinios" },
-      { label: "Contato", href: "mailto:contato@sindicolab.com", external: true },
+      { label: "Falar com Rafael", href: whatsappRafaelUrl(), external: true },
     ],
   },
   {
@@ -64,9 +63,7 @@ const cols = [
   {
     label: "Relacionamento",
     items: [
-      { label: "Patrocinar experiências", href: "/patrocinios" },
-      { label: "Baixar mídia kit", href: "/patrocinios" },
-      { label: "Falar com a equipe", href: "mailto:contato@sindicolab.com", external: true },
+      { label: "Falar com Rafael", href: whatsappRafaelUrl(), external: true },
       { label: "WhatsApp", href: whatsappRafaelUrl(), external: true },
       { label: "Grupo no WhatsApp", href: EXTERNAL_LINKS.WHATSAPP_GROUP, external: true },
       { label: "Instagram", href: EXTERNAL_LINKS.INSTAGRAM, external: true },

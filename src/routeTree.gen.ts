@@ -12,8 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
-import { Route as PatrociniosRouteImport } from './routes/patrocinios'
-import { Route as MidiaKitRouteImport } from './routes/midia-kit'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as EventosRouteImport } from './routes/eventos'
 import { Route as EmpresaRouteImport } from './routes/empresa'
@@ -21,7 +19,6 @@ import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ArtigosRouteImport } from './routes/artigos'
-import { Route as AnuncieRouteImport } from './routes/anuncie'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as IndexRouteImport } from './routes/index'
@@ -54,16 +51,6 @@ const QuemSomosRoute = QuemSomosRouteImport.update({
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PatrociniosRoute = PatrociniosRouteImport.update({
-  id: '/patrocinios',
-  path: '/patrocinios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MidiaKitRoute = MidiaKitRouteImport.update({
-  id: '/midia-kit',
-  path: '/midia-kit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MateriaisRoute = MateriaisRouteImport.update({
@@ -99,11 +86,6 @@ const BlogRoute = BlogRouteImport.update({
 const ArtigosRoute = ArtigosRouteImport.update({
   id: '/artigos',
   path: '/artigos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnuncieRoute = AnuncieRouteImport.update({
-  id: '/anuncie',
-  path: '/anuncie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -202,7 +184,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRouteWithChildren
   '/admin': typeof AdminRoute
-  '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
@@ -210,8 +191,6 @@ export interface FileRoutesByFullPath {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
-  '/midia-kit': typeof MidiaKitRoute
-  '/patrocinios': typeof PatrociniosRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -234,7 +213,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
@@ -242,8 +220,6 @@ export interface FileRoutesByTo {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
-  '/midia-kit': typeof MidiaKitRoute
-  '/patrocinios': typeof PatrociniosRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -268,7 +244,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRouteWithChildren
   '/admin': typeof AdminRoute
-  '/anuncie': typeof AnuncieRoute
   '/artigos': typeof ArtigosRoute
   '/blog': typeof BlogRoute
   '/cursos': typeof CursosRoute
@@ -276,8 +251,6 @@ export interface FileRoutesById {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
-  '/midia-kit': typeof MidiaKitRoute
-  '/patrocinios': typeof PatrociniosRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -303,7 +276,6 @@ export interface FileRouteTypes {
     | '/'
     | '/academy'
     | '/admin'
-    | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
@@ -311,8 +283,6 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
-    | '/midia-kit'
-    | '/patrocinios'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -335,7 +305,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
-    | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
@@ -343,8 +312,6 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
-    | '/midia-kit'
-    | '/patrocinios'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -368,7 +335,6 @@ export interface FileRouteTypes {
     | '/'
     | '/academy'
     | '/admin'
-    | '/anuncie'
     | '/artigos'
     | '/blog'
     | '/cursos'
@@ -376,8 +342,6 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
-    | '/midia-kit'
-    | '/patrocinios'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -402,7 +366,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademyRoute: typeof AcademyRouteWithChildren
   AdminRoute: typeof AdminRoute
-  AnuncieRoute: typeof AnuncieRoute
   ArtigosRoute: typeof ArtigosRoute
   BlogRoute: typeof BlogRoute
   CursosRoute: typeof CursosRoute
@@ -410,8 +373,6 @@ export interface RootRouteChildren {
   EmpresaRoute: typeof EmpresaRoute
   EventosRoute: typeof EventosRoute
   MateriaisRoute: typeof MateriaisRoute
-  MidiaKitRoute: typeof MidiaKitRoute
-  PatrociniosRoute: typeof PatrociniosRoute
   PortalRoute: typeof PortalRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
@@ -441,20 +402,6 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/patrocinios': {
-      id: '/patrocinios'
-      path: '/patrocinios'
-      fullPath: '/patrocinios'
-      preLoaderRoute: typeof PatrociniosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/midia-kit': {
-      id: '/midia-kit'
-      path: '/midia-kit'
-      fullPath: '/midia-kit'
-      preLoaderRoute: typeof MidiaKitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/materiais': {
@@ -504,13 +451,6 @@ declare module '@tanstack/react-router' {
       path: '/artigos'
       fullPath: '/artigos'
       preLoaderRoute: typeof ArtigosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/anuncie': {
-      id: '/anuncie'
-      path: '/anuncie'
-      fullPath: '/anuncie'
-      preLoaderRoute: typeof AnuncieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -688,7 +628,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademyRoute: AcademyRouteWithChildren,
   AdminRoute: AdminRoute,
-  AnuncieRoute: AnuncieRoute,
   ArtigosRoute: ArtigosRoute,
   BlogRoute: BlogRoute,
   CursosRoute: CursosRoute,
@@ -696,8 +635,6 @@ const rootRouteChildren: RootRouteChildren = {
   EmpresaRoute: EmpresaRoute,
   EventosRoute: EventosRoute,
   MateriaisRoute: MateriaisRoute,
-  MidiaKitRoute: MidiaKitRoute,
-  PatrociniosRoute: PatrociniosRoute,
   PortalRoute: PortalRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,

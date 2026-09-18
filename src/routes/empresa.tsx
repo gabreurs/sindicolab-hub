@@ -1,4 +1,5 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { matchesSearch } from "@/lib/searchText";
 import { AcademyProviders, RequireAuth } from "@/components/academy/AcademyProviders";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -179,8 +180,7 @@ function EmpresaPage() {
   const visibleRequests = reqFilter === "all" ? requests : requests.filter((r) => r.status === reqFilter);
 
   const filteredMembers = members.filter((m) => {
-    const q = memberQuery.trim().toLowerCase();
-    const matchesQ = !q || (m.profiles?.email ?? "").toLowerCase().includes(q) || (m.profiles?.full_name ?? "").toLowerCase().includes(q);
+    const matchesQ = matchesSearch(memberQuery, m.profiles?.email, m.profiles?.full_name);
     return matchesQ && (memberRole === "all" || m.role === memberRole);
   });
 

@@ -857,6 +857,27 @@
 @media (hover: none) { .ax-card-save { opacity: 1; } }
 .ax-card-save:focus-visible, .ax-card:focus-within .ax-card-save { opacity: 1; }
 .ax-card-overlay { position: absolute; inset-inline: 0; bottom: 0; padding: 8px; }
+.ax-card-commerce {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ax-border-subtle);
+}
+.ax-card-price { margin-top: 2px; color: var(--ax-text); font-size: 18px; line-height: 1.2; font-weight: 580; }
+.ax-card-actions { display: flex; gap: 7px; }
+.ax-card-actions .ax-btn { min-width: 0; padding-inline: 10px; }
+
+/* Filtros do catálogo: grupos explícitos e alinhados, sem controles soltos. */
+.catalog-filter-bar { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 16px 24px; }
+.catalog-filter-group { display: grid; gap: 8px; }
+.catalog-filter-label { color: var(--ax-text-secondary); }
+.catalog-sort { margin-left: auto; }
+@media (max-width: 767px) {
+  .catalog-filter-bar { align-items: stretch; }
+  .catalog-sort { margin-left: 0; width: 100%; }
+  .ax-card-actions { flex-direction: column; }
+}
 
 /* rail denso */
 .ax-rail-scroller { display: flex; gap: var(--card-gap); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-block: 2px 6px; }

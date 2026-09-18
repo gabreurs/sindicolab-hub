@@ -11,6 +11,7 @@ import { TransitionProvider } from "@/providers/TransitionProvider";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { clearNativeScrollLock } from "@/lib/scroll-lock";
 import { WhatsAppDock } from "@/components/site/WhatsAppDock";
+import { GlobalSearch } from "@/components/site/GlobalSearch";
 
 function NotFoundComponent() {
   return (
@@ -44,12 +45,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-ink-soft">Algo deu errado. Tente novamente.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="rounded-full bg-ink px-4 py-2 text-sm text-background hover:bg-brand"
           >
             Tentar novamente
           </button>
-          <a href="/" className="rounded-full border border-border px-4 py-2 text-sm">Home</a>
+          <a href="/" className="rounded-full border border-border px-4 py-2 text-sm">
+            Home
+          </a>
         </div>
       </div>
     </div>
@@ -79,7 +85,13 @@ function RootComponent() {
 
     for (const m of matches) {
       const match = m as unknown as {
-        meta?: Array<Record<string, string>> | { meta?: Array<Record<string, string>>; links?: Array<Record<string, string>>; scripts?: Array<{ type?: string; children?: string }> };
+        meta?:
+          | Array<Record<string, string>>
+          | {
+              meta?: Array<Record<string, string>>;
+              links?: Array<Record<string, string>>;
+              scripts?: Array<{ type?: string; children?: string }>;
+            };
         links?: Array<Record<string, string>>;
         scripts?: Array<{ type?: string; children?: string }>;
       };
@@ -89,7 +101,10 @@ function RootComponent() {
       const scripts = match.scripts ?? nested?.scripts;
 
       meta?.forEach((tag) => {
-        if ("title" in tag && tag.title) { title = tag.title; return; }
+        if ("title" in tag && tag.title) {
+          title = tag.title;
+          return;
+        }
         const el = document.createElement("meta");
         Object.entries(tag).forEach(([k, v]) => el.setAttribute(k, v));
         collected.push({ type: "meta", el });
@@ -117,14 +132,12 @@ function RootComponent() {
     });
   }, [matches]);
 
-  // O dock de contato pertence ao site público; consoles e player ficam livres.
-  const showDock = !/^\/(admin|empresa|academy)(\/|$)/.test(pathname);
-
   return (
     <AuthProvider>
       <TransitionProvider>
         <Outlet />
-        {showDock && <WhatsAppDock />}
+        <GlobalSearch />
+        <WhatsAppDock />
       </TransitionProvider>
     </AuthProvider>
   );

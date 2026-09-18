@@ -6,8 +6,6 @@ import { HomeEntry } from "@/components/site/v2/HomeEntry";
 import { Footer } from "@/components/site/Footer";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 
-import { GlobalSearch } from "@/components/site/GlobalSearch";
-
 export const Route = createFileRoute("/")({
   head: () =>
     buildSeo({
@@ -45,7 +43,6 @@ function Index() {
     <>
       <SmoothScroll />
       <IntroLoader />
-      <GlobalSearch />
       <main className="min-h-screen bg-background text-ink flex flex-col">
         <Header />
         <HomeEntry />

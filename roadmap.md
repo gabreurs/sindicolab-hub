@@ -1,36 +1,17 @@
 # Roadmap
 
-- [x] Mapear todas as rotas e superfícies compartilhadas
-- [x] Unificar tokens responsivos globais e containers
-- [x] Corrigir header, mega menu, footer, banners e componentes flutuantes
-- [x] Corrigir responsividade do site institucional e conteúdo
-- [x] Corrigir responsividade da Academy, login, catálogo e cursos
-- [x] Corrigir responsividade de /admin e /empresa
-- [x] Corrigir 404 em rotas internas: .htaccess com FallbackResource + rewrite; aguarda upload no cPanel
-- [x] Validar visualmente cada rota em 360, 390, 430, 768, 1024 e desktop
-
-## Integração Portal Content Hub
-
-- [x] Comparar diretamente o repositório fonte com o Portal atual, item por item
-- [x] Migrar integralmente conteúdos, imagens, metadados e vínculos reais do repositório
-- [x] Reproduzir fielmente a composição editorial original da segunda dobra em diante
-- [x] Aplicar somente o microdesign global do LAB, removendo bold excessivo e faixas coloridas
-- [x] Tornar o header editorial sticky/compacto e fazer o logo navegar para `/`
-- [x] Substituir o footer editorial pelo footer global do SíndicoLab
-- [x] Trocar “Blog” por “Portal” em todas as interfaces públicas e metadados pertinentes
-- [x] Auditar conteúdo, seções, páginas internas e responsividade antes da conclusão
-- [x] Auditar inicialmente o repositório fonte e o Portal atual
-- [x] Portar modelo editorial, serviços e conteúdo para a infraestrutura atual
-- [x] Substituir `/portal` e criar categoria, notícia e colunistas sem alterar `/`
-- [x] Integrar notícias, categorias e colunistas ao `/admin` global
-- [x] Reutilizar eventos, newsletter, autenticação, logos e tokens do ecossistema
-- [x] Remover Portal antigo e código órfão sem afetar os demais módulos
-- [x] Validar Portal e admin em 360, 390, 430, 768, 1024 e desktop
-- [x] Validar build estático e pacote de produção para cPanel
-- [x] Hero da Academy: fundo alterna com a capa do curso em destaque (blur/vidro)
-- [x] Trocar capa de Inteligência Condominial Pt. II pela arte oficial enviada
-- [x] Página do curso externo: "Comprar acesso" (Kiwify) mesmo deslogado — só afeta tenant SíndicoLab
-- [x] Remover lupa de busca duplicada no header da Academy (desktop)
-- [x] Hero /academy: remover foto do prédio do fundo (só capa do curso com blur)
-
-- [ ] /admin: upload explícito, menu lateral reorganizado, visão geral com atalhos, lupa da busca sobrepondo o texto
+- [x] Auditar busca, filtros, cards e diferenças por tenant na Academy
+- [x] Corrigir busca sem acentos e reduzir atraso percebido
+- [x] Melhorar hierarquia de preço e ações dos cards
+- [x] Validar catálogo e home em desktop e mobile
+- [x] Corrigir navegação por setas e Enter na busca global
+- [x] Remover instruções de teclado da busca global e da busca rápida
+- [x] Reestruturar sugestões da busca para o ecossistema condominial
+- [x] Trocar e-mail sem ação por contato direto com Rafael Bernardes no mega menu
+- [x] Corrigir todos os botões “Falar com a equipe” para contato funcional
+- [x] Validar /admin, /empresa e /portal em vários tamanhos, acesso direto e recarga estilo cPanel
+- [x] Adicionar métricas de cursos, Kiwify, materiais e conversões por produto no admin
+- [ ] Assistente em linguagem natural — bloqueado: AI Gateway é pago e requer servidor seguro
+- [x] Remover a página /patrocinios e toda navegação, busca ou redirecionamento para ela
+- [x] Fazer todo logo SíndicoLab voltar à home e exibir globalmente o botão do grupo no WhatsApp
+- [x] Eliminar o lag e aprimorar a UI/UX da busca/filtro da home

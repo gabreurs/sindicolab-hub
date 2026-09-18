@@ -9,23 +9,26 @@ import { CardSkeletonGrid, Chip, EmptyState, Eyebrow } from "@/components/academ
 import { useAcademyCatalog } from "@/lib/academy/useCatalog";
 import { useMyList } from "@/lib/list/useMyList";
 import { levelLabel } from "@/components/academy/types";
-
-type CatalogSearch = { q?: string; cat?: string };
-
-export const Route = createFileRoute("/academy/catalogo")({
-  ssr: false,
-  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
-    q: typeof search.q === "string" && search.q ? search.q : undefined,
-    cat: typeof search.cat === "string" && search.cat ? search.cat : undefined,
-  }),
-  component: Catalog,
-});
+import { matchesSearch } from "@/lib/searchText";
 
 const SORTS = [
   { id: "relevance", label: "Relevância" },
   { id: "recent", label: "Mais recentes" },
   { id: "duration", label: "Menor duração" },
 ] as const;
+
+type CatalogSearch = { q?: string; cat?: string; level?: string; sort?: (typeof SORTS)[number]["id"] };
+
+export const Route = createFileRoute("/academy/catalogo")({
+  ssr: false,
+  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+    q: typeof search.q === "string" && search.q ? search.q : undefined,
+    cat: typeof search.cat === "string" && search.cat ? search.cat : undefined,
+    level: typeof search.level === "string" && search.level ? search.level : undefined,
+    sort: SORTS.some((item) => item.id === search.sort) ? (search.sort as CatalogSearch["sort"]) : undefined,
+  }),
+  component: Catalog,
+});
 
 function Catalog() {
   const { tenant, loading: tenantLoading } = useTenant();
@@ -39,8 +42,8 @@ function Catalog() {
   const { ids: myListIds, toggle: toggleMyList } = useMyList(session?.user?.id, tenant?.organization.id);
 
   const [query, setQuery] = useState(search.q ?? "");
-  const [level, setLevel] = useState<string | null>(null);
-  const [sort, setSort] = useState<(typeof SORTS)[number]["id"]>("relevance");
+  const level = search.level ?? null;
+  const sort = search.sort ?? "relevance";
   const catFilter = search.cat ?? null;
 
   useEffect(() => setQuery(search.q ?? ""), [search.q]);
@@ -64,12 +67,20 @@ function Catalog() {
   );
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = query.trim();
     const list = courses.filter((c) => {
       if (catFilter && c.category_id !== catFilter) return false;
       if (level && (levelLabel(c.level) ?? c.level) !== level) return false;
       if (!q) return true;
-      return `${c.title} ${c.subtitle ?? ""} ${c.instructor_name ?? ""}`.toLowerCase().includes(q);
+      return matchesSearch(
+        q,
+        c.title,
+        c.subtitle,
+        c.description,
+        c.instructor_name,
+        c.category_id ? categoryNameById[c.category_id] : "",
+        levelLabel(c.level),
+      );
     });
     if (sort === "recent") {
       return [...list].sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""));
@@ -77,11 +88,19 @@ function Catalog() {
     if (sort === "duration") {
       return [...list].sort((a, b) => (a.duration_minutes ?? 9999) - (b.duration_minutes ?? 9999));
     }
-    return list;
-  }, [courses, catFilter, level, query, sort]);
+    return [...list].sort((a, b) => {
+      const featured = Number(Boolean(b.is_featured)) - Number(Boolean(a.is_featured));
+      if (featured) return featured;
+      return (b.created_at ?? "").localeCompare(a.created_at ?? "");
+    });
+  }, [courses, catFilter, level, query, sort, categoryNameById]);
 
   const setCat = (id: string | null) =>
     navigate({ search: (prev) => ({ ...prev, cat: id ?? undefined }), replace: true });
+  const setLevel = (value: string | null) =>
+    navigate({ search: (prev) => ({ ...prev, level: value ?? undefined }), replace: true });
+  const setSort = (value: (typeof SORTS)[number]["id"]) =>
+    navigate({ search: (prev) => ({ ...prev, sort: value === "relevance" ? undefined : value }), replace: true });
 
   const hasFilters = !!catFilter || !!level || !!query.trim();
 
@@ -103,7 +122,16 @@ function Catalog() {
             <Search size={16} className="shrink-0" aria-hidden />
             <input
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                const nextQuery = e.target.value;
+                setQuery(nextQuery);
+                if (nextQuery.trim() && (catFilter || level)) {
+                  navigate({
+                    search: (prev) => ({ ...prev, q: nextQuery, cat: undefined, level: undefined }),
+                    replace: true,
+                  });
+                }
+              }}
               placeholder="Buscar por título, tema ou instrutor"
               aria-label="Buscar cursos"
             />
@@ -115,7 +143,9 @@ function Catalog() {
           </div>
 
           {usedCategories.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="catalog-filter-group">
+              <p className="ax-meta catalog-filter-label">Categoria</p>
+              <div className="flex flex-wrap gap-2">
               <Chip selected={!catFilter} onClick={() => setCat(null)}>
                 Todas as categorias
               </Chip>
@@ -124,21 +154,32 @@ function Catalog() {
                   {cat.name}
                 </Chip>
               ))}
+              </div>
             </div>
           )}
 
-          <div className="flex flex-wrap items-center gap-2">
-            {usedLevels.map((l) => (
-              <Chip key={l.label} selected={level === l.label} onClick={() => setLevel(level === l.label ? null : l.label)}>
-                {l.label}
-              </Chip>
-            ))}
-            <div className="catalog-sort ml-auto flex max-w-full flex-wrap items-center gap-2">
+          <div className="catalog-filter-bar">
+            {usedLevels.length > 0 && (
+              <div className="catalog-filter-group">
+                <p className="ax-meta catalog-filter-label">Nível</p>
+                <div className="flex flex-wrap gap-2">
+                  {usedLevels.map((l) => (
+                    <Chip key={l.label} selected={level === l.label} onClick={() => setLevel(level === l.label ? null : l.label)}>
+                      {l.label}
+                    </Chip>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="catalog-filter-group catalog-sort">
+              <p className="ax-meta catalog-filter-label">Ordenar por</p>
+              <div className="flex max-w-full flex-wrap gap-2">
               {SORTS.map((s) => (
                 <Chip key={s.id} selected={sort === s.id} onClick={() => setSort(s.id)}>
                   {s.label}
                 </Chip>
               ))}
+              </div>
             </div>
           </div>
         </div>

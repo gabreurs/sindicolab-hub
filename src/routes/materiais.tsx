@@ -7,6 +7,7 @@ import { Search, Download, FileText, ListChecks, BookOpen, Sheet, FileSignature,
 import { buildSeo } from "@/lib/seo";
 import { materialsService } from "@/services/materialsService";
 import { captureNewsletterEmail } from "@/services/newsletterService";
+import { matchesSearch } from "@/lib/searchText";
 
 export const Route = createFileRoute("/materiais")({
   head: () =>
@@ -111,7 +112,7 @@ function MateriaisPage() {
       items.filter(
         (i) =>
           (f === "Todos" || i.type === f) &&
-          (q === "" || i.title.toLowerCase().includes(q.toLowerCase()) || i.tag.toLowerCase().includes(q.toLowerCase())),
+          matchesSearch(q, i.title, i.tag, i.type),
       ),
     [q, f, items],
   );
