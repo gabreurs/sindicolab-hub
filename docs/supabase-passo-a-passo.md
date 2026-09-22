@@ -112,25 +112,27 @@ acesso direto e no F5.
 > Sem essas duas variáveis, o site continua abrindo com os dados de exemplo. Com
 > elas, passa a usar o banco real — nenhuma outra alteração é necessária.
 
-## 7. Endereço próprio da CASA
+## 7. Endereço próprio da CASA — FEITO
 
-O endereço do white-label fica em `organization_domains`, sempre em minúsculas:
+O endereço já está definido como `admcasa.sindicolab.com`, tanto no SQL do seed
+quanto nos dados de exemplo do site. No cPanel o subdomínio foi criado com
+**"compartilhar a raiz do documento"**, ou seja, ele usa a mesma pasta
+`public_html` do site principal — por isso nenhuma pasta nova aparece lá, e está
+correto assim. Falta apenas emitir o certificado (SSL) para esse subdomínio.
+
+Se algum dia o endereço mudar, basta rodar:
 
 ```sql
 update public.organization_domains
-set hostname = 'casa.sindicolab.com.br'
+set hostname = 'novo-endereco.exemplo.com'
 where organization_id = (select id from public.organizations where slug = 'casa');
 ```
-
-No cPanel, crie o subdomínio apontando para a mesma pasta do site e emita o
-certificado. Sem o endereço cadastrado aqui, o visitante cai na SíndicoLab.
 
 ---
 
 ## O que ainda precisa ser decidido
 
-1. **Endereço final da CASA** — `casa.sindicolab.com.br` ou outro.
-2. **Cursos da CASA** — quais dos 25 entram no catálogo dela e como o aluno assiste
+1. **Cursos da CASA** — quais dos 25 entram no catálogo dela e como o aluno assiste
    (link do ambiente de vídeo de cada curso).
 3. **Marca da CASA** — logo em vetor (claro e escuro) e as cores oficiais.
 4. **Primeiros acessos** — seu e-mail como dono da plataforma e o e-mail do
