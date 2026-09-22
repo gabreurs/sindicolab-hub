@@ -18,4 +18,4 @@
 - [x] Aplicar as novas fotos reais na página Quem somos
 - [x] Corrigir os acessos ao YouTube no Portal
 - [x] Validar o login administrativo de demonstração
-- [ ] Conectar Supabase próprio (projeto do cliente, fora do Lovable): schema, RLS, storage, convites e build para cPanel
+- [x] Conectar Supabase próprio (projeto do cliente, fora do Lovable): schema, RLS, storage, convites e build para cPanel
