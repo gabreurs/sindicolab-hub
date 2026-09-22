@@ -94,8 +94,8 @@ acessos** usa para convidar pessoas e respeitar o limite de usuários da empresa
 Na pasta do projeto, crie um arquivo `.env` (use `.env.example` como base):
 
 ```
-VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
-VITE_SUPABASE_ANON_KEY=sua-chave-anon
+VITE_SUPABASE_URL=https://amvevyexbxqekhaycwvi.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_0augLN1_7Dc6U5sHugNcSw_B7brNQWU
 ```
 
 Depois:
