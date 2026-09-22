@@ -134,10 +134,10 @@ where organization_id = (select id from public.organizations where slug = 'casa'
 
 1. **Cursos da CASA** — quais dos 25 entram no catálogo dela e como o aluno assiste
    (link do ambiente de vídeo de cada curso).
-3. **Marca da CASA** — logo em vetor (claro e escuro) e as cores oficiais.
-4. **Primeiros acessos** — seu e-mail como dono da plataforma e o e-mail do
+2. **Marca da CASA** — logo em vetor (claro e escuro) e as cores oficiais.
+3. **Primeiros acessos** — seu e-mail como dono da plataforma e o e-mail do
    administrador da CASA.
-5. **Remetente dos e-mails** — começar com o remetente padrão do Supabase (pode
+4. **Remetente dos e-mails** — começar com o remetente padrão do Supabase (pode
    cair em spam) ou já configurar `contato@sindicolab.com.br` com SPF, DKIM e DMARC.
 
 ## Observações importantes
