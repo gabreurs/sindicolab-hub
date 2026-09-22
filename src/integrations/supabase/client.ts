@@ -13,11 +13,17 @@ const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.
 
 const hasBackend = Boolean(url && anonKey);
 
-export const supabase: any = hasBackend
-  ? createClient(url!, anonKey!, {
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
-    })
-  : mockClient;
+/**
+ * O formato exposto é o do cliente em memória, que todos os serviços já usam.
+ * O cliente real do banco atende ao mesmo formato em tudo o que o app chama.
+ */
+export const supabase = (
+  hasBackend
+    ? createClient(url!, anonKey!, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+      })
+    : mockClient
+) as typeof mockClient;
 
 /** true quando os dados vêm de exemplos em memória (sem banco conectado). */
 export const IS_MOCK_DATA = !hasBackend;
