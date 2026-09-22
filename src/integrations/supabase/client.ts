@@ -9,7 +9,10 @@ import { createClient } from "@supabase/supabase-js";
 import { mockClient } from "@/services/db/mockClient";
 
 const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim();
-const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim();
+const anonKey = (
+  (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined) ??
+  (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)
+)?.trim();
 
 const hasBackend = Boolean(url && anonKey);
 
