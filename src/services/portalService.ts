@@ -20,11 +20,14 @@ async function authors(includeInactive = false) {
 
 async function hydrate(raw: Record<string, unknown>[]): Promise<PortalPost[]> {
   const [allCategories, allAuthors] = await Promise.all([categories(true), authors(true)]);
-  return raw.map((row) => withPostCover({
-    ...row,
-    categories: allCategories.find((item) => item.id === row.category_id) ?? null,
-    authors: allAuthors.find((item) => item.id === row.author_id) ?? null,
-  })) as unknown as PortalPost[];
+  return raw.map((row) => {
+    const post = withPostCover(row as { slug?: string; cover_image?: string | null; social_image_url?: string | null });
+    return {
+      ...post,
+      categories: allCategories.find((item) => item.id === (row as Record<string, unknown>).category_id) ?? null,
+      authors: allAuthors.find((item) => item.id === (row as Record<string, unknown>).author_id) ?? null,
+    };
+  }) as unknown as PortalPost[];
 }
 
 export const portalService = {
