@@ -1,18 +1,29 @@
 /**
  * Ponto único de acesso a dados.
  *
- * HOJE: exporta o cliente em memória (`mockClient`), com dados de exemplo.
- * SEGUNDA ETAPA: basta trocar o corpo deste arquivo pelo cliente real —
- *
- *   import { createClient } from "@supabase/supabase-js";
- *   export const supabase = createClient(URL, PUBLISHABLE_KEY);
- *
- * Nenhum componente, hook ou serviço precisa ser alterado: todos importam
- * `supabase` daqui. Nenhuma credencial fica no bundle enquanto isso.
+ * Com `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` definidos no build, o site
+ * conversa com o banco real. Sem essas variáveis (ex.: prévia local sem banco),
+ * continua usando os dados de exemplo em memória — nenhum componente muda.
  */
+import { createClient } from "@supabase/supabase-js";
 import { mockClient } from "@/services/db/mockClient";
 
-export const supabase = mockClient;
+const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim();
+const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim();
+
+const hasBackend = Boolean(url && anonKey);
+
+/**
+ * O formato exposto é o do cliente em memória, que todos os serviços já usam.
+ * O cliente real do banco atende ao mesmo formato em tudo o que o app chama.
+ */
+export const supabase = (
+  hasBackend
+    ? createClient(url!, anonKey!, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+      })
+    : mockClient
+) as typeof mockClient;
 
 /** true quando os dados vêm de exemplos em memória (sem banco conectado). */
-export const IS_MOCK_DATA = true;
+export const IS_MOCK_DATA = !hasBackend;

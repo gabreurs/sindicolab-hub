@@ -1,3 +1,5 @@
+import { IS_MOCK_DATA, supabase } from "@/integrations/supabase/client";
+
 export type AnalyticsEventType = "course_view" | "checkout_click" | "material_download";
 
 export type AnalyticsEvent = {
@@ -40,8 +42,25 @@ function writeEvents(events: AnalyticsEvent[]) {
   window.dispatchEvent(new CustomEvent("sindicolab:analytics"));
 }
 
+/** Com banco conectado, o mesmo evento também é guardado lá (sem travar a tela). */
+function mirrorToDatabase(event: Omit<AnalyticsEvent, "id" | "createdAt">) {
+  if (IS_MOCK_DATA) return;
+  void supabase
+    .from("analytics_events")
+    .insert({
+      type: event.type,
+      product_id: event.productId,
+      product_slug: event.productSlug,
+      product_title: event.productTitle,
+      value: event.value ?? null,
+      source: event.source ?? null,
+    })
+    .then(() => undefined, () => undefined);
+}
+
 export function trackAnalyticsEvent(event: Omit<AnalyticsEvent, "id" | "createdAt">) {
   if (typeof window === "undefined") return;
+  mirrorToDatabase(event);
   writeEvents([
     ...readEvents(),
     {

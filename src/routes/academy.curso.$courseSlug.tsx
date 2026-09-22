@@ -10,6 +10,7 @@ import { CourseCoverPlaceholder } from "@/components/academy/CourseCoverPlacehol
 import { durationLabel, levelLabel } from "@/components/academy/types";
 import { LessonMedia } from "@/components/player/LessonMedia";
 import { resolveCourseAccess } from "@/lib/course/courseAccess";
+import { withCourseCover } from "@/lib/course/covers";
 import { trackCheckoutClick, trackCourseView } from "@/services/analyticsService";
 
 export const Route = createFileRoute("/academy/curso/$courseSlug")({ ssr: false, component: CoursePage });
@@ -40,7 +41,7 @@ function CoursePage() {
         .eq("slug", courseSlug)
         .maybeSingle();
       if (!c) { setLoading(false); return; }
-      setCourse(c);
+      setCourse(withCourseCover(c));
       trackCourseView(c);
 
       // Cursos entregues por embed externo NÃO listam módulos/aulas aqui:

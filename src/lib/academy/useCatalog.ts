@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { AcademyCourse } from "@/components/academy/types";
+import { withCourseCovers } from "@/lib/course/covers";
 
 type Progress = { percent: number; open_count?: number; last_accessed_at?: string; updated_at?: string };
 
@@ -43,7 +44,7 @@ export function useAcademyCatalog(organizationId?: string | null, userId?: strin
         ? await supabase.from("courses").select(COURSE_COLUMNS).in("id", ids).eq("status", "published")
         : { data: [] as any[] };
       if (cancelled) return;
-      setCourses((cs as AcademyCourse[]) ?? []);
+      setCourses(withCourseCovers((cs as AcademyCourse[]) ?? []));
 
       let entIds: string[] = [];
       if (userId) {
@@ -54,7 +55,7 @@ export function useAcademyCatalog(organizationId?: string | null, userId?: strin
           ? await supabase.from("courses").select(COURSE_COLUMNS).in("id", entIds).eq("status", "published")
           : { data: [] as any[] };
         if (cancelled) return;
-        setPurchased((pcs as AcademyCourse[]) ?? []);
+        setPurchased(withCourseCovers((pcs as AcademyCourse[]) ?? []));
 
         const { data: pr } = await supabase.from("course_progress").select("*").eq("user_id", userId);
         const map: Record<string, Progress> = {};
