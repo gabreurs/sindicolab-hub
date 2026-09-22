@@ -145,7 +145,7 @@ export const organization_branding: Row[] = [
 export const organization_domains: Row[] = [
   { id: "dom-sindicolab", organization_id: ORG.sindicolab, hostname: "sindicolab.com", is_primary: true },
   { id: "dom-guarida", organization_id: ORG.guarida, hostname: "guarida.sindicolab.academy", is_primary: true },
-  { id: "dom-casa", organization_id: ORG.casa, hostname: "casa.sindicolab.academy", is_primary: true },
+  { id: "dom-casa", organization_id: ORG.casa, hostname: "admcasa.sindicolab.com", is_primary: true },
   { id: "dom-apsa", organization_id: ORG.apsa, hostname: "apsa.sindicolab.academy", is_primary: true },
 ];
 

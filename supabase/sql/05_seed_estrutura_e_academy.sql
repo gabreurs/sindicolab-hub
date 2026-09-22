@@ -43,7 +43,7 @@ on conflict (id) do update set
 insert into public.organization_domains (id, organization_id, hostname, is_primary) values
   ('dom-sindicolab', '11111111-1111-1111-1111-111111111111', 'sindicolab.com', true),
   ('dom-guarida', '22222222-2222-2222-2222-222222222222', 'guarida.sindicolab.academy', true),
-  ('dom-casa', '33333333-3333-3333-3333-333333333333', 'casa.sindicolab.academy', true),
+  ('dom-casa', '33333333-3333-3333-3333-333333333333', 'admcasa.sindicolab.com', true),
   ('dom-apsa', '44444444-4444-4444-4444-444444444444', 'apsa.sindicolab.academy', true)
 on conflict (id) do update set
   organization_id = excluded.organization_id,
