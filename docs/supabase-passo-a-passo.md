@@ -56,7 +56,7 @@ Em **Authentication → URL Configuration**:
 
 - **Site URL**: `https://sindicolab.com.br`
 - **Redirect URLs**: `https://sindicolab.com.br/**` e o endereço da CASA
-  (ex.: `https://casa.sindicolab.com.br/**`)
+  (`https://admcasa.sindicolab.com/**`)
 
 ## 4. Criar o seu acesso de dono da plataforma
 
