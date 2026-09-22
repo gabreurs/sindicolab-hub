@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { PortalAuthor, PortalCategory, PortalPost } from "@/data/portal";
+import { withPostCover } from "@/lib/course/covers";
 
 export type CategoryInput = Omit<PortalCategory, "id"> & { id?: string };
 export type AuthorInput = Omit<PortalAuthor, "id"> & { id?: string };
@@ -19,11 +20,11 @@ async function authors(includeInactive = false) {
 
 async function hydrate(raw: Record<string, unknown>[]): Promise<PortalPost[]> {
   const [allCategories, allAuthors] = await Promise.all([categories(true), authors(true)]);
-  return raw.map((row) => ({
+  return raw.map((row) => withPostCover({
     ...row,
     categories: allCategories.find((item) => item.id === row.category_id) ?? null,
     authors: allAuthors.find((item) => item.id === row.author_id) ?? null,
-  })) as PortalPost[];
+  })) as unknown as PortalPost[];
 }
 
 export const portalService = {
