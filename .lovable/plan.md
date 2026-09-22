@@ -1,41 +1,92 @@
-# Consistência visual global do SíndicoLab
+# Conexão do banco de dados real (go-live white-label)
 
-## Objetivo
-Unificar cantos, grid horizontal, controles e uso da marca em todo o produto, mantendo os layouts e fluxos atuais.
+Hoje o site funciona com dados de exemplo guardados na memória do navegador: nada
+do que é cadastrado sobrevive a um recarregamento. O objetivo é ligar um banco de
+dados real, com logins de verdade, arquivos e isolamento entre empresas, para
+poder vender a plataforma para a Administradora CASA.
 
-## Implementação
+## O que eu faço (aqui no chat)
 
-### 1. Sistema global de cantos
-- Definir quatro tokens semânticos: card, controle, pequeno e pill.
-- Tomar os cards da home como referência do `radius-card`.
-- Substituir valores arbitrários em site, Academy, player, admin, empresa, formulários, modais e menus.
-- Reservar `pill` para badges, tags, filtros, indicadores e botões circulares; botões comuns e inputs usarão `radius-control`.
+**1. Criar o banco**
+Crio o backend por aqui mesmo — banco, logins, arquivos e funções de servidor.
+Você não precisa criar conta em nenhum serviço externo nem configurar nada.
 
-### 2. Grid e alinhamento único
-- Criar `.site-container` com gutters, breakpoints e eixos de alinhamento derivados da hero atual.
-- Disponibilizar `content-max` para home/site e `content-max-wide` para admin/empresa quando necessário, sem alterar gutters ou âncoras.
-- Fazer os containers legados (`container-x`, Academy, admin e páginas especiais) herdarem essas regras quando forem estruturas principais.
-- Alinhar header, páginas internas, breadcrumbs e conteúdo do mega menu nesse grid.
-- Manter o mesmo elemento de logo, busca e botão Menu fisicamente ancorado ao abrir o mega menu, evitando um segundo logo ou remount sempre que possível; a superfície pode ocupar a tela inteira, mas seus controles persistentes não mudarão de coordenada.
+**2. Criar a estrutura**
+Crio todas as tabelas que o site já usa hoje com os mesmos nomes: empresas,
+domínios de cada empresa, marcas, convites, pessoas e papéis, catálogo por
+empresa, cursos, módulos, aulas, materiais do curso, progresso, avaliações,
+comentários, matrículas, pedidos de acesso, lista do aluno, e o conteúdo do site
+(materiais para download, artigos, eventos, newsletter, Portal).
 
-### 3. Header e controles
-- Ajustar o header normal e compacto para usar a família de cantos global, sem excesso de cápsulas.
-- Padronizar altura, padding, ícones e raio de Buscar, Sair, Plataforma, Menu e ações equivalentes.
-- Preservar fundo branco nos controles sobre superfícies escuras e contraste adequado nas demais.
+**3. Fechar o acesso de cada empresa (o ponto crítico do white-label)**
+Cada empresa só vê o que é dela. Um aluno da CASA nunca alcança dados de outra
+administradora, nem trocando algo no navegador. Papéis ficam em tabela separada
+(dono da plataforma, administrador da empresa, aluno) — nunca no perfil da
+pessoa, para não permitir que alguém se promova a administrador.
 
-### 4. Uso contextual dos logos
-- Auditar todas as aparições da marca.
-- Escolher a variante pela família cromática da composição, não apenas pela luminosidade: azul com azul, roxo com roxo e neutro com a variante institucional adequada.
-- Preservar Preto-Azul entre o header fechado e o mega menu aberto.
-- Corrigir especificamente o banner roxo e o rodapé azul-marinho.
-- Manter logos próprios dos tenants e usar o logo oficial SíndicoLab, nunca placeholder, quando o tenant for a plataforma.
+**4. Entrada somente por convite**
+Cadastro livre desligado. O administrador convida por e-mail e a pessoa define a
+senha. Recuperação de senha funcionando, com verificação de senha vazada.
 
-### 5. Favicon de produção
-- Usar somente o símbolo oficial azul, sem lettering.
-- Gerar `favicon.svg`, `favicon.ico`, PNG 16×16, PNG 32×32 e `apple-touch-icon.png`.
-- Criar/atualizar o webmanifest com os tamanhos usados e conectar todos os metadados no documento, incluindo `theme-color`.
+**5. Importação de lista de alunos**
+Respondendo sua pergunta: as duas formas. Faço no painel da empresa uma
+importação de lista (nome + e-mail) que dispara os convites em lote — a CASA
+consegue subir sozinha, e você também pode subir para eles.
 
-### 6. Validação
-- Fazer busca final por valores concorrentes de `border-radius`, `max-width` e gutters.
-- Verificar visualmente home, mega menu aberto, página interna, Academy/login, catálogo, admin e empresa em desktop e mobile.
-- Confirmar que o logo não salta ao abrir o menu e que nenhum conteúdo ou controle ficou sobreposto.
+**6. Arquivos pelo painel**
+Espaço de arquivos para materiais em PDF/planilha, capas de curso e logos das
+empresas, com upload direto no painel.
+
+**7. Trocar a camada de dados**
+Um único arquivo do projeto passa a apontar para o banco real em vez dos dados de
+exemplo. Nenhuma tela precisa ser reescrita.
+
+**8. Levar o conteúdo para o banco**
+Prioridade: o white-label. Primeiro as empresas, marcas, domínios e os 25 cursos
+da CASA. Depois o tenant SíndicoLab (os 9 cursos com compra na Kiwify continuam
+exclusivos dele) e o conteúdo do site e do Portal.
+
+**9. Testar e gerar a dist**
+Testo o fluxo completo: convite, primeiro acesso, senha, visão do aluno, visão do
+administrador da empresa, visão da plataforma, upload de material e troca de
+marca por endereço. Depois gero o zip para o cPanel.
+
+## O que depende de você (fora daqui)
+
+**No cPanel**
+1. Criar o subdomínio da CASA — recomendo `casa.sindicolab.com.br`.
+2. Apontar a pasta do subdomínio para a mesma pasta do build já publicado.
+3. Emitir o certificado SSL (Let's Encrypt) do subdomínio.
+4. Subir a nova dist dentro de `public_html` (com o arquivo oculto de
+   redirecionamento, senão as rotas internas dão 404).
+
+**Decisões e materiais da CASA**
+- Endereço final do portal deles (`casa.sindicolab.com.br` agora; domínio próprio
+  pode entrar depois sem refazer nada).
+- Logo em vetor e cores da marca.
+- Lista de usuários (nome + e-mail).
+- Confirmação dos 25 cursos do catálogo deles.
+
+**E-mail dos convites**
+No começo os convites saem por um remetente padrão — funciona, mas pode cair em
+spam. Para sair de `contato@sindicolab.com.br`, preciso que o domínio de envio
+seja verificado no DNS (três registros que eu informo na hora).
+
+## Notas técnicas
+
+- Backend via Lovable Cloud: Postgres + Auth + Storage + Edge Functions, com URL
+  e chave pública embutidas no build estático — compatível com cPanel.
+- `src/integrations/supabase/client.ts` troca `mockClient` por `createClient`;
+  `src/services/db/*` permanece apenas como origem dos dados de carga inicial.
+- Toda tabela em `public` recebe `GRANT` explícito para `authenticated` e
+  `service_role` (e `anon` apenas nas públicas: Portal, artigos, eventos,
+  materiais, catálogo público), seguido de RLS e políticas.
+- Resolução de tenant mantém a função `resolve_tenant_by_hostname` em
+  `security definer`, com hostnames em minúsculas em `organization_domains`.
+- Papéis via tabela `organization_memberships` + função `has_role`/
+  `is_org_admin` em `security definer` para evitar recursão de RLS.
+- Convites em lote por Edge Function usando `auth.admin.inviteUserByEmail`,
+  gravando `organization_invites` e o vínculo da pessoa na empresa.
+- Buckets: `materiais` (público), `course-covers` (público), `org-branding`
+  (público), com políticas de escrita restritas a administradores.
+- Métricas hoje em `localStorage` passam a tabela real de eventos.
