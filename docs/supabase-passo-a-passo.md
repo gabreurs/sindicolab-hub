@@ -18,15 +18,17 @@ supabase/functions/invite-user/ convite de acesso por e-mail
 
 ---
 
-## 1. Criar o projeto
+## 1. Criar o projeto — FEITO
 
-1. Entre em <https://supabase.com> com a conta da Studio Marqo e clique em **New project**.
-2. Nome: `sindicolab`. Região: **South America (São Paulo)**.
-3. Guarde a senha do banco no gerenciador de senhas (ela não vai para o site).
-4. Em **Project Settings → API**, copie:
-   - **Project URL** → vai para `VITE_SUPABASE_URL`
-   - **anon public** → vai para `VITE_SUPABASE_ANON_KEY`
-   - **service_role** → **nunca** entra no site; só no convite por e-mail (passo 5).
+Projeto criado e saudável:
+
+```
+VITE_SUPABASE_URL=https://amvevyexbxqekhaycwvi.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_0augLN1_7Dc6U5sHugNcSw_B7brNQWU
+```
+
+Esses dois valores são públicos e já estão no `.env.example`. A senha do banco e a
+chave **secreta** (`sb_secret_...` / `service_role`) ficam só com você — nunca no site.
 
 ## 2. Rodar os códigos do banco
 
@@ -78,7 +80,7 @@ Na sua máquina, com a CLI do Supabase instalada:
 
 ```bash
 supabase login
-supabase link --project-ref SEU_PROJECT_REF
+supabase link --project-ref amvevyexbxqekhaycwvi
 supabase secrets set SITE_URL=https://sindicolab.com.br
 supabase functions deploy invite-user
 ```
