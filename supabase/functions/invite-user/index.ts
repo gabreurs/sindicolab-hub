@@ -1,10 +1,15 @@
-// Convite de acesso. É a única peça que usa a chave de serviço — e ela fica
-// somente aqui, no servidor, nunca no site.
-//
-// Publicação (na sua máquina, com a CLI do Supabase):
-//   supabase functions deploy invite-user --project-ref SEU_PROJECT_REF
+// Convite de acesso (individual, aprovação de pedido e importação de lista).
+// Arquivo autossuficiente: pode ser colado direto no editor do painel do
+// Supabase (Edge Functions → Via Editor) ou publicado pela CLI.
+// A chave de serviço existe só aqui, no servidor — nunca no site.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-api-version",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
 
 type Role = "platform_admin" | "org_admin" | "student";
 
@@ -14,102 +19,134 @@ const json = (body: unknown, status = 200) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
+const fail = (status: number, error: string, message: string) => json({ error, message }, status);
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return json({ error: "Método não permitido." }, 405);
+  if (req.method !== "POST") return fail(405, "method_not_allowed", "Método não permitido.");
 
-  const url = Deno.env.get("SUPABASE_URL")!;
-  const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-  const siteUrl = Deno.env.get("SITE_URL") ?? "";
-
-  const authHeader = req.headers.get("Authorization") ?? "";
-  if (!authHeader.startsWith("Bearer ")) return json({ error: "Faça login para convidar." }, 401);
-
-  // Quem está pedindo?
-  const asUser = createClient(url, anonKey, { global: { headers: { Authorization: authHeader } } });
-  const { data: me } = await asUser.auth.getUser();
-  if (!me?.user) return json({ error: "Sessão inválida." }, 401);
-
-  let body: { organization_id?: string; email?: string; role?: Role };
   try {
-    body = await req.json();
-  } catch {
-    return json({ error: "Corpo inválido." }, 400);
-  }
+    const url = Deno.env.get("SUPABASE_URL")!;
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const siteUrl = (Deno.env.get("SITE_URL") ?? "").replace(/\/+$/, "");
 
-  const organizationId = String(body.organization_id ?? "").trim();
-  const email = String(body.email ?? "").trim().toLowerCase();
-  const role: Role = body.role === "org_admin" || body.role === "platform_admin" ? body.role : "student";
+    const authHeader = req.headers.get("Authorization") ?? "";
+    if (!authHeader.startsWith("Bearer ")) return fail(401, "unauthorized", "Faça login para convidar.");
+    const token = authHeader.slice(7).trim();
 
-  if (!organizationId || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return json({ error: "Informe uma empresa e um e-mail válido." }, 400);
-  }
+    const admin = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
 
-  const admin = createClient(url, serviceKey, { auth: { persistSession: false } });
+    // Quem está pedindo? (token validado pelo próprio Auth)
+    const { data: me, error: meErr } = await admin.auth.getUser(token);
+    if (meErr || !me?.user) return fail(401, "unauthorized", "Sessão inválida. Entre novamente.");
 
-  // Permissão: administrador da plataforma ou da própria empresa.
-  const [{ data: isPlatform }, { data: membership }] = await Promise.all([
-    asUser.rpc("is_platform_admin", { _user_id: me.user.id }),
-    admin
-      .from("organization_memberships")
-      .select("role")
-      .eq("organization_id", organizationId)
-      .eq("user_id", me.user.id)
-      .eq("is_active", true)
-      .eq("role", "org_admin")
-      .maybeSingle(),
-  ]);
-  if (!isPlatform && !membership) return json({ error: "Sem permissão para convidar nesta empresa." }, 403);
-
-  // Limite de usuários da empresa.
-  const { data: org } = await admin
-    .from("organizations")
-    .select("id, name, user_limit, status")
-    .eq("id", organizationId)
-    .maybeSingle();
-  if (!org) return json({ error: "Empresa não encontrada." }, 404);
-  if (org.status !== "active") return json({ error: "Empresa suspensa." }, 409);
-
-  if (org.user_limit) {
-    const { count } = await admin
-      .from("organization_memberships")
-      .select("id", { count: "exact", head: true })
-      .eq("organization_id", organizationId)
-      .eq("is_active", true);
-    if ((count ?? 0) >= org.user_limit) {
-      return json({ error: `Limite de ${org.user_limit} pessoas atingido nesta empresa.` }, 409);
+    let body: { organization_id?: string; email?: string; role?: Role };
+    try {
+      body = await req.json();
+    } catch {
+      return fail(400, "invalid_body", "Corpo inválido.");
     }
-  }
 
-  // Convite registrado (idempotente).
-  await admin
-    .from("organization_invites")
-    .upsert(
-      { organization_id: organizationId, email, role, status: "pending" },
-      { onConflict: "organization_id,email,role" },
-    );
+    const organizationId = String(body.organization_id ?? "").trim();
+    const email = String(body.email ?? "").trim().toLowerCase();
+    const role: Role = body.role === "org_admin" || body.role === "platform_admin" ? body.role : "student";
 
-  // Usuário já existe? Basta criar o vínculo.
-  const { data: list } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-  const existing = list?.users?.find((u) => (u.email ?? "").toLowerCase() === email);
+    if (!organizationId || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      return fail(400, "invalid_input", "Informe uma empresa e um e-mail válido.");
+    }
 
-  if (existing) {
-    await admin
+    // Permissão: dono da plataforma ou administrador da própria empresa.
+    const { data: myRoles } = await admin
       .from("organization_memberships")
+      .select("organization_id, role")
+      .eq("user_id", me.user.id)
+      .eq("is_active", true);
+    const isPlatform = (myRoles ?? []).some((m) => m.role === "platform_admin");
+    const isOrgAdmin = (myRoles ?? []).some((m) => m.organization_id === organizationId && m.role === "org_admin");
+    if (!isPlatform && !isOrgAdmin) {
+      return fail(403, "forbidden", "Seu login não é administrador desta empresa.");
+    }
+    if (role === "platform_admin" && !isPlatform) {
+      return fail(403, "forbidden", "Só o dono da plataforma pode criar outro dono.");
+    }
+
+    const { data: org } = await admin
+      .from("organizations")
+      .select("id, name, user_limit, status")
+      .eq("id", organizationId)
+      .maybeSingle();
+    if (!org) return fail(404, "not_found", "Empresa não encontrada.");
+    if (org.status && org.status !== "active") return fail(409, "org_suspended", "Empresa suspensa.");
+
+    // Já existe alguém com esse e-mail?
+    let existing: { id: string } | undefined;
+    for (let page = 1; page <= 20 && !existing; page++) {
+      const { data: list, error: listErr } = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+      if (listErr) break;
+      existing = list.users.find((u) => (u.email ?? "").toLowerCase() === email);
+      if (list.users.length < 1000) break;
+    }
+
+    if (existing) {
+      const { data: already } = await admin
+        .from("organization_memberships")
+        .select("id")
+        .eq("organization_id", organizationId)
+        .eq("user_id", existing.id)
+        .eq("role", role)
+        .eq("is_active", true)
+        .maybeSingle();
+      if (already) return fail(409, "duplicated", `${email} já tem acesso (already).`);
+    }
+
+    // Limite de pessoas da empresa.
+    if (org.user_limit) {
+      const { count } = await admin
+        .from("organization_memberships")
+        .select("id", { count: "exact", head: true })
+        .eq("organization_id", organizationId)
+        .eq("is_active", true);
+      if ((count ?? 0) >= org.user_limit) {
+        return fail(409, "user_limit_reached", `Limite de ${org.user_limit} pessoas atingido nesta empresa.`);
+      }
+    }
+
+    // Registra o convite (sem duplicar).
+    const { error: invErr } = await admin
+      .from("organization_invites")
       .upsert(
-        { organization_id: organizationId, user_id: existing.id, role, is_active: true },
-        { onConflict: "organization_id,user_id,role" },
+        { organization_id: organizationId, email, role, status: existing ? "accepted" : "pending" },
+        { onConflict: "organization_id,email,role" },
       );
-    await admin.from("organization_invites").update({ status: "accepted" }).eq("organization_id", organizationId).eq("email", email);
-    return json({ ok: true, status: "vinculado" });
+    if (invErr) return fail(500, "db_error", `Não foi possível registrar o convite: ${invErr.message}`);
+
+    if (existing) {
+      const { error: memErr } = await admin
+        .from("organization_memberships")
+        .upsert(
+          { organization_id: organizationId, user_id: existing.id, role, is_active: true },
+          { onConflict: "organization_id,user_id,role" },
+        );
+      if (memErr) return fail(500, "db_error", `Não foi possível liberar o acesso: ${memErr.message}`);
+      return json({ ok: true, status: "vinculado", invited_by_email: false });
+    }
+
+    // O link do e-mail volta para o endereço de onde o convite saiu
+    // (cada empresa no seu próprio domínio). SITE_URL é o reserva.
+    const origin = (req.headers.get("origin") ?? "").replace(/\/+$/, "");
+    const base = /^https:\/\//.test(origin) ? origin : siteUrl;
+
+    const { error } = await admin.auth.admin.inviteUserByEmail(email, {
+      redirectTo: base ? `${base}/academy/login` : undefined,
+      data: { organization_id: organizationId, role },
+    });
+    if (error) {
+      const already = /already|registered|exists/i.test(error.message);
+      return fail(already ? 409 : 400, already ? "duplicated" : "invite_failed", error.message);
+    }
+
+    return json({ ok: true, status: "convidado", invited_by_email: true });
+  } catch (e) {
+    return fail(500, "unexpected", e instanceof Error ? e.message : "Erro inesperado.");
   }
-
-  const { error } = await admin.auth.admin.inviteUserByEmail(email, {
-    redirectTo: siteUrl ? `${siteUrl}/academy/login` : undefined,
-    data: { organization_id: organizationId, role },
-  });
-  if (error) return json({ error: error.message }, 400);
-
-  return json({ ok: true, status: "convidado" });
 });
