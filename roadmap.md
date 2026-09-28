@@ -31,3 +31,4 @@
 - [x] Exibir duração e nível em todos os cursos (SQL 08) e editar esses campos no painel de cursos
 - [x] Corrigir capas quebradas dos cursos e notícias (SQL 08 + arquivos publicados no site)
 - [x] Aplicar as capas enviadas ao acervo das administradoras sem alterar as capas do SíndicoLab
+- [x] Corrigir a capa de IA v2 e reutilizar a capa do Zelador do SíndicoLab nos tenants

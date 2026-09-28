@@ -84,9 +84,13 @@ export function normalizeLegacyAssetPath(url: string | null | undefined): string
 
 /** Completa `cover_url`/`banner_url` de um curso quando vierem vazios. */
 export function withCourseCover<T extends { slug?: string; cover_url?: string | null; banner_url?: string | null }>(course: T): T {
-  const art = course.slug ? COURSE_COVERS[course.slug] ?? ADMIN_COVERS[course.slug] : undefined;
-  const cover = normalizeLegacyAssetPath(course.cover_url) ?? null;
-  const banner = normalizeLegacyAssetPath(course.banner_url) ?? null;
+  const courseArt = course.slug ? COURSE_COVERS[course.slug] : undefined;
+  const adminArt = course.slug ? ADMIN_COVERS[course.slug] : undefined;
+  const art = courseArt ?? adminArt;
+  // O acervo das administradoras usa sempre a arte aprovada da própria build.
+  // Isso também corrige imediatamente caminhos antigos ainda salvos no banco.
+  const cover = adminArt ?? normalizeLegacyAssetPath(course.cover_url) ?? null;
+  const banner = adminArt ?? normalizeLegacyAssetPath(course.banner_url) ?? null;
   if (!art && cover === course.cover_url && banner === course.banner_url) return course;
   return {
     ...course,
