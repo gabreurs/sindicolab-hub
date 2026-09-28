@@ -15,6 +15,7 @@ supabase/sql/05_seed_estrutura_e_academy.sql   empresas, marcas, categorias e os
 supabase/sql/06_seed_sindicolab_e_conteudo.sql os 9 cursos da SíndicoLab, site e Portal
 supabase/sql/07_casa_branding_apresentacao.sql identidade white-label da CASA (logo, cores, fontes)
 supabase/sql/08_cursos_capas_e_duracoes.sql    capas corrigidas e duração de todos os cursos
+supabase/sql/10_acesso_admin_casa.sql          administrador da CASA (admcasa@academy.com.br)
 supabase/functions/invite-user/ convite de acesso por e-mail
 ```
 
