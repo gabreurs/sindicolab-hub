@@ -32,6 +32,7 @@ const COURSE_COVERS: Record<string, string> = {
 
 /** Capas do acervo das administradoras (arquivos publicados no próprio site). */
 const ADMIN_COVERS: Record<string, string> = {
+  "curso-ia-gestao-condominial-v2": "/cursos/administradoras/ia-gestao-condominial-v2.webp",
   "analise-cotacoes-condominiais-chatgpt": "/cursos/administradoras/analise-cotacoes-condominiais-chatgpt.webp",
   "app-condominio-chatgpt-lovable": "/cursos/administradoras/app-condominio-chatgpt-lovable.webp",
   "apresentando-resultados-da-gestao": "/cursos/administradoras/apresentando-resultados-da-gestao.webp",
@@ -56,7 +57,7 @@ const ADMIN_COVERS: Record<string, string> = {
   "sindico-profissional": "/cursos/administradoras/sindico-profissional.webp",
   "subsindicos-condominios-residenciais": "/cursos/administradoras/subsindicos-condominios-residenciais.webp",
   "tecnologia-comunicacao-condominial": "/cursos/administradoras/tecnologia-comunicacao-condominial.webp",
-  "zelador-alta-performance": "/cursos/administradoras/zelador-alta-performance.webp",
+  "zelador-alta-performance": playZelador,
 };
 
 const POST_COVERS: Record<string, string> = {
@@ -83,9 +84,13 @@ export function normalizeLegacyAssetPath(url: string | null | undefined): string
 
 /** Completa `cover_url`/`banner_url` de um curso quando vierem vazios. */
 export function withCourseCover<T extends { slug?: string; cover_url?: string | null; banner_url?: string | null }>(course: T): T {
-  const art = course.slug ? COURSE_COVERS[course.slug] ?? ADMIN_COVERS[course.slug] : undefined;
-  const cover = normalizeLegacyAssetPath(course.cover_url) ?? null;
-  const banner = normalizeLegacyAssetPath(course.banner_url) ?? null;
+  const courseArt = course.slug ? COURSE_COVERS[course.slug] : undefined;
+  const adminArt = course.slug ? ADMIN_COVERS[course.slug] : undefined;
+  const art = courseArt ?? adminArt;
+  // O acervo das administradoras usa sempre a arte aprovada da própria build.
+  // Isso também corrige imediatamente caminhos antigos ainda salvos no banco.
+  const cover = adminArt ?? normalizeLegacyAssetPath(course.cover_url) ?? null;
+  const banner = adminArt ?? normalizeLegacyAssetPath(course.banner_url) ?? null;
   if (!art && cover === course.cover_url && banner === course.banner_url) return course;
   return {
     ...course,
