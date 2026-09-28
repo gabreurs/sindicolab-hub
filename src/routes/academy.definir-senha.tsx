@@ -4,6 +4,8 @@ import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
 import { academyAuthService } from "@/services/academyAuthService";
 import { supabase } from "@/integrations/supabase/client";
+import { PasswordFields, passwordRules } from "@/components/academy/PasswordFields";
+import { AccessHelp } from "@/components/academy/AccessHelp";
 
 export const Route = createFileRoute("/academy/definir-senha")({
   ssr: false,
@@ -58,7 +60,7 @@ function DefinirSenhaPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pw !== pw2) return toast.error("As senhas não conferem.");
+    if (!passwordRules(pw, pw2).every((r) => r.ok)) return toast.error("A senha ainda não atende a todos os requisitos.");
     setBusy(true);
     try {
       const { data, error } = await (supabase.auth as any).updateUser({ password: pw });
@@ -97,7 +99,7 @@ function DefinirSenhaPage() {
               Este link já foi usado ou venceu. Informe seu e-mail e enviamos um novo agora.
             </p>
             {sent ? (
-              <p className="ax-body mt-6 text-[14px]">Pronto! Confira sua caixa de entrada.</p>
+              <p className="ax-body mt-6 text-[14px]">Se esse e-mail tiver acesso à Academy, o link chega em instantes. Confira também o spam. Nada chegou? Confirme o e-mail com a administradora.</p>
             ) : (
               <form
                 className="mt-6 space-y-3"
@@ -119,6 +121,7 @@ function DefinirSenhaPage() {
                 </button>
               </form>
             )}
+            <AccessHelp />
           </>
         )}
         {ready === "ok" && (
@@ -128,11 +131,8 @@ function DefinirSenhaPage() {
               {email ? `Conta ${email}. ` : ""}{mode === "reset" ? "Escolha uma nova senha para entrar na Academy." : "Escolha uma senha para entrar na Academy."}
             </p>
             <form onSubmit={submit} className="mt-7 space-y-3">
-              <input type="password" required minLength={6} placeholder="Senha (mín. 6 caracteres)"
-                value={pw} onChange={(e) => setPw(e.target.value)} className="w-full px-4 py-3 text-[15px]" />
-              <input type="password" required minLength={6} placeholder="Repita a senha"
-                value={pw2} onChange={(e) => setPw2(e.target.value)} className="w-full px-4 py-3 text-[15px]" />
-              <button disabled={busy} type="submit" className="ax-btn w-full" data-variant="primary" data-size="lg">
+              <PasswordFields pw={pw} pw2={pw2} setPw={setPw} setPw2={setPw2} />
+              <button disabled={busy || !passwordRules(pw, pw2).every((r) => r.ok)} type="submit" className="ax-btn w-full" data-variant="primary" data-size="lg">
                 {busy ? "…" : "Salvar senha e entrar"}
               </button>
             </form>
