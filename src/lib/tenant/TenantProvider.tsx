@@ -58,6 +58,8 @@ export function isPlatformHost(hostname: string) {
     hostname === "localhost" ||
     hostname === "127.0.0.1" ||
     hostname.endsWith(".lovable.app") ||
+    hostname.endsWith(".lovableproject.com") ||
+    hostname.endsWith(".lovable.dev") ||
     PLATFORM_HOSTS.includes(hostname)
   );
 }
