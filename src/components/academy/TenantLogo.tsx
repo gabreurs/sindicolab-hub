@@ -1,4 +1,4 @@
-import { useTenant } from "@/lib/tenant/TenantProvider";
+import { useTenant, isPlatformHost } from "@/lib/tenant/TenantProvider";
 import { useTheme } from "@/lib/theme/ThemeProvider";
 import { BrandMark } from "@/components/site/BrandMark";
 
@@ -21,6 +21,11 @@ export function TenantLogo({ className = "", onDark = false }: { className?: str
 
   // Tenant plataforma → identidade SíndicoLab, sempre.
   if (!tenant || tenant.organization.is_platform || tenant.organization.slug === "sindicolab") {
+    // No domínio de um cliente, enquanto o tenant ainda não resolveu (primeira
+    // visita, sem cache), não mostrar a marca SíndicoLab — evita o flash.
+    if (!tenant && typeof window !== "undefined" && !isPlatformHost(window.location.hostname)) {
+      return <span aria-hidden className={`inline-block h-12 w-40 rounded-md bg-black/5 sm:h-14 ${className}`} />;
+    }
     return (
       <BrandMark
         size={26}
