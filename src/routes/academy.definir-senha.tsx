@@ -40,7 +40,7 @@ function DefinirSenhaPage() {
       return false;
     };
     const { data: sub } = supabase.auth.onAuthStateChange((ev, session) => {
-      if (ev === "PASSWORD_RECOVERY") setMode("reset");
+      if ((ev as string) === "PASSWORD_RECOVERY") setMode("reset");
       if (session) {
         setEmail(session.user.email ?? "");
         setReady("ok");
@@ -104,7 +104,7 @@ function DefinirSenhaPage() {
                 onSubmit={async (e) => {
                   e.preventDefault();
                   setBusy(true);
-                  const { error } = await supabase.auth.resetPasswordForEmail(resendEmail.trim(), {
+                  const { error } = await (supabase.auth as any).resetPasswordForEmail(resendEmail.trim(), {
                     redirectTo: `${window.location.origin}/academy/definir-senha`,
                   });
                   setBusy(false);
