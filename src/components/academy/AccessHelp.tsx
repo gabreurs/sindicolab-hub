@@ -1,8 +1,15 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { supabase } from "@/integrations/supabase/client";
 
-const FALLBACK = `Não consegui gerar uma orientação agora. Tente assim:
+const TIPS: { re: RegExp; tip: string }[] = [
+  { re: /expir|venc|invalid|usado/, tip: "**Link expirado:** cada link funciona uma única vez. Na tela de entrada, digite seu e-mail e clique em \"Esqueci minha senha\" para receber um novo." },
+  { re: /nao cheg|nao receb|spam|email|e-mail/, tip: "**E-mail não chegou:** procure na caixa de entrada e no spam pelo remetente \"CASA Academy\". Confira se digitou o mesmo e-mail em que recebeu o convite. Se não tiver conta, nenhum e-mail é enviado." },
+  { re: /senha|errad|incorret|esqueci/, tip: "**Senha não funciona:** use \"Esqueci minha senha\" para criar uma nova. Ela precisa ter 8 caracteres, com letra e número." },
+  { re: /pendent|aprova|pedido|solicit|convite/, tip: "**Pedido ou convite:** seu acesso só funciona depois que a administradora CASA aprovar seu cadastro. Fale com ela para confirmar." },
+  { re: /bloque|desativ|suspen|inativ/, tip: "**Acesso desativado:** apenas a administradora CASA pode reativar seu cadastro. Fale com ela." },
+];
+
+const FALLBACK = `Tente assim:
 
 1. **Confira o e-mail**: use o mesmo e-mail em que você recebeu o convite.
 2. **Procure o e-mail de acesso** na caixa de entrada e no spam, remetente "CASA Academy".
@@ -15,23 +22,17 @@ export function AccessHelp() {
   const [answer, setAnswer] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const ask = async (e: React.FormEvent) => {
+  const ask = (e: React.FormEvent) => {
     e.preventDefault();
     const problem = text.trim();
     if (problem.length < 5) return;
     setBusy(true);
     setAnswer("");
-    try {
-      const { data, error } = await (supabase as any).functions.invoke("access-help", {
-        body: { problem: problem.slice(0, 1000), site: window.location.hostname },
-      });
-      if (error || !data?.answer) throw error ?? new Error("sem resposta");
-      setAnswer(data.answer);
-    } catch {
-      setAnswer(FALLBACK);
-    } finally {
-      setBusy(false);
-    }
+    const n = problem.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const hits = TIPS.filter((t) => t.re.test(n)).map((t) => t.tip);
+    setAnswer(hits.length ? hits.join("\n\n") + "\n\nAinda sem acesso? Fale com a administradora CASA." : FALLBACK);
+    setBusy(false);
+
   };
 
   if (!open)
@@ -55,7 +56,7 @@ export function AccessHelp() {
           className="w-full px-4 py-3 text-[14px]"
         />
         <button disabled={busy || text.trim().length < 5} type="submit" className="ax-btn w-full" data-variant="secondary">
-          {busy ? "Gerando orientação…" : "Receber orientação"}
+          {busy ? "…" : "Receber orientação"}
         </button>
       </form>
       {answer && (
