@@ -113,6 +113,25 @@ function LoginPage() {
         >
           {mode === "login" ? "Não tem conta? Criar conta" : "Já tenho conta"}
         </button>
+        {mode === "login" && (
+          <div>
+            <button
+              type="button"
+              className="ax-btn"
+              data-variant="link"
+              onClick={async () => {
+                if (!email) return toast.error("Digite seu e-mail acima primeiro.");
+                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                  redirectTo: `${window.location.origin}/academy/definir-senha`,
+                });
+                if (error) toast.error(error.message);
+                else toast.success("Enviamos um link para você criar uma nova senha.");
+              }}
+            >
+              Esqueci minha senha
+            </button>
+          </div>
+        )}
         <div>
           <Link to="/academy/solicitar-acesso" className="ax-btn" data-variant="link">
             Não tem acesso? Solicitar acesso
