@@ -19,9 +19,13 @@ function DefinirSenhaPage() {
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
   const [busy, setBusy] = useState(false);
+  const [mode, setMode] = useState<"create" | "reset">("create");
+  const [resendEmail, setResendEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
     const hash = new URLSearchParams(window.location.hash.slice(1));
+    if (hash.get("type") === "recovery") setMode("reset");
     if (hash.get("error")) {
       setReady("expired");
       return;
@@ -35,7 +39,8 @@ function DefinirSenhaPage() {
       }
       return false;
     };
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((ev, session) => {
+      if ((ev as string) === "PASSWORD_RECOVERY") setMode("reset");
       if (session) {
         setEmail(session.user.email ?? "");
         setReady("ok");
@@ -89,22 +94,41 @@ function DefinirSenhaPage() {
           <>
             <h1 className="ax-h2 mt-7">Link expirado</h1>
             <p className="ax-body mt-1.5 text-[14px]">
-              Este link já foi usado ou venceu. Peça um novo na tela de entrada, em “Esqueci minha
-              senha”.
+              Este link já foi usado ou venceu. Informe seu e-mail e enviamos um novo agora.
             </p>
-            <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="ax-btn mt-6 w-full" data-variant="primary">
-              Ir para a entrada
-            </Link>
+            {sent ? (
+              <p className="ax-body mt-6 text-[14px]">Pronto! Confira sua caixa de entrada.</p>
+            ) : (
+              <form
+                className="mt-6 space-y-3"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setBusy(true);
+                  const { error } = await (supabase.auth as any).resetPasswordForEmail(resendEmail.trim(), {
+                    redirectTo: `${window.location.origin}/academy/definir-senha`,
+                  });
+                  setBusy(false);
+                  if (error) toast.error(error.message);
+                  else setSent(true);
+                }}
+              >
+                <input type="email" required placeholder="Seu e-mail" value={resendEmail}
+                  onChange={(e) => setResendEmail(e.target.value)} className="w-full px-4 py-3 text-[15px]" />
+                <button disabled={busy} type="submit" className="ax-btn w-full" data-variant="primary">
+                  {busy ? "…" : "Enviar novo link"}
+                </button>
+              </form>
+            )}
           </>
         )}
         {ready === "ok" && (
           <>
-            <h1 className="ax-h2 mt-7">Crie sua senha</h1>
+            <h1 className="ax-h2 mt-7">{mode === "reset" ? "Redefina sua senha" : "Crie sua senha"}</h1>
             <p className="ax-body mt-1.5 text-[14px]">
-              {email ? `Conta ${email}. ` : ""}Escolha uma senha para entrar na Academy.
+              {email ? `Conta ${email}. ` : ""}{mode === "reset" ? "Escolha uma nova senha para entrar na Academy." : "Escolha uma senha para entrar na Academy."}
             </p>
             <form onSubmit={submit} className="mt-7 space-y-3">
-              <input type="password" required minLength={6} placeholder="Nova senha (mín. 6 caracteres)"
+              <input type="password" required minLength={6} placeholder="Senha (mín. 6 caracteres)"
                 value={pw} onChange={(e) => setPw(e.target.value)} className="w-full px-4 py-3 text-[15px]" />
               <input type="password" required minLength={6} placeholder="Repita a senha"
                 value={pw2} onChange={(e) => setPw2(e.target.value)} className="w-full px-4 py-3 text-[15px]" />
