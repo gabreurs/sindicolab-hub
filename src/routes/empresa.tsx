@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenant } from "@/lib/tenant/TenantProvider";
 import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { TenantDemoSwitcher } from "@/components/site/TenantDemoSwitcher";
+import { SpamNote } from "@/components/academy/SpamNote";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
 import {
@@ -576,6 +577,7 @@ function EmpresaPage() {
                 {seatsLeft != null && seatsLeft <= 0 && (
                   <p className="text-xs" style={{ color: "var(--c-danger)" }}>Limite de assentos atingido — libere um assento antes de convidar.</p>
                 )}
+                {inviteNote && <SpamNote className="!mt-0" lead={inviteNote} />}
               </div>
             </Card>
           </div>
@@ -709,6 +711,7 @@ function EmpresaPage() {
                   <Stat label="Bloqueados por limite" value={csvReport.limitReached} tone={csvReport.limitReached ? "warn" : undefined} />
                   <Stat label="Falhas" value={csvReport.invalid + csvReport.duplicated + csvReport.otherErrors} />
                 </div>
+                {csvReport.sent > 0 && <SpamNote lead={`${csvReport.sent} ${csvReport.sent === 1 ? "convite enviado" : "convites enviados"}.`} />}
                 {csvReport.errors.length > 0 && (
                   <details className="mt-4">
                     <summary className="cursor-pointer text-xs c-muted">Ver detalhes ({csvReport.errors.length})</summary>
