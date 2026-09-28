@@ -30,6 +30,35 @@ const COURSE_COVERS: Record<string, string> = {
   "controlador-de-acessos": playControlador,
 };
 
+/** Capas do acervo das administradoras (arquivos publicados no próprio site). */
+const ADMIN_COVERS: Record<string, string> = {
+  "analise-cotacoes-condominiais-chatgpt": "/cursos/administradoras/analise-cotacoes-condominiais-chatgpt.webp",
+  "app-condominio-chatgpt-lovable": "/cursos/administradoras/app-condominio-chatgpt-lovable.webp",
+  "apresentando-resultados-da-gestao": "/cursos/administradoras/apresentando-resultados-da-gestao.webp",
+  "captacao-clientes-sindicos": "/cursos/administradoras/captacao-clientes-sindicos.webp",
+  "captacao-de-clientes": "/cursos/administradoras/captacao-de-clientes.webp",
+  "competencias-sindico-profissional": "/cursos/administradoras/competencias-sindico-profissional.webp",
+  "conselheiros-fiscais": "/cursos/administradoras/conselheiros-fiscais.webp",
+  "conselheiros-fiscais-consultivos": "/cursos/administradoras/conselheiros-fiscais-consultivos.webp",
+  "dinamicas-votacao-assembleias": "/cursos/administradoras/dinamicas-votacao-assembleias.webp",
+  "empresa-sindicatura-atuacao-nacional": "/cursos/administradoras/empresa-sindicatura-atuacao-nacional.webp",
+  "ensaio-carreira-sindicos-profissionais": "/cursos/administradoras/ensaio-carreira-sindicos-profissionais.webp",
+  "estrategias-reeleicao-gestao-condominial": "/cursos/administradoras/estrategias-reeleicao-gestao-condominial.webp",
+  "gestao-condominial-inteligente-ia-empresa": "/cursos/administradoras/gestao-condominial-inteligente-ia-empresa.webp",
+  "ia-gestao-condominial": "/cursos/administradoras/ia-gestao-condominial.webp",
+  "ia-gestao-condominial-v2": "/cursos/administradoras/ia-gestao-condominial-v2.webp",
+  "manual-gpts-mercado-condominial": "/cursos/administradoras/manual-gpts-mercado-condominial.webp",
+  "oratoria-sindicos": "/cursos/administradoras/oratoria-sindicos.webp",
+  "porteiro-alta-performance": "/cursos/administradoras/porteiro-alta-performance.webp",
+  "presidente-mesa-assembleias": "/cursos/administradoras/presidente-mesa-assembleias.webp",
+  "procuracoes-assembleias-condominios": "/cursos/administradoras/procuracoes-assembleias-condominios.webp",
+  "relacionamento-conselho-fiscal-consultivo": "/cursos/administradoras/relacionamento-conselho-fiscal-consultivo.webp",
+  "sindico-profissional": "/cursos/administradoras/sindico-profissional.webp",
+  "subsindicos-condominios-residenciais": "/cursos/administradoras/subsindicos-condominios-residenciais.webp",
+  "tecnologia-comunicacao-condominial": "/cursos/administradoras/tecnologia-comunicacao-condominial.webp",
+  "zelador-alta-performance": "/cursos/administradoras/zelador-alta-performance.webp",
+};
+
 const POST_COVERS: Record<string, string> = {
   "nova-lei-das-assembleias-virtuais": portal2,
   "inadimplencia-recua-terceiro-mes": portal5,
@@ -54,7 +83,7 @@ export function normalizeLegacyAssetPath(url: string | null | undefined): string
 
 /** Completa `cover_url`/`banner_url` de um curso quando vierem vazios. */
 export function withCourseCover<T extends { slug?: string; cover_url?: string | null; banner_url?: string | null }>(course: T): T {
-  const art = course.slug ? COURSE_COVERS[course.slug] : undefined;
+  const art = course.slug ? COURSE_COVERS[course.slug] ?? ADMIN_COVERS[course.slug] : undefined;
   const cover = normalizeLegacyAssetPath(course.cover_url) ?? null;
   const banner = normalizeLegacyAssetPath(course.banner_url) ?? null;
   if (!art && cover === course.cover_url && banner === course.banner_url) return course;
