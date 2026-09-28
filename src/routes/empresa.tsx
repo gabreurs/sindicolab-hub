@@ -98,6 +98,7 @@ function EmpresaPage() {
   const [reqFilter, setReqFilter] = useState<"pending" | "approved" | "rejected" | "all">("pending");
   const [resettingEmail, setResettingEmail] = useState<string | null>(null);
   const [resetMsg, setResetMsg] = useState<string | null>(null);
+  const [inviteNote, setInviteNote] = useState<string | null>(null);
   const [reqBusyId, setReqBusyId] = useState<string | null>(null);
   const [reqMessage, setReqMessage] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
   const [loading, setLoading] = useState(true);
