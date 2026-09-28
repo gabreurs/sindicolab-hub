@@ -56,7 +56,7 @@ Em **Authentication → URL Configuration**:
 
 - **Site URL**: `https://sindicolab.com.br`
 - **Redirect URLs**: `https://sindicolab.com.br/**` e o endereço da CASA
-  (`https://admcasa.sindicolab.com/**`)
+  (`https://admcasa.studiomarqo.com.br/**`)
 
 ## 4. Criar o seu acesso de dono da plataforma
 
@@ -114,7 +114,7 @@ acesso direto e no F5.
 
 ## 7. Endereço próprio da CASA — FEITO
 
-O endereço já está definido como `admcasa.sindicolab.com`, tanto no SQL do seed
+O endereço já está definido como `admcasa.studiomarqo.com.br`, tanto no SQL do seed
 quanto nos dados de exemplo do site. No cPanel o subdomínio foi criado com
 **"compartilhar a raiz do documento"**, ou seja, ele usa a mesma pasta
 `public_html` do site principal — por isso nenhuma pasta nova aparece lá, e está
