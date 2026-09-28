@@ -13,6 +13,8 @@ supabase/sql/03_rls.sql         regras de quem vê e edita o quê
 supabase/sql/04_storage.sql     pastas de arquivos (logos, capas, materiais)
 supabase/sql/05_seed_estrutura_e_academy.sql   empresas, marcas, categorias e os 25 cursos
 supabase/sql/06_seed_sindicolab_e_conteudo.sql os 9 cursos da SíndicoLab, site e Portal
+supabase/sql/07_casa_branding_apresentacao.sql identidade white-label da CASA (logo, cores, fontes)
+supabase/sql/08_cursos_capas_e_duracoes.sql    capas corrigidas e duração de todos os cursos
 supabase/functions/invite-user/ convite de acesso por e-mail
 ```
 
