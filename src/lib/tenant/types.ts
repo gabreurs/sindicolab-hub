@@ -21,6 +21,8 @@ export type Branding = {
   dark_background_color: string;
   dark_surface_color: string;
   dark_text_color: string;
+  heading_font: string | null;
+  body_font: string | null;
   welcome_title: string | null;
   welcome_message: string | null;
   environment_name: string | null;

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { accentContrastInk } from "@/lib/tenant/accent";
-import { Button, Field, Input, SaveState, Textarea } from "@/components/console/ui";
+import { Button, Field, Input, SaveState, Select, Textarea } from "@/components/console/ui";
 
 /**
  * EDITOR DE MARCA = painel do sistema real de tokens.
@@ -26,6 +26,8 @@ type Branding = {
   dark_background_color: string;
   dark_surface_color: string;
   dark_text_color: string;
+  heading_font: string | null;
+  body_font: string | null;
   logo_light_url: string | null;
   logo_dark_url: string | null;
   favicon_url: string | null;
@@ -45,6 +47,8 @@ const DEFAULTS: Omit<Branding, "organization_id"> = {
   dark_background_color: "#0B0B0E",
   dark_surface_color: "#141418",
   dark_text_color: "#F3F3F5",
+  heading_font: "inherit",
+  body_font: "inherit",
   logo_light_url: null,
   logo_dark_url: null,
   favicon_url: null,
@@ -67,6 +71,16 @@ const TABS = [
   ["claro", "Tema claro"],
   ["escuro", "Tema escuro"],
   ["experiencia", "Experiência"],
+] as const;
+const FONT_OPTIONS = [
+  ["inherit", "Padrão da plataforma"],
+  ["inter", "Inter"],
+  ["roboto", "Roboto"],
+  ["open-sans", "Open Sans"],
+  ["lato", "Lato"],
+  ["montserrat", "Montserrat"],
+  ["nunito-sans", "Nunito Sans"],
+  ["merriweather", "Merriweather"],
 ] as const;
 type Tab = (typeof TABS)[number][0];
 
@@ -227,6 +241,18 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
 
           {tab === "experiencia" && (
             <div className="grid gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Fonte dos títulos" hint="Identidade de títulos, cards e destaques.">
+                  <Select value={branding.heading_font ?? "inherit"} onChange={(e) => upd("heading_font", e.target.value)}>
+                    {FONT_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+                  </Select>
+                </Field>
+                <Field label="Fonte dos textos" hint="Menus, descrições, formulários e textos corridos.">
+                  <Select value={branding.body_font ?? "inherit"} onChange={(e) => upd("body_font", e.target.value)}>
+                    {FONT_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+                  </Select>
+                </Field>
+              </div>
               <Field label="Arte de topo / banner" hint="Imagem usada em composições editoriais da Academy.">
                 <Input value={branding.banner_url ?? ""} onChange={(e) => upd("banner_url", e.target.value || null)} placeholder="https://…" />
               </Field>

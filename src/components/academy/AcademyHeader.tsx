@@ -35,7 +35,7 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
     <header className="ax-header" data-transparent={transparent && !scrolled ? "true" : "false"}>
       <div className="ax-container flex h-full items-center gap-3 md:gap-6">
         <Link
-          to={isSindicoLab ? "/" : showAuthed ? "/academy/inicio" : "/"}
+          to={isSindicoLab ? "/" : showAuthed ? "/academy/inicio" : "/academy"}
           className="flex shrink-0 items-center"
           aria-label="Início"
         >

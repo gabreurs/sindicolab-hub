@@ -64,10 +64,10 @@ function LoginPage() {
     <div className="academy flex min-h-screen items-center justify-center p-6">
       <div className="ax-panel w-full max-w-md p-8">
         <div className="flex items-center justify-between gap-4">
-          <Link to="/" aria-label="SíndicoLab — página inicial">
+          <Link to="/academy" aria-label="Voltar à página inicial da Academy">
             <TenantLogo />
           </Link>
-          <Link to="/" className="ax-meta hover:opacity-80">
+          <Link to="/academy" className="ax-meta hover:opacity-80">
             ← Voltar
           </Link>
         </div>

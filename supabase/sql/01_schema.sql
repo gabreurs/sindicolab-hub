@@ -42,10 +42,14 @@ create table if not exists public.organization_branding (
   dark_background_color text,
   dark_surface_color text,
   dark_text_color text,
+  heading_font text,
+  body_font text,
   environment_name text,
   welcome_title text,
   welcome_message text
 );
+alter table public.organization_branding add column if not exists heading_font text;
+alter table public.organization_branding add column if not exists body_font text;
 grant select on public.organization_branding to anon, authenticated;
 grant insert, update, delete on public.organization_branding to authenticated;
 grant all on public.organization_branding to service_role;

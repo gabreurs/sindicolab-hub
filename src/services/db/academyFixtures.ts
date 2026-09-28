@@ -34,8 +34,8 @@ import playOratoria from "@/assets/cursos/play/oratoria-vendas.webp";
 import playZelador from "@/assets/cursos/play/zelador-excelencia.webp";
 import playLimpeza from "@/assets/cursos/play/limpeza-alta-performance.webp";
 import playControlador from "@/assets/cursos/play/controlador-de-acessos.webp";
-import casaLogoBlack from "@/assets/casa-logo-black.png.asset.json";
-import casaLogoWhite from "@/assets/casa-logo-white.png.asset.json";
+import casaLogoLight from "@/assets/tenant/casa-logo-light.png.asset.json";
+import casaLogoDark from "@/assets/tenant/casa-logo-dark.png.asset.json";
 
 const COVERS: Record<string, string> = {
   "competencias-sindico-profissional": coverCompetencias,
@@ -69,6 +69,8 @@ const brandingDefaults = {
   dark_background_color: "#0B0B0E",
   dark_surface_color: "#151518",
   dark_text_color: "#F3F3F5",
+  heading_font: "inherit",
+  body_font: "inherit",
 };
 
 export const organization_branding: Row[] = [
@@ -111,14 +113,17 @@ export const organization_branding: Row[] = [
     organization_id: ORG.casa,
     ...brandingDefaults,
     // Migration 20260819181126 — logos reais da CASA.
-    logo_light_url: (casaLogoBlack as { url: string }).url,
-    logo_dark_url: (casaLogoWhite as { url: string }).url,
+    logo_light_url: (casaLogoLight as { url: string }).url,
+    logo_dark_url: (casaLogoDark as { url: string }).url,
+    favicon_url: "/tenant/casa-favicon.png",
     primary_color: "#111111",
     secondary_color: "#2B2B2B",
     accent_color: "#FFC20E",
-    background_color: "#0B0B0C",
-    surface_color: "#141416",
-    text_color: "#F5F5F4",
+    background_color: "#F7F7F5",
+    surface_color: "#FFFFFF",
+    text_color: "#111111",
+    heading_font: "montserrat",
+    body_font: "open-sans",
     environment_name: "CASA Academy",
     welcome_title: "CASA Academy",
     welcome_message:

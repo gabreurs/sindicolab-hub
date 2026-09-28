@@ -21,6 +21,47 @@ const TenantContext = createContext<Ctx>({
 
 const OVERRIDE_KEY = "academy.tenantOverride";
 
+const FONT_FAMILIES: Record<string, string> = {
+  inherit: '"Mona Sans", "Albert Sans", ui-sans-serif, system-ui, sans-serif',
+  inter: '"Inter", ui-sans-serif, system-ui, sans-serif',
+  roboto: '"Roboto", ui-sans-serif, system-ui, sans-serif',
+  "open-sans": '"Open Sans", ui-sans-serif, system-ui, sans-serif',
+  lato: '"Lato", ui-sans-serif, system-ui, sans-serif',
+  montserrat: '"Montserrat", ui-sans-serif, system-ui, sans-serif',
+  "nunito-sans": '"Nunito Sans", ui-sans-serif, system-ui, sans-serif',
+  merriweather: '"Merriweather", ui-serif, Georgia, serif',
+};
+
+const GOOGLE_FONT_URLS: Record<string, string> = {
+  inter: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+  roboto: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap",
+  "open-sans": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap",
+  lato: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
+  montserrat: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap",
+  "nunito-sans": "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600&display=swap",
+  merriweather: "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap",
+};
+
+function isCustomTenantHost(hostname: string) {
+  return hostname !== "localhost" && hostname !== "127.0.0.1" && !hostname.endsWith(".lovable.app");
+}
+
+function applyTenantFonts(heading?: string | null, body?: string | null) {
+  const selected = new Set([heading, body].filter((font): font is string => !!font && font !== "inherit"));
+  document.head.querySelectorAll("link[data-tenant-font]").forEach((node) => node.remove());
+  selected.forEach((font) => {
+    const href = GOOGLE_FONT_URLS[font];
+    if (!href) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.dataset.tenantFont = font;
+    document.head.appendChild(link);
+  });
+  document.documentElement.style.setProperty("--tenant-font-heading", FONT_FAMILIES[heading ?? "inherit"] ?? FONT_FAMILIES.inherit);
+  document.documentElement.style.setProperty("--tenant-font-body", FONT_FAMILIES[body ?? "inherit"] ?? FONT_FAMILIES.inherit);
+}
+
 function detectSlugFromEnvironment(): string | null {
   if (typeof window === "undefined") return null;
   // 1. explicit override (from /demo/:slug or seletor de admin)
@@ -68,6 +109,7 @@ export function applyBrandingVars(b: Partial<Branding> | null | undefined) {
   set("--tenant-canvas-dark", b.dark_background_color);
   set("--tenant-surface-dark", b.dark_surface_color);
   set("--tenant-ink-dark", b.dark_text_color);
+  applyTenantFonts(b.heading_font, b.body_font);
 }
 
 function applyTenant(t: ResolvedTenant | null) {
@@ -77,10 +119,14 @@ function applyTenant(t: ResolvedTenant | null) {
   applyBrandingVars(b);
   if (b.environment_name) document.title = b.environment_name;
   const root = document.documentElement;
-  if (b.favicon_url) {
-    let link = document.querySelector<HTMLLinkElement>("link[rel='icon']");
-    if (!link) { link = document.createElement("link"); link.rel = "icon"; document.head.appendChild(link); }
-    link.href = b.favicon_url;
+  const favicon = b.favicon_url || "/favicon.svg";
+  const iconLinks = Array.from(document.querySelectorAll<HTMLLinkElement>("link[rel='icon']"));
+  if (iconLinks.length) iconLinks.forEach((link) => { link.href = favicon; });
+  else {
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.href = favicon;
+    document.head.appendChild(link);
   }
   void root;
 }
@@ -137,8 +183,8 @@ export function TenantProvider({ children }: { children: ReactNode }) {
 
   const resolve = useCallback(async (forcedSlug?: string | null) => {
     const gen = ++genRef.current;
-    const slug = forcedSlug ?? detectSlugFromEnvironment();
     const host = typeof window !== "undefined" ? window.location.hostname : null;
+    const slug = forcedSlug ?? (host && isCustomTenantHost(host) ? null : detectSlugFromEnvironment());
     const t = await loadTenant({ slug, hostname: host });
     if (gen !== genRef.current) return;
     setTenant(t);

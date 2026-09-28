@@ -42,9 +42,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { tenant, loading } = useTenant();
   const slug = tenant?.organization?.slug;
-  // Endereço de uma empresa white-label: a entrada é a área de login dela.
+  // Endereço de uma empresa white-label: a entrada é a Academy pública dela.
   if (!loading && slug && slug !== "sindicolab") {
-    return <Navigate to="/academy/login" search={{ next: "/academy/inicio" }} replace />;
+    return <Navigate to="/academy" replace />;
   }
   return (
     <>
