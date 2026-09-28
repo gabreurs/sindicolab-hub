@@ -32,3 +32,7 @@
 - [x] Corrigir capas quebradas dos cursos e notícias (SQL 08 + arquivos publicados no site)
 - [x] Aplicar as capas enviadas ao acervo das administradoras sem alterar as capas do SíndicoLab
 - [x] Corrigir a capa de IA v2 e reutilizar a capa do Zelador do SíndicoLab nos tenants
+
+## 2026-09-28
+- [ ] Aviso evidente "confira o spam" em todos os fluxos que enviam e-mail de acesso (login, definir-senha, /empresa convite, reenviar senha, importação CSV)
+- [ ] Investigar flash da página SíndicoLab durante loading antes de cair na CASA Academy (explicar causa e corrigir)
