@@ -607,6 +607,7 @@ function EmpresaPage() {
             <Stat label="Assentos livres" value={seatsLeft ?? "sem limite"} tone={seatTone as any} hint="Aprovar consome assento" />
           </div>
 
+          {reqMessage?.kind === "ok" && <SpamNote className="max-w-xl" lead={reqMessage.text} />}
           <div className="mt-4 flex justify-end"><SaveState state={reqMessage} /></div>
 
           <Card padded={false}>

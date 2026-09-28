@@ -98,9 +98,7 @@ function DefinirSenhaPage() {
             <p className="ax-body mt-1.5 text-[14px]">
               Este link já foi usado ou venceu. Informe seu e-mail e enviamos um novo agora.
             </p>
-            {sent ? (
-              <p className="ax-body mt-6 text-[14px]">Se esse e-mail tiver acesso à Academy, o link chega em instantes. Confira também o spam. Nada chegou? Confirme o e-mail com a administradora.</p>
-            ) : (
+            {sent && <SpamNote lead={`Enviamos um novo link para ${resendEmail.trim()}.`} />}
               <form
                 className="mt-6 space-y-3"
                 onSubmit={async (e) => {
