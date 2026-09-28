@@ -579,7 +579,11 @@ function EmpresaPage() {
                 {seatsLeft != null && seatsLeft <= 0 && (
                   <p className="text-xs" style={{ color: "var(--c-danger)" }}>Limite de assentos atingido — libere um assento antes de convidar.</p>
                 )}
-                {inviteNote && <SpamNote className="!mt-0" lead={inviteNote} />}
+                {inviteNote && (
+                  <MailHint>
+                    {inviteNote} Se não chegar em alguns minutos, peça para conferir o spam e a aba “Promoções” e marcar o remetente como “não é spam”.
+                  </MailHint>
+                )}
               </div>
             </Card>
           </div>
@@ -609,7 +613,11 @@ function EmpresaPage() {
             <Stat label="Assentos livres" value={seatsLeft ?? "sem limite"} tone={seatTone as any} hint="Aprovar consome assento" />
           </div>
 
-          {reqMessage?.kind === "ok" && <SpamNote className="max-w-xl" lead={reqMessage.text} />}
+          {reqMessage?.kind === "ok" && (
+            <MailHint className="max-w-xl">
+              {reqMessage.text} Se não chegar em alguns minutos, peça para conferir o spam e a aba “Promoções”.
+            </MailHint>
+          )}
           <div className="mt-4 flex justify-end"><SaveState state={reqMessage} /></div>
 
           <Card padded={false}>
@@ -714,7 +722,11 @@ function EmpresaPage() {
                   <Stat label="Bloqueados por limite" value={csvReport.limitReached} tone={csvReport.limitReached ? "warn" : undefined} />
                   <Stat label="Falhas" value={csvReport.invalid + csvReport.duplicated + csvReport.otherErrors} />
                 </div>
-                {csvReport.sent > 0 && <SpamNote lead={`${csvReport.sent} ${csvReport.sent === 1 ? "convite enviado" : "convites enviados"}.`} />}
+                {csvReport.sent > 0 && (
+                  <MailHint className="mt-4">
+                    {csvReport.sent} {csvReport.sent === 1 ? "convite enviado" : "convites enviados"}. Se alguém não receber, peça para conferir o spam e a aba “Promoções”.
+                  </MailHint>
+                )}
                 {csvReport.errors.length > 0 && (
                   <details className="mt-4">
                     <summary className="cursor-pointer text-xs c-muted">Ver detalhes ({csvReport.errors.length})</summary>
