@@ -472,9 +472,12 @@ function EmpresaPage() {
                                 onClick={async () => {
                                   const email = m.profiles!.email!;
                                   setResettingEmail(email);
-                                  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-                                    redirectTo: `${window.location.origin}/academy/definir-senha`,
-                                  });
+                                  const auth = (supabase as any).auth;
+                                  const { error } = typeof auth?.resetPasswordForEmail === "function"
+                                    ? await auth.resetPasswordForEmail(email, {
+                                        redirectTo: `${window.location.origin}/academy/definir-senha`,
+                                      })
+                                    : { error: new Error("Sem banco conectado") };
                                   setResettingEmail(null);
                                   setResetMsg(error
                                     ? `Não foi possível enviar para ${email}. Tente de novo em alguns minutos.`
