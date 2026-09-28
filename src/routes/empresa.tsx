@@ -96,6 +96,8 @@ function EmpresaPage() {
   const [catalog, setCatalog] = useState<CatalogRow[]>([]);
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [reqFilter, setReqFilter] = useState<"pending" | "approved" | "rejected" | "all">("pending");
+  const [resettingEmail, setResettingEmail] = useState<string | null>(null);
+  const [resetMsg, setResetMsg] = useState<string | null>(null);
   const [reqBusyId, setReqBusyId] = useState<string | null>(null);
   const [reqMessage, setReqMessage] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
   const [loading, setLoading] = useState(true);
@@ -442,6 +444,9 @@ function EmpresaPage() {
               </>
             }
           />
+          {resetMsg && (
+            <p className="c-muted text-sm" role="status">{resetMsg}</p>
+          )}
           <Card padded={false}>
             {loading ? <TableSkeleton rows={6} cols={5} /> : filteredMembers.length === 0 ? (
               <EmptyState title="Nenhum membro encontrado" description="Ajuste a busca ou convide novas pessoas." />
@@ -458,24 +463,49 @@ function EmpresaPage() {
                         <td className="c-muted">{new Date(m.created_at).toLocaleDateString("pt-BR")}</td>
                         <td>{m.is_active ? <Badge tone="ok">Ativo</Badge> : <Badge>Inativo</Badge>}</td>
                         <td className="text-right">
-                          {m.role !== "platform_admin" && (
-                            m.is_active ? (
-                              <ConfirmAction
-                                label="Desativar"
-                                question="Revogar acesso deste membro?"
-                                confirmLabel="Desativar"
-                                onConfirm={async () => {
-                                  await supabase.from("organization_memberships").update({ is_active: false }).eq("id", m.id);
-                                  refresh();
+                          <div className="flex items-center justify-end gap-2">
+                            {m.profiles?.email && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                disabled={resettingEmail === m.profiles.email}
+                                onClick={async () => {
+                                  const email = m.profiles!.email!;
+                                  setResettingEmail(email);
+                                  const auth = (supabase as any).auth;
+                                  const { error } = typeof auth?.resetPasswordForEmail === "function"
+                                    ? await auth.resetPasswordForEmail(email, {
+                                        redirectTo: `${window.location.origin}/academy/definir-senha`,
+                                      })
+                                    : { error: new Error("Sem banco conectado") };
+                                  setResettingEmail(null);
+                                  setResetMsg(error
+                                    ? `Não foi possível enviar para ${email}. Tente de novo em alguns minutos.`
+                                    : `E-mail de definição de senha enviado para ${email}.`);
                                 }}
-                              />
-                            ) : (
-                              <Button size="sm" onClick={async () => {
-                                await supabase.from("organization_memberships").update({ is_active: true }).eq("id", m.id);
-                                refresh();
-                              }}>Reativar</Button>
-                            )
-                          )}
+                              >
+                                {resettingEmail === m.profiles.email ? "Enviando…" : "Reenviar senha"}
+                              </Button>
+                            )}
+                            {m.role !== "platform_admin" && (
+                              m.is_active ? (
+                                <ConfirmAction
+                                  label="Desativar"
+                                  question="Revogar acesso deste membro?"
+                                  confirmLabel="Desativar"
+                                  onConfirm={async () => {
+                                    await supabase.from("organization_memberships").update({ is_active: false }).eq("id", m.id);
+                                    refresh();
+                                  }}
+                                />
+                              ) : (
+                                <Button size="sm" onClick={async () => {
+                                  await supabase.from("organization_memberships").update({ is_active: true }).eq("id", m.id);
+                                  refresh();
+                                }}>Reativar</Button>
+                              )
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
