@@ -7,7 +7,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenant } from "@/lib/tenant/TenantProvider";
 import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { TenantDemoSwitcher } from "@/components/site/TenantDemoSwitcher";
-import { SpamNote } from "@/components/academy/SpamNote";
+import { MailHint } from "@/components/console/MailHint";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
 import {
@@ -449,7 +449,9 @@ function EmpresaPage() {
           />
           {resetMsg && (
             resetMsg.startsWith("E-mail de definição") ? (
-              <SpamNote className="!mt-0 max-w-xl" lead={resetMsg} />
+              <MailHint className="max-w-xl">
+                {resetMsg} Se a pessoa não receber em alguns minutos, peça para conferir o spam e a aba “Promoções” e marcar o remetente como “não é spam”.
+              </MailHint>
             ) : (
               <p className="c-muted text-sm" role="status">{resetMsg}</p>
             )
