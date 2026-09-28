@@ -24,6 +24,6 @@
 - [ ] Remover a linha visual sob os cabeçalhos da Academy e do painel da empresa
 - [ ] Fazer fundo, superfícies, textos e ações acompanharem a identidade de cada tenant
 - [ ] Aplicar logo, cores e fontes do tenant em todo o /empresa
-- [ ] Exibir e ampliar a lista de fontes, incluindo Inherit claramente
+- [ ] Exibir Inherit e ampliar a lista de fontes somente para a CASA Academy
 - [ ] Tornar o seletor claro/escuro visível e persistente em toda Academy e /empresa
 - [ ] Ajustar a CASA para #FFCD00, #1D1D1B e #FFFFFF e validar responsividade
