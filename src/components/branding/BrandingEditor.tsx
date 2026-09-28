@@ -116,7 +116,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
     setBusy(true); setMsg({ kind: "busy", text: "" });
     const { error } = await supabase
       .from("organization_branding")
-      .upsert({ ...branding, organization_id: organizationId }, { onConflict: "organization_id" });
+      .upsert({ ...branding, organization_id: organizationId } as any, { onConflict: "organization_id" });
     setBusy(false);
     if (error) { setMsg({ kind: "err", text: error.message }); return; }
     applyBrandingVars(branding);

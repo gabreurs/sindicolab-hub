@@ -40,6 +40,25 @@ on conflict (id) do update set
   welcome_title = excluded.welcome_title,
   welcome_message = excluded.welcome_message;
 
+-- Identidade da apresentação CASA. As fontes são chaves permitidas pelo app;
+-- os arquivos de marca são servidos pela própria aplicação/CDN do projeto.
+update public.organization_branding
+set logo_light_url = '/__l5e/assets-v1/a3a34325-78f5-4ae8-837c-6b203763e162/casa-logo-light.png',
+    logo_dark_url = '/__l5e/assets-v1/11cb3bbe-f094-43c9-80a5-3831298ab9b1/casa-logo-dark.png',
+    favicon_url = '/tenant/casa-favicon.png',
+    primary_color = '#111111',
+    secondary_color = '#2B2B2B',
+    accent_color = '#FFC20E',
+    background_color = '#F7F7F5',
+    surface_color = '#FFFFFF',
+    text_color = '#111111',
+    dark_background_color = '#0B0B0E',
+    dark_surface_color = '#151518',
+    dark_text_color = '#F3F3F5',
+    heading_font = 'montserrat',
+    body_font = 'open-sans'
+where organization_id = '33333333-3333-3333-3333-333333333333';
+
 insert into public.organization_domains (id, organization_id, hostname, is_primary) values
   ('dom-sindicolab', '11111111-1111-1111-1111-111111111111', 'sindicolab.com', true),
   ('dom-guarida', '22222222-2222-2222-2222-222222222222', 'guarida.sindicolab.academy', true),
