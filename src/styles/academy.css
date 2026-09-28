@@ -1208,3 +1208,24 @@
   color: #F7F7F8;
 }
 .ax-hero-panel-ghost:hover { background: rgba(255,255,255,.22); }
+
+/* Aviso visível: confira a caixa de spam (envios de e-mail de acesso) */
+.ax-spam-note {
+  --spam-ink: #9A5B00;
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--spam-ink) 38%, transparent);
+  border-left: 4px solid var(--spam-ink);
+  border-radius: var(--ax-r-md, 10px);
+  background: color-mix(in srgb, var(--spam-ink) 9%, transparent);
+  font-size: 13.5px;
+  line-height: 1.55;
+  text-align: left;
+}
+.ax-spam-note svg { flex: none; margin-top: 2px; color: var(--spam-ink); }
+.ax-spam-note p { margin: 0; }
+.ax-spam-note strong { color: var(--spam-ink); font-weight: 600; }
+.dark .ax-spam-note { --spam-ink: #FBBF24; }
