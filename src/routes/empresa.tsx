@@ -458,24 +458,46 @@ function EmpresaPage() {
                         <td className="c-muted">{new Date(m.created_at).toLocaleDateString("pt-BR")}</td>
                         <td>{m.is_active ? <Badge tone="ok">Ativo</Badge> : <Badge>Inativo</Badge>}</td>
                         <td className="text-right">
-                          {m.role !== "platform_admin" && (
-                            m.is_active ? (
-                              <ConfirmAction
-                                label="Desativar"
-                                question="Revogar acesso deste membro?"
-                                confirmLabel="Desativar"
-                                onConfirm={async () => {
-                                  await supabase.from("organization_memberships").update({ is_active: false }).eq("id", m.id);
-                                  refresh();
+                          <div className="flex items-center justify-end gap-2">
+                            {m.profiles?.email && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                disabled={resettingEmail === m.profiles.email}
+                                onClick={async () => {
+                                  const email = m.profiles!.email!;
+                                  setResettingEmail(email);
+                                  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                                    redirectTo: `${window.location.origin}/academy/definir-senha`,
+                                  });
+                                  setResettingEmail(null);
+                                  setResetMsg(error
+                                    ? `Não foi possível enviar para ${email}. Tente de novo em alguns minutos.`
+                                    : `E-mail de definição de senha enviado para ${email}.`);
                                 }}
-                              />
-                            ) : (
-                              <Button size="sm" onClick={async () => {
-                                await supabase.from("organization_memberships").update({ is_active: true }).eq("id", m.id);
-                                refresh();
-                              }}>Reativar</Button>
-                            )
-                          )}
+                              >
+                                {resettingEmail === m.profiles.email ? "Enviando…" : "Reenviar senha"}
+                              </Button>
+                            )}
+                            {m.role !== "platform_admin" && (
+                              m.is_active ? (
+                                <ConfirmAction
+                                  label="Desativar"
+                                  question="Revogar acesso deste membro?"
+                                  confirmLabel="Desativar"
+                                  onConfirm={async () => {
+                                    await supabase.from("organization_memberships").update({ is_active: false }).eq("id", m.id);
+                                    refresh();
+                                  }}
+                                />
+                              ) : (
+                                <Button size="sm" onClick={async () => {
+                                  await supabase.from("organization_memberships").update({ is_active: true }).eq("id", m.id);
+                                  refresh();
+                                }}>Reativar</Button>
+                              )
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
