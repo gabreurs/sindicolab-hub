@@ -121,7 +121,7 @@ function LoginPage() {
               data-variant="link"
               onClick={async () => {
                 if (!email) return toast.error("Digite seu e-mail acima primeiro.");
-                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                const { error } = await (supabase.auth as any).resetPasswordForEmail(email, {
                   redirectTo: `${window.location.origin}/academy/definir-senha`,
                 });
                 if (error) toast.error(error.message);

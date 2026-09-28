@@ -56,7 +56,7 @@ function DefinirSenhaPage() {
     if (pw !== pw2) return toast.error("As senhas não conferem.");
     setBusy(true);
     try {
-      const { data, error } = await supabase.auth.updateUser({ password: pw });
+      const { data, error } = await (supabase.auth as any).updateUser({ password: pw });
       if (error) throw error;
       const { data: ms } = await supabase
         .from("organization_memberships")
@@ -92,7 +92,7 @@ function DefinirSenhaPage() {
               Este link já foi usado ou venceu. Peça um novo na tela de entrada, em “Esqueci minha
               senha”.
             </p>
-            <Link to="/academy/login" className="ax-btn mt-6 w-full" data-variant="primary">
+            <Link to="/academy/login" search={{ next: "/academy/inicio" }} className="ax-btn mt-6 w-full" data-variant="primary">
               Ir para a entrada
             </Link>
           </>
