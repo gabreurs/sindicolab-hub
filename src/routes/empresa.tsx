@@ -96,6 +96,8 @@ function EmpresaPage() {
   const [catalog, setCatalog] = useState<CatalogRow[]>([]);
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [reqFilter, setReqFilter] = useState<"pending" | "approved" | "rejected" | "all">("pending");
+  const [resettingEmail, setResettingEmail] = useState<string | null>(null);
+  const [resetMsg, setResetMsg] = useState<string | null>(null);
   const [reqBusyId, setReqBusyId] = useState<string | null>(null);
   const [reqMessage, setReqMessage] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
   const [loading, setLoading] = useState(true);
@@ -442,6 +444,9 @@ function EmpresaPage() {
               </>
             }
           />
+          {resetMsg && (
+            <p className="c-muted text-sm" role="status">{resetMsg}</p>
+          )}
           <Card padded={false}>
             {loading ? <TableSkeleton rows={6} cols={5} /> : filteredMembers.length === 0 ? (
               <EmptyState title="Nenhum membro encontrado" description="Ajuste a busca ou convide novas pessoas." />
