@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <script>
-      (function(){var x=location.hash;if(/(access_token=|error_code=|type=(recovery|invite|signup|magiclink))/.test(x)&&location.pathname!=='/academy/definir-senha'){location.replace('/academy/definir-senha'+location.search+x);return;}})();
+      (function(){var x=location.hash;if(/(access_token=|error_code=|type=(recovery|invite|signup|magiclink))/.test(x)&&location.pathname!=='/academy/definir-senha'){window.__authR=1;location.replace('/academy/definir-senha'+location.search+x);return;}})();
       (function(){var h=location.hostname;var lab=h==='localhost'||h==='127.0.0.1'||/\.(lovable\.app|lovableproject\.com|lovable\.dev)$/.test(h)||['sindicolab.com.br','www.sindicolab.com.br','sindicolab.com','www.sindicolab.com'].indexOf(h)>=0;if(!window.__authR&&!lab&&(location.pathname==='/'||location.pathname===''))location.replace('/academy'+location.search+location.hash);})();
     </script>
     <meta charset="UTF-8" />
