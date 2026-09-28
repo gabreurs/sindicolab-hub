@@ -50,8 +50,27 @@ const GOOGLE_FONT_URLS: Record<string, string> = {
   "work-sans": "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap",
 };
 
+/** Endereços do próprio SíndicoLab: aqui o tenant é sempre o SíndicoLab, salvo demo explícita. */
+const PLATFORM_HOSTS = ["sindicolab.com.br", "www.sindicolab.com.br", "sindicolab.com", "www.sindicolab.com"];
+
+export function isPlatformHost(hostname: string) {
+  return (
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname.endsWith(".lovable.app") ||
+    PLATFORM_HOSTS.includes(hostname)
+  );
+}
+
 function isCustomTenantHost(hostname: string) {
-  return hostname !== "localhost" && hostname !== "127.0.0.1" && !hostname.endsWith(".lovable.app");
+  return !isPlatformHost(hostname);
+}
+
+/** Navegar pelo site SíndicoLab encerra qualquer pré-visualização de outro tenant. */
+export function clearTenantOverride() {
+  if (typeof window === "undefined") return;
+  if (!isPlatformHost(window.location.hostname)) return;
+  window.localStorage.removeItem(OVERRIDE_KEY);
 }
 
 function applyTenantFonts(heading?: string | null, body?: string | null) {
@@ -210,6 +229,9 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     if (!authReady || !resolved || !session || isPlatformAdmin) return null;
     const orgId = tenant?.organization?.id ?? null;
     if (!orgId) return null;
+    // No endereço do SíndicoLab, a Academy SíndicoLab é aberta a todos: não
+    // trocar para a organização da pessoa só porque ela é membro de outra.
+    if (tenant?.organization?.slug === "sindicolab" && typeof window !== "undefined" && isPlatformHost(window.location.hostname)) return null;
     if (memberships.some((m) => m.organization_id === orgId && m.is_active)) return null;
     const ownOrgId = memberships.find((m) => m.is_active)?.organization_id;
     if (!ownOrgId) return null;

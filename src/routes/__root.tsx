@@ -12,6 +12,7 @@ import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { clearNativeScrollLock } from "@/lib/scroll-lock";
 import { WhatsAppDock } from "@/components/site/WhatsAppDock";
 import { GlobalSearch } from "@/components/site/GlobalSearch";
+import { clearTenantOverride } from "@/lib/tenant/TenantProvider";
 
 function NotFoundComponent() {
   return (
@@ -74,6 +75,9 @@ function RootComponent() {
 
   useEffect(() => {
     clearNativeScrollLock();
+    // Qualquer página do site SíndicoLab (fora de Academy/painéis) volta ao
+    // tenant SíndicoLab; domínios de clientes não são afetados.
+    if (!/^\/(academy|empresa|admin)(\/|$)/.test(pathname)) clearTenantOverride();
   }, [pathname]);
 
   // Aplica head() de cada match (title, meta, link, ld+json) no <head> real.
