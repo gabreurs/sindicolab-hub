@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { useTenant } from "@/lib/tenant/TenantProvider";
 import { buildSeo } from "@/lib/seo";
 import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
@@ -39,6 +40,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { tenant, loading } = useTenant();
+  const slug = tenant?.organization?.slug;
+  // Endereço de uma empresa white-label: a entrada é a área de login dela.
+  if (!loading && slug && slug !== "sindicolab") {
+    return <Navigate to="/academy/login" search={{ next: "/empresa" }} replace />;
+  }
   return (
     <>
       <SmoothScroll />

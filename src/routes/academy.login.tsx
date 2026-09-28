@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
 import { academyAuthService, demoRoleFor } from "@/services/academyAuthService";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/academy/login")({
   ssr: false,
@@ -31,7 +32,25 @@ function LoginPage() {
       if (error) throw new Error(error.message);
       toast.success(mode === "login" ? "Bem-vindo!" : "Conta criada.");
       // Cada papel entra na sua superfície: plataforma, organização ou aluno.
-      const role = demoRoleFor(email);
+      let role = demoRoleFor(email);
+      if (!role) {
+        const { data: u } = await supabase.auth.getUser();
+        if (u?.user) {
+          const { data: ms } = await supabase
+            .from("organization_memberships")
+            .select("role")
+            .eq("user_id", u.user.id)
+            .eq("is_active", true);
+          const roles = (ms ?? []).map((m: any) => m.role as string);
+          role = roles.includes("platform_admin")
+            ? "platform_admin"
+            : roles.includes("org_admin")
+              ? "org_admin"
+              : roles.length
+                ? "student"
+                : null;
+        }
+      }
       const target = next && next !== "/academy/inicio" ? next : academyAuthService.homeFor(role);
       nav({ to: target as string });
     } catch (err: any) {
