@@ -191,7 +191,7 @@ function EmpresaPage() {
 
   const invite = async () => {
     if (!session || !orgId) return;
-    setBusy(true); setMessage({ kind: "busy", text: "" });
+    setBusy(true); setMessage({ kind: "busy", text: "" }); setInviteNote(null);
     const { data, error } = await supabase.functions.invoke("invite-user", {
       body: { organization_id: orgId, email: email.trim().toLowerCase(), role },
     });
@@ -208,6 +208,7 @@ function EmpresaPage() {
     setMessage({ kind: "ok", text: (data as any)?.invited_by_email
       ? `Convite enviado para ${email}.`
       : `${email} já existia — vinculado à Academy.` });
+    setInviteNote(`Enviamos o e-mail de acesso para ${email}.`);
     setEmail("");
     await refresh();
   };
@@ -446,7 +447,11 @@ function EmpresaPage() {
             }
           />
           {resetMsg && (
-            <p className="c-muted text-sm" role="status">{resetMsg}</p>
+            resetMsg.startsWith("E-mail de definição") ? (
+              <SpamNote className="!mt-0 max-w-xl" lead={resetMsg} />
+            ) : (
+              <p className="c-muted text-sm" role="status">{resetMsg}</p>
+            )
           )}
           <Card padded={false}>
             {loading ? <TableSkeleton rows={6} cols={5} /> : filteredMembers.length === 0 ? (
