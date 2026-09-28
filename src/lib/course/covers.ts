@@ -39,14 +39,29 @@ const POST_COVERS: Record<string, string> = {
   "reduzir-contas-luz-areas-comuns": portal3,
 };
 
+/**
+ * Corrige caminhos antigos gravados no banco apontando para pastas internas
+ * (ex.: "/dev-server/src/assets/cursos/x.webp") — viram arquivos públicos
+ * da própria build ("/cursos/x.webp", "/portal/x.jpg").
+ */
+export function normalizeLegacyAssetPath(url: string | null | undefined): string | null | undefined {
+  if (!url || !url.startsWith("/dev-server/src/assets/")) return url;
+  const rest = url.slice("/dev-server/src/assets/".length);
+  if (rest.startsWith("cursos/")) return `/cursos/${rest.slice("cursos/".length)}`;
+  if (rest.startsWith("portal/")) return `/portal/${rest.slice("portal/".length)}`;
+  return `/${rest}`;
+}
+
 /** Completa `cover_url`/`banner_url` de um curso quando vierem vazios. */
 export function withCourseCover<T extends { slug?: string; cover_url?: string | null; banner_url?: string | null }>(course: T): T {
   const art = course.slug ? COURSE_COVERS[course.slug] : undefined;
-  if (!art) return course;
+  const cover = normalizeLegacyAssetPath(course.cover_url) ?? null;
+  const banner = normalizeLegacyAssetPath(course.banner_url) ?? null;
+  if (!art && cover === course.cover_url && banner === course.banner_url) return course;
   return {
     ...course,
-    cover_url: course.cover_url || art,
-    banner_url: course.banner_url || art,
+    cover_url: cover || art,
+    banner_url: banner || art,
   };
 }
 
@@ -57,10 +72,12 @@ export function withCourseCovers<T extends { slug?: string; cover_url?: string |
 /** Completa a imagem de uma notícia do Portal quando vier vazia. */
 export function withPostCover<T extends { slug?: string; cover_image?: string | null; social_image_url?: string | null }>(post: T): T {
   const art = post.slug ? POST_COVERS[post.slug] : undefined;
-  if (!art) return post;
+  const cover = normalizeLegacyAssetPath(post.cover_image) ?? null;
+  const social = normalizeLegacyAssetPath(post.social_image_url) ?? null;
+  if (!art && cover === post.cover_image && social === post.social_image_url) return post;
   return {
     ...post,
-    cover_image: post.cover_image || art,
-    social_image_url: post.social_image_url || art,
+    cover_image: cover || art,
+    social_image_url: social || art,
   };
 }
