@@ -160,6 +160,32 @@ function applyTenant(t: ResolvedTenant | null) {
   void root;
 }
 
+// Cache local da marca por domínio: no endereço de um cliente, a identidade
+// (cores, fontes, logo, favicon) é aplicada ANTES da primeira pintura, sem
+// esperar o banco — elimina o flash do padrão SíndicoLab durante o loading.
+const TENANT_CACHE_KEY = "sl-tenant-cache.v1";
+
+function readTenantCache(hostname: string): ResolvedTenant | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const all = JSON.parse(window.localStorage.getItem(TENANT_CACHE_KEY) || "{}");
+    const hit = all?.[hostname];
+    if (hit?.organization) return hit as ResolvedTenant;
+  } catch { /* cache ausente ou corrompido */ }
+  return null;
+}
+
+function writeTenantCache(hostname: string, t: ResolvedTenant | null) {
+  if (typeof window === "undefined" || !t?.organization) return;
+  try {
+    const all = JSON.parse(window.localStorage.getItem(TENANT_CACHE_KEY) || "{}");
+    all[hostname] = t;
+    const keys = Object.keys(all);
+    if (keys.length > 8) delete all[keys[0]]; // mantém os 8 domínios mais recentes
+    window.localStorage.setItem(TENANT_CACHE_KEY, JSON.stringify(all));
+  } catch { /* quota cheia — ignora */ }
+}
+
 async function loadTenant(slugOrHost: { slug?: string | null; hostname?: string | null }): Promise<ResolvedTenant | null> {
   let orgId: string | null = null;
   if (slugOrHost.slug) {
@@ -195,7 +221,15 @@ async function hydrate(org: any): Promise<ResolvedTenant> {
 }
 
 export function TenantProvider({ children }: { children: ReactNode }) {
-  const [tenant, setTenant] = useState<ResolvedTenant | null>(null);
+  // Primeiro render já nasce com a marca do domínio (cache local), se houver.
+  const [tenant, setTenant] = useState<ResolvedTenant | null>(() => {
+    if (typeof window === "undefined") return null;
+    const host = window.location.hostname;
+    if (!isCustomTenantHost(host)) return null;
+    const cached = readTenantCache(host);
+    if (cached) applyTenant(cached);
+    return cached;
+  });
   const [resolved, setResolved] = useState(false);
   // `correcting` cobre a janela em que sabemos que o tenant exibido está
   // errado para este usuário e ainda estamos trocando. Enquanto isso o gate
@@ -218,6 +252,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     if (gen !== genRef.current) return;
     setTenant(t);
     applyTenant(t);
+    if (host) writeTenantCache(host, t);
     setResolved(true);
   }, []);
 

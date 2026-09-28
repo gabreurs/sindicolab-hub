@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-router";
 import { AccessHelp } from "@/components/academy/AccessHelp";
+import { SpamNote } from "@/components/academy/SpamNote";
 import { useState } from "react";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
@@ -21,6 +22,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [busy, setBusy] = useState(false);
+  const [pwSent, setPwSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,11 +128,12 @@ function LoginPage() {
                   redirectTo: `${window.location.origin}/academy/definir-senha`,
                 });
                 if (error) toast.error(error.message);
-                else toast.success("Se esse e-mail tiver acesso à Academy, o link chega em instantes.");
+                else setPwSent(true);
               }}
             >
               Esqueci minha senha
             </button>
+            {pwSent && <SpamNote lead={`Se esse e-mail tiver acesso à Academy, enviamos o link para ${email}.`} />}
           </div>
         )}
         <div>

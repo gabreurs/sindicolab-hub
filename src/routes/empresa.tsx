@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenant } from "@/lib/tenant/TenantProvider";
 import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { TenantDemoSwitcher } from "@/components/site/TenantDemoSwitcher";
+import { SpamNote } from "@/components/academy/SpamNote";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
 import {
@@ -98,6 +99,7 @@ function EmpresaPage() {
   const [reqFilter, setReqFilter] = useState<"pending" | "approved" | "rejected" | "all">("pending");
   const [resettingEmail, setResettingEmail] = useState<string | null>(null);
   const [resetMsg, setResetMsg] = useState<string | null>(null);
+  const [inviteNote, setInviteNote] = useState<string | null>(null);
   const [reqBusyId, setReqBusyId] = useState<string | null>(null);
   const [reqMessage, setReqMessage] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
   const [loading, setLoading] = useState(true);
@@ -190,7 +192,7 @@ function EmpresaPage() {
 
   const invite = async () => {
     if (!session || !orgId) return;
-    setBusy(true); setMessage({ kind: "busy", text: "" });
+    setBusy(true); setMessage({ kind: "busy", text: "" }); setInviteNote(null);
     const { data, error } = await supabase.functions.invoke("invite-user", {
       body: { organization_id: orgId, email: email.trim().toLowerCase(), role },
     });
@@ -207,6 +209,7 @@ function EmpresaPage() {
     setMessage({ kind: "ok", text: (data as any)?.invited_by_email
       ? `Convite enviado para ${email}.`
       : `${email} já existia — vinculado à Academy.` });
+    setInviteNote(`Enviamos o e-mail de acesso para ${email}.`);
     setEmail("");
     await refresh();
   };
@@ -445,7 +448,11 @@ function EmpresaPage() {
             }
           />
           {resetMsg && (
-            <p className="c-muted text-sm" role="status">{resetMsg}</p>
+            resetMsg.startsWith("E-mail de definição") ? (
+              <SpamNote className="!mt-0 max-w-xl" lead={resetMsg} />
+            ) : (
+              <p className="c-muted text-sm" role="status">{resetMsg}</p>
+            )
           )}
           <Card padded={false}>
             {loading ? <TableSkeleton rows={6} cols={5} /> : filteredMembers.length === 0 ? (
@@ -570,6 +577,7 @@ function EmpresaPage() {
                 {seatsLeft != null && seatsLeft <= 0 && (
                   <p className="text-xs" style={{ color: "var(--c-danger)" }}>Limite de assentos atingido — libere um assento antes de convidar.</p>
                 )}
+                {inviteNote && <SpamNote className="!mt-0" lead={inviteNote} />}
               </div>
             </Card>
           </div>
@@ -599,6 +607,7 @@ function EmpresaPage() {
             <Stat label="Assentos livres" value={seatsLeft ?? "sem limite"} tone={seatTone as any} hint="Aprovar consome assento" />
           </div>
 
+          {reqMessage?.kind === "ok" && <SpamNote className="max-w-xl" lead={reqMessage.text} />}
           <div className="mt-4 flex justify-end"><SaveState state={reqMessage} /></div>
 
           <Card padded={false}>
@@ -703,6 +712,7 @@ function EmpresaPage() {
                   <Stat label="Bloqueados por limite" value={csvReport.limitReached} tone={csvReport.limitReached ? "warn" : undefined} />
                   <Stat label="Falhas" value={csvReport.invalid + csvReport.duplicated + csvReport.otherErrors} />
                 </div>
+                {csvReport.sent > 0 && <SpamNote lead={`${csvReport.sent} ${csvReport.sent === 1 ? "convite enviado" : "convites enviados"}.`} />}
                 {csvReport.errors.length > 0 && (
                   <details className="mt-4">
                     <summary className="cursor-pointer text-xs c-muted">Ver detalhes ({csvReport.errors.length})</summary>
