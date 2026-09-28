@@ -11,8 +11,7 @@ export type ConsoleNavGroup = {
 
 /**
  * Shell dos consoles (/admin e /empresa).
- * Identidade neutra fixa: a marca do tenant só aparece como marca d'água
- * discreta (logo + nome) quando explicitamente fornecida por /empresa.
+ * O /admin mantém a plataforma; o /empresa recebe a marca do tenant.
  */
 export function ConsoleShell({
   kicker,
@@ -29,7 +28,7 @@ export function ConsoleShell({
   nav: ConsoleNavGroup[];
   active: string;
   onNavigate: (id: string) => void;
-  brand?: { name: string; logoUrl?: string | null; accent?: string | null } | null;
+  brand?: { name: string; logoUrl?: string | null; darkLogoUrl?: string | null; accent?: string | null } | null;
   children: ReactNode;
   footer?: ReactNode;
 }) {
@@ -63,45 +62,24 @@ export function ConsoleShell({
   );
 
   return (
-    <div className="admin-console">
+    <div className="admin-console" data-tenant-branded={brand ? "true" : "false"}>
       <header
-        className="sticky top-0 z-40 border-b backdrop-blur"
+        className="sticky top-0 z-40 backdrop-blur"
         style={{
-          borderColor: "var(--c-border-soft)",
           background: "color-mix(in oklab, var(--c-surface) 88%, transparent)",
         }}
       >
         <div className="site-container-wide console-header-grid grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2.5">
           <div className="flex min-w-0 items-center gap-3">
-            <Link to="/" aria-label="SíndicoLab — página inicial" className="shrink-0">
-              <BrandMark size={28} variant={resolved === "dark" ? "white-blue" : "black-blue"} />
+            <Link to={brand ? "/academy/inicio" : "/"} aria-label={`${brand?.name ?? "SíndicoLab"} — página inicial`} className="shrink-0">
+              {brand?.logoUrl || brand?.darkLogoUrl ? (
+                <img src={(resolved === "dark" ? brand.darkLogoUrl : brand.logoUrl) ?? brand.logoUrl ?? brand.darkLogoUrl ?? ""} alt={brand.name} className="h-12 w-auto max-w-[180px] object-contain sm:h-14 sm:max-w-[240px]" />
+              ) : <BrandMark size={28} variant={resolved === "dark" ? "white-blue" : "black-blue"} />}
             </Link>
             <div className="min-w-0 leading-tight">
               <p className="truncate text-sm font-medium">{title}</p>
               <p className="truncate text-[11px] uppercase tracking-[0.1em] c-muted">{kicker}</p>
             </div>
-            {brand && (
-              <span
-                className="ml-2 hidden items-center gap-2 rounded-full border px-2.5 py-1 md:inline-flex"
-                style={{ borderColor: "var(--c-border-soft)" }}
-              >
-                {brand.logoUrl ? (
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src={brand.logoUrl}
-                    alt=""
-                    className="h-4 w-auto max-w-[72px] object-contain"
-                  />
-                ) : (
-                  <span
-                    className="h-2 w-2 rounded-full"
-                    style={{ background: brand.accent ?? "var(--c-focus)" }}
-                  />
-                )}
-                <span className="max-w-[160px] truncate text-xs c-muted">{brand.name}</span>
-              </span>
-            )}
           </div>
 
           <div className="console-header-actions flex shrink-0 items-center gap-1">

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { useTenant } from "@/lib/tenant/TenantProvider";
+import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { TenantDemoSwitcher } from "@/components/site/TenantDemoSwitcher";
 import { BrandingEditor } from "@/components/branding/BrandingEditor";
 import { ConsoleShell, type ConsoleNavGroup } from "@/components/console/ConsoleShell";
@@ -152,6 +153,7 @@ function EmpresaPage() {
   }, [orgId]);
 
   useEffect(() => { if (orgId) refresh(); }, [orgId, refresh]);
+  useEffect(() => { if (branding) applyBrandingVars(branding); }, [branding]);
 
   if (authLoading) {
     return (
@@ -307,6 +309,7 @@ function EmpresaPage() {
   const brandMark = {
     name: org?.name ?? "Academy",
     logoUrl: branding?.logo_light_url ?? branding?.logo_dark_url ?? null,
+    darkLogoUrl: branding?.logo_dark_url ?? branding?.logo_light_url ?? null,
     accent: branding?.accent_color ?? null,
   };
 

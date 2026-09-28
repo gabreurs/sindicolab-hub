@@ -1,9 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
-/**
- * Tema da plataforma: a Academy sempre abre no modo escuro.
- * A pessoa ainda pode alternar o tema durante a sessão atual.
- */
+/** Tema compartilhado pela Academy e pelo painel da empresa. */
 export type ThemeChoice = "light" | "dark" | "system";
 
 const KEY = "academy.theme";
@@ -17,7 +14,13 @@ function systemPrefersDark() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [choice, setChoiceState] = useState<ThemeChoice>("dark");
+  const [choice, setChoiceState] = useState<ThemeChoice>(() => {
+    if (typeof window === "undefined") return "dark";
+    try {
+      const saved = window.localStorage.getItem(KEY);
+      return saved === "light" || saved === "dark" || saved === "system" ? saved : "dark";
+    } catch { return "dark"; }
+  });
   const [systemDark, setSystemDark] = useState(false);
 
   useEffect(() => {

@@ -19,7 +19,7 @@ on conflict (id) do update set
 insert into public.organization_branding (id, organization_id, favicon_url, banner_url, dark_background_color, dark_surface_color, dark_text_color, logo_light_url, logo_dark_url, primary_color, secondary_color, accent_color, background_color, surface_color, text_color, heading_font, body_font, environment_name, welcome_title, welcome_message) values
   ('brand-sindicolab', '11111111-1111-1111-1111-111111111111', null, null, '#0B0B0E', '#151518', '#F3F3F5', '/brand/logo-sindicolab-ink.svg', '/brand/logo-sindicolab-white.svg', '#111827', '#0F172A', '#4F46E5', '#F7F5F2', '#FFFFFF', '#111827', 'inherit', 'inherit', 'SíndicoLab Academy', 'Educação para o mercado condominial', 'Formação contínua para administradoras, síndicos, porteiros e equipes condominiais — em um único ecossistema.'),
   ('brand-guarida', '22222222-2222-2222-2222-222222222222', null, null, '#0B0B0E', '#151518', '#F3F3F5', null, null, '#14202B', '#1D2C3A', '#0F7B6C', '#FAFBFB', '#FFFFFF', '#14202B', 'inherit', 'inherit', 'Guarida Academy', 'Guarida Academy', 'Trilhas de formação para o time Guarida e para os síndicos parceiros.'),
-  ('brand-casa', '33333333-3333-3333-3333-333333333333', '/tenant/casa-favicon.png', null, '#0B0B0E', '#151518', '#F3F3F5', '/tenant/casa-logo-light.png', '/tenant/casa-logo-dark.png', '#111111', '#2B2B2B', '#FFC20E', '#F7F7F5', '#FFFFFF', '#111111', 'montserrat', 'open-sans', 'CASA Academy', 'CASA Academy', 'Educação condominial para síndicos, conselheiros e equipes dos condomínios administrados pela CASA.'),
+  ('brand-casa', '33333333-3333-3333-3333-333333333333', '/tenant/casa-favicon.png', null, '#1D1D1B', '#282826', '#FFFFFF', '/tenant/casa-logo-light.png', '/tenant/casa-logo-dark.png', '#1D1D1B', '#1D1D1B', '#FFCD00', '#FFFFFF', '#FFFFFF', '#1D1D1B', 'montserrat', 'open-sans', 'CASA Academy', 'CASA Academy', 'Educação condominial para síndicos, conselheiros e equipes dos condomínios administrados pela CASA.'),
   ('brand-apsa', '44444444-4444-4444-4444-444444444444', null, null, '#0B0B0E', '#151518', '#F3F3F5', null, null, '#132A3A', '#1C3A4F', '#0E7490', '#F7FAFB', '#FFFFFF', '#132A3A', 'inherit', 'inherit', 'APSA Academy', 'APSA Academy', 'Ambiente em preparação.')
 on conflict (id) do update set
   organization_id = excluded.organization_id,
@@ -48,15 +48,15 @@ update public.organization_branding
 set logo_light_url = '/tenant/casa-logo-light.png',
     logo_dark_url = '/tenant/casa-logo-dark.png',
     favicon_url = '/tenant/casa-favicon.png',
-    primary_color = '#111111',
-    secondary_color = '#2B2B2B',
-    accent_color = '#FFC20E',
-    background_color = '#F7F7F5',
+    primary_color = '#1D1D1B',
+    secondary_color = '#1D1D1B',
+    accent_color = '#FFCD00',
+    background_color = '#FFFFFF',
     surface_color = '#FFFFFF',
-    text_color = '#111111',
-    dark_background_color = '#0B0B0E',
-    dark_surface_color = '#151518',
-    dark_text_color = '#F3F3F5',
+    text_color = '#1D1D1B',
+    dark_background_color = '#1D1D1B',
+    dark_surface_color = '#282826',
+    dark_text_color = '#FFFFFF',
     heading_font = 'montserrat',
     body_font = 'open-sans'
 where organization_id = '33333333-3333-3333-3333-333333333333';
