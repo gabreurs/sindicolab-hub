@@ -136,12 +136,13 @@ function RootComponent() {
     });
   }, [matches]);
 
+  const labHost = typeof window === "undefined" || isPlatformHost(window.location.hostname);
   return (
     <AuthProvider>
       <TransitionProvider>
         <Outlet />
-        <GlobalSearch />
-        <WhatsAppDock />
+        {labHost && <GlobalSearch />}
+        {labHost && <WhatsAppDock />}
       </TransitionProvider>
     </AuthProvider>
   );

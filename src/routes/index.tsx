@@ -1,5 +1,5 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { useTenant } from "@/lib/tenant/TenantProvider";
+import { useTenant, isPlatformHost } from "@/lib/tenant/TenantProvider";
 import { buildSeo } from "@/lib/seo";
 import { IntroLoader } from "@/components/site/IntroLoader";
 import { Header } from "@/components/site/Header";
@@ -43,7 +43,9 @@ function Index() {
   const { tenant, loading } = useTenant();
   const slug = tenant?.organization?.slug;
   // Endereço de uma empresa white-label: a entrada é a Academy pública dela.
-  if (!loading && slug && slug !== "sindicolab") {
+  const clientHost = typeof window !== "undefined" && !isPlatformHost(window.location.hostname);
+  // Endereço de cliente vai direto para a Academy dele, sem abertura do SíndicoLab.
+  if (clientHost || (!loading && slug && slug !== "sindicolab")) {
     return <Navigate to="/academy" replace />;
   }
   return (
