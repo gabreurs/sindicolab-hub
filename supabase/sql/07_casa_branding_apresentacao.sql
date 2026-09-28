@@ -7,8 +7,8 @@ alter table public.organization_branding add column if not exists heading_font t
 alter table public.organization_branding add column if not exists body_font text;
 
 update public.organization_branding
-set logo_light_url = '/__l5e/assets-v1/a3a34325-78f5-4ae8-837c-6b203763e162/casa-logo-light.png',
-    logo_dark_url = '/__l5e/assets-v1/11cb3bbe-f094-43c9-80a5-3831298ab9b1/casa-logo-dark.png',
+set logo_light_url = '/tenant/casa-logo-light.png',
+    logo_dark_url = '/tenant/casa-logo-dark.png',
     favicon_url = '/tenant/casa-favicon.png',
     primary_color = '#111111',
     secondary_color = '#2B2B2B',
