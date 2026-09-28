@@ -22,6 +22,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [busy, setBusy] = useState(false);
+  const [pwSent, setPwSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
