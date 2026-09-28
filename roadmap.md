@@ -30,3 +30,4 @@
 - [x] Manter escopo explícito: identidade CASA e fontes extras só na CASA; melhorias estruturais para todos os tenants
 - [x] Exibir duração e nível em todos os cursos (SQL 08) e editar esses campos no painel de cursos
 - [x] Corrigir capas quebradas dos cursos e notícias (SQL 08 + arquivos publicados no site)
+- [ ] Aplicar as capas enviadas ao acervo das administradoras sem alterar as capas do SíndicoLab
