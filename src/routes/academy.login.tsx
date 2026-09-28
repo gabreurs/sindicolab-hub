@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-router";
+import { AccessHelp } from "@/components/academy/AccessHelp";
 import { useState } from "react";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/academy/TenantLogo";
@@ -125,7 +126,7 @@ function LoginPage() {
                   redirectTo: `${window.location.origin}/academy/definir-senha`,
                 });
                 if (error) toast.error(error.message);
-                else toast.success("Enviamos um link para você criar uma nova senha.");
+                else toast.success("Se esse e-mail tiver acesso à Academy, o link chega em instantes.");
               }}
             >
               Esqueci minha senha
@@ -137,6 +138,7 @@ function LoginPage() {
             Não tem acesso? Solicitar acesso
           </Link>
         </div>
+        <AccessHelp />
       </div>
     </div>
   );
