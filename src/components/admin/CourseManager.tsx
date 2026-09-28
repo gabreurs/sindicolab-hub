@@ -15,6 +15,8 @@ type Course = {
   owner_org_id: string | null;
   cover_url: string | null;
   instructor_name: string | null;
+  duration_minutes: number | null;
+  level: string | null;
 };
 type Module = { id: string; course_id: string; title: string; sort_order: number };
 type Lesson = {
@@ -38,6 +40,8 @@ const EMPTY_COURSE: Omit<Course, "id"> = {
   owner_org_id: null,
   cover_url: null,
   instructor_name: null,
+  duration_minutes: null,
+  level: null,
 };
 
 export function CourseManager({ orgs }: { orgs: Org[] }) {
@@ -50,7 +54,7 @@ export function CourseManager({ orgs }: { orgs: Org[] }) {
   const refresh = async () => {
     setLoading(true);
     const { data } = await supabase.from("courses")
-      .select("id, slug, title, subtitle, description, status, visibility, owner_org_id, cover_url, instructor_name")
+      .select("id, slug, title, subtitle, description, status, visibility, owner_org_id, cover_url, instructor_name, duration_minutes, level")
       .order("title");
     setCourses((data as Course[]) ?? []);
     setLoading(false);
@@ -205,6 +209,21 @@ function CourseFormModal({
             <span className="text-xs brand-text-muted">Instrutor</span>
             <input value={v.instructor_name ?? ""} onChange={(e) => upd("instructor_name", e.target.value || null)}
               className="mt-1 w-full rounded-lg px-3 py-2 brand-surface-2 border brand-border text-sm" />
+          </label>
+          <label className="block">
+            <span className="text-xs brand-text-muted">Duração (minutos)</span>
+            <input type="number" min={0} value={v.duration_minutes ?? ""} onChange={(e) => upd("duration_minutes", e.target.value === "" ? null : Number(e.target.value))}
+              className="mt-1 w-full rounded-lg px-3 py-2 brand-surface-2 border brand-border text-sm" />
+          </label>
+          <label className="block">
+            <span className="text-xs brand-text-muted">Nível</span>
+            <select value={v.level ?? ""} onChange={(e) => upd("level", e.target.value || null)}
+              className="mt-1 w-full rounded-lg px-3 py-2 brand-surface-2 border brand-border text-sm">
+              <option value="">— não informado —</option>
+              <option value="Iniciante">Iniciante</option>
+              <option value="Intermediário">Intermediário</option>
+              <option value="Avançado">Avançado</option>
+            </select>
           </label>
           <label className="block">
             <span className="text-xs brand-text-muted">Status</span>

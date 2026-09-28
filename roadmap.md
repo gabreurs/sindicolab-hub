@@ -28,3 +28,5 @@
 - [x] Tornar o seletor claro/escuro visível e persistente em toda Academy e /empresa
 - [x] Ajustar a CASA para #FFCD00, #1D1D1B e #FFFFFF e validar responsividade
 - [x] Manter escopo explícito: identidade CASA e fontes extras só na CASA; melhorias estruturais para todos os tenants
+- [x] Exibir duração e nível em todos os cursos (SQL 08) e editar esses campos no painel de cursos
+- [x] Corrigir capas quebradas dos cursos e notícias (SQL 08 + arquivos publicados no site)
