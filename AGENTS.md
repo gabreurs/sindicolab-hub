@@ -2,4 +2,4 @@
 
 - Tenant typography is stored as allowlisted font keys in `organization_branding`; this keeps white-label identity data-driven without allowing arbitrary remote CSS.
 - A real custom hostname has priority over local demo overrides; this prevents a stale browser override from leaking another tenant onto a client domain.
-- Tenant branding powers both Academy and `/empresa`, while `/admin` remains platform-branded; this preserves white-label ownership without leaking tenant identity into global administration.
+- Tenant branding powers both Academy and `/empresa`, while `/admin` remains platform-branded; this preserves white-label ownership without leaking tenant identity into global administration.- On SíndicoLab platform hosts, the tenant is always SíndicoLab and site navigation clears demo overrides; only client hostnames resolve other tenants, so SíndicoLab links never leak a client Academy.
