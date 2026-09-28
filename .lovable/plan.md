@@ -8,7 +8,7 @@
 
 ## Implementação
 1. Trocar os campos de endereço de imagem por áreas de upload com prévia, progresso, troca e remoção, usando o armazenamento `brand` já existente.
-2. Deixar “Inherit (padrão da plataforma)” explícito e ampliar as fontes permitidas com opções adequadas para identidade corporativa.
+2. Somente para a CASA Academy, deixar “Inherit (padrão da plataforma)” explícito e ampliar as fontes permitidas com opções adequadas para identidade corporativa.
 3. Corrigir a persistência do modo claro, escuro ou automático e manter o seletor acessível no cabeçalho da Academy, inclusive para usuários logados e no celular.
 4. Fazer o `/empresa` receber logo, tipografia e paleta do tenant, sem contaminar o console global `/admin`.
 5. Remover o traço inferior dos cabeçalhos e garantir que superfícies derivadas mantenham contraste conforme a cor de fundo escolhida.
