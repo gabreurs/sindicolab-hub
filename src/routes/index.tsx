@@ -44,7 +44,7 @@ function Index() {
   const slug = tenant?.organization?.slug;
   // Endereço de uma empresa white-label: a entrada é a área de login dela.
   if (!loading && slug && slug !== "sindicolab") {
-    return <Navigate to="/academy/login" search={{ next: "/empresa" }} replace />;
+    return <Navigate to="/academy/login" search={{ next: "/academy/inicio" }} replace />;
   }
   return (
     <>
