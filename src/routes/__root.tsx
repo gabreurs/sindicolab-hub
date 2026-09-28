@@ -12,7 +12,7 @@ import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { clearNativeScrollLock } from "@/lib/scroll-lock";
 import { WhatsAppDock } from "@/components/site/WhatsAppDock";
 import { GlobalSearch } from "@/components/site/GlobalSearch";
-import { clearTenantOverride } from "@/lib/tenant/TenantProvider";
+import { clearTenantOverride, isPlatformHost } from "@/lib/tenant/TenantProvider";
 
 function NotFoundComponent() {
   return (
@@ -136,12 +136,13 @@ function RootComponent() {
     });
   }, [matches]);
 
+  const labHost = typeof window === "undefined" || isPlatformHost(window.location.hostname);
   return (
     <AuthProvider>
       <TransitionProvider>
         <Outlet />
-        <GlobalSearch />
-        <WhatsAppDock />
+        {labHost && <GlobalSearch />}
+        {labHost && <WhatsAppDock />}
       </TransitionProvider>
     </AuthProvider>
   );
