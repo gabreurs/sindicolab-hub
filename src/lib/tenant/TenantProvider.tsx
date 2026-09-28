@@ -30,6 +30,10 @@ const FONT_FAMILIES: Record<string, string> = {
   montserrat: '"Montserrat", ui-sans-serif, system-ui, sans-serif',
   "nunito-sans": '"Nunito Sans", ui-sans-serif, system-ui, sans-serif',
   merriweather: '"Merriweather", ui-serif, Georgia, serif',
+  "dm-sans": '"DM Sans", ui-sans-serif, system-ui, sans-serif',
+  sora: '"Sora", ui-sans-serif, system-ui, sans-serif',
+  urbanist: '"Urbanist", ui-sans-serif, system-ui, sans-serif',
+  "work-sans": '"Work Sans", ui-sans-serif, system-ui, sans-serif',
 };
 
 const GOOGLE_FONT_URLS: Record<string, string> = {
@@ -40,6 +44,10 @@ const GOOGLE_FONT_URLS: Record<string, string> = {
   montserrat: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap",
   "nunito-sans": "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600&display=swap",
   merriweather: "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap",
+  "dm-sans": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap",
+  sora: "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap",
+  urbanist: "https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap",
+  "work-sans": "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap",
 };
 
 function isCustomTenantHost(hostname: string) {

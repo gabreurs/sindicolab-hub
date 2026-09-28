@@ -86,6 +86,7 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
           />
         </form>
 
+        <ThemeToggle />
         {showAuthed ? (
           <AccountMenu
             email={visibleSession?.user?.email ?? ""}
@@ -95,7 +96,6 @@ export function AcademyHeader({ transparent = false }: { transparent?: boolean }
           />
         ) : (
           <>
-            <ThemeToggle />
             <Link
               to="/academy/login"
               search={{ next: "/academy/inicio" }}
@@ -121,7 +121,7 @@ function ThemeToggle({ full = false }: { full?: boolean }) {
   ];
   return (
     <div
-      className={`${full ? "flex w-full" : "hidden sm:flex"} shrink-0 items-center gap-0.5 rounded-lg p-0.5`}
+      className={`${full ? "flex w-full" : "flex"} shrink-0 items-center gap-0.5 rounded-lg p-0.5`}
       style={{ background: "var(--ax-veil)" }}
       role="group"
       aria-label="Tema da interface"
@@ -133,7 +133,7 @@ function ThemeToggle({ full = false }: { full?: boolean }) {
           onClick={() => setChoice(o.value)}
           aria-pressed={choice === o.value}
           title={o.label}
-          className={`inline-flex ${full ? "flex-1 justify-center" : ""} items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] transition`}
+          className={`inline-flex ${full ? "flex-1 justify-center" : ""} items-center gap-1.5 rounded-md px-1.5 py-1.5 text-[12px] transition sm:px-2.5`}
           style={
             choice === o.value
               ? {

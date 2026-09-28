@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { applyBrandingVars } from "@/lib/tenant/TenantProvider";
 import { accentContrastInk } from "@/lib/tenant/accent";
 import { Button, Field, Input, SaveState, Select, Textarea } from "@/components/console/ui";
+import { ImageUploadField } from "@/components/branding/ImageUploadField";
 
 /**
  * EDITOR DE MARCA = painel do sistema real de tokens.
@@ -82,6 +83,15 @@ const FONT_OPTIONS = [
   ["nunito-sans", "Nunito Sans"],
   ["merriweather", "Merriweather"],
 ] as const;
+const CASA_FONT_OPTIONS = [
+  ["inherit", "Inherit (padrão da plataforma)"],
+  ...FONT_OPTIONS.slice(1),
+  ["dm-sans", "DM Sans"],
+  ["sora", "Sora"],
+  ["urbanist", "Urbanist"],
+  ["work-sans", "Work Sans"],
+] as const;
+const CASA_ORGANIZATION_ID = "33333333-3333-3333-3333-333333333333";
 type Tab = (typeof TABS)[number][0];
 
 export function BrandingEditor({ organizationId }: { organizationId: string }) {
@@ -92,6 +102,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
   const [tab, setTab] = useState<Tab>("marca");
   const [mode, setMode] = useState<"light" | "dark">("light");
   const [msg, setMsg] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
+  const fontOptions = organizationId === CASA_ORGANIZATION_ID ? CASA_FONT_OPTIONS : FONT_OPTIONS;
 
   useEffect(() => {
     let cancelled = false;
@@ -175,28 +186,12 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
         <div className="pt-5">
           {tab === "marca" && (
             <div className="grid gap-4 sm:grid-cols-2">
-              {([
-                ["logo_light_url", "Logo para fundo claro", "Usada no tema claro da Academy."],
-                ["logo_dark_url", "Logo para fundo escuro", "Usada no tema escuro e sobre imagens."],
-                ["favicon_url", "Favicon", "Ícone da aba do navegador."],
-                ["environment_name", "Nome do ambiente", "Aparece no header e no título das páginas."],
-              ] as const).map(([key, label, hint]) => (
-                <Field key={key} label={label} hint={hint}>
-                  <Input
-                    value={(branding[key] as string | null) ?? ""}
-                    onChange={(e) => upd(key, (e.target.value || null) as any)}
-                    placeholder={key === "environment_name" ? "Academy da Empresa" : "https://…"}
-                  />
-                  {key.endsWith("url") && branding[key] && (
-                    <span
-                      className="mt-2 flex h-12 items-center rounded-lg border px-3"
-                      style={{ borderColor: "var(--c-border-soft)", background: key === "logo_dark_url" ? "#111114" : "#FFFFFF" }}
-                    >
-                      <img loading="lazy" decoding="async" src={branding[key] as string} alt="" className="max-h-8 w-auto max-w-[160px] object-contain" />
-                    </span>
-                  )}
-                </Field>
-              ))}
+              <ImageUploadField organizationId={organizationId} kind="logo-light" label="Logo para fundo claro" hint="Usada no tema claro da Academy." value={branding.logo_light_url} onChange={(url) => upd("logo_light_url", url)} />
+              <ImageUploadField organizationId={organizationId} kind="logo-dark" label="Logo para fundo escuro" hint="Usada no tema escuro e sobre imagens." value={branding.logo_dark_url} darkPreview onChange={(url) => upd("logo_dark_url", url)} />
+              <ImageUploadField organizationId={organizationId} kind="favicon" label="Favicon" hint="Ícone da aba do navegador." value={branding.favicon_url} onChange={(url) => upd("favicon_url", url)} />
+              <Field label="Nome do ambiente" hint="Aparece no cabeçalho e no título das páginas.">
+                <Input value={branding.environment_name ?? ""} onChange={(e) => upd("environment_name", e.target.value || null)} placeholder="Academy da Empresa" />
+              </Field>
             </div>
           )}
 
@@ -244,21 +239,16 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Fonte dos títulos" hint="Identidade de títulos, cards e destaques.">
                   <Select value={branding.heading_font ?? "inherit"} onChange={(e) => upd("heading_font", e.target.value)}>
-                    {FONT_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+                    {fontOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
                   </Select>
                 </Field>
                 <Field label="Fonte dos textos" hint="Menus, descrições, formulários e textos corridos.">
                   <Select value={branding.body_font ?? "inherit"} onChange={(e) => upd("body_font", e.target.value)}>
-                    {FONT_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+                    {fontOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
                   </Select>
                 </Field>
               </div>
-              <Field label="Arte de topo / banner" hint="Imagem usada em composições editoriais da Academy.">
-                <Input value={branding.banner_url ?? ""} onChange={(e) => upd("banner_url", e.target.value || null)} placeholder="https://…" />
-              </Field>
-              {branding.banner_url && (
-                <img loading="lazy" decoding="async" src={branding.banner_url} alt="" className="aspect-[16/6] w-full rounded-lg object-cover" />
-              )}
+              <ImageUploadField organizationId={organizationId} kind="banner" label="Arte de topo / banner" hint="Imagem usada em composições editoriais da Academy." value={branding.banner_url} onChange={(url) => upd("banner_url", url)} />
               <Field label="Título de boas-vindas">
                 <Input value={branding.welcome_title ?? ""} onChange={(e) => upd("welcome_title", e.target.value || null)} />
               </Field>
