@@ -6,6 +6,7 @@ import { academyAuthService } from "@/services/academyAuthService";
 import { supabase } from "@/integrations/supabase/client";
 import { PasswordFields, passwordRules } from "@/components/academy/PasswordFields";
 import { AccessHelp } from "@/components/academy/AccessHelp";
+import { SpamNote } from "@/components/academy/SpamNote";
 
 export const Route = createFileRoute("/academy/definir-senha")({
   ssr: false,
@@ -99,6 +100,7 @@ function DefinirSenhaPage() {
               Este link já foi usado ou venceu. Informe seu e-mail e enviamos um novo agora.
             </p>
             {sent && <SpamNote lead={`Enviamos um novo link para ${resendEmail.trim()}.`} />}
+            {!sent && (
               <form
                 className="mt-6 space-y-3"
                 onSubmit={async (e) => {
