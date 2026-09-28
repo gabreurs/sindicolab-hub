@@ -19,3 +19,4 @@
 - [x] Corrigir os acessos ao YouTube no Portal
 - [x] Validar o login administrativo de demonstração
 - [x] Conectar Supabase próprio (projeto do cliente, fora do Lovable): schema, RLS, storage, convites e build para cPanel
+- [x] Finalizar a apresentação white-label da CASA: entrada pública, logo, favicon, cores e fontes próprias

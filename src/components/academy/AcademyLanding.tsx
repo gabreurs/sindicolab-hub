@@ -43,6 +43,8 @@ export function AcademyLanding({
   }, [courses]);
 
   const [i, setI] = useState(0);
+  const [failedCovers, setFailedCovers] = useState<Set<string>>(() => new Set());
+  const markCoverFailed = (id: string) => setFailedCovers((current) => new Set(current).add(id));
   const hero = highlights[Math.min(i, Math.max(highlights.length - 1, 0))];
 
   return (
@@ -52,9 +54,9 @@ export function AcademyLanding({
           {/* Fundo reativo: a capa do curso em destaque com blur pesado
               (efeito vidro) em crossfade a cada troca do carrossel. A foto
               institucional só aparece quando nenhum destaque tem capa. */}
-          {!highlights.some((h) => h.cover_url) && <img src={heroBackdrop} alt="" loading="eager" />}
+          {!highlights.some((h) => h.cover_url && !failedCovers.has(h.id)) && <img src={heroBackdrop} alt="" loading="eager" />}
           {highlights.map((h, idx) =>
-            h.cover_url ? (
+            h.cover_url && !failedCovers.has(h.id) ? (
               <img
                 key={h.id}
                 src={h.cover_url}
@@ -62,6 +64,7 @@ export function AcademyLanding({
                 loading="eager"
                 className="ax-hero-media-course"
                 style={{ opacity: idx === i ? 1 : 0 }}
+                onError={() => markCoverFailed(h.id)}
               />
             ) : null,
           )}
@@ -99,8 +102,8 @@ export function AcademyLanding({
           {hero && (
             <div>
               <div className="ax-hero-art">
-                {hero.cover_url ? (
-                  <img src={hero.cover_url} alt={hero.title} loading="eager" />
+                {hero.cover_url && !failedCovers.has(hero.id) ? (
+                  <img src={hero.cover_url} alt={hero.title} loading="eager" onError={() => markCoverFailed(hero.id)} />
                 ) : (
                   <CourseCoverPlaceholder title={hero.title} />
                 )}

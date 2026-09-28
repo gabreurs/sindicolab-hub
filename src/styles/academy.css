@@ -188,6 +188,7 @@
    organization_branding.
    ============================================================ */
 .academy {
+  font-family: var(--tenant-font-body, "Mona Sans", ui-sans-serif, system-ui, sans-serif);
   --academy-bg:         #090909;
   --academy-surface-1:  #0F0F0F;
   --academy-surface-2:  #151515;
@@ -739,11 +740,11 @@
 .ax-stack > * + * { margin-top: 12px; }
 
 /* --- escala tipográfica --- */
-.ax-display { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.06; letter-spacing: -.03em; font-weight: 450; text-wrap: balance; max-width: 18ch; }
-.ax-h1      { font-size: clamp(27px, 3.2vw, 40px);  line-height: 1.12; letter-spacing: -.028em; font-weight: 450; text-wrap: balance; max-width: 22ch; }
-.ax-h2      { font-size: clamp(20px, 2vw, 28px);    line-height: 1.2;  letter-spacing: -.024em; font-weight: 480; }
-.ax-h3      { font-size: clamp(17px, 1.4vw, 21px);  line-height: 1.3;  letter-spacing: -.02em;  font-weight: 500; }
-.ax-card-title { font-size: 15px; line-height: 1.35; letter-spacing: -.012em; font-weight: 520; }
+.ax-display { font-family: var(--tenant-font-heading, inherit); font-size: clamp(34px, 4.4vw, 56px); line-height: 1.06; letter-spacing: 0; font-weight: 450; text-wrap: balance; max-width: 18ch; }
+.ax-h1      { font-family: var(--tenant-font-heading, inherit); font-size: clamp(27px, 3.2vw, 40px);  line-height: 1.12; letter-spacing: 0; font-weight: 450; text-wrap: balance; max-width: 22ch; }
+.ax-h2      { font-family: var(--tenant-font-heading, inherit); font-size: clamp(20px, 2vw, 28px);    line-height: 1.2;  letter-spacing: 0; font-weight: 480; }
+.ax-h3      { font-family: var(--tenant-font-heading, inherit); font-size: clamp(17px, 1.4vw, 21px);  line-height: 1.3;  letter-spacing: 0; font-weight: 500; }
+.ax-card-title { font-family: var(--tenant-font-heading, inherit); font-size: 15px; line-height: 1.35; letter-spacing: 0; font-weight: 520; }
 @media (min-width: 1280px) { .ax-card-title { font-size: 16px; } }
 .ax-body    { font-size: 15px; line-height: 1.6; color: var(--ax-text-secondary); max-width: 68ch; }
 .ax-meta    { font-size: 12.5px; line-height: 1.4; color: var(--ax-text-tertiary); }

@@ -35,14 +35,14 @@ export function TenantLogo({ className = "", onDark = false }: { className?: str
   const preferred = darkSurface ? forDark : forLight;
   const fallback = darkSurface ? forLight : forDark;
 
-  if (preferred) return <img src={preferred} alt={name} className={`h-7 w-auto max-w-[120px] object-contain sm:max-w-[180px] ${className}`} />;
+  if (preferred) return <img src={preferred} alt={name} className={`h-9 w-auto max-w-[150px] object-contain sm:h-10 sm:max-w-[210px] ${className}`} />;
   if (fallback) {
     return (
       <span
         className="inline-flex items-center rounded-lg px-2.5 py-1.5"
         style={{ background: darkSurface ? "#FFFFFF" : "#101014" }}
       >
-        <img src={fallback} alt={name} className={`h-5 w-auto max-w-[112px] object-contain sm:max-w-[170px] ${className}`} />
+        <img src={fallback} alt={name} className={`h-7 w-auto max-w-[142px] object-contain sm:max-w-[200px] ${className}`} />
       </span>
     );
   }
