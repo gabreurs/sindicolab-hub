@@ -221,7 +221,15 @@ async function hydrate(org: any): Promise<ResolvedTenant> {
 }
 
 export function TenantProvider({ children }: { children: ReactNode }) {
-  const [tenant, setTenant] = useState<ResolvedTenant | null>(null);
+  // Primeiro render já nasce com a marca do domínio (cache local), se houver.
+  const [tenant, setTenant] = useState<ResolvedTenant | null>(() => {
+    if (typeof window === "undefined") return null;
+    const host = window.location.hostname;
+    if (!isCustomTenantHost(host)) return null;
+    const cached = readTenantCache(host);
+    if (cached) applyTenant(cached);
+    return cached;
+  });
   const [resolved, setResolved] = useState(false);
   // `correcting` cobre a janela em que sabemos que o tenant exibido está
   // errado para este usuário e ainda estamos trocando. Enquanto isso o gate
@@ -244,6 +252,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
     if (gen !== genRef.current) return;
     setTenant(t);
     applyTenant(t);
+    if (host) writeTenantCache(host, t);
     setResolved(true);
   }, []);
 
