@@ -27,3 +27,4 @@
 - [ ] Exibir Inherit e ampliar a lista de fontes somente para a CASA Academy
 - [ ] Tornar o seletor claro/escuro visível e persistente em toda Academy e /empresa
 - [ ] Ajustar a CASA para #FFCD00, #1D1D1B e #FFFFFF e validar responsividade
+- [ ] Manter escopo explícito: identidade CASA e fontes extras só na CASA; melhorias estruturais para todos os tenants
