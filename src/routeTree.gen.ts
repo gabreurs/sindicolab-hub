@@ -30,6 +30,7 @@ import { Route as EventosSlugRouteImport } from './routes/eventos_.$slug'
 import { Route as AcademySolicitarAcessoRouteImport } from './routes/academy.solicitar-acesso'
 import { Route as AcademyLoginRouteImport } from './routes/academy.login'
 import { Route as AcademyInicioRouteImport } from './routes/academy.inicio'
+import { Route as AcademyDefinirSenhaRouteImport } from './routes/academy.definir-senha'
 import { Route as AcademyCatalogoRouteImport } from './routes/academy.catalogo'
 import { Route as PortalNoticiaSlugRouteImport } from './routes/portal.noticia.$slug'
 import { Route as PortalColunistaSlugRouteImport } from './routes/portal.colunista.$slug'
@@ -143,6 +144,11 @@ const AcademyInicioRoute = AcademyInicioRouteImport.update({
   path: '/inicio',
   getParentRoute: () => AcademyRoute,
 } as any)
+const AcademyDefinirSenhaRoute = AcademyDefinirSenhaRouteImport.update({
+  id: '/definir-senha',
+  path: '/definir-senha',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AcademyCatalogoRoute = AcademyCatalogoRouteImport.update({
   id: '/catalogo',
   path: '/catalogo',
@@ -195,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
   '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/definir-senha': typeof AcademyDefinirSenhaRoute
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
   '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/definir-senha': typeof AcademyDefinirSenhaRoute
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
@@ -255,6 +263,7 @@ export interface FileRoutesById {
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
   '/academy/catalogo': typeof AcademyCatalogoRoute
+  '/academy/definir-senha': typeof AcademyDefinirSenhaRoute
   '/academy/inicio': typeof AcademyInicioRoute
   '/academy/login': typeof AcademyLoginRoute
   '/academy/solicitar-acesso': typeof AcademySolicitarAcessoRoute
@@ -287,6 +296,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/sobre'
     | '/academy/catalogo'
+    | '/academy/definir-senha'
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/sobre'
     | '/academy/catalogo'
+    | '/academy/definir-senha'
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '/quem-somos'
     | '/sobre'
     | '/academy/catalogo'
+    | '/academy/definir-senha'
     | '/academy/inicio'
     | '/academy/login'
     | '/academy/solicitar-acesso'
@@ -530,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyInicioRouteImport
       parentRoute: typeof AcademyRoute
     }
+    '/academy/definir-senha': {
+      id: '/academy/definir-senha'
+      path: '/definir-senha'
+      fullPath: '/academy/definir-senha'
+      preLoaderRoute: typeof AcademyDefinirSenhaRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/academy/catalogo': {
       id: '/academy/catalogo'
       path: '/catalogo'
@@ -584,6 +603,7 @@ declare module '@tanstack/react-router' {
 
 interface AcademyRouteChildren {
   AcademyCatalogoRoute: typeof AcademyCatalogoRoute
+  AcademyDefinirSenhaRoute: typeof AcademyDefinirSenhaRoute
   AcademyInicioRoute: typeof AcademyInicioRoute
   AcademyLoginRoute: typeof AcademyLoginRoute
   AcademySolicitarAcessoRoute: typeof AcademySolicitarAcessoRoute
@@ -595,6 +615,7 @@ interface AcademyRouteChildren {
 
 const AcademyRouteChildren: AcademyRouteChildren = {
   AcademyCatalogoRoute: AcademyCatalogoRoute,
+  AcademyDefinirSenhaRoute: AcademyDefinirSenhaRoute,
   AcademyInicioRoute: AcademyInicioRoute,
   AcademyLoginRoute: AcademyLoginRoute,
   AcademySolicitarAcessoRoute: AcademySolicitarAcessoRoute,

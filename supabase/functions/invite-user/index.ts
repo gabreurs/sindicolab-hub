@@ -120,6 +120,12 @@ Deno.serve(async (req) => {
       );
     if (invErr) return fail(500, "db_error", `Não foi possível registrar o convite: ${invErr.message}`);
 
+    // O link do e-mail volta para o endereço de onde o convite saiu
+    // (cada empresa no seu próprio domínio). SITE_URL é o reserva.
+    const origin = (req.headers.get("origin") ?? "").replace(/\/+$/, "");
+    const base = /^https:\/\//.test(origin) ? origin : siteUrl;
+    const redirectTo = base ? `${base}/academy/definir-senha` : undefined;
+
     if (existing) {
       const { error: memErr } = await admin
         .from("organization_memberships")
@@ -128,16 +134,13 @@ Deno.serve(async (req) => {
           { onConflict: "organization_id,user_id,role" },
         );
       if (memErr) return fail(500, "db_error", `Não foi possível liberar o acesso: ${memErr.message}`);
-      return json({ ok: true, status: "vinculado", invited_by_email: false });
+      // Conta já existia (ex.: pedido de acesso ou criada no painel): manda o link para criar a senha.
+      const { error: rErr } = await admin.auth.resetPasswordForEmail(email, { redirectTo });
+      return json({ ok: true, status: "vinculado", invited_by_email: !rErr, email_error: rErr?.message });
     }
 
-    // O link do e-mail volta para o endereço de onde o convite saiu
-    // (cada empresa no seu próprio domínio). SITE_URL é o reserva.
-    const origin = (req.headers.get("origin") ?? "").replace(/\/+$/, "");
-    const base = /^https:\/\//.test(origin) ? origin : siteUrl;
-
     const { error } = await admin.auth.admin.inviteUserByEmail(email, {
-      redirectTo: base ? `${base}/academy/login` : undefined,
+      redirectTo,
       data: { organization_id: organizationId, role },
     });
     if (error) {
