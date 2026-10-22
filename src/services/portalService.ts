@@ -1,6 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { PortalAuthor, PortalCategory, PortalPost } from "@/data/portal";
 import { withPostCover } from "@/lib/course/covers";
+import { extraPortalAuthors, extraPortalPosts } from "@/data/portalExtra";
 
 export type CategoryInput = Omit<PortalCategory, "id"> & { id?: string };
 export type AuthorInput = Omit<PortalAuthor, "id"> & { id?: string };
@@ -14,7 +15,8 @@ async function categories(includeInactive = false) {
 
 async function authors(includeInactive = false) {
   const { data } = await supabase.from("portal_authors").select("*").order("sort_order");
-  const rows = (data ?? []) as PortalAuthor[];
+  const base = (data ?? []) as PortalAuthor[];
+  const rows = [...base, ...extraPortalAuthors.filter((x) => !base.some((b) => b.id === x.id || b.slug === x.slug))];
   return includeInactive ? rows : rows.filter((item) => item.active);
 }
 
@@ -35,7 +37,10 @@ export const portalService = {
   authors,
   async posts(opts?: { includeDrafts?: boolean }) {
     const { data } = await supabase.from("portal_posts").select("*").order("published_at", { ascending: false });
-    const hydrated = await hydrate((data ?? []) as Record<string, unknown>[]);
+    const base = (data ?? []) as Record<string, unknown>[];
+    const merged = [...base, ...extraPortalPosts.filter((x) => !base.some((b) => b.id === x.id || b.slug === x.slug))]
+      .sort((a, b) => String(b.published_at ?? "").localeCompare(String(a.published_at ?? "")));
+    const hydrated = await hydrate(merged);
     const now = Date.now();
     return opts?.includeDrafts ? hydrated : hydrated.filter((post) => post.published && (!post.published_at || new Date(post.published_at).getTime() <= now));
   },
