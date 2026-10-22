@@ -36,3 +36,6 @@
 ## 2026-09-28
 - [x] Aviso evidente "confira o spam" em todos os fluxos que enviam e-mail de acesso (login, definir-senha, /empresa convite, reenviar senha, importação CSV)
 - [x] Investigar flash da página SíndicoLab durante loading antes de cair na CASA Academy (explicar causa e corrigir)
+
+## 2026-10-22
+- [x] Trocar a capa da notícia de São Paulo (Arena Condoexpo.SP) pela foto real do evento e gerar novo pacote
