@@ -521,6 +521,8 @@ export const profiles: Row[] = [
   { id: USERS.studentCasa, email: "aluno@vista-alegre.demo", full_name: "Aluno Vista Alegre", avatar_url: null, created_at: iso(60) },
   { id: USERS.gabriel, email: "gabriel@studiomarqo.com.br", full_name: "Gabriel Reus — Studio Marqo", avatar_url: null, created_at: iso(700) },
   { id: USERS.mari, email: "mari@sindicolab.com", full_name: "Mari — SíndicoLab", avatar_url: null, created_at: iso(500) },
+  { id: USERS.orgAdminHflex, email: "admin@hflex.demo", full_name: "Administração HFlex", avatar_url: null, created_at: iso(30) },
+  { id: USERS.studentHflex, email: "aluno@hflex.demo", full_name: "Aluno HFlex", avatar_url: null, created_at: iso(20) },
 ];
 
 export const organization_memberships: Row[] = [
@@ -529,6 +531,8 @@ export const organization_memberships: Row[] = [
   { id: "mem-casa", organization_id: ORG.casa, user_id: USERS.studentCasa, role: "student", is_active: true, created_at: iso(60) },
   { id: "mem-gabriel", organization_id: ORG.sindicolab, user_id: USERS.gabriel, role: "platform_admin", is_active: true, created_at: iso(700) },
   { id: "mem-mari", organization_id: ORG.sindicolab, user_id: USERS.mari, role: "platform_admin", is_active: true, created_at: iso(500) },
+  { id: "mem-hflex-admin", organization_id: ORG.hflex, user_id: USERS.orgAdminHflex, role: "org_admin", is_active: true, created_at: iso(30) },
+  { id: "mem-hflex-aluno", organization_id: ORG.hflex, user_id: USERS.studentHflex, role: "student", is_active: true, created_at: iso(20) },
 ];
 
 export const organization_invites: Row[] = [
