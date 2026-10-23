@@ -12,8 +12,8 @@ insert into public.organization_branding (id, organization_id, favicon_url, bann
   primary_color, secondary_color, accent_color, background_color, surface_color, text_color,
   heading_font, body_font, environment_name, welcome_title, welcome_message)
 values ('brand-hflex', '55555555-5555-5555-5555-555555555555', '/tenant/hflex-favicon.png', null,
-  '#0F0F0F', '#1E1E1E', '#FFFFFF', '/tenant/hflex-logo-light.svg', '/tenant/hflex-logo-dark.svg',
-  '#1E1E1E', '#000000', '#69684E', '#FFFFFF', '#F5F5F3', '#1E1E1E',
+  '#010101', '#010101', '#FFFFFF', '/tenant/hflex-logo-light.png', '/tenant/hflex-logo-dark.png',
+  '#010101', '#000000', '#69684E', '#FFFFFF', '#F5F5F3', '#010101',
   'plus-jakarta-sans', 'plus-jakarta-sans', 'HFlex Academy', 'HFlex Academy',
   'Transformar condomínios em experiências: formação para síndicos, conselheiros e equipes dos condomínios HFlex.')
 on conflict (id) do update set

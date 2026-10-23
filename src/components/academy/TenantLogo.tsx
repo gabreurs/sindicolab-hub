@@ -40,7 +40,7 @@ export function TenantLogo({ className = "", onDark = false }: { className?: str
   const preferred = darkSurface ? forDark : forLight;
   const fallback = darkSurface ? forLight : forDark;
 
-  if (preferred) return <img src={preferred} alt={name} className={`h-12 w-auto max-w-[240px] object-contain sm:h-14 sm:max-w-[320px] ${className}`} />;
+  if (preferred) return <img src={preferred} alt={name} className={`h-9 w-auto max-w-[200px] object-contain sm:h-11 sm:max-w-[260px] ${className}`} />;
   if (fallback) {
     return (
       <span
