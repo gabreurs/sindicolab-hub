@@ -90,6 +90,7 @@ const CASA_FONT_OPTIONS = [
   ["sora", "Sora"],
   ["urbanist", "Urbanist"],
   ["work-sans", "Work Sans"],
+  ["plus-jakarta-sans", "Plus Jakarta Sans"],
 ] as const;
 const CASA_ORGANIZATION_ID = "33333333-3333-3333-3333-333333333333";
 type Tab = (typeof TABS)[number][0];

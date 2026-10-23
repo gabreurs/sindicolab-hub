@@ -34,6 +34,7 @@ const FONT_FAMILIES: Record<string, string> = {
   sora: '"Sora", ui-sans-serif, system-ui, sans-serif',
   urbanist: '"Urbanist", ui-sans-serif, system-ui, sans-serif',
   "work-sans": '"Work Sans", ui-sans-serif, system-ui, sans-serif',
+  "plus-jakarta-sans": '"Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif',
 };
 
 const GOOGLE_FONT_URLS: Record<string, string> = {
@@ -48,6 +49,7 @@ const GOOGLE_FONT_URLS: Record<string, string> = {
   sora: "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap",
   urbanist: "https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap",
   "work-sans": "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap",
+  "plus-jakarta-sans": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap",
 };
 
 /** Endereços do próprio SíndicoLab: aqui o tenant é sempre o SíndicoLab, salvo demo explícita. */
