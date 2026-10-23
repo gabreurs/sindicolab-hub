@@ -559,13 +559,23 @@ const s3 = "course-porteiro-alta-performance";
 
 // A CASA contratou o acervo completo (organization_course_catalog), portanto o
 // aluno demo tem matrícula ativa em todos os cursos visíveis da organização.
-export const enrollments: Row[] = published.map((c, i) => ({
-  id: `enr-${i + 1}`,
-  user_id: USERS.studentCasa,
-  course_id: c.id,
-  status: "active",
-  created_at: iso(20 - (i % 10)),
-}));
+export const enrollments: Row[] = [
+  ...published.map((c, i) => ({
+    id: `enr-${i + 1}`,
+    user_id: USERS.studentCasa,
+    course_id: c.id,
+    status: "active",
+    created_at: iso(20 - (i % 10)),
+  })),
+  // Aluno demo da HFlex: matrícula ativa em todo o acervo da organização.
+  ...published.map((c, i) => ({
+    id: `enr-hflex-${i + 1}`,
+    user_id: USERS.studentHflex,
+    course_id: c.id,
+    status: "active",
+    created_at: iso(15 - (i % 10)),
+  })),
+];
 
 export const course_entitlements: Row[] = [
   { id: "ent-1", user_id: USERS.studentCasa, course_id: s3, expires_at: null, created_at: iso(8) },
@@ -608,4 +618,6 @@ export const DEMO_ACCOUNTS: {
   { email: "admin@sindicolab.demo", password: "SindicoLab#2026", role: "platform_admin", organization: "SíndicoLab", label: "Administração da plataforma" },
   { email: "admin@guarida.demo", password: "Guarida#2026", role: "org_admin", organization: "Guarida Administradora", label: "Administração da organização" },
   { email: "aluno@vista-alegre.demo", password: "Vista#2026", role: "student", organization: "Administradora CASA", label: "Aluno" },
+  { email: "admin@hflex.demo", password: "HFlex#2026", role: "org_admin", organization: "HFlex", label: "Administração da organização" },
+  { email: "aluno@hflex.demo", password: "HFlex#2026", role: "student", organization: "HFlex", label: "Aluno" },
 ];
