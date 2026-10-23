@@ -52,6 +52,7 @@ export const ORG = {
   guarida: "22222222-2222-2222-2222-222222222222",
   casa: "33333333-3333-3333-3333-333333333333",
   apsa: "44444444-4444-4444-4444-444444444444",
+  hflex: "55555555-5555-5555-5555-555555555555",
 } as const;
 
 export const organizations: Row[] = [
@@ -59,6 +60,7 @@ export const organizations: Row[] = [
   { id: ORG.guarida, slug: "guarida", name: "Guarida Administradora", is_platform: false, status: "active", user_limit: 250, created_at: iso(320) },
   { id: ORG.casa, slug: "casa", name: "Administradora CASA", is_platform: false, status: "active", user_limit: 120, created_at: iso(140) },
   { id: ORG.apsa, slug: "apsa", name: "APSA", is_platform: false, status: "suspended", user_limit: 80, created_at: iso(200) },
+  { id: ORG.hflex, slug: "hflex", name: "HFlex", is_platform: false, status: "active", user_limit: 120, created_at: iso(30) },
 ];
 
 const brandingDefaults = {
@@ -143,6 +145,31 @@ export const organization_branding: Row[] = [
     welcome_title: "APSA Academy",
     welcome_message: "Ambiente em preparação.",
   },
+  {
+    id: "brand-hflex",
+    organization_id: ORG.hflex,
+    ...brandingDefaults,
+    // Identidade extraída de hflex.net.br: preto/branco, acento grafite-esverdeado,
+    // tipografia Plus Jakarta Sans.
+    logo_light_url: "/tenant/hflex-logo-light.svg",
+    logo_dark_url: "/tenant/hflex-logo-dark.svg",
+    favicon_url: "/tenant/hflex-favicon.png",
+    primary_color: "#1E1E1E",
+    secondary_color: "#000000",
+    accent_color: "#69684E",
+    background_color: "#FFFFFF",
+    surface_color: "#F5F5F3",
+    text_color: "#1E1E1E",
+    dark_background_color: "#0F0F0F",
+    dark_surface_color: "#1E1E1E",
+    dark_text_color: "#FFFFFF",
+    heading_font: "plus-jakarta-sans",
+    body_font: "plus-jakarta-sans",
+    environment_name: "HFlex Academy",
+    welcome_title: "HFlex Academy",
+    welcome_message:
+      "Transformar condomínios em experiências: formação para síndicos, conselheiros e equipes dos condomínios HFlex.",
+  },
 ];
 
 export const organization_domains: Row[] = [
@@ -150,6 +177,7 @@ export const organization_domains: Row[] = [
   { id: "dom-guarida", organization_id: ORG.guarida, hostname: "guarida.sindicolab.academy", is_primary: true },
   { id: "dom-casa", organization_id: ORG.casa, hostname: "admcasa.studiomarqo.com.br", is_primary: true },
   { id: "dom-apsa", organization_id: ORG.apsa, hostname: "apsa.sindicolab.academy", is_primary: true },
+  { id: "dom-hflex", organization_id: ORG.hflex, hostname: "hflex.studiomarqo.com.br", is_primary: true },
 ];
 
 /* ------------------------------- categorias ------------------------------- */
@@ -471,6 +499,8 @@ export const organization_course_catalog: Row[] = [
   // Guarida: acervo global + o curso exclusivo da própria organização.
   ...published.map((c, i) => ({ id: `occ-gua-${i}`, organization_id: ORG.guarida, course_id: c.id, is_visible: true, created_at: iso(150) })),
   { id: "occ-gua-excl", organization_id: ORG.guarida, course_id: guaridaCourse.id, is_visible: true, created_at: iso(150) },
+  // HFlex: mesmo acervo global do Learning Studio contratado pela CASA.
+  ...published.map((c, i) => ({ id: `occ-hflex-${i}`, organization_id: ORG.hflex, course_id: c.id, is_visible: true, created_at: iso(20) })),
 ];
 
 /* ----------------------- pessoas, papéis e acessos ---------------------- */
@@ -481,6 +511,8 @@ export const USERS = {
   studentCasa: "user-aluno-casa",
   gabriel: "user-gabriel",
   mari: "user-mari",
+  orgAdminHflex: "user-admin-hflex",
+  studentHflex: "user-aluno-hflex",
 } as const;
 
 export const profiles: Row[] = [
@@ -489,6 +521,8 @@ export const profiles: Row[] = [
   { id: USERS.studentCasa, email: "aluno@vista-alegre.demo", full_name: "Aluno Vista Alegre", avatar_url: null, created_at: iso(60) },
   { id: USERS.gabriel, email: "gabriel@studiomarqo.com.br", full_name: "Gabriel Reus — Studio Marqo", avatar_url: null, created_at: iso(700) },
   { id: USERS.mari, email: "mari@sindicolab.com", full_name: "Mari — SíndicoLab", avatar_url: null, created_at: iso(500) },
+  { id: USERS.orgAdminHflex, email: "admin@hflex.demo", full_name: "Administração HFlex", avatar_url: null, created_at: iso(30) },
+  { id: USERS.studentHflex, email: "aluno@hflex.demo", full_name: "Aluno HFlex", avatar_url: null, created_at: iso(20) },
 ];
 
 export const organization_memberships: Row[] = [
@@ -497,6 +531,8 @@ export const organization_memberships: Row[] = [
   { id: "mem-casa", organization_id: ORG.casa, user_id: USERS.studentCasa, role: "student", is_active: true, created_at: iso(60) },
   { id: "mem-gabriel", organization_id: ORG.sindicolab, user_id: USERS.gabriel, role: "platform_admin", is_active: true, created_at: iso(700) },
   { id: "mem-mari", organization_id: ORG.sindicolab, user_id: USERS.mari, role: "platform_admin", is_active: true, created_at: iso(500) },
+  { id: "mem-hflex-admin", organization_id: ORG.hflex, user_id: USERS.orgAdminHflex, role: "org_admin", is_active: true, created_at: iso(30) },
+  { id: "mem-hflex-aluno", organization_id: ORG.hflex, user_id: USERS.studentHflex, role: "student", is_active: true, created_at: iso(20) },
 ];
 
 export const organization_invites: Row[] = [
@@ -523,13 +559,23 @@ const s3 = "course-porteiro-alta-performance";
 
 // A CASA contratou o acervo completo (organization_course_catalog), portanto o
 // aluno demo tem matrícula ativa em todos os cursos visíveis da organização.
-export const enrollments: Row[] = published.map((c, i) => ({
-  id: `enr-${i + 1}`,
-  user_id: USERS.studentCasa,
-  course_id: c.id,
-  status: "active",
-  created_at: iso(20 - (i % 10)),
-}));
+export const enrollments: Row[] = [
+  ...published.map((c, i) => ({
+    id: `enr-${i + 1}`,
+    user_id: USERS.studentCasa,
+    course_id: c.id,
+    status: "active",
+    created_at: iso(20 - (i % 10)),
+  })),
+  // Aluno demo da HFlex: matrícula ativa em todo o acervo da organização.
+  ...published.map((c, i) => ({
+    id: `enr-hflex-${i + 1}`,
+    user_id: USERS.studentHflex,
+    course_id: c.id,
+    status: "active",
+    created_at: iso(15 - (i % 10)),
+  })),
+];
 
 export const course_entitlements: Row[] = [
   { id: "ent-1", user_id: USERS.studentCasa, course_id: s3, expires_at: null, created_at: iso(8) },
@@ -572,4 +618,6 @@ export const DEMO_ACCOUNTS: {
   { email: "admin@sindicolab.demo", password: "SindicoLab#2026", role: "platform_admin", organization: "SíndicoLab", label: "Administração da plataforma" },
   { email: "admin@guarida.demo", password: "Guarida#2026", role: "org_admin", organization: "Guarida Administradora", label: "Administração da organização" },
   { email: "aluno@vista-alegre.demo", password: "Vista#2026", role: "student", organization: "Administradora CASA", label: "Aluno" },
+  { email: "admin@hflex.demo", password: "HFlex#2026", role: "org_admin", organization: "HFlex", label: "Administração da organização" },
+  { email: "aluno@hflex.demo", password: "HFlex#2026", role: "student", organization: "HFlex", label: "Aluno" },
 ];
