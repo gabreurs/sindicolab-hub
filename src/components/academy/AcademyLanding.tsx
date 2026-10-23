@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, PlayCircle } from "lucide-react";
-import { useAcademyExperience } from "@/lib/tenant/TenantProvider";
+import { useAcademyExperience, useTenant } from "@/lib/tenant/TenantProvider";
 import { Eyebrow } from "./ui";
 import { CourseCoverPlaceholder } from "./CourseCoverPlaceholder";
 import { durationLabel, levelLabel, type AcademyCourse } from "./types";
