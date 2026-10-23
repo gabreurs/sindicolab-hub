@@ -499,6 +499,8 @@ export const organization_course_catalog: Row[] = [
   // Guarida: acervo global + o curso exclusivo da própria organização.
   ...published.map((c, i) => ({ id: `occ-gua-${i}`, organization_id: ORG.guarida, course_id: c.id, is_visible: true, created_at: iso(150) })),
   { id: "occ-gua-excl", organization_id: ORG.guarida, course_id: guaridaCourse.id, is_visible: true, created_at: iso(150) },
+  // HFlex: mesmo acervo global do Learning Studio contratado pela CASA.
+  ...published.map((c, i) => ({ id: `occ-hflex-${i}`, organization_id: ORG.hflex, course_id: c.id, is_visible: true, created_at: iso(20) })),
 ];
 
 /* ----------------------- pessoas, papéis e acessos ---------------------- */
@@ -509,6 +511,8 @@ export const USERS = {
   studentCasa: "user-aluno-casa",
   gabriel: "user-gabriel",
   mari: "user-mari",
+  orgAdminHflex: "user-admin-hflex",
+  studentHflex: "user-aluno-hflex",
 } as const;
 
 export const profiles: Row[] = [
