@@ -90,8 +90,9 @@ const CASA_FONT_OPTIONS = [
   ["sora", "Sora"],
   ["urbanist", "Urbanist"],
   ["work-sans", "Work Sans"],
+  ["plus-jakarta-sans", "Plus Jakarta Sans"],
 ] as const;
-const CASA_ORGANIZATION_ID = "33333333-3333-3333-3333-333333333333";
+const EXTENDED_FONT_ORGS = ["33333333-3333-3333-3333-333333333333", "55555555-5555-5555-5555-555555555555"];
 type Tab = (typeof TABS)[number][0];
 
 export function BrandingEditor({ organizationId }: { organizationId: string }) {
@@ -102,7 +103,7 @@ export function BrandingEditor({ organizationId }: { organizationId: string }) {
   const [tab, setTab] = useState<Tab>("marca");
   const [mode, setMode] = useState<"light" | "dark">("light");
   const [msg, setMsg] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
-  const fontOptions = organizationId === CASA_ORGANIZATION_ID ? CASA_FONT_OPTIONS : FONT_OPTIONS;
+  const fontOptions = EXTENDED_FONT_ORGS.includes(organizationId) ? CASA_FONT_OPTIONS : FONT_OPTIONS;
 
   useEffect(() => {
     let cancelled = false;
