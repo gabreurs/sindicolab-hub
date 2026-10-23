@@ -11,13 +11,13 @@ insert into public.organization_branding (id, organization_id, favicon_url, bann
   dark_background_color, dark_surface_color, dark_text_color, logo_light_url, logo_dark_url,
   primary_color, secondary_color, accent_color, background_color, surface_color, text_color,
   heading_font, body_font, environment_name, welcome_title, welcome_message)
-values ('brand-hflex', '55555555-5555-5555-5555-555555555555', '/tenant/hflex-favicon.png', null,
+values ('brand-hflex', '55555555-5555-5555-5555-555555555555', '/tenant/hflex-favicon.png', '/tenant/hflex-hero.jpg',
   '#010101', '#010101', '#FFFFFF', '/tenant/hflex-logo-light.png', '/tenant/hflex-logo-dark.png',
   '#010101', '#000000', '#69684E', '#FFFFFF', '#F5F5F3', '#010101',
   'plus-jakarta-sans', 'plus-jakarta-sans', 'HFlex Academy', 'HFlex Academy',
   'Transformar condomínios em experiências: formação para síndicos, conselheiros e equipes dos condomínios HFlex.')
 on conflict (id) do update set
-  favicon_url = excluded.favicon_url, dark_background_color = excluded.dark_background_color,
+  favicon_url = excluded.favicon_url, banner_url = excluded.banner_url, dark_background_color = excluded.dark_background_color,
   dark_surface_color = excluded.dark_surface_color, dark_text_color = excluded.dark_text_color,
   logo_light_url = excluded.logo_light_url, logo_dark_url = excluded.logo_dark_url,
   primary_color = excluded.primary_color, secondary_color = excluded.secondary_color,
