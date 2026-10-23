@@ -145,6 +145,31 @@ export const organization_branding: Row[] = [
     welcome_title: "APSA Academy",
     welcome_message: "Ambiente em preparação.",
   },
+  {
+    id: "brand-hflex",
+    organization_id: ORG.hflex,
+    ...brandingDefaults,
+    // Identidade extraída de hflex.net.br: preto/branco, acento grafite-esverdeado,
+    // tipografia Plus Jakarta Sans.
+    logo_light_url: "/tenant/hflex-logo-light.svg",
+    logo_dark_url: "/tenant/hflex-logo-dark.svg",
+    favicon_url: "/tenant/hflex-favicon.png",
+    primary_color: "#1E1E1E",
+    secondary_color: "#000000",
+    accent_color: "#69684E",
+    background_color: "#FFFFFF",
+    surface_color: "#F5F5F3",
+    text_color: "#1E1E1E",
+    dark_background_color: "#0F0F0F",
+    dark_surface_color: "#1E1E1E",
+    dark_text_color: "#FFFFFF",
+    heading_font: "plus-jakarta-sans",
+    body_font: "plus-jakarta-sans",
+    environment_name: "HFlex Academy",
+    welcome_title: "HFlex Academy",
+    welcome_message:
+      "Transformar condomínios em experiências: formação para síndicos, conselheiros e equipes dos condomínios HFlex.",
+  },
 ];
 
 export const organization_domains: Row[] = [
@@ -152,6 +177,7 @@ export const organization_domains: Row[] = [
   { id: "dom-guarida", organization_id: ORG.guarida, hostname: "guarida.sindicolab.academy", is_primary: true },
   { id: "dom-casa", organization_id: ORG.casa, hostname: "admcasa.studiomarqo.com.br", is_primary: true },
   { id: "dom-apsa", organization_id: ORG.apsa, hostname: "apsa.sindicolab.academy", is_primary: true },
+  { id: "dom-hflex", organization_id: ORG.hflex, hostname: "hflex.studiomarqo.com.br", is_primary: true },
 ];
 
 /* ------------------------------- categorias ------------------------------- */
