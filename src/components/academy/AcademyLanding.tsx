@@ -27,6 +27,12 @@ export function AcademyLanding({
   accessSteps?: boolean;
 }) {
   const exp = useAcademyExperience();
+  const { tenant } = useTenant();
+  // Identidade do tenant na hero: quando a organização tem foto de banner
+  // própria, ela é o fundo (nítida, com scrim) — a Academy deixa de ser
+  // genérica e passa a carregar a cara da empresa. Sem banner, vale a regra
+  // padrão: capa do curso em destaque com blur pesado.
+  const tenantBackdrop = tenant?.branding?.banner_url ?? null;
 
   // Destaques: preferimos cursos marcados como destaque que já tenham capa,
   // depois os demais destaques, depois o acervo com capa.
@@ -54,8 +60,9 @@ export function AcademyLanding({
           {/* Fundo reativo: a capa do curso em destaque com blur pesado
               (efeito vidro) em crossfade a cada troca do carrossel. A foto
               institucional só aparece quando nenhum destaque tem capa. */}
-          {!highlights.some((h) => h.cover_url && !failedCovers.has(h.id)) && <img src={heroBackdrop} alt="" loading="eager" />}
-          {highlights.map((h, idx) =>
+          {tenantBackdrop && <img src={tenantBackdrop} alt="" loading="eager" />}
+          {!tenantBackdrop && !highlights.some((h) => h.cover_url && !failedCovers.has(h.id)) && <img src={heroBackdrop} alt="" loading="eager" />}
+          {!tenantBackdrop && highlights.map((h, idx) =>
             h.cover_url && !failedCovers.has(h.id) ? (
               <img
                 key={h.id}
