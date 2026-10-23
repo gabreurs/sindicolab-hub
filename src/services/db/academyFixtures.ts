@@ -52,6 +52,7 @@ export const ORG = {
   guarida: "22222222-2222-2222-2222-222222222222",
   casa: "33333333-3333-3333-3333-333333333333",
   apsa: "44444444-4444-4444-4444-444444444444",
+  hflex: "55555555-5555-5555-5555-555555555555",
 } as const;
 
 export const organizations: Row[] = [
@@ -59,6 +60,7 @@ export const organizations: Row[] = [
   { id: ORG.guarida, slug: "guarida", name: "Guarida Administradora", is_platform: false, status: "active", user_limit: 250, created_at: iso(320) },
   { id: ORG.casa, slug: "casa", name: "Administradora CASA", is_platform: false, status: "active", user_limit: 120, created_at: iso(140) },
   { id: ORG.apsa, slug: "apsa", name: "APSA", is_platform: false, status: "suspended", user_limit: 80, created_at: iso(200) },
+  { id: ORG.hflex, slug: "hflex", name: "HFlex", is_platform: false, status: "active", user_limit: 120, created_at: iso(30) },
 ];
 
 const brandingDefaults = {
