@@ -154,6 +154,8 @@ export const organization_branding: Row[] = [
     logo_light_url: "/tenant/hflex-logo-light.png",
     logo_dark_url: "/tenant/hflex-logo-dark.png",
     favicon_url: "/tenant/hflex-favicon.png",
+    // Foto real do site deles (hflex.net.br) como fundo da hero da Academy.
+    banner_url: "/tenant/hflex-hero.jpg",
     primary_color: "#010101",
     secondary_color: "#000000",
     accent_color: "#69684E",
