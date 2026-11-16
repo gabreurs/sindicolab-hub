@@ -39,3 +39,8 @@
 
 ## 2026-10-22
 - [x] Trocar a capa da notícia de São Paulo (Arena Condoexpo.SP) pela foto real do evento e gerar novo pacote
+
+## 2026-11-16
+- [x] Remover os 12 materiais fakes do seed, do mock, da página e do banco (SQL 12)
+- [x] Verificar o Supabase conectado (tabelas, domínios, contas de acesso)
+- [x] Criar SQL 13 para conceder platform_admin e destravar o /admin real

@@ -30,32 +30,8 @@ export const Route = createFileRoute("/materiais")({
 type MaterialType = "Modelo" | "Checklist" | "Guia" | "Planilha" | "E-book";
 type Item = { tag: string; title: string; type: MaterialType; slug: string };
 
-/** Mesmo padrão de slug usado na biblioteca gerida pelo painel. */
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-/** Lista base — permanece como garantia caso a biblioteca não responda. */
-const fallbackSeeds: Array<Omit<Item, "slug">> = [
-  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo" },
-  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo" },
-  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist" },
-  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia" },
-  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo" },
-  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist" },
-  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha" },
-  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia" },
-  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo" },
-  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book" },
-  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist" },
-  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha" },
-];
-
-const fallbackItems: Item[] = fallbackSeeds.map((it) => ({ ...it, slug: slugify(it.title) }));
+// A biblioteca vem do painel (/admin → Materiais para download).
+// Sem lista fixa: sem materiais cadastrados, a página fica vazia.
 
 const typeIcon: Record<Item["type"], typeof FileText> = {
   Modelo: FileSignature,
@@ -70,7 +46,7 @@ const filters: Array<"Todos" | Item["type"]> = ["Todos", "Modelo", "Checklist", 
 function MateriaisPage() {
   const [q, setQ] = useState("");
   const [f, setF] = useState<(typeof filters)[number]>("Todos");
-  const [items, setItems] = useState<Item[]>(fallbackItems);
+  const [items, setItems] = useState<Item[]>([]);
   const [email, setEmail] = useState("");
   const [mailError, setMailError] = useState<string | null>(null);
 
@@ -199,7 +175,9 @@ function MateriaisPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-20 text-ink-soft">
-              Nenhum material encontrado para a sua busca.
+              {items.length === 0
+                ? "Nenhum material publicado ainda. Em breve, novos modelos e checklists aqui."
+                : "Nenhum material encontrado para a sua busca."}
             </div>
           )}
         </div>

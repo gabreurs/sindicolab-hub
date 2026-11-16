@@ -44,48 +44,9 @@ const future = (days: number) => new Date(now.getTime() + days * 86400000).toISO
 
 /* ------------------------- conteúdo do site ------------------------- */
 
-type MaterialSeed = { tag: string; title: string; type: string };
-
-const materialSeeds: MaterialSeed[] = [
-  { tag: "Assembleia", title: "Modelo de ata de assembleia condominial", type: "Modelo" },
-  { tag: "Assembleia", title: "Modelo de convocação de assembleia", type: "Modelo" },
-  { tag: "Transição", title: "Checklist de transição de síndico", type: "Checklist" },
-  { tag: "Finanças", title: "Guia prático de prestação de contas", type: "Guia" },
-  { tag: "Regimento", title: "Modelo de regimento interno", type: "Modelo" },
-  { tag: "Manutenção", title: "Checklist de manutenção predial NBR 5674", type: "Checklist" },
-  { tag: "Finanças", title: "Planilha de previsão orçamentária", type: "Planilha" },
-  { tag: "Assembleia", title: "Guia para assembleias híbridas", type: "Guia" },
-  { tag: "Comunicação", title: "Modelo de comunicado a moradores", type: "Modelo" },
-  { tag: "Liderança", title: "E-book: Os 90 primeiros dias do síndico", type: "E-book" },
-  { tag: "Cobrança", title: "Checklist de cobrança e inadimplência", type: "Checklist" },
-  { tag: "Segurança", title: "Planilha de controle de portaria", type: "Planilha" },
-];
-
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-const site_materials: Row[] = materialSeeds.map((m, i) => ({
-  id: `mat-${i + 1}`,
-  title: m.title,
-  slug: slugify(m.title),
-  description: `${m.type} pronto para usar na gestão do seu condomínio.`,
-  category: m.tag,
-  type: m.type,
-  cover_url: null,
-  // O arquivo é cadastrado no painel; sem arquivo, a página mostra o aviso.
-  file_url: null,
-  cta_label: "Baixar material",
-  status: "published",
-  is_featured: i < 2,
-  published_at: iso(120 - i * 4),
-  created_at: iso(120 - i * 4),
-  updated_at: iso(10),
-}));
+// A biblioteca de materiais começa vazia: tudo é cadastrado no painel
+// (/admin → Materiais para download). Sem exemplos em memória.
+const site_materials: Row[] = [];
 
 const site_articles: Row[] = articles.map((a, i) => ({
   id: `art-${i + 1}`,
