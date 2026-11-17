@@ -192,6 +192,11 @@ function toForm(kind: ContentKind, row: Row): Row {
     if (f.kind === "date") form[f.key] = toDateInput(row[f.key]);
     if (form[f.key] == null) form[f.key] = CONFIG[kind].empty[f.key] ?? "";
   });
+  if (kind === "materiais" && !form.file_name && row.file_url) {
+    // A tabela não guarda o nome do arquivo: mostramos o nome a partir do link.
+    const last = String(row.file_url).split("?")[0].split("/").pop() ?? "";
+    form.file_name = decodeURIComponent(last) || "Arquivo enviado";
+  }
   if (kind === "artigos") {
     const content = row.content;
     form.body_text = Array.isArray(content)
@@ -226,7 +231,6 @@ function fromForm(kind: ContentKind, form: Row): Row {
   if (kind === "materiais") {
     // Campos operacionais ficam fora do formulário: derivamos aqui.
     out.file_url = String(form.file_url ?? "").trim();
-    out.file_name = form.file_name || null;
     out.category = form.category || "Materiais";
     out.type = form.type || "Guia";
     out.cover_url = form.cover_url || null;
