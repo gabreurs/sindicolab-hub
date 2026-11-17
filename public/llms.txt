@@ -1,0 +1,21 @@
+# SíndicoLab
+
+> SíndicoLab é uma plataforma de conteúdo e educação para o mercado condominial: Portal de notícias e análises, Academy com cursos para síndicos e administradoras, materiais para download e eventos.
+
+Informações principais:
+
+- Site oficial: https://sindicolab.com.br/
+
+## Páginas principais
+
+- [Portal](https://sindicolab.com.br/portal): notícias, análises e conteúdos do mercado condominial
+- [Colunistas](https://sindicolab.com.br/portal/colunistas): autores do Portal
+- [Academy](https://sindicolab.com.br/academy): cursos para síndicos e gestão condominial
+- [Catálogo de cursos](https://sindicolab.com.br/academy/catalogo)
+- [Materiais](https://sindicolab.com.br/materiais): materiais para download
+- [Eventos](https://sindicolab.com.br/eventos)
+- [Quem somos](https://sindicolab.com.br/quem-somos)
+
+## Opcional
+
+- [Mapa do site](https://sindicolab.com.br/sitemap.xml)

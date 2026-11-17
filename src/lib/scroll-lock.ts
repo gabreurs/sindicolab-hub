@@ -1,11 +1,15 @@
 const LOCK_ATTR = "data-scroll-lock-y";
 
+const PATH_ATTR = "data-scroll-lock-path";
+
 const activeLocks = new Set<string>();
 
 export function clearNativeScrollLock() {
   const html = document.documentElement;
   const body = document.body;
   const y = Number(body.getAttribute(LOCK_ATTR) ?? "0");
+  const lockedPath = body.getAttribute(PATH_ATTR);
+  const samePage = lockedPath === null || lockedPath === window.location.pathname;
 
   body.style.position = "";
   body.style.top = "";
@@ -17,9 +21,12 @@ export function clearNativeScrollLock() {
   html.classList.remove("no-scroll", "lenis-stopped");
   body.classList.remove("no-scroll");
   body.removeAttribute(LOCK_ATTR);
+  body.removeAttribute(PATH_ATTR);
 
   activeLocks.clear();
-  if (y > 0) window.scrollTo(0, y);
+  // Se o menu levou a outra página, a nova página começa do topo.
+  if (!samePage) window.scrollTo(0, 0);
+  else if (y > 0) window.scrollTo(0, y);
 }
 
 export function lockNativeScroll(key: string) {
@@ -29,6 +36,7 @@ export function lockNativeScroll(key: string) {
   if (activeLocks.size === 0) {
     const y = window.scrollY;
     body.setAttribute(LOCK_ATTR, String(y));
+    body.setAttribute(PATH_ATTR, window.location.pathname);
     body.style.position = "fixed";
     body.style.top = `-${y}px`;
     body.style.left = "0";

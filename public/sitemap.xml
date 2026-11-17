@@ -4,14 +4,10 @@
   <url><loc>https://sindicolab.com.br/portal</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://sindicolab.com.br/portal/colunistas</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sindicolab.com.br/materiais</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sindicolab.com.br/cursos</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://sindicolab.com.br/academy</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://sindicolab.com.br/academy/catalogo</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sindicolab.com.br/eventos</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sindicolab.com.br/artigos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sindicolab.com.br/downloads</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://sindicolab.com.br/quem-somos</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://sindicolab.com.br/sobre</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://sindicolab.com.br/portal/noticia/nova-lei-das-assembleias-virtuais</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://sindicolab.com.br/portal/noticia/inadimplencia-recua-terceiro-mes</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://sindicolab.com.br/portal/noticia/manutencao-preventiva-elevadores</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -40,4 +36,7 @@
   <url><loc>https://sindicolab.com.br/portal/esg-condominio-pratica</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sindicolab.com.br/portal/juridico-sindico-2026</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://sindicolab.com.br/portal/equipe-condominial-treinamento</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://sindicolab.com.br/portal/noticia/arena-condoexpo-sp-segsummit-2026</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://sindicolab.com.br/portal/noticia/expo-sindico-copacabana-palace-2026</loc><changefreq>monthly</changefreq></url>
 </urlset>

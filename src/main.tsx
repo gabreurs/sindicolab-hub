@@ -16,6 +16,17 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 });
 
+// Navegação nova (clique em link) sempre começa no topo da página.
+let backForward = false;
+window.addEventListener("popstate", () => { backForward = true; });
+router.subscribe("onResolved", (e) => {
+  const wasBack = backForward;
+  backForward = false;
+  if (e.pathChanged && !wasBack && !window.location.hash) {
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  }
+});
+
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
