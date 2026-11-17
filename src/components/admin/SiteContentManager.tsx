@@ -11,7 +11,7 @@ import { eventsService } from "@/services/eventsService";
 
 export type ContentKind = "materiais" | "artigos" | "eventos";
 
-type FieldKind = "text" | "textarea" | "date" | "select" | "checkbox" | "file";
+type FieldKind = "text" | "textarea" | "date" | "select" | "checkbox" | "file" | "image";
 
 type FieldDef = {
   key: string;
@@ -55,6 +55,13 @@ const CONFIG: Record<
     fields: [
       { key: "title", label: "Título", kind: "text", required: true, full: true },
       { key: "description", label: "Descrição", kind: "textarea", full: true },
+      {
+        key: "cover_url",
+        label: "Imagem de capa",
+        kind: "image",
+        full: true,
+        hint: "JPG ou PNG (até 8 MB). Aparece no card do material na página pública.",
+      },
       {
         key: "file_url",
         label: "Arquivo",
@@ -333,6 +340,35 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                       <input type="checkbox" checked={Boolean(value)} onChange={(e) => set(e.target.checked)} />
                       Marcar como destaque
                     </span>
+                  ) : f.kind === "image" ? (
+                    <div>
+                      {value ? (
+                        <img
+                          src={String(value)}
+                          alt="Prévia da capa"
+                          className="mb-2 h-28 w-full rounded-[12px] border object-cover"
+                          style={{ borderColor: "var(--c-border-soft)" }}
+                        />
+                      ) : null}
+                      <FileDrop
+                        fileName={editing.cover_name ? String(editing.cover_name) : null}
+                        hasFile={Boolean(value)}
+                        hint={f.hint}
+                        accept="image/*"
+                        onError={(text) => setMsg({ kind: "err", text })}
+                        onClear={() => setEditing({ ...editing, cover_url: "", cover_name: "" })}
+                        onFile={(file) => {
+                          const reader = new FileReader();
+                          reader.onload = () =>
+                            setEditing({
+                              ...editing,
+                              cover_url: String(reader.result ?? ""),
+                              cover_name: file.name,
+                            });
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+                    </div>
                   ) : f.kind === "file" ? (
                     <FileDrop
                       fileName={editing.file_name ? String(editing.file_name) : null}

@@ -8,6 +8,7 @@ export function FileDrop({
   fileName,
   hasFile,
   hint,
+  accept,
   maxBytes = 8 * 1024 * 1024,
   onFile,
   onClear,
@@ -16,6 +17,7 @@ export function FileDrop({
   fileName?: string | null;
   hasFile?: boolean;
   hint?: string;
+  accept?: string;
   maxBytes?: number;
   onFile: (file: File) => void;
   onClear?: () => void;
@@ -73,6 +75,7 @@ export function FileDrop({
       <input
         ref={inputRef}
         type="file"
+        accept={accept}
         className="sr-only"
         onChange={(e) => handle(e.target.files?.[0])}
       />
