@@ -9,7 +9,7 @@ export function FileDrop({
   hasFile,
   hint,
   accept,
-  maxBytes = 8 * 1024 * 1024,
+  maxBytes = 50 * 1024 * 1024,
   onFile,
   onClear,
   onError,
@@ -66,7 +66,7 @@ export function FileDrop({
           <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
         </svg>
         <p className="text-sm font-medium">Arraste o arquivo aqui ou clique para escolher</p>
-        <p className="text-xs c-muted">{hint ?? "PDF, planilha, documento ou imagem (até 8 MB)."}</p>
+        <p className="text-xs c-muted">{hint ?? "PDF, planilha, documento ou imagem (até 50 MB)."}</p>
         <span className="c-btn mt-1" data-variant="secondary" data-size="sm" aria-hidden>
           Escolher arquivo
         </span>
