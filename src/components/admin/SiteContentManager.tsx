@@ -69,7 +69,7 @@ const CONFIG: Record<
         kind: "file",
         full: true,
         required: true,
-        hint: "PDF, planilha, documento ou imagem (até 8 MB).",
+        hint: "PDF, e-book, planilha, documento ou imagem (até 50 MB).",
       },
     ],
     columns: [
@@ -388,6 +388,7 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                     </div>
                   ) : f.kind === "file" ? (
                     <FileDrop
+                      maxBytes={50 * 1024 * 1024}
                       fileName={editing.file_name ? String(editing.file_name) : null}
                       hasFile={Boolean(value)}
                       hint={f.hint}
