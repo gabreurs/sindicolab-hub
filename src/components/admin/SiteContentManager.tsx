@@ -93,7 +93,13 @@ const CONFIG: Record<
       { key: "slug", label: "Slug", kind: "text", required: true },
       { key: "excerpt", label: "Resumo", kind: "textarea", full: true },
       { key: "body_text", label: "Conteúdo", kind: "textarea", full: true, hint: "Um parágrafo por linha em branco" },
-      { key: "cover_url", label: "Imagem destacada (URL)", kind: "text", full: true },
+      {
+        key: "cover_url",
+        label: "Imagem de capa",
+        kind: "image",
+        full: true,
+        hint: "JPG ou PNG (até 8 MB). Aparece no card do artigo e no topo da página.",
+      },
       { key: "cover_alt", label: "Texto alternativo da imagem", kind: "text", full: true },
       { key: "category", label: "Categoria", kind: "text" },
       { key: "author", label: "Autor", kind: "text" },
@@ -101,7 +107,13 @@ const CONFIG: Record<
       { key: "published_at", label: "Data", kind: "date" },
       { key: "seo_title", label: "Título de SEO", kind: "text", full: true },
       { key: "meta_description", label: "Meta description", kind: "textarea", full: true },
-      { key: "social_image_url", label: "Imagem social (URL)", kind: "text", full: true },
+      {
+        key: "social_image_url",
+        label: "Imagem social",
+        kind: "image",
+        full: true,
+        hint: "JPG ou PNG (até 8 MB). Aparece quando o artigo é compartilhado no WhatsApp.",
+      },
       STATUS_FIELD,
     ],
     columns: [
@@ -346,23 +358,23 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                       {value ? (
                         <img
                           src={String(value)}
-                          alt="Prévia da capa"
+                          alt="Prévia da imagem"
                           className="mb-2 h-28 w-full rounded-[12px] border object-cover"
                           style={{ borderColor: "var(--c-border-soft)" }}
                         />
                       ) : null}
                       <FileDrop
-                        fileName={editing.cover_name ? String(editing.cover_name) : null}
+                        fileName={editing[`${f.key}_name`] ? String(editing[`${f.key}_name`]) : null}
                         hasFile={Boolean(value)}
                         hint={f.hint}
                         accept="image/*"
                         onError={(text) => setMsg({ kind: "err", text })}
-                        onClear={() => setEditing({ ...editing, cover_url: "", cover_name: "" })}
+                        onClear={() => setEditing({ ...editing, [f.key]: "", [`${f.key}_name`]: "" })}
                         onFile={async (file) => {
                           setMsg({ kind: "ok", text: "Enviando imagem…" });
                           try {
                             const url = await uploadPublicFile("covers", file);
-                            setEditing((cur) => (cur ? { ...cur, cover_url: url, cover_name: file.name } : cur));
+                            setEditing((cur) => (cur ? { ...cur, [f.key]: url, [`${f.key}_name`]: file.name } : cur));
                             setMsg({ kind: "ok", text: "Imagem enviada. Clique em salvar." });
                           } catch (e) {
                             setMsg({ kind: "err", text: `Não foi possível enviar a imagem: ${(e as Error).message}` });
