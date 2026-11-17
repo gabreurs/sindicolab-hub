@@ -4,6 +4,7 @@ import {
   SaveState, SearchInput, Select, TableSkeleton, TableWrap, Textarea,
 } from "@/components/console/ui";
 import { FileDrop } from "@/components/console/FileDrop";
+import { uploadPublicFile } from "@/services/storageUpload";
 import { matchesSearch } from "@/lib/searchText";
 import { materialsService } from "@/services/materialsService";
 import { articlesService } from "@/services/articlesService";
@@ -357,15 +358,15 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                         accept="image/*"
                         onError={(text) => setMsg({ kind: "err", text })}
                         onClear={() => setEditing({ ...editing, cover_url: "", cover_name: "" })}
-                        onFile={(file) => {
-                          const reader = new FileReader();
-                          reader.onload = () =>
-                            setEditing({
-                              ...editing,
-                              cover_url: String(reader.result ?? ""),
-                              cover_name: file.name,
-                            });
-                          reader.readAsDataURL(file);
+                        onFile={async (file) => {
+                          setMsg({ kind: "ok", text: "Enviando imagem…" });
+                          try {
+                            const url = await uploadPublicFile("covers", file);
+                            setEditing((cur) => (cur ? { ...cur, cover_url: url, cover_name: file.name } : cur));
+                            setMsg({ kind: "ok", text: "Imagem enviada. Clique em salvar." });
+                          } catch (e) {
+                            setMsg({ kind: "err", text: `Não foi possível enviar a imagem: ${(e as Error).message}` });
+                          }
                         }}
                       />
                     </div>
@@ -376,15 +377,15 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
                       hint={f.hint}
                       onError={(text) => setMsg({ kind: "err", text })}
                       onClear={() => setEditing({ ...editing, file_url: "", file_name: "" })}
-                      onFile={(file) => {
-                        const reader = new FileReader();
-                        reader.onload = () =>
-                          setEditing({
-                            ...editing,
-                            file_url: String(reader.result ?? ""),
-                            file_name: file.name,
-                          });
-                        reader.readAsDataURL(file);
+                      onFile={async (file) => {
+                        setMsg({ kind: "ok", text: "Enviando arquivo…" });
+                        try {
+                          const url = await uploadPublicFile("materials", file);
+                          setEditing((cur) => (cur ? { ...cur, file_url: url, file_name: file.name } : cur));
+                          setMsg({ kind: "ok", text: "Arquivo enviado. Clique em salvar." });
+                        } catch (e) {
+                          setMsg({ kind: "err", text: `Não foi possível enviar o arquivo: ${(e as Error).message}` });
+                        }
                       }}
                     />
                   ) : (
