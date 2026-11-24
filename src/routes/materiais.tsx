@@ -28,7 +28,7 @@ export const Route = createFileRoute("/materiais")({
 });
 
 type MaterialType = "Modelo" | "Checklist" | "Guia" | "Planilha" | "E-book";
-type Item = { tag: string; title: string; type: MaterialType; slug: string };
+type Item = { tag: string; title: string; type: MaterialType; slug: string; description: string; cover: string | null; date: string; ext: string };
 
 // A biblioteca vem do painel (/admin → Materiais para download).
 // Sem lista fixa: sem materiais cadastrados, a página fica vazia.
@@ -63,6 +63,10 @@ function MateriaisPage() {
             title: m.title,
             type: (m.type as MaterialType) ?? "Guia",
             slug: m.slug,
+            description: m.description ?? "",
+            cover: m.cover_url,
+            date: m.published_at,
+            ext: (m.file_url?.split("?")[0].split(".").pop() ?? "").slice(0, 5).toUpperCase(),
           })),
         );
       })
@@ -145,27 +149,32 @@ function MateriaisPage() {
         <div className="container-x">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((it) => {
-              const Icon = typeIcon[it.type];
+              const Icon = typeIcon[it.type] ?? FileText;
               return (
                 <Link
                   key={it.slug}
                   to="/materiais/$slug"
                   params={{ slug: it.slug }}
-                  className="group rounded-xl border border-border bg-card p-5 hover:shadow-card hover:-translate-y-0.5 transition flex items-start gap-4"
+                  className="group rounded-xl border border-border bg-card overflow-hidden hover:shadow-card hover:-translate-y-0.5 transition flex flex-col"
                 >
-                  <div className="grid place-items-center w-12 h-12 rounded-lg bg-secondary text-ink-soft group-hover:bg-ink group-hover:text-background transition shrink-0">
-                    <Icon className="w-5 h-5" />
+                  <div className="aspect-[16/10] bg-secondary grid place-items-center overflow-hidden">
+                    {it.cover ? (
+                      <img src={it.cover} alt="" loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500" />
+                    ) : (
+                      <Icon className="w-10 h-10 text-ink-soft" />
+                    )}
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="p-5 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 text-[10px] tracking-tight font-mono">
                       <span className="text-brand">{it.type}</span>
                       <span className="text-ink-soft">· {it.tag}</span>
+                      {it.ext && <span className="ml-auto text-ink-soft">{it.ext}</span>}
                     </div>
-                    <h3 className="mt-2 font-display text-base md:text-lg tracking-[-0.02em] leading-snug text-balance">
-                      {it.title}
-                    </h3>
-                    <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-ink-soft group-hover:text-ink">
-                      <Download className="w-3.5 h-3.5" /> Ver material
+                    <h3 className="mt-2 font-display text-lg tracking-[-0.02em] leading-snug text-balance">{it.title}</h3>
+                    {it.description && <p className="mt-2 text-sm text-ink-soft leading-relaxed line-clamp-3">{it.description}</p>}
+                    <div className="mt-auto pt-4 flex items-center justify-between text-xs text-ink-soft">
+                      <span>{it.date ? new Date(it.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" }) : ""}</span>
+                      <span className="inline-flex items-center gap-1.5 group-hover:text-ink"><Download className="w-3.5 h-3.5" /> Baixar grátis</span>
                     </div>
                   </div>
                 </Link>
