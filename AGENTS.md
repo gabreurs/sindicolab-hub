@@ -1,5 +1,7 @@
 # Architecture decisions
 
+- Apache SPA fallback excludes only real files, not directories, with directory-slash redirects disabled; routes can share names with asset folders without 403 responses.
+
 - Portal publication ordering and highlight selection use a shared pure helper; this keeps chronological feeds consistent and editorial priority independently testable.
 
 - Tenant typography is stored as allowlisted font keys in `organization_branding`; this keeps white-label identity data-driven without allowing arbitrary remote CSS.

@@ -5,6 +5,9 @@
 # para que /admin, /empresa, /portal etc. abram direto e no F5.
 <IfModule mod_dir.c>
   DirectoryIndex index.html
+  # /portal também é uma pasta de imagens: não redirecionar a página
+  # para o índice dessa pasta (que não existe e retorna 403).
+  DirectorySlash Off
   FallbackResource /index.html
 </IfModule>
 
@@ -22,10 +25,10 @@
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-  # Fallback de rotas do SPA (caso FallbackResource não esteja disponível)
+  # Só arquivos reais são servidos diretamente. Pastas também precisam
+  # cair no SPA, pois /portal compartilha o nome com a pasta de imagens.
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+  RewriteRule ^ /index.html [L]
 </IfModule>
 
 

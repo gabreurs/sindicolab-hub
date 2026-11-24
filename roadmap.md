@@ -46,6 +46,7 @@
 - [x] Criar SQL 13 para conceder platform_admin e destravar o /admin real
 
 ## 2026-11-24
+- [x] Corrigir 403 causado pela pasta /portal e entregar dist verificada para cPanel
 - [x] Organizar o Portal, destacar Focus Media e validar ordem cronológica em desktop e mobile
 - [x] Remover faixa de parceiros falsos (PROSEG/OTIS/Intelbras...) da home do Portal
 - [x] Artigos do /admin (site_articles) não aparecem no Portal (portal_posts): unificar leitura
