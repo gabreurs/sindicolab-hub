@@ -44,3 +44,10 @@
 - [x] Remover os 12 materiais fakes do seed, do mock, da página e do banco (SQL 12)
 - [x] Verificar o Supabase conectado (tabelas, domínios, contas de acesso)
 - [x] Criar SQL 13 para conceder platform_admin e destravar o /admin real
+
+## 2026-11-24
+- [x] Remover faixa de parceiros falsos (PROSEG/OTIS/Intelbras...) da home do Portal
+- [x] Artigos do /admin (site_articles) não aparecem no Portal (portal_posts): unificar leitura
+- [x] Categoria do artigo no /admin virar seleção das categorias do Portal (hoje é texto livre)
+- [x] Verificar exibição da data de publicação nos artigos do Portal
+- [x] Conferir material "Ebook claude" aparecendo em /materiais no site ao vivo

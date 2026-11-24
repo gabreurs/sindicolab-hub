@@ -132,8 +132,6 @@
 .portal-events time b { font-size: 1.3rem; font-weight: 600; }
 .portal-events a, .portal-events > li > span { display: grid; }
 .portal-events small { color: var(--muted-foreground); }
-.portal-partners { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-bottom: var(--section-gap); padding: 25px; border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface-elevated); color: var(--muted-foreground); box-shadow: var(--shadow-soft); }
-.portal-partners b, .portal-partners span { font-weight: 500; }
 .portal-newsletter { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px; padding: 34px; border-radius: var(--radius-card); background: var(--ink); color: var(--background); }
 .portal-newsletter > span { display: grid; width: 54px; height: 54px; place-items: center; border-radius: var(--radius-control); background: var(--brand); }
 .portal-newsletter h2 { font-size: 1.45rem; font-weight: 600; }
@@ -188,7 +186,6 @@
 @media (max-width: 1023px) {
   .portal-lead-grid { grid-template-columns: 1fr; }
   .portal-article-layout { grid-template-columns: minmax(0, 720px); }
-  .portal-partners { flex-wrap: wrap; }
 }
 
 @media (max-width: 1279px) {

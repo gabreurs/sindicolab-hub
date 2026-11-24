@@ -9,6 +9,7 @@ import { matchesSearch } from "@/lib/searchText";
 import { materialsService } from "@/services/materialsService";
 import { articlesService } from "@/services/articlesService";
 import { eventsService } from "@/services/eventsService";
+import { portalService } from "@/services/portalService";
 
 export type ContentKind = "materiais" | "artigos" | "eventos";
 
@@ -264,6 +265,16 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<Row | null>(null);
   const [msg, setMsg] = useState<null | { kind: "ok" | "err" | "busy"; text: string }>(null);
+  const [portalCategories, setPortalCategories] = useState<Array<{ name: string }>>([]);
+
+  // Artigos usam as categorias do Portal como seleção, nunca texto livre.
+  useEffect(() => {
+    if (kind !== "artigos") return;
+    portalService
+      .categories()
+      .then((cats) => setPortalCategories(cats))
+      .catch(() => undefined);
+  }, [kind]);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -342,9 +353,17 @@ export function SiteContentManager({ kind }: { kind: ContentKind }) {
             {config.fields.map((f) => {
               const value = editing[f.key];
               const set = (v: unknown) => setEditing({ ...editing, [f.key]: v });
+              const isArticleCategory = kind === "artigos" && f.key === "category";
               return (
                 <Field key={f.key} label={f.label} hint={f.hint} className={f.full ? "sm:col-span-2" : undefined}>
-                  {f.kind === "textarea" ? (
+                  {isArticleCategory ? (
+                    <Select value={String(value ?? "")} onChange={(e) => set(e.target.value)}>
+                      <option value="">Sem categoria</option>
+                      {portalCategories.map((c) => (
+                        <option key={c.name} value={c.name}>{c.name}</option>
+                      ))}
+                    </Select>
+                  ) : f.kind === "textarea" ? (
                     <Textarea rows={f.key === "content" || f.key === "body_text" ? 6 : 3} value={String(value ?? "")} onChange={(e) => set(e.target.value)} />
                   ) : f.kind === "select" ? (
                     <Select value={String(value ?? "")} onChange={(e) => set(e.target.value)}>
