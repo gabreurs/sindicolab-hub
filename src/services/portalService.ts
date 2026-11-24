@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { PortalAuthor, PortalCategory, PortalPost } from "@/data/portal";
 import { withPostCover } from "@/lib/course/covers";
 import { extraPortalAuthors, extraPortalPosts } from "@/data/portalExtra";
+import { newestPortalPosts } from "@/lib/portalOrdering";
 
 export type CategoryInput = Omit<PortalCategory, "id"> & { id?: string };
 export type AuthorInput = Omit<PortalAuthor, "id"> & { id?: string };
@@ -103,8 +104,7 @@ export const portalService = {
       ...extraPortalPosts.filter((x) => !base.some((b) => b.id === x.id || b.slug === x.slug)),
       ...siteArticles.filter((x) => !seen.has(String(x.slug ?? ""))),
     ];
-    const merged = [...base, ...extras]
-      .sort((a, b) => String(b.published_at ?? "").localeCompare(String(a.published_at ?? "")));
+    const merged = newestPortalPosts([...base, ...extras]);
     const hydrated = await hydrate(merged);
     const now = Date.now();
     return opts?.includeDrafts ? hydrated : hydrated.filter((post) => post.published && (!post.published_at || new Date(post.published_at).getTime() <= now));

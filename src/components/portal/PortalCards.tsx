@@ -1,6 +1,6 @@
 import { Eye, ImageIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { PortalAuthor, PortalPost } from "@/data/portal";
 
@@ -9,6 +9,9 @@ export function PortalPostCard({ post, variant = "default" }: { post: PortalPost
   const date = post.published_at ? formatDistanceToNow(new Date(post.published_at), { addSuffix: true, locale: ptBR }) : "";
   return <article className={`portal-post-card portal-post-${variant}`} data-portal-reveal><Link to="/portal/noticia/$slug" params={{ slug: post.slug }} className="portal-post-image"><Cover post={post} /></Link><div className="portal-post-copy">{post.categories && <Link to="/portal/categoria/$slug" params={{ slug: post.categories.slug }} className="portal-kicker">{post.categories.name}</Link>}<Link to="/portal/noticia/$slug" params={{ slug: post.slug }}><h3>{post.title}</h3></Link>{variant === "default" && <p>{post.excerpt}</p>}<small>{post.authors?.name}{post.authors && date ? " • " : ""}{date}</small></div></article>;
 }
-export function FeaturedPost({ post }: { post: PortalPost }) { return <article className="portal-featured"><Link to="/portal/noticia/$slug" params={{ slug: post.slug }}><Cover post={post} eager /><div className="portal-featured-overlay"><span className="portal-kicker">{post.categories?.name}</span><h1>{post.title}</h1><p>{post.excerpt}</p><small>Por {post.authors?.name} <Eye /> {post.view_count.toLocaleString("pt-BR")}</small></div></Link></article>; }
+export function FeaturedPost({ post }: { post: PortalPost }) {
+  const date = post.published_at ? new Date(post.published_at) : null;
+  return <article className="portal-featured"><Link to="/portal/noticia/$slug" params={{ slug: post.slug }}><Cover post={post} eager /><div className="portal-featured-overlay"><span className="portal-kicker">{post.categories?.name || "Destaque"}</span><h1>{post.title}</h1><p>{post.excerpt}</p><small>Por {post.authors?.name || "Equipe SíndicoLab"}</small>{date && Number.isFinite(date.getTime()) && <small><time dateTime={date.toISOString()}>{format(date, "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}</time></small>}<small><Eye /> {post.view_count.toLocaleString("pt-BR")} visualizações</small></div></Link></article>;
+}
 export function ColumnistCard({ author }: { author: PortalAuthor }) { const initials = author.name.split(" ").slice(0, 2).map((part) => part[0]).join(""); return <Link to="/portal/colunista/$slug" params={{ slug: author.slug }} className="portal-columnist-card"><span>{author.avatar_url ? <img loading="lazy" decoding="async" src={author.avatar_url} alt={`Foto de ${author.name}`} /> : initials}</span><h3>{author.name}</h3><small>{author.role}</small><p>{author.headline || author.bio}</p></Link>; }
 export function SectionPanel({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) { return <section className="portal-panel"><header><h2>{title}</h2>{action}</header><div>{children}</div></section>; }
