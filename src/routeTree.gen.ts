@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as PortalRouteImport } from './routes/portal'
+import { Route as NoticiasRouteImport } from './routes/noticias'
 import { Route as MateriaisRouteImport } from './routes/materiais'
 import { Route as EventosRouteImport } from './routes/eventos'
 import { Route as EmpresaRouteImport } from './routes/empresa'
@@ -52,6 +53,11 @@ const QuemSomosRoute = QuemSomosRouteImport.update({
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasRoute = NoticiasRouteImport.update({
+  id: '/noticias',
+  path: '/noticias',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MateriaisRoute = MateriaisRouteImport.update({
@@ -197,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
+  '/noticias': typeof NoticiasRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
+  '/noticias': typeof NoticiasRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/empresa': typeof EmpresaRoute
   '/eventos': typeof EventosRoute
   '/materiais': typeof MateriaisRoute
+  '/noticias': typeof NoticiasRoute
   '/portal': typeof PortalRouteWithChildren
   '/quem-somos': typeof QuemSomosRoute
   '/sobre': typeof SobreRoute
@@ -292,6 +301,7 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
+    | '/noticias'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
+    | '/noticias'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -353,6 +364,7 @@ export interface FileRouteTypes {
     | '/empresa'
     | '/eventos'
     | '/materiais'
+    | '/noticias'
     | '/portal'
     | '/quem-somos'
     | '/sobre'
@@ -385,6 +397,7 @@ export interface RootRouteChildren {
   EmpresaRoute: typeof EmpresaRoute
   EventosRoute: typeof EventosRoute
   MateriaisRoute: typeof MateriaisRoute
+  NoticiasRoute: typeof NoticiasRoute
   PortalRoute: typeof PortalRouteWithChildren
   QuemSomosRoute: typeof QuemSomosRoute
   SobreRoute: typeof SobreRoute
@@ -414,6 +427,13 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias': {
+      id: '/noticias'
+      path: '/noticias'
+      fullPath: '/noticias'
+      preLoaderRoute: typeof NoticiasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/materiais': {
@@ -656,6 +676,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmpresaRoute: EmpresaRoute,
   EventosRoute: EventosRoute,
   MateriaisRoute: MateriaisRoute,
+  NoticiasRoute: NoticiasRoute,
   PortalRoute: PortalRouteWithChildren,
   QuemSomosRoute: QuemSomosRoute,
   SobreRoute: SobreRoute,
